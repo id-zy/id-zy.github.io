@@ -3,11 +3,11 @@
   <title>Hexo</title>
   
   
-  <link href="https://id-zy.github.io/atom.xml" rel="self"/>
+  <link href="https://id-zy.github.io/project/atom.xml" rel="self"/>
   
-  <link href="https://id-zy.github.io/"/>
+  <link href="https://id-zy.github.io/project/"/>
   <updated>2025-05-09T10:57:45.766Z</updated>
-  <id>https://id-zy.github.io/</id>
+  <id>https://id-zy.github.io/project/</id>
   
   <author>
     <name>John Doe</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>Hello World</title>
-    <link href="https://id-zy.github.io/2025/05/09/hello-world/"/>
-    <id>https://id-zy.github.io/2025/05/09/hello-world/</id>
+    <link href="https://id-zy.github.io/project/2025/05/09/hello-world/"/>
+    <id>https://id-zy.github.io/project/2025/05/09/hello-world/</id>
     <published>2025-05-09T10:57:45.766Z</published>
     <updated>2025-05-09T10:57:45.766Z</updated>
     
