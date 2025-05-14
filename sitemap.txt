@@ -10,4 +10,3 @@ https://id-zy.github.io/movies/index.html
 https://id-zy.github.io/shuoshuo/index.html
 https://id-zy.github.io/tags/index.html
 https://id-zy.github.io/
-https://id-zy.github.io/tags/music/
