@@ -1,4 +1,3 @@
-https://id-zy.github.io/2025/05/14/test/
 https://id-zy.github.io/music/index.html
 https://id-zy.github.io/2025/05/13/%E5%88%9B%E5%BB%BAblog/
 https://id-zy.github.io/2025/05/09/hello-world/
@@ -11,4 +10,3 @@ https://id-zy.github.io/movies/index.html
 https://id-zy.github.io/shuoshuo/index.html
 https://id-zy.github.io/tags/index.html
 https://id-zy.github.io/
-https://id-zy.github.io/tags/test-%E5%88%86%E4%BA%AB/
