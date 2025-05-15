@@ -1,5 +1,5 @@
+https://id-zy.github.io/tags/index.html
 https://id-zy.github.io/music/index.html
-https://id-zy.github.io/2025/05/13/%E5%88%9B%E5%BB%BAblog/
 https://id-zy.github.io/2025/05/09/hello-world/
 https://id-zy.github.io/about/index.html
 https://id-zy.github.io/comments/index.html
@@ -8,5 +8,4 @@ https://id-zy.github.io/categories/index.html
 https://id-zy.github.io/photos/index.html
 https://id-zy.github.io/movies/index.html
 https://id-zy.github.io/shuoshuo/index.html
-https://id-zy.github.io/tags/index.html
 https://id-zy.github.io/
