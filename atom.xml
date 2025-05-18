@@ -6,7 +6,7 @@
   <link href="https://id-zy.github.io/atom.xml" rel="self"/>
   
   <link href="https://id-zy.github.io/"/>
-  <updated>2025-05-18T07:24:49.649Z</updated>
+  <updated>2025-05-18T08:16:26.081Z</updated>
   <id>https://id-zy.github.io/</id>
   
   <author>
@@ -21,40 +21,20 @@
     <link href="https://id-zy.github.io/2025/05/18/%E6%88%91%E4%BB%AC%E6%98%AF%E5%86%A0%E5%86%9B%EF%BC%81/"/>
     <id>https://id-zy.github.io/2025/05/18/%E6%88%91%E4%BB%AC%E6%98%AF%E5%86%A0%E5%86%9B%EF%BC%81/</id>
     <published>2025-05-18T07:12:11.000Z</published>
-    <updated>2025-05-18T07:24:49.649Z</updated>
+    <updated>2025-05-18T08:16:26.081Z</updated>
     
-    <content type="html"><![CDATA[<p>经过21天的艰苦练习，我们获得了最终的冠军称号。尽管去年已经拿过一次冠军，但当身边的人一起喊出那句”我们是冠军！”心中仍然是澎湃不已。不仅仅只是因为这次比赛，还是因为想起的18年的IG，那年他们终于捧起了属于lpl的第一个世界冠军”翻过这座山。你就会听到他们的故事“<br>不过，这次体验让我更有体悟的是，人真的是经历越多，才能体会更多，很多以前在影视中在文字里不能理解的情绪爆发也慢慢有了自己的认知。未来的世界很精彩，值得一观！<br>好久没有写过东西了，感觉表达能力都下降了.</p>]]></content>
+    <content type="html"><![CDATA[<p>经过21天的艰苦练习，我们获得了最终的校园集体舞蹈大赛冠军称号。尽管去年已经拿过一次冠军，但当身边的人一起喊出那句”我们是冠军！”心中仍然是澎湃不已。不仅仅只是因为这次比赛，还是因为想起的18年的IG，那年他们终于捧起了属于lpl的第一个世界冠军”翻过这座山。你就会听到他们的故事“<br>不过，这次体验让我更有体悟的是，人真的是经历越多，才能体会更多，很多以前在影视中在文字里不能理解的情绪爆发也慢慢有了自己的认知。未来的世界很精彩，值得一观！<br>好久没有写过东西了，感觉表达能力都下降了.</p>]]></content>
     
     
       
       
-    <summary type="html">&lt;p&gt;经过21天的艰苦练习，我们获得了最终的冠军称号。尽管去年已经拿过一次冠军，但当身边的人一起喊出那句”我们是冠军！”心中仍然是澎湃不已。不仅仅只是因为这次比赛，还是因为想起的18年的IG，那年他们终于捧起了属于lpl的第一个世界冠军”翻过这座山。你就会听到他们的故事“&lt;br&gt;</summary>
+    <summary type="html">&lt;p&gt;经过21天的艰苦练习，我们获得了最终的校园集体舞蹈大赛冠军称号。尽管去年已经拿过一次冠军，但当身边的人一起喊出那句”我们是冠军！”心中仍然是澎湃不已。不仅仅只是因为这次比赛，还是因为想起的18年的IG，那年他们终于捧起了属于lpl的第一个世界冠军”翻过这座山。你就会听到他们</summary>
       
     
     
     
     
     <category term="-日常闲谈" scheme="https://id-zy.github.io/tags/%E6%97%A5%E5%B8%B8%E9%97%B2%E8%B0%88/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="https://id-zy.github.io/2025/05/09/hello-world/"/>
-    <id>https://id-zy.github.io/2025/05/09/hello-world/</id>
-    <published>2025-05-09T10:57:45.766Z</published>
-    <updated>2025-05-13T06:42:09.915Z</updated>
-    
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt; for</summary>
-      
-    
-    
-    
     
   </entry>
   
