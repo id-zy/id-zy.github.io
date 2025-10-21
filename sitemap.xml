@@ -2,15 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://id-zy.github.io/music/index.html</loc>
-    
-    <lastmod>2025-10-21</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://id-zy.github.io/2025/10/21/10.21%E6%97%A5%E5%B8%B8/</loc>
     
     <lastmod>2025-10-21</lastmod>
@@ -171,14 +162,14 @@
   </url>
   
   <url>
-    <loc>https://id-zy.github.io/tags/%E7%94%B5%E5%BD%B1%E5%BD%B1%E8%AF%84/</loc>
+    <loc>https://id-zy.github.io/tags/%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2025-10-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://id-zy.github.io/tags/%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
+    <loc>https://id-zy.github.io/tags/%E7%94%B5%E5%BD%B1%E5%BD%B1%E8%AF%84/</loc>
     <lastmod>2025-10-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
