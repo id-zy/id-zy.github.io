@@ -6,7 +6,7 @@
   <link href="https://id-zy.github.io/atom.xml" rel="self"/>
   
   <link href="https://id-zy.github.io/"/>
-  <updated>2025-10-23T10:03:42.510Z</updated>
+  <updated>2025-10-23T13:28:37.643Z</updated>
   <id>https://id-zy.github.io/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>10.23 日常|随波逐流，或是回到湖畔？</title>
+    <link href="https://id-zy.github.io/2025/10/23/10.23%E6%97%A5%E5%B8%B8/"/>
+    <id>https://id-zy.github.io/2025/10/23/10.23%E6%97%A5%E5%B8%B8/</id>
+    <published>2025-10-23T13:20:05.986Z</published>
+    <updated>2025-10-23T13:28:37.643Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>今天是<strong>霜降</strong>，特意查了查这个节气的含义。原来“霜”并不只是指白霜凝结，更指向昼夜温差的显著变化；“降”则意味着气温的骤降。两个字合在一起，蕴含的是深秋向初冬过渡时的那份清冷与寂静。</p><p>下午的<strong>计算机视觉课</strong>，讲的是相机成像的基本原理，我整理了一些笔记：</p><ol><li><p>相机成像原理</p><p> <strong>小孔成像</strong>：相机成像的基本光学模型，光线通过小孔后在成像平面上形成倒立的实像。</p><p><strong>视场角</strong>：公式为 α&#x3D;2arctan⁡(d2f)<em>α</em>&#x3D;2arctan(2<em>f**d</em>)，其中 d为成像面对角线长度，f 为焦距。规律是：<strong>焦距越大，看得越远，视野也越窄</strong>。</p></li><li><p>投影模型</p><p> 从三维空间点 (x,y,z)(<em>x</em>,<em>y</em>,<em>z</em>) 到成像平面的投影变换，如 (−dxz,−dyz,−d)(−<em>d<strong>z</strong>x</em>,−<em>d<strong>z</strong>y</em>,−<em>d</em>)。还介绍了正交投影的矩阵表达方式：</p><p>[100001000001][xyz1]&#x3D;(x,y,0,1)100010000001<em>x<strong>y</strong>z</em>1&#x3D;(<em>x</em>,<em>y</em>,0,1)</p></li><li><p>四大坐标系</p><ol><li><strong>世界坐标系</strong>：描述物体在真实世界中的位置。</li><li><strong>相机坐标系</strong>：以相机为中心，Z<em>Z</em> 轴为光轴方向。</li><li><strong>图像坐标系</strong>：满足 x&#x3D;fXZ<em>x</em>&#x3D;<em>f<strong>Z</strong>X</em>，y&#x3D;fYZ<em>y</em>&#x3D;<em>f<strong>Z</strong>Y</em>，其中 f<em>f</em> 为焦距。</li><li><strong>像素坐标系</strong>：<br>u&#x3D;sxfx+Ox<em>u</em>&#x3D;<em>f<strong>s</strong>x</em>​​<em>x</em>+<em>O**x</em>​，<br>v&#x3D;syfy+Oy<em>v</em>&#x3D;<em>f<strong>s</strong>y</em>​​<em>y</em>+<em>O**y</em>​，<br>其中 sx,sy<em>s**x</em>​,<em>s**y</em>​ 与像素尺寸相关，Ox​,Oy​ 为图像原点偏移。</li></ol></li><li><p>四、畸变校正</p></li></ol><ul><li><strong>梯形失真</strong>：在某些拍摄角度下产生，但特定位置拍摄时不明显。</li><li><strong>径向畸变</strong>：常见于镜头边缘，导致直线在图像中呈弯曲状，通常需算法校正。</li></ul><hr><p>下午体育课踢了场球，奔跑、传球、射门，一场下来大汗淋漓，心情也格外畅快。</p><p>晚上完成了操作系统的实验，也赶完了明天要交的离散数学作业。虽然忙碌，却也踏实。</p><hr><p>睡前继续读《瓦尔登湖》。梭罗在书中不断提醒我们：<strong>生活应当简单，而不是简朴</strong>。他所说的“简单”，是回归生活本身，剥离那些不必要的欲望与装饰，只留下真正重要的东西——阳光、劳作、思考与安宁。</p><p>读到这几段时，格外有感触：</p><blockquote><p>“他们身上铺着铁轨，覆盖着黄沙，任由火车轰隆隆地驶过。我告诉你吧，他们是长眠不起了。每隔几年，会有新的土地被铲平和铺设上轨道；既然有人得到了乘坐火车的快乐，那么肯定有人承受了修建铁路的痛苦。”</p></blockquote><p>我们在享受现代便利的同时，是否也曾想过这背后隐藏的代价？那些“铺在铁轨下的人”，是否也是我们逐渐丧失的生活本质的象征？</p><blockquote><p>“于是他喝着咖啡，吃着面包卷，翻阅起报纸，看到今天早晨有人在瓦奇托河畔被挖掉了眼珠，浑然不觉他其实生活在这世上某个深不可测的黑暗巨洞里，而他自己的眼睛尚未发育完全。”</p></blockquote><p>我们是否也像这个人一样，每天重复着相似的动作，却对自身所处的“洞穴”视而不见？我们阅读新闻，关心远方的不幸，却对自己内心的盲目一无所知。</p><p>他的文字像一把钥匙，撬开了我固有的思维。合上书页，一个由他的思想所触发，却属于我自己的答案，逐渐清晰起来：</p><p><strong>我们是按照自己的想法过生活，还是随波逐流呢？</strong></p><p><strong>我的答案是：活在当下，让生活回归生活本来的样子。</strong></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="日常闲谈" scheme="https://id-zy.github.io/categories/%E6%97%A5%E5%B8%B8%E9%97%B2%E8%B0%88/"/>
+    
+    
+    <category term="霜降" scheme="https://id-zy.github.io/tags/%E9%9C%9C%E9%99%8D/"/>
+    
+    <category term="计算机视觉" scheme="https://id-zy.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"/>
+    
+    <category term="足球" scheme="https://id-zy.github.io/tags/%E8%B6%B3%E7%90%83/"/>
+    
+    <category term="《瓦尔登湖》" scheme="https://id-zy.github.io/tags/%E3%80%8A%E7%93%A6%E5%B0%94%E7%99%BB%E6%B9%96%E3%80%8B/"/>
+    
+  </entry>
   
   <entry>
     <title>10.22 日常 | 在算法与湖畔沉思之间</title>
