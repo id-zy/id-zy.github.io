@@ -6,7 +6,7 @@
   <link href="https://id-zy.github.io/atom.xml" rel="self"/>
   
   <link href="https://id-zy.github.io/"/>
-  <updated>2025-10-22T09:28:15.128Z</updated>
+  <updated>2025-10-23T10:03:42.510Z</updated>
   <id>https://id-zy.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://id-zy.github.io/2025/10/22/10.22%E6%97%A5%E5%B8%B8/"/>
     <id>https://id-zy.github.io/2025/10/22/10.22%E6%97%A5%E5%B8%B8/</id>
     <published>2025-10-22T09:39:04.699Z</published>
-    <updated>2025-10-22T09:28:15.128Z</updated>
+    <updated>2025-10-23T10:03:42.510Z</updated>
     
     <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="算法复习"><a href="#算法复习" class="headerlink" title="算法复习"></a>算法复习</h2><p>因为晚上算法上机实验，我复习了一些算法内容。思绪在几种排序方法间切换：从直观的插入排序，到分治的归并排序，再到高效的快速排序及其变体。这些精妙的逻辑，像是为混沌世界建立秩序的种种尝试。</p><h3 id="插入排序（Insertion-Sort-IS）"><a href="#插入排序（Insertion-Sort-IS）" class="headerlink" title="插入排序（Insertion Sort, IS）"></a>插入排序（Insertion Sort, IS）</h3><p><strong>基本思想</strong>：将元素逐个插入到已排序序列的适当位置</p><p>python</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">def insertion_sort(arr):</span><br><span class="line">    for i in range(1, len(arr)):</span><br><span class="line">        key = arr[i]</span><br><span class="line">        j = i - 1</span><br><span class="line">        while j &gt;= 0 and arr[j] &gt; key:</span><br><span class="line">            arr[j + 1] = arr[j]</span><br><span class="line">            j -= 1</span><br><span class="line">        arr[j + 1] = key</span><br></pre></td></tr></table></figure><p><strong>特点</strong>：</p><ul><li>时间复杂度：O(n²) 最坏&#x2F;平均，O(n) 最好（已排序）</li><li>空间复杂度：O(1)</li><li>稳定排序</li><li>对小规模数据高效</li></ul><h3 id="自顶向下归并排序（Top-down-Mergesort-TDM）"><a href="#自顶向下归并排序（Top-down-Mergesort-TDM）" class="headerlink" title="自顶向下归并排序（Top-down Mergesort, TDM）"></a>自顶向下归并排序（Top-down Mergesort, TDM）</h3><p><strong>基本思想</strong>：递归地将数组分成两半，分别排序后合并</p><p>python</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">def merge_sort(arr):</span><br><span class="line">    if len(arr) &lt;= 1:</span><br><span class="line">        return arr</span><br><span class="line">    </span><br><span class="line">    mid = len(arr) // 2</span><br><span class="line">    left = merge_sort(arr[:mid])</span><br><span class="line">    right = merge_sort(arr[mid:])</span><br><span class="line">    </span><br><span class="line">    return merge(left, right)</span><br><span class="line"></span><br><span class="line">def merge(left, right):</span><br><span class="line">    result = []</span><br><span class="line">    i = j = 0</span><br><span class="line">    while i &lt; len(left) and j &lt; len(right):</span><br><span class="line">        if left[i] &lt;= right[j]:</span><br><span class="line">            result.append(left[i])</span><br><span class="line">            i += 1</span><br><span class="line">        else:</span><br><span class="line">            result.append(right[j])</span><br><span class="line">            j += 1</span><br><span class="line">    result.extend(left[i:])</span><br><span class="line">    result.extend(right[j:])</span><br><span class="line">    return result</span><br></pre></td></tr></table></figure><h3 id="自底向上归并排序（Bottom-up-Mergesort-BUM）"><a href="#自底向上归并排序（Bottom-up-Mergesort-BUM）" class="headerlink" title="自底向上归并排序（Bottom-up Mergesort, BUM）"></a>自底向上归并排序（Bottom-up Mergesort, BUM）</h3><p><strong>基本思想</strong>：从单个元素开始，迭代地合并相邻的有序段</p><p>python</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">def bottom_up_merge_sort(arr):</span><br><span class="line">    n = len(arr)</span><br><span class="line">    size = 1</span><br><span class="line">    </span><br><span class="line">    while size &lt; n:</span><br><span class="line">        for start in range(0, n, 2 * size):</span><br><span class="line">            mid = min(start + size, n)</span><br><span class="line">            end = min(start + 2 * size, n)</span><br><span class="line">            merge(arr, start, mid, end)</span><br><span class="line">        size *= 2</span><br></pre></td></tr></table></figure><p><strong>TDM vs BUM</strong>：</p><ul><li>TDM：递归实现，可能栈溢出</li><li>BUM：迭代实现，无递归开销</li><li>两者时间复杂度相同：O(n log n)</li></ul><h3 id="随机快速排序（Random-Quicksort-RQ）"><a href="#随机快速排序（Random-Quicksort-RQ）" class="headerlink" title="随机快速排序（Random Quicksort, RQ）"></a>随机快速排序（Random Quicksort, RQ）</h3><p><strong>基本思想</strong>：随机选择pivot，分区后递归排序</p><p>python</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import random</span><br><span class="line"></span><br><span class="line">def quicksort(arr, low, high):</span><br><span class="line">    if low &lt; high:</span><br><span class="line">        pivot_index = random_partition(arr, low, high)</span><br><span class="line">        quicksort(arr, low, pivot_index - 1)</span><br><span class="line">        quicksort(arr, pivot_index + 1, high)</span><br><span class="line"></span><br><span class="line">def random_partition(arr, low, high):</span><br><span class="line">    random_index = random.randint(low, high)</span><br><span class="line">    arr[random_index], arr[high] = arr[high], arr[random_index]</span><br><span class="line">    return partition(arr, low, high)</span><br></pre></td></tr></table></figure><h3 id="Dijkstra-3-路划分快速排序（QD3P）"><a href="#Dijkstra-3-路划分快速排序（QD3P）" class="headerlink" title="Dijkstra 3-路划分快速排序（QD3P）"></a>Dijkstra 3-路划分快速排序（QD3P）</h3><p><strong>基本思想</strong>：将数组分为三部分：&lt; pivot, &#x3D; pivot, &gt; pivot</p><p>python</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">def three_way_quicksort(arr, low, high):</span><br><span class="line">    if low &gt;= high:</span><br><span class="line">        return</span><br><span class="line">    </span><br><span class="line">    lt, gt = three_way_partition(arr, low, high)</span><br><span class="line">    three_way_quicksort(arr, low, lt - 1)</span><br><span class="line">    three_way_quicksort(arr, gt + 1, high)</span><br><span class="line"></span><br><span class="line">def three_way_partition(arr, low, high):</span><br><span class="line">    pivot = arr[low]</span><br><span class="line">    lt = low      # 小于pivot的右边界</span><br><span class="line">    i = low + 1   # 当前元素</span><br><span class="line">    gt = high     # 大于pivot的左边界</span><br><span class="line">    </span><br><span class="line">    while i &lt;= gt:</span><br><span class="line">        if arr[i] &lt; pivot:</span><br><span class="line">            arr[lt], arr[i] = arr[i], arr[lt]</span><br><span class="line">            lt += 1</span><br><span class="line">            i += 1</span><br><span class="line">        elif arr[i] &gt; pivot:</span><br><span class="line">            arr[i], arr[gt] = arr[gt], arr[i]</span><br><span class="line">            gt -= 1</span><br><span class="line">        else:</span><br><span class="line">            i += 1</span><br><span class="line">    </span><br><span class="line">    return lt, gt</span><br></pre></td></tr></table></figure><h2 id="《瓦尔登湖》的生活"><a href="#《瓦尔登湖》的生活" class="headerlink" title="《瓦尔登湖》的生活"></a>《瓦尔登湖》的生活</h2><p>而在《瓦尔登湖》中，我看到了另一种“有序生活”。梭罗在森林里亲手搭建小屋，精确记录生活账本，务实应对生存挑战。他躬耕于湖畔，不仅建起了一个栖身之所，更构筑了一种高度自觉的生活范式。</p><p>这让我陷入沉思：我能清晰地解析算法逻辑，但对于自己的生活，是否也曾如此清醒地审视过？梭罗的下一句话，更是击中了这种困惑的核心：</p><blockquote><p><strong>“我们为什么要活得这么匆忙，浪费生活？”</strong></p></blockquote>]]></content>
     
@@ -33,8 +33,8 @@
     
     
     
+    <category term="日常闲谈" scheme="https://id-zy.github.io/categories/%E6%97%A5%E5%B8%B8%E9%97%B2%E8%B0%88/"/>
     
-    <category term="日常闲谈" scheme="https://id-zy.github.io/tags/%E6%97%A5%E5%B8%B8%E9%97%B2%E8%B0%88/"/>
     
   </entry>
   
@@ -43,7 +43,7 @@
     <link href="https://id-zy.github.io/2025/10/21/10.21%E6%97%A5%E5%B8%B8/"/>
     <id>https://id-zy.github.io/2025/10/21/10.21%E6%97%A5%E5%B8%B8/</id>
     <published>2025-10-21T12:13:36.675Z</published>
-    <updated>2025-10-21T12:19:02.625Z</updated>
+    <updated>2025-10-23T10:03:35.524Z</updated>
     
     <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><blockquote><p>在寂静中寻找自我的尺度</p></blockquote><h4 id="生活感悟：守护自我的独立性"><a href="#生活感悟：守护自我的独立性" class="headerlink" title="生活感悟：守护自我的独立性"></a><strong>生活感悟：守护自我的独立性</strong></h4><p>今天继续翻阅《瓦尔登湖》，梭罗在湖畔的隐居生活，其核心并非逃离社会，而是捍卫精神的独立。他写道：</p><blockquote><p>“我看到我的市民同胞们已不大可能在县政府办公大楼里给我谋求一个职位… 于是只好另谋出路，比以往更加专心地将脸转向了森林…”</p></blockquote><p>这让我深有感触。我们常常不自觉地将自我价值寄托于外界的认可——一份体面的职位、他人的赞誉或是社会的常规路径。梭罗选择“转向森林”，象征性地告诉我们：<strong>当世界无法为你提供舞台时，你必须有能力为自己搭建一个。</strong> 真正的独立性，在于拥有一个不受外部市场与评价体系侵蚀的内核，能够自我定义价值与目标。</p><h4 id="学习笔记：数据挖掘中的距离度量"><a href="#学习笔记：数据挖掘中的距离度量" class="headerlink" title="学习笔记：数据挖掘中的距离度量"></a><strong>学习笔记：数据挖掘中的距离度量</strong></h4><p>今天学习了一点数据挖掘的基础知识，了解了如何用数学方法度量事物之间的“远近”或“相似性”。</p><ol><li><strong>欧氏距离</strong><br>最直观的距离，就是我们日常生活中理解的“直线距离”。<br><code>d(x,y) = √( Σ(x_i - y_i)² )</code></li><li><strong>明氏距离</strong><br>这是一个更通用的距离函数家族，欧氏距离是它的一个特例。<br><code>d(x,y) = ( Σ|x_k - y_k|^r )^(1/r)</code><br>通过改变参数 <strong><code>r</code></strong>，我们可以得到不同的度量方式：<ul><li><strong><code>r = 1</code></strong>： <strong>曼哈顿距离</strong>，也叫城市街区距离，好比在城市网格中行走的路径。</li><li><strong><code>r = 2</code></strong>： <strong>欧氏距离</strong>。</li><li><strong><code>r = ∞</code></strong>： <strong>上确界距离</strong>，取所有维度中差距最大的那一个。</li></ul></li><li><strong>马氏距离</strong><br>这是一个更高级的概念，它考虑了数据各维度之间的相关性，是一种基于数据分布的距离，对于消除量纲和相关性影响非常有效。<br><code>mahalanobis(x,y) = ( (x-y)ᵀ ∑⁻¹ (x-y) )^0.5</code><br>（其中 ∑ 是协方差矩阵）</li></ol><p><strong>一点联想</strong>：学习这些距离度量时，我突然想到，在生活中我们衡量与他人、与理想的距离时，是否也用了错误的“度量公式”？我们是否像使用曼哈顿距离一样，被社会的网格化规则所束缚？或许，追求内心的独立，就是找到最适合自己的那个“公式”，去丈量真正重要的事物。</p>]]></content>
     
@@ -55,8 +55,8 @@
     
     
     
+    <category term="日常闲谈" scheme="https://id-zy.github.io/categories/%E6%97%A5%E5%B8%B8%E9%97%B2%E8%B0%88/"/>
     
-    <category term="日常闲谈" scheme="https://id-zy.github.io/tags/%E6%97%A5%E5%B8%B8%E9%97%B2%E8%B0%88/"/>
     
   </entry>
   
@@ -65,7 +65,7 @@
     <link href="https://id-zy.github.io/2025/06/02/%E5%B0%8F%E4%B8%91%E7%89%8C/"/>
     <id>https://id-zy.github.io/2025/06/02/%E5%B0%8F%E4%B8%91%E7%89%8C/</id>
     <published>2025-06-02T06:46:08.000Z</published>
-    <updated>2025-06-02T15:17:55.142Z</updated>
+    <updated>2025-10-23T10:05:00.601Z</updated>
     
     <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>​    端午期间，看到我关注的up主九三的耳朵不是特别好在玩一款叫做“小丑牌”（balatro)的游戏，感觉还蛮好玩的，于是就做steam上买了，不得不说，的确好玩，适合解压，就是无聊的时候打开玩一玩，不过就是和文明一样，一玩就是半天，让人沉迷其中，都打扰我的复习计划了。下面附上我的第一次胜利的图片。</p><p><img src="https://pic1.imgdb.cn/item/683dbf9d58cb8da5c825c9e4.png"></p>]]></content>
     
@@ -77,8 +77,8 @@
     
     
     
+    <category term="日常闲谈" scheme="https://id-zy.github.io/categories/%E6%97%A5%E5%B8%B8%E9%97%B2%E8%B0%88/"/>
     
-    <category term="日常闲谈" scheme="https://id-zy.github.io/tags/%E6%97%A5%E5%B8%B8%E9%97%B2%E8%B0%88/"/>
     
   </entry>
   
@@ -87,7 +87,7 @@
     <link href="https://id-zy.github.io/2025/05/28/%E8%AE%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E4%BA%8C/"/>
     <id>https://id-zy.github.io/2025/05/28/%E8%AE%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E4%BA%8C/</id>
     <published>2025-05-28T10:27:17.000Z</published>
-    <updated>2025-05-28T12:46:39.338Z</updated>
+    <updated>2025-10-23T10:04:02.188Z</updated>
     
     <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p> 第三章剩余部分</p><p><img src="https://pic1.imgdb.cn/item/683704f458cb8da5c816607b.jpg"></p><p><img src="https://pic1.imgdb.cn/item/683704f358cb8da5c8166079.jpg"></p><p>第四章</p><p><img src="https://pic1.imgdb.cn/item/683704f458cb8da5c816607c.jpg"></p><p><img src="https://pic1.imgdb.cn/item/683704f458cb8da5c816607a.jpg"></p><p><img src="https://pic1.imgdb.cn/item/683704f358cb8da5c8166078.jpg"></p>]]></content>
     
@@ -99,8 +99,8 @@
     
     
     
+    <category term="复习笔记" scheme="https://id-zy.github.io/categories/%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
-    <category term="复习笔记" scheme="https://id-zy.github.io/tags/%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
   </entry>
   
@@ -109,7 +109,7 @@
     <link href="https://id-zy.github.io/2025/05/28/OS%E7%B3%BB%E7%BB%9F%E4%B9%A0%E9%A2%98%E5%A4%8D%E4%B9%A0%E4%BA%8C/"/>
     <id>https://id-zy.github.io/2025/05/28/OS%E7%B3%BB%E7%BB%9F%E4%B9%A0%E9%A2%98%E5%A4%8D%E4%B9%A0%E4%BA%8C/</id>
     <published>2025-05-28T10:26:42.000Z</published>
-    <updated>2025-05-28T12:42:39.478Z</updated>
+    <updated>2025-10-23T10:03:48.622Z</updated>
     
     <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>   第四章</p><p><img src="https://pic1.imgdb.cn/item/6837046758cb8da5c8165e64.jpg"></p><p><img src="https://pic1.imgdb.cn/item/6837047058cb8da5c8165e9c.jpg"></p><p><img src="https://pic1.imgdb.cn/item/6837047058cb8da5c8165ea0.jpg"></p><p><img src="https://pic1.imgdb.cn/item/6837047058cb8da5c8165e9f.jpg"></p>]]></content>
     
@@ -121,8 +121,8 @@
     
     
     
+    <category term="复习笔记" scheme="https://id-zy.github.io/categories/%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
-    <category term="复习笔记" scheme="https://id-zy.github.io/tags/%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
   </entry>
   
@@ -131,7 +131,7 @@
     <link href="https://id-zy.github.io/2025/05/26/OS%E7%B3%BB%E7%BB%9F%E4%B9%A0%E9%A2%98%E5%A4%8D%E4%B9%A0%E4%B8%80/"/>
     <id>https://id-zy.github.io/2025/05/26/OS%E7%B3%BB%E7%BB%9F%E4%B9%A0%E9%A2%98%E5%A4%8D%E4%B9%A0%E4%B8%80/</id>
     <published>2025-05-26T13:45:09.000Z</published>
-    <updated>2025-05-26T13:51:07.199Z</updated>
+    <updated>2025-10-23T10:03:55.301Z</updated>
     
     <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p> 第一章</p><p><img src="https://pic1.imgdb.cn/item/6834711258cb8da5c80fad10.jpg"></p><p> 第二章</p><p><img src="https://pic1.imgdb.cn/item/6834711258cb8da5c80fad0e.jpg"></p><p> 第三章</p><p><img src="https://pic1.imgdb.cn/item/6834711258cb8da5c80fad0f.jpg"></p>]]></content>
     
@@ -143,8 +143,8 @@
     
     
     
+    <category term="复习笔记" scheme="https://id-zy.github.io/categories/%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
-    <category term="复习笔记" scheme="https://id-zy.github.io/tags/%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
   </entry>
   
@@ -153,7 +153,7 @@
     <link href="https://id-zy.github.io/2025/05/20/%E5%B1%B1%E9%AB%98%E9%99%A9%E8%BF%9C%E6%80%95%E4%BA%BA%E7%99%BB/"/>
     <id>https://id-zy.github.io/2025/05/20/%E5%B1%B1%E9%AB%98%E9%99%A9%E8%BF%9C%E6%80%95%E4%BA%BA%E7%99%BB/</id>
     <published>2025-05-20T04:16:53.000Z</published>
-    <updated>2025-05-20T07:15:24.012Z</updated>
+    <updated>2025-10-23T10:04:38.566Z</updated>
     
     <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>昨天，中午吃饭时，找了部纪录片《徒手攀岩》观看，无它，只有惊险与震撼。</p><p>我都一直对极限运动抱有远观而不可亵渎的态度，比如滑板，翼装飞行，滑雪…还有”红牛大舞台，有命你就来”这样的</p><p>但这部电影告诉了我为什么有些人享受这个过程，正如主角亚历克斯所言：登顶，然后证明没有什么不可能，他们选择拓宽生命的宽度，选择身体紧绷时的独特体验，登顶后站在山顶，向来时路远眺，才发现当时的荆棘已然开满玫瑰，这是自然对每一个勇敢者的奖励。</p><p>冒险或者奇遇是每个少年人心中所向往的，渴望不一样的生活方式，渴望一睹光怪陆离的大千世界。也许，我们都需要大胆一点！</p><p>最后用贝尔格里尔斯（贝爷）的一句话结尾吧：<strong>少年，我的冒险结束了，轮到你了</strong></p>]]></content>
     
@@ -165,8 +165,8 @@
     
     
     
+    <category term="电影影评" scheme="https://id-zy.github.io/categories/%E7%94%B5%E5%BD%B1%E5%BD%B1%E8%AF%84/"/>
     
-    <category term="电影影评" scheme="https://id-zy.github.io/tags/%E7%94%B5%E5%BD%B1%E5%BD%B1%E8%AF%84/"/>
     
   </entry>
   
@@ -175,7 +175,7 @@
     <link href="https://id-zy.github.io/2025/05/18/%E8%AE%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E4%B8%80/"/>
     <id>https://id-zy.github.io/2025/05/18/%E8%AE%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E4%B8%80/</id>
     <published>2025-05-18T15:47:54.000Z</published>
-    <updated>2025-05-20T14:41:26.331Z</updated>
+    <updated>2025-10-23T10:04:10.316Z</updated>
     
     <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>  计网复习笔记如下</p><p><img src="https://pic1.imgdb.cn/item/682c941d58cb8da5c8ffaa89.jpg"></p><p><img src="https://pic1.imgdb.cn/item/682c941d58cb8da5c8ffaa8a.jpg"></p><p><img src="https://pic1.imgdb.cn/item/682c941d58cb8da5c8ffaa8b.jpg"></p>]]></content>
     
@@ -187,8 +187,8 @@
     
     
     
+    <category term="复习笔记" scheme="https://id-zy.github.io/categories/%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
-    <category term="复习笔记" scheme="https://id-zy.github.io/tags/%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
   </entry>
   
@@ -197,7 +197,7 @@
     <link href="https://id-zy.github.io/2025/05/18/%E3%80%8A%E9%AD%85%E5%BD%B1%E7%BC%9D%E5%8C%A0%E3%80%8B/"/>
     <id>https://id-zy.github.io/2025/05/18/%E3%80%8A%E9%AD%85%E5%BD%B1%E7%BC%9D%E5%8C%A0%E3%80%8B/</id>
     <published>2025-05-18T15:46:55.000Z</published>
-    <updated>2025-05-19T06:09:23.007Z</updated>
+    <updated>2025-10-23T10:03:24.424Z</updated>
     
     <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p> 昨日闲暇之时，不禁想找部电影看看。于是，我在豆瓣的爱情电影中找啊找，然后就看到一部名字让我十分感兴趣的电影《魅影缝匠》。这部电影讲述的内容如果让我像高中时看的《花火》一般描述的话就是来自城里的天才摄影师爱上乡下的餐厅服务员，见到的他第一眼便让她心动不已，以致于行动出错：而他也被她的神情与身姿所吸引，彼此磨合，相爱想杀。</p><p> 但真实的情况却是：导演将爱情中两种容易出现的欲望（控制欲和占有欲）进行了放大</p><p> 男主雷诺兹是个专门为王公贵族设计衣服的时装设计师，也是影名中缝匠的来源，因为职业的原因，他总是用打量和装扮的眼光看世界，一丝不苟，所以他在面对女主阿尔玛的时候，总是希望她永远是自己脑海的她，想要让她去迎合他，想要将她的世界摧毁后然后建立起自己的堡垒。但由于童年遭遇的原因，他又十分缺爱，在脆弱的时候，他表现得像个孩子，需要阿尔玛的照顾与疼爱，为了这种爱，他不惜一切代价，即使是吃下毒蘑菇。他说“在我生病前，吻我，爱人。”</p><p> 女主阿尔玛是乡下的餐厅服务员，她总是有点自卑，她讨厌自己身上的一切，觉得一无是处，但雷诺兹的衣服总是那么切合，让她显得那么完美。她沉浸其中，但由于悲观，她希望他需要他，她想要占有他的一切，最后她选择了下毒，她仔细研磨有毒的蘑菇，在雷诺兹的茶中种下她精心策划的爱情毒药，她获得了她预想中的一切，雷诺兹的需要，雷诺兹的爱，雷诺兹的世界。每当雷诺兹表现不需要她，她都会化身采蘑菇的小姑娘，在林间采摘一株株蘑菇，为爱人熬制永远沉沦爱情的魔药。</p><p> 最后我只想说小心蘑菇，以及在爱情中最重要的是自爱，只有爱自己，才不会陷入极端情绪的陷阱。</p>]]></content>
     
@@ -209,8 +209,8 @@
     
     
     
+    <category term="电影影评" scheme="https://id-zy.github.io/categories/%E7%94%B5%E5%BD%B1%E5%BD%B1%E8%AF%84/"/>
     
-    <category term="电影影评" scheme="https://id-zy.github.io/tags/%E7%94%B5%E5%BD%B1%E5%BD%B1%E8%AF%84/"/>
     
   </entry>
   
@@ -219,7 +219,7 @@
     <link href="https://id-zy.github.io/2025/05/18/%E6%88%91%E4%BB%AC%E6%98%AF%E5%86%A0%E5%86%9B%EF%BC%81/"/>
     <id>https://id-zy.github.io/2025/05/18/%E6%88%91%E4%BB%AC%E6%98%AF%E5%86%A0%E5%86%9B%EF%BC%81/</id>
     <published>2025-05-18T07:12:11.000Z</published>
-    <updated>2025-05-20T07:15:39.065Z</updated>
+    <updated>2025-10-23T10:04:50.935Z</updated>
     
     <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>经过21天的艰苦练习，我们获得了最终的校园集体舞蹈大赛冠军称号。尽管去年已经拿过一次冠军，但当身边的人一起喊出那句”我们是冠军！”心中仍然是澎湃不已。不仅仅只是因为这次比赛，还是因为想起的18年的IG，那年他们终于捧起了属于lpl的第一个世界冠军”翻过这座山。你就会听到他们的故事“<br>不过，这次体验让我更有体悟的是，人真的是经历越多，才能体会更多，很多以前在影视中在文字里不能理解的情绪爆发也慢慢有了自己的认知。未来的世界很精彩，值得一观！<br>好久没有写过东西了，感觉表达能力都下降了.</p>]]></content>
     
@@ -231,8 +231,8 @@
     
     
     
+    <category term="日常闲谈" scheme="https://id-zy.github.io/categories/%E6%97%A5%E5%B8%B8%E9%97%B2%E8%B0%88/"/>
     
-    <category term="日常闲谈" scheme="https://id-zy.github.io/tags/%E6%97%A5%E5%B8%B8%E9%97%B2%E8%B0%88/"/>
     
   </entry>
   
