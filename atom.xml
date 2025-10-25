@@ -6,7 +6,7 @@
   <link href="https://id-zy.github.io/atom.xml" rel="self"/>
   
   <link href="https://id-zy.github.io/"/>
-  <updated>2025-10-24T12:24:01.214Z</updated>
+  <updated>2025-10-25T12:22:06.582Z</updated>
   <id>https://id-zy.github.io/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>10.25 日常 | 游戏、报告与更高的法则</title>
+    <link href="https://id-zy.github.io/2025/10/25/10.25%E6%97%A5%E5%B8%B8/"/>
+    <id>https://id-zy.github.io/2025/10/25/10.25%E6%97%A5%E5%B8%B8/</id>
+    <published>2025-10-25T12:05:09.341Z</published>
+    <updated>2025-10-25T12:22:06.582Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>早晨醒来，从新闻中得知今天被设立为 <strong>“台湾光复纪念日”</strong>。看到祖国在统一大道上又迈出坚实的一步，心中不禁升起一股宁静的欣慰。</p><p>早饭后，便沉浸在新出的“海克斯大乱斗”里。战局有来有回，胜负交织，倒也打得尽兴。最终的战绩还算不错，也算为周末开了个好头。</p><p><img src="https://pic1.imgdb.cn/item/68fcc1023203f7be009eb184.png" alt="历史战绩截图"></p><p>下午收敛心神，开始认真撰写《电子技术应用课程设计》的报告。当思维从虚拟战场切换回电路与逻辑的世界，有种从喧嚣重归秩序的踏实。</p><p>晚上传来消息，BLG 不敌 TES，止步十六强。我虽不是 BLG 的粉丝，主队始终是 iG，但看到任何一支承载着期望的队伍离场，总不免有些感慨。电竞如此，生活亦然——有人欢呼，就有人沉默，而我们都在自己的赛道上，迎接着属于各自的胜负。</p><p>夜深人静时，继续翻开《瓦尔登湖》。今天读到了“更高的法则”一节。梭罗在湖畔不仅耕种豆田，更在耕种自己的内心。他在质朴劳作与自然独处中，不断追问什么是人应该过的生活，什么是驱动我们前行的那束“更高的光”。</p><p>这让我想到白天的种种：在游戏中追求即时的胜负，在报告中构建严谨的逻辑，在新闻里关注家国的走向——这些看似分散的片段，或许都是我们回应内心“更高法则”的不同方式。我们都在寻找一种平衡，一种能让自己安宁的生活节奏。</p><p>今天，是在虚拟与现实、个人喜好与集体叙事之间平静度过的一天。而明天，还有新的章节等待展开。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="日常闲谈" scheme="https://id-zy.github.io/categories/%E6%97%A5%E5%B8%B8%E9%97%B2%E8%B0%88/"/>
+    
+    
+    <category term="《瓦尔登湖》" scheme="https://id-zy.github.io/tags/%E3%80%8A%E7%93%A6%E5%B0%94%E7%99%BB%E6%B9%96%E3%80%8B/"/>
+    
+    <category term="英雄联盟" scheme="https://id-zy.github.io/tags/%E8%8B%B1%E9%9B%84%E8%81%94%E7%9B%9F/"/>
+    
+    <category term="台湾光复纪念日" scheme="https://id-zy.github.io/tags/%E5%8F%B0%E6%B9%BE%E5%85%89%E5%A4%8D%E7%BA%AA%E5%BF%B5%E6%97%A5/"/>
+    
+  </entry>
   
   <entry>
     <title>10.24 日常 | 在群论与细雨之间</title>
@@ -38,9 +66,9 @@
     
     <category term="《瓦尔登湖》" scheme="https://id-zy.github.io/tags/%E3%80%8A%E7%93%A6%E5%B0%94%E7%99%BB%E6%B9%96%E3%80%8B/"/>
     
-    <category term="数据挖掘" scheme="https://id-zy.github.io/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/"/>
-    
     <category term="离散数学" scheme="https://id-zy.github.io/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/"/>
+    
+    <category term="数据挖掘" scheme="https://id-zy.github.io/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/"/>
     
     <category term="生活哲思" scheme="https://id-zy.github.io/tags/%E7%94%9F%E6%B4%BB%E5%93%B2%E6%80%9D/"/>
     
