@@ -6,7 +6,7 @@
   <link href="https://id-zy.github.io/atom.xml" rel="self"/>
   
   <link href="https://id-zy.github.io/"/>
-  <updated>2025-10-27T13:42:26.881Z</updated>
+  <updated>2025-10-28T06:38:59.293Z</updated>
   <id>https://id-zy.github.io/</id>
   
   <author>
@@ -17,13 +17,61 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>点算子</title>
+    <link href="https://id-zy.github.io/2025/10/28/%E7%82%B9%E7%AE%97%E5%AD%90/"/>
+    <id>https://id-zy.github.io/2025/10/28/%E7%82%B9%E7%AE%97%E5%AD%90/</id>
+    <published>2025-10-28T06:54:20.103Z</published>
+    <updated>2025-10-28T06:38:59.293Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="图像处理中的点算子与基础变换"><a href="#图像处理中的点算子与基础变换" class="headerlink" title="图像处理中的点算子与基础变换"></a><strong>图像处理中的点算子与基础变换</strong></h3><h4 id="一、-基本概念解析"><a href="#一、-基本概念解析" class="headerlink" title="一、 基本概念解析"></a><strong>一、 基本概念解析</strong></h4><ol><li><strong>算子</strong>：指从一个向量空间到另一个向量空间的映射。</li><li><strong>伽马校正</strong>：对图像的伽马曲线进行编辑，通过非线性色调编辑来增强图像对比度，提亮深色部分，压暗浅色部分。</li><li><strong>向量值函数</strong>：值域是线性空间或其子集的函数。在图像处理中，彩色图像通常被视为向量值函数。</li><li><strong>色彩通道</strong>：保存图像颜色信息的通道（如RGB图像中的红、绿、蓝通道）。</li><li><strong>标称</strong>：产品上标明的规格、数值等性能和质量要素。</li></ol><h4 id="二、-像素变换"><a href="#二、-像素变换" class="headerlink" title="二、 像素变换"></a><strong>二、 像素变换</strong></h4><p>图像处理算子是将一个或多个输入图像映射为一个输出图像的函数。</p><ol><li><p><strong>基本点算子</strong></p><ul><li>公式：<code>g(x) = a * f(x) + b</code></li><li><strong>参数a（&gt; 0）</strong>：增益参数，控制<strong>对比度</strong>。</li><li><strong>参数b</strong>：偏置参数，控制<strong>亮度</strong>。</li><li>这些参数可以是全局的，也可以随空间位置变化。</li><li>乘法增益是一个<strong>线性算子</strong>，因为它遵从叠加原理。</li></ul></li><li><p><strong>线性混合算子</strong></p><ul><li>公式：<code>g(x) = (1 - α) * f₀(x) + α * f₁(x)</code></li><li><strong>参数α（0 到 1）</strong>：混合系数。</li><li><strong>应用</strong>：实现两幅图像或视频间的<strong>淡入淡出</strong>效果，也是图像变形算法的一部分。</li></ul></li><li><p><strong>伽马校正</strong></p><ul><li><strong>性质</strong>：非线性算子。</li><li><strong>作用</strong>：在图像预处理中，用于校正输入辐射量与量化像素值之间的非线性映射关系。</li></ul></li></ol><h4 id="三、-彩色变换"><a href="#三、-彩色变换" class="headerlink" title="三、 彩色变换"></a><strong>三、 彩色变换</strong></h4><p>彩色图像可以视为向量值函数或多个独立通道的集合。</p><ol><li><strong>亮度与色调调整</strong><ul><li>为所有色彩通道加上同一个值，会增加亮度，但也会影响<strong>色调</strong>和<strong>饱和度</strong>。</li></ul></li><li><strong>色彩平衡</strong><ul><li><strong>方法一</strong>：对每个色彩通道乘以不同的尺度因子。</li><li><strong>方法二</strong>：将图像从RGB空间转换到XYZ色彩空间，改变<strong>标称白点</strong>后，再转换回RGB空间。</li></ul></li></ol><h4 id="四、-图像合成与抠图"><a href="#四、-图像合成与抠图" class="headerlink" title="四、 图像合成与抠图"></a><strong>四、 图像合成与抠图</strong></h4><ol><li><p><strong>透明度遮罩（Alpha通道）</strong></p><ul><li>除了RGB通道，图像可以包含第四个通道——<strong>Alpha通道（α）</strong>，用于表示每个像素的<strong>不透明度</strong>。</li><li>前景物体内：<code>α = 1</code>（完全不透明）。</li><li>背景区域：<code>α = 0</code>（完全透明）。</li></ul></li><li><p><strong>合成公式</strong></p><ul><li><code>C = (1 - α) * B + α * F</code></li><li>其中 <code>C</code> 是合成后的图像，<code>B</code> 是背景图像，<code>F</code> 是前景图像。</li><li>该公式通过 <code>(1 - α)</code> 减弱背景，并根据不透明度 <code>α</code> 加入前景颜色。</li></ul></li><li><p><strong>抠图</strong></p><ul><li><strong>定义</strong>：从一幅或多幅图像中恢复出前景（F）、背景（B）和透明度遮罩（α）的过程。</li><li><strong>传统方法</strong>：蓝屏抠图。</li></ul></li></ol><h4 id="五、-直方图均衡化"><a href="#五、-直方图均衡化" class="headerlink" title="五、 直方图均衡化"></a><strong>五、 直方图均衡化</strong></h4><p>用于改善图像显示效果的技术。</p><ol><li><p><strong>简单方法</strong></p><ul><li><strong>方法A</strong>：将图像中最亮和最暗的像素映射到纯白和纯黑。</li><li><strong>方法B</strong>：以图像像素平均值为中间灰度值，并扩展范围以充分利用动态范围。</li></ul></li><li><p><strong>亮度直方图</strong></p><ul><li><strong>作用</strong>：可视化图像亮度值分布，辅助分析。</li><li><strong>问题</strong>：如果直方图中黑色和白色值过多，而中间调稀少，图像对比度不佳。</li></ul></li><li><p><strong>直方图均衡化原理</strong></p><ul><li><strong>目标</strong>：寻找一个映射函数，使得处理后的图像直方图分布<strong>平坦</strong>（即所有灰度级出现概率相等）。</li><li><strong>方法</strong>：通过计算原始图像灰度级的<strong>累积分布函数</strong> 来构建映射函数。</li><li><strong>潜在问题</strong>：会放大暗区域的噪声。</li></ul></li></ol><h4 id="六、-局部自适应直方图均衡化"><a href="#六、-局部自适应直方图均衡化" class="headerlink" title="六、 局部自适应直方图均衡化"></a><strong>六、 局部自适应直方图均衡化</strong></h4><p>用于处理亮度动态范围大的图像，克服全局均衡化的局限性。</p><ol><li><p><strong>分块均衡化</strong></p><ul><li>将图像划分为 <code>M × M</code> 的块，对每个子块独立进行直方图均衡化。</li><li><strong>缺点</strong>：会在块与块的边界处产生明显的<strong>区块效应</strong>（亮度不连续）。</li></ul></li><li><p><strong>滑动窗口法</strong></p><ul><li>对每个像素，以其为中心的 <code>M × M</code> 邻域窗口重新计算直方图并进行均衡化。</li><li><strong>优点</strong>：效果更平滑。</li><li><strong>缺点</strong>：计算量巨大（每个像素需计算 <code>M²</code> 次）。可通过增量更新直方图来优化。</li></ul></li><li><p><strong>自适应直方图均衡化</strong></p><ul><li><strong>步骤</strong>：<ol><li>将图像划分为不重叠的块，对每块进行直方图均衡化，得到每个块角的查找表。</li><li>对于图像中的任一像素，通过<strong>双线性插值</strong>其周围四个角点的查找表值，来混合出该像素的最终映射结果。</li></ol></li><li><strong>优点</strong>：有效避免了区块效应，且计算效率高于滑动窗口法。</li></ul></li></ol><h3 id="习题"><a href="#习题" class="headerlink" title="习题"></a>习题</h3><h2 id="3-1色彩平衡"><a href="#3-1色彩平衡" class="headerlink" title="3.1色彩平衡"></a>3.1色彩平衡</h2><p>写一个简单的应用，通过将每个色彩之乘以一个用户指定的不同常量的方法来改变一幅图像的色彩平衡。如果想把这个做得更好，你可以将这个做成有滑块的交互应用</p><h4 id="1-如果在做乘法之前或之后进行伽玛变换，结果会有不同吗？为什么相同或为什么不同"><a href="#1-如果在做乘法之前或之后进行伽玛变换，结果会有不同吗？为什么相同或为什么不同" class="headerlink" title="1. 如果在做乘法之前或之后进行伽玛变换，结果会有不同吗？为什么相同或为什么不同"></a>1. 如果在做乘法之前或之后进行伽玛变换，结果会有不同吗？为什么相同或为什么不同</h4><pre><code>我的解：      做乘法之前 ：&#39;g(x)=a(x)(f(X))**1/γ&#39;     做乘法之后: &#39;g(x)=(a(X)f(X))**1/γ=(a(x))**1/γ (f(x))**1/γ&#39;    结果自然不同 AI的解：     答：结果会不同。    原因分析：        1. 数学上的不可交换性                - 伽玛变换是非线性操作：`f(x) = x^γ`                - 色彩平衡是线性操作：`g(x) = a × f(x)`                 - 由于非线性操作与线性操作不满足交换律，因此顺序不同会导致不同结果         2. 物理意义不同                1. 先伽玛变换后乘法：相当于在感知均匀的色彩空间中进行线性调整                2. 先乘法后伽玛变换：相当于在线性光空间中调整后再进行感知编码        3. 实际效果差异                1. 先做伽玛变换会将图像转换到更符合人眼感知的空间，此时再做色彩平衡调整会更符合视觉预期                 2. 先做色彩平衡在线性空间中进行，可能会放大噪声或产生不自然的色彩过渡         结论： 由于伽玛变换的非线性特性，它与线性乘法操作不满足交换律，因此操作顺序不同会产生不同的视觉效果。在实际应用中，通常建议先进行伽玛校正（将图像转换到线性空间），再进行色彩平衡等线性操作，最后根据需要决定是否进行反伽玛变换。</code></pre>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="计算机视觉" scheme="https://id-zy.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"/>
+    
+    
+    <category term="图像处理" scheme="https://id-zy.github.io/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>印象最深刻的人</title>
+    <link href="https://id-zy.github.io/2025/10/28/%E5%8D%B0%E8%B1%A1%E6%9C%80%E6%B7%B1%E5%88%BB%E7%9A%84%E4%BA%BA/"/>
+    <id>https://id-zy.github.io/2025/10/28/%E5%8D%B0%E8%B1%A1%E6%9C%80%E6%B7%B1%E5%88%BB%E7%9A%84%E4%BA%BA/</id>
+    <published>2025-10-28T06:47:33.281Z</published>
+    <updated>2025-10-28T06:58:38.777Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>那年盛夏，推开门，我抬起头，她也刚转过身。阳光肆意地亲吻她白的脸庞，一袭乌黑亮丽的头发披散着，似蹙非蹙的眉下，秋波流转，薄薄的嘴唇点着胭脂红，身着白色连衣裙，抱着一本泰戈尔的《飞鸟集》，如同一泓清水中荡漾的柔和月色。于是，一缕幽兰芬香被夏天的风吹散，在少年的心尖打转。少女抿着嘴，眸中原本的滟色敛去，只留被陌生人打扰的惊愕与疑惑，我匆忙道歉，轻轻关上门，转身跑开，分不清加快的心跳是否是跑步留下的痕迹。有些人，或许一眼，便住进心里。任岁月流过，在这间教室里，每个人都修剪着自己飞扬天空的羽翼，我也不例外，只是，闲暇之余，那日惊艳的兰香总会在心底沉浸。我没有打扰这份美好，毕竟世事哪能总如人意，徒留那年夏天便好。后来啊，那间教室仍在，我再也回不去当年，只是书桌上永远放着一本《飞鸟集》。我永远就在了那个夏天。<br><img src="https://pic1.imgdb.cn/item/6900681d3203f7be00aabff1.png" alt="那个人"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="创作" scheme="https://id-zy.github.io/categories/%E5%88%9B%E4%BD%9C/"/>
+    
+    
+    <category term="写作" scheme="https://id-zy.github.io/tags/%E5%86%99%E4%BD%9C/"/>
+    
+  </entry>
+  
+  <entry>
     <title>10.27 日常 | 理发，实验，与湖畔的终章</title>
     <link href="https://id-zy.github.io/2025/10/27/10.27%E6%97%A5%E5%B8%B8/"/>
     <id>https://id-zy.github.io/2025/10/27/10.27%E6%97%A5%E5%B8%B8/</id>
     <published>2025-10-27T12:38:51.151Z</published>
-    <updated>2025-10-27T13:42:26.881Z</updated>
+    <updated>2025-10-28T06:54:49.793Z</updated>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>早晨上完算法课，顺路去理了发，仿佛也理清了连日积累的纷杂思绪。同时，也为计算机视觉和数据挖掘两门课购置了实体教材——此前以为电子书足以应付，终究是低估了知识的重量与翻阅的实在感。</p><p>午饭后，照例在英雄联盟的“海克斯大乱斗”中放松片刻。今天的战局颇为顺利，算是为下午的课程实验积攒了一些好心情。</p><p><img src="https://pic1.imgdb.cn/item/68ff753a3203f7be00a76d96.png" alt="今日战绩"></p><p>下午的微机原理课后，取回了新买的枕头和冬季睡衣。一个小小的新枕头，承载的是对一夜安眠的朴实期望。回到寝室，便投入计算机视觉的实验一——“混合图像实验”，并一气呵成地完成了报告。</p><p>随后，便是今日最宁静的时光。我翻开了《瓦尔登湖》的尾篇，与梭罗在湖畔的两年时光做最后的对谈。今晚的几段文字，仿佛是他对整个实验的总结陈词：</p><blockquote><p>“如果人自信地朝着梦想的方向前进，努力去过上他事先设想的生活，他将会取得普通人想象不到的成功……他将会过上一种更为高尚的生活。”</p><p>“只有在我们醒着时，天才是真正的破晓。”</p><p>“我们总是以为，若是将我们的农场的篱笆拆掉，垒上石墙，我们的生活便自此有了边界，我们的命运也已经注定。”</p></blockquote><p><strong>合上书页，我的感悟如下：</strong></p><p>梭罗记述了他在瓦尔登湖旁林中小屋一年的生活，并表达了他对生活对自然的思考</p><ul><li>对生活，他觉得我们应该保持真正的自我，去听从自己内心的声音，而不是去紧随成功主义的步伐，他期望人们热爱生活，将生活简单化但并非无聊，我们不必为自己设立边界，应该勇敢地去探索每一种生活的可能，更要保持对他人生活的敬畏与尊重；</li><li>对自然，他追求的是“天人合一”是人与自然相协调，我们可以适度的改造自然但一定不要过度地对其索取</li></ul><p>他的文字，本身就是一道破晓的光，意在唤醒那些仍在黑夜中闭着双眼的人。</p><p>写完这些，发现今日的“读书半小时”尚有余裕，便去B站听了喜欢的Up主“<strong>拣尽南枝</strong>”对《瓦尔登湖》的解读。她梳理的超验主义与温和个人主义背景，为梭罗的孤独实验提供了更广阔的思想图景，让我对此书的理解更为圆融。</p><p>今天，是以一把理发剪开始，以一本合上的经典结束。梭罗离开了他的湖畔，而我，带着他关于“破晓”与“边界”的追问，回到了我的生活现场。</p>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>早晨上完算法课，顺路去理了发，仿佛也理清了连日积累的纷杂思绪。同时，也为计算机视觉和数据挖掘两门课购置了实体教材——此前以为电子书足以应付，终究是低估了知识的重量与翻阅的实在感。<br>午饭后，照例在英雄联盟的“海克斯大乱斗”中放松片刻。今天的战局颇为顺利，算是为下午的课程实验积攒了一些好心情。</p><p><img src="https://pic1.imgdb.cn/item/68ff753a3203f7be00a76d96.png" alt="今日战绩"></p><p>下午的微机原理课后，取回了新买的枕头和冬季睡衣。一个小小的新枕头，承载的是对一夜安眠的朴实期望。回到寝室，便投入计算机视觉的实验一——“混合图像实验”，并一气呵成地完成了报告。</p><p>随后，便是今日最宁静的时光。我翻开了《瓦尔登湖》的尾篇，与梭罗在湖畔的两年时光做最后的对谈。今晚的几段文字，仿佛是他对整个实验的总结陈词：</p><blockquote><p>“如果人自信地朝着梦想的方向前进，努力去过上他事先设想的生活，他将会取得普通人想象不到的成功……他将会过上一种更为高尚的生活。”</p><p>“只有在我们醒着时，天才是真正的破晓。”</p><p>“我们总是以为，若是将我们的农场的篱笆拆掉，垒上石墙，我们的生活便自此有了边界，我们的命运也已经注定。”</p></blockquote><p><strong>合上书页，我的感悟如下：</strong></p><p>梭罗记述了他在瓦尔登湖旁林中小屋一年的生活，并表达了他对生活对自然的思考</p><ul><li>对生活，他觉得我们应该保持真正的自我，去听从自己内心的声音，而不是去紧随成功主义的步伐，他期望人们热爱生活，将生活简单化但并非无聊，我们不必为自己设立边界，应该勇敢地去探索每一种生活的可能，更要保持对他人生活的敬畏与尊重；</li><li>对自然，他追求的是“天人合一”是人与自然相协调，我们可以适度的改造自然但一定不要过度地对其索取</li></ul><p>他的文字，本身就是一道破晓的光，意在唤醒那些仍在黑夜中闭着双眼的人。</p><p>写完这些，发现今日的“读书半小时”尚有余裕，便去B站听了喜欢的Up主“<strong>拣尽南枝</strong>”对《瓦尔登湖》的解读。她梳理的超验主义与温和个人主义背景，为梭罗的孤独实验提供了更广阔的思想图景，让我对此书的理解更为圆融。</p><p>今天，是以一把理发剪开始，以一本合上的经典结束。梭罗离开了他的湖畔，而我，带着他关于“破晓”与“边界”的追问，回到了我的生活现场。</p>]]></content>
     
     
       
@@ -174,13 +222,13 @@
     <category term="日常闲谈" scheme="https://id-zy.github.io/categories/%E6%97%A5%E5%B8%B8%E9%97%B2%E8%B0%88/"/>
     
     
-    <category term="《瓦尔登湖》" scheme="https://id-zy.github.io/tags/%E3%80%8A%E7%93%A6%E5%B0%94%E7%99%BB%E6%B9%96%E3%80%8B/"/>
-    
     <category term="霜降" scheme="https://id-zy.github.io/tags/%E9%9C%9C%E9%99%8D/"/>
     
     <category term="计算机视觉" scheme="https://id-zy.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"/>
     
     <category term="足球" scheme="https://id-zy.github.io/tags/%E8%B6%B3%E7%90%83/"/>
+    
+    <category term="《瓦尔登湖》" scheme="https://id-zy.github.io/tags/%E3%80%8A%E7%93%A6%E5%B0%94%E7%99%BB%E6%B9%96%E3%80%8B/"/>
     
   </entry>
   
@@ -321,7 +369,7 @@
     <link href="https://id-zy.github.io/2025/05/20/%E5%B1%B1%E9%AB%98%E9%99%A9%E8%BF%9C%E6%80%95%E4%BA%BA%E7%99%BB/"/>
     <id>https://id-zy.github.io/2025/05/20/%E5%B1%B1%E9%AB%98%E9%99%A9%E8%BF%9C%E6%80%95%E4%BA%BA%E7%99%BB/</id>
     <published>2025-05-20T04:16:53.000Z</published>
-    <updated>2025-10-23T10:04:38.566Z</updated>
+    <updated>2025-10-28T06:46:33.952Z</updated>
     
     <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>昨天，中午吃饭时，找了部纪录片《徒手攀岩》观看，无它，只有惊险与震撼。</p><p>我都一直对极限运动抱有远观而不可亵渎的态度，比如滑板，翼装飞行，滑雪…还有”红牛大舞台，有命你就来”这样的</p><p>但这部电影告诉了我为什么有些人享受这个过程，正如主角亚历克斯所言：登顶，然后证明没有什么不可能，他们选择拓宽生命的宽度，选择身体紧绷时的独特体验，登顶后站在山顶，向来时路远眺，才发现当时的荆棘已然开满玫瑰，这是自然对每一个勇敢者的奖励。</p><p>冒险或者奇遇是每个少年人心中所向往的，渴望不一样的生活方式，渴望一睹光怪陆离的大千世界。也许，我们都需要大胆一点！</p><p>最后用贝尔格里尔斯（贝爷）的一句话结尾吧：<strong>少年，我的冒险结束了，轮到你了</strong></p>]]></content>
     
@@ -333,8 +381,10 @@
     
     
     
-    <category term="电影影评" scheme="https://id-zy.github.io/categories/%E7%94%B5%E5%BD%B1%E5%BD%B1%E8%AF%84/"/>
+    <category term="创作" scheme="https://id-zy.github.io/categories/%E5%88%9B%E4%BD%9C/"/>
     
+    
+    <category term="电影影评" scheme="https://id-zy.github.io/tags/%E7%94%B5%E5%BD%B1%E5%BD%B1%E8%AF%84/"/>
     
   </entry>
   
@@ -365,7 +415,7 @@
     <link href="https://id-zy.github.io/2025/05/18/%E3%80%8A%E9%AD%85%E5%BD%B1%E7%BC%9D%E5%8C%A0%E3%80%8B/"/>
     <id>https://id-zy.github.io/2025/05/18/%E3%80%8A%E9%AD%85%E5%BD%B1%E7%BC%9D%E5%8C%A0%E3%80%8B/</id>
     <published>2025-05-18T15:46:55.000Z</published>
-    <updated>2025-10-23T10:03:24.424Z</updated>
+    <updated>2025-10-28T06:46:13.521Z</updated>
     
     <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p> 昨日闲暇之时，不禁想找部电影看看。于是，我在豆瓣的爱情电影中找啊找，然后就看到一部名字让我十分感兴趣的电影《魅影缝匠》。这部电影讲述的内容如果让我像高中时看的《花火》一般描述的话就是来自城里的天才摄影师爱上乡下的餐厅服务员，见到的他第一眼便让她心动不已，以致于行动出错：而他也被她的神情与身姿所吸引，彼此磨合，相爱想杀。</p><p> 但真实的情况却是：导演将爱情中两种容易出现的欲望（控制欲和占有欲）进行了放大</p><p> 男主雷诺兹是个专门为王公贵族设计衣服的时装设计师，也是影名中缝匠的来源，因为职业的原因，他总是用打量和装扮的眼光看世界，一丝不苟，所以他在面对女主阿尔玛的时候，总是希望她永远是自己脑海的她，想要让她去迎合他，想要将她的世界摧毁后然后建立起自己的堡垒。但由于童年遭遇的原因，他又十分缺爱，在脆弱的时候，他表现得像个孩子，需要阿尔玛的照顾与疼爱，为了这种爱，他不惜一切代价，即使是吃下毒蘑菇。他说“在我生病前，吻我，爱人。”</p><p> 女主阿尔玛是乡下的餐厅服务员，她总是有点自卑，她讨厌自己身上的一切，觉得一无是处，但雷诺兹的衣服总是那么切合，让她显得那么完美。她沉浸其中，但由于悲观，她希望他需要他，她想要占有他的一切，最后她选择了下毒，她仔细研磨有毒的蘑菇，在雷诺兹的茶中种下她精心策划的爱情毒药，她获得了她预想中的一切，雷诺兹的需要，雷诺兹的爱，雷诺兹的世界。每当雷诺兹表现不需要她，她都会化身采蘑菇的小姑娘，在林间采摘一株株蘑菇，为爱人熬制永远沉沦爱情的魔药。</p><p> 最后我只想说小心蘑菇，以及在爱情中最重要的是自爱，只有爱自己，才不会陷入极端情绪的陷阱。</p>]]></content>
     
@@ -377,8 +427,10 @@
     
     
     
-    <category term="电影影评" scheme="https://id-zy.github.io/categories/%E7%94%B5%E5%BD%B1%E5%BD%B1%E8%AF%84/"/>
+    <category term="创作" scheme="https://id-zy.github.io/categories/%E5%88%9B%E4%BD%9C/"/>
     
+    
+    <category term="电影影评" scheme="https://id-zy.github.io/tags/%E7%94%B5%E5%BD%B1%E5%BD%B1%E8%AF%84/"/>
     
   </entry>
   
