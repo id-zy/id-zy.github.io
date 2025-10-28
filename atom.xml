@@ -6,7 +6,7 @@
   <link href="https://id-zy.github.io/atom.xml" rel="self"/>
   
   <link href="https://id-zy.github.io/"/>
-  <updated>2025-10-28T06:38:59.293Z</updated>
+  <updated>2025-10-28T15:10:25.779Z</updated>
   <id>https://id-zy.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>10.28 日常 | 新工具、旧随笔与地坛的回声</title>
+    <link href="https://id-zy.github.io/2025/10/28/10.28%E6%97%A5%E5%B8%B8/"/>
+    <id>https://id-zy.github.io/2025/10/28/10.28%E6%97%A5%E5%B8%B8/</id>
+    <published>2025-10-28T15:09:35.858Z</published>
+    <updated>2025-10-28T15:10:25.779Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>今天是个小小的“工具革新日”。早晨，我将 Markdown 写作环境从 Typora 迁移到了 Obsidian，期待这个以“链接”见长的编辑器，能为我未来的笔记网络带来新的可能。<br>随后，我学习了计算机视觉中“点算子”的基础知识，接着去上计算机安全导论。中午尝了新开的一家牛肉饭，味道很不错，算是今日份的小确幸。<br>回到寝室，预习了晚上微机原理上机的内容，随后在召唤师峡谷稍作放松。今日的战绩胜负参半，有碾压局的畅快，也有逆风局的坚持。</p><p><img src="https://pic1.imgdb.cn/item/6900681b3203f7be00aabfd7.png" alt="战绩"></p><p>下午，我静心整理了“点算子”的笔记，并将之前写的一篇随笔《印象最深刻的人》迁移到新的 Obsidian 库中。在整理与迁移中，仿佛也在重新梳理自己的思绪。</p><p><strong>新的阅读之旅，始于史铁生的《我与地坛》。</strong> 今天读完了开篇两章。</p><ul><li><strong>《我与地坛》</strong>：那个因双腿残疾而将地坛作为心灵容器的青年，在寂静的园子里，与形形色色的路人相遇，也与生命最根本的问题劈面相遇——关于生死，关于为何写作。最动人心魄的，是他对母亲那份迟来的理解与深沉的愧疚，以及他对“幸福与不幸”相对相生的辩证思考。</li><li><strong>《我二十一岁那年》</strong>：在友谊医院的病床上，身体的禁锢反而让他更清晰地看见了人间的温度。医生的救治、护士的照看、病友的闲谈、朋友的探望，这些具体的“友谊”，成了他选择活下去的其中一个理由。</li></ul><p>他的文字，不是在控诉命运，而是在破碎中捡拾光点，在绝境里开凿通道。</p><p>傍晚，我迫不及待地观看了 HLE 与 GEN 的八强对决。七点，准时前往实验楼完成微机原理的实验。九点归来，准备再用一局 LOL 犒劳认真了一天的自己。</p><p>今天，是在新工具与旧文字、技术逻辑与文学沉思、实验室与电竞场之间穿梭的一天。史铁生在地坛中寻找他的路，而我也在日复一日的寻常里，摸索着自己的节奏。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="日常闲谈" scheme="https://id-zy.github.io/categories/%E6%97%A5%E5%B8%B8%E9%97%B2%E8%B0%88/"/>
+    
+    
+    <category term="微机原理" scheme="https://id-zy.github.io/tags/%E5%BE%AE%E6%9C%BA%E5%8E%9F%E7%90%86/"/>
+    
+    <category term="我与地坛" scheme="https://id-zy.github.io/tags/%E6%88%91%E4%B8%8E%E5%9C%B0%E5%9D%9B/"/>
+    
+  </entry>
   
   <entry>
     <title>点算子</title>
