@@ -6,7 +6,7 @@
   <link href="https://id-zy.github.io/atom.xml" rel="self"/>
   
   <link href="https://id-zy.github.io/"/>
-  <updated>2025-10-28T15:10:25.779Z</updated>
+  <updated>2025-10-29T14:10:36.396Z</updated>
   <id>https://id-zy.github.io/</id>
   
   <author>
@@ -15,6 +15,78 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>决策树分类法</title>
+    <link href="https://id-zy.github.io/2025/10/29/%E5%86%B3%E7%AD%96%E6%A0%91%E5%BD%92%E7%BA%B3/"/>
+    <id>https://id-zy.github.io/2025/10/29/%E5%86%B3%E7%AD%96%E6%A0%91%E5%BD%92%E7%BA%B3/</id>
+    <published>2025-10-29T15:00:45.720Z</published>
+    <updated>2025-10-29T14:10:36.396Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="决策树分类法"><a href="#决策树分类法" class="headerlink" title="决策树分类法"></a>决策树分类法</h3><p> 树的节点：<br>         1.根节点：没有入边但有零条或多条出边<br>         2.内部节点：恰有一条入边和两条或多条出边<br>         3.叶节点：恰有一条入边，没有中边<br>工作原理：<br>        每个叶节点都赋予一个类标号。非终结点则包含属性测试条件，用以分开具有不同特性的记录</p><h3 id="决策树的建立"><a href="#决策树的建立" class="headerlink" title="决策树的建立"></a>决策树的建立</h3><p> Hunt算法<br>   思想：通过将训练记录相继划分成较纯的子集，以递归方式建立决策树。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="data mining" scheme="https://id-zy.github.io/categories/data-mining/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>分类的概念和技术</title>
+    <link href="https://id-zy.github.io/2025/10/29/%E5%88%86%E7%B1%BB/"/>
+    <id>https://id-zy.github.io/2025/10/29/%E5%88%86%E7%B1%BB/</id>
+    <published>2025-10-29T15:00:45.719Z</published>
+    <updated>2025-10-29T13:58:57.204Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>定义：确定对象属于哪个预定义的目标类<br>输入数据：分类任务的数据是记录的集合<br>记录：实例或样例，用元组（x,y)表示；x是属性的集合，y则是一个特殊的属性，指出样例的类标号<br><strong>区别分类与回归的关键特征</strong>: 类标号必须为离散属性<br>分类任务：通过学习得到一个目标函数f，把每个属性集x映射到一个预先定义的类标号y<br>目标函数（分类模型)可用于以下目的：<br>                 1.描述性建模<br>                 2.预测性建模</p><h3 id="分类技术"><a href="#分类技术" class="headerlink" title="分类技术"></a>分类技术</h3><p>定义：根据输入数据集建立分类模型的系统方法<br>例子：决策树分类法、基于规则的分类法、神经网络、支持向量机、朴素贝叶斯分类法<br>一般方法：<br>         首先，需要一个训练集，由类标号已知的记录组成<br>         然后，使用训练集建立分类模型<br>         最后，分类模型随后将运用于检验集（检验集有类标号未知的记录组成）<br>分类模型的性能:<br>  评判：根据模型正确和错误预测的检验记录计数（存放于混淆矩阵的表格中）进行评估<br>  性能度量：<br>$$<br>         1.准确率 &#x3D;正确预测数&#x2F;预测总数&#x3D;f11+f00&#x2F;(f11+f10+f01+f00)<br>$$<br>$$<br>2.错误率：错误预测数&#x2F;预测总数&#x3D;f10+f01&#x2F;(f11+f10+f01+f00)<br>$$</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="data mining" scheme="https://id-zy.github.io/categories/data-mining/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>10.29 日常 | 游戏、比赛与地坛的记忆</title>
+    <link href="https://id-zy.github.io/2025/10/29/10.29%E6%97%A5%E5%B8%B8/"/>
+    <id>https://id-zy.github.io/2025/10/29/10.29%E6%97%A5%E5%B8%B8/</id>
+    <published>2025-10-29T15:00:27.988Z</published>
+    <updated>2025-10-29T14:59:36.831Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>今天上午上完微机原理课，便迎来了一个空闲的白天。回到寝室，索性沉浸在英雄联盟的世界里，从午后一直到天色渐晚。</p><p>五点多，和朋友特意去了另一个食堂换换口味。晚饭后，看了KT与CFO的比赛，又回顾了T1的对局，学习Faker沙皇的操作，那伤害确实有点爆炸。</p><p>游戏与比赛过后，是静心学习的时段。学了一会儿数据挖掘，并整理了部分笔记（分类与决策树归纳）。</p><p>随后，进入今天的阅读时光。今天的进度停留在《我与地坛》的第九章——<strong>《记忆与印象》</strong>。</p><p>作者回忆了自己与母亲的相处、与好友L的童年时光，以及其他一些印象深刻的人。隽永的文字中，满含对母亲的深切思念。</p><p>在今天的阅读中，作者提出了一个深刻的观点：人活着必须要有意义，因为人与意义本就是一体的。至于追求何种意义，则是个人的选择。他还阐释道，我们应当理解并珍视自己生活中的幸福，因为每种生活都有其自身的缺陷。<strong>活在自己的生活里，并尊重它，或许才是最好的选择。</strong></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="日常闲谈" scheme="https://id-zy.github.io/categories/%E6%97%A5%E5%B8%B8%E9%97%B2%E8%B0%88/"/>
+    
+    
+    <category term="我与地坛" scheme="https://id-zy.github.io/tags/%E6%88%91%E4%B8%8E%E5%9C%B0%E5%9D%9B/"/>
+    
+    <category term="生活哲思" scheme="https://id-zy.github.io/tags/%E7%94%9F%E6%B4%BB%E5%93%B2%E6%80%9D/"/>
+    
+    <category term="个人成长" scheme="https://id-zy.github.io/tags/%E4%B8%AA%E4%BA%BA%E6%88%90%E9%95%BF/"/>
+    
+  </entry>
   
   <entry>
     <title>10.28 日常 | 新工具、旧随笔与地坛的回声</title>
@@ -432,52 +504,6 @@
     
     
     <category term="复习笔记" scheme="https://id-zy.github.io/categories/%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>《魅影缝匠》</title>
-    <link href="https://id-zy.github.io/2025/05/18/%E3%80%8A%E9%AD%85%E5%BD%B1%E7%BC%9D%E5%8C%A0%E3%80%8B/"/>
-    <id>https://id-zy.github.io/2025/05/18/%E3%80%8A%E9%AD%85%E5%BD%B1%E7%BC%9D%E5%8C%A0%E3%80%8B/</id>
-    <published>2025-05-18T15:46:55.000Z</published>
-    <updated>2025-10-28T06:46:13.521Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p> 昨日闲暇之时，不禁想找部电影看看。于是，我在豆瓣的爱情电影中找啊找，然后就看到一部名字让我十分感兴趣的电影《魅影缝匠》。这部电影讲述的内容如果让我像高中时看的《花火》一般描述的话就是来自城里的天才摄影师爱上乡下的餐厅服务员，见到的他第一眼便让她心动不已，以致于行动出错：而他也被她的神情与身姿所吸引，彼此磨合，相爱想杀。</p><p> 但真实的情况却是：导演将爱情中两种容易出现的欲望（控制欲和占有欲）进行了放大</p><p> 男主雷诺兹是个专门为王公贵族设计衣服的时装设计师，也是影名中缝匠的来源，因为职业的原因，他总是用打量和装扮的眼光看世界，一丝不苟，所以他在面对女主阿尔玛的时候，总是希望她永远是自己脑海的她，想要让她去迎合他，想要将她的世界摧毁后然后建立起自己的堡垒。但由于童年遭遇的原因，他又十分缺爱，在脆弱的时候，他表现得像个孩子，需要阿尔玛的照顾与疼爱，为了这种爱，他不惜一切代价，即使是吃下毒蘑菇。他说“在我生病前，吻我，爱人。”</p><p> 女主阿尔玛是乡下的餐厅服务员，她总是有点自卑，她讨厌自己身上的一切，觉得一无是处，但雷诺兹的衣服总是那么切合，让她显得那么完美。她沉浸其中，但由于悲观，她希望他需要他，她想要占有他的一切，最后她选择了下毒，她仔细研磨有毒的蘑菇，在雷诺兹的茶中种下她精心策划的爱情毒药，她获得了她预想中的一切，雷诺兹的需要，雷诺兹的爱，雷诺兹的世界。每当雷诺兹表现不需要她，她都会化身采蘑菇的小姑娘，在林间采摘一株株蘑菇，为爱人熬制永远沉沦爱情的魔药。</p><p> 最后我只想说小心蘑菇，以及在爱情中最重要的是自爱，只有爱自己，才不会陷入极端情绪的陷阱。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    <category term="创作" scheme="https://id-zy.github.io/categories/%E5%88%9B%E4%BD%9C/"/>
-    
-    
-    <category term="电影影评" scheme="https://id-zy.github.io/tags/%E7%94%B5%E5%BD%B1%E5%BD%B1%E8%AF%84/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>我们是冠军！</title>
-    <link href="https://id-zy.github.io/2025/05/18/%E6%88%91%E4%BB%AC%E6%98%AF%E5%86%A0%E5%86%9B%EF%BC%81/"/>
-    <id>https://id-zy.github.io/2025/05/18/%E6%88%91%E4%BB%AC%E6%98%AF%E5%86%A0%E5%86%9B%EF%BC%81/</id>
-    <published>2025-05-18T07:12:11.000Z</published>
-    <updated>2025-10-23T10:04:50.935Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>经过21天的艰苦练习，我们获得了最终的校园集体舞蹈大赛冠军称号。尽管去年已经拿过一次冠军，但当身边的人一起喊出那句”我们是冠军！”心中仍然是澎湃不已。不仅仅只是因为这次比赛，还是因为想起的18年的IG，那年他们终于捧起了属于lpl的第一个世界冠军”翻过这座山。你就会听到他们的故事“<br>不过，这次体验让我更有体悟的是，人真的是经历越多，才能体会更多，很多以前在影视中在文字里不能理解的情绪爆发也慢慢有了自己的认知。未来的世界很精彩，值得一观！<br>好久没有写过东西了，感觉表达能力都下降了.</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    <category term="日常闲谈" scheme="https://id-zy.github.io/categories/%E6%97%A5%E5%B8%B8%E9%97%B2%E8%B0%88/"/>
     
     
   </entry>
