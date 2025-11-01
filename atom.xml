@@ -6,7 +6,7 @@
   <link href="https://id-zy.github.io/atom.xml" rel="self"/>
   
   <link href="https://id-zy.github.io/"/>
-  <updated>2025-10-31T12:22:55.861Z</updated>
+  <updated>2025-11-01T09:30:56.475Z</updated>
   <id>https://id-zy.github.io/</id>
   
   <author>
@@ -15,6 +15,84 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>属性测试条件的方法</title>
+    <link href="https://id-zy.github.io/2025/11/01/%E5%B1%9E%E6%80%A7%E6%B5%8B%E8%AF%95%E6%9D%A1%E4%BB%B6/"/>
+    <id>https://id-zy.github.io/2025/11/01/%E5%B1%9E%E6%80%A7%E6%B5%8B%E8%AF%95%E6%9D%A1%E4%BB%B6/</id>
+    <published>2025-11-01T15:06:11.664Z</published>
+    <updated>2025-11-01T09:30:56.475Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>决策树归纳算法必须为不同类型的属性提供表示属性测试条件和其对应输出的方法</p><h5 id="二元属性"><a href="#二元属性" class="headerlink" title="二元属性"></a>二元属性</h5><p>二元属性的测试条件产生两个可能的输出</p><h5 id="标称属性"><a href="#标称属性" class="headerlink" title="标称属性"></a>标称属性</h5><p>由于标称属性有多个属性值，他的测试条件可以用两种方法表示，对于多路划分，其输出数取决于该属性不同属性值的个数；某些决策树算法只产生二元划分，它们考虑创建k个属性值的二元划分的所有$2^{k-1}-1$种方法。</p><h5 id="序数属性"><a href="#序数属性" class="headerlink" title="序数属性"></a>序数属性</h5><p>序数属性也可以产生二元或多路划分，只要不违背序数属性值的有序性，就可以对属性值进行分组</p><h5 id="连续属性"><a href="#连续属性" class="headerlink" title="连续属性"></a>连续属性</h5><p>对于连续属性来说，测试条件可以是有二元输出的比较测试（$A&lt;v$)或($A&gt;&#x3D;v$),也可以是具有形如vi&lt;&#x3D;A&lt;vi+1输出的范围查询。对于二元划分，决策树算法必须考虑到所有可能的划分点v，并从中选择产生最佳划分的点。对于多路划分，算法必须考虑所有可能的连续值区间。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="data mining" scheme="https://id-zy.github.io/categories/data-mining/"/>
+    
+    
+    <category term="数据挖掘" scheme="https://id-zy.github.io/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/"/>
+    
+    <category term="决策树归纳" scheme="https://id-zy.github.io/tags/%E5%86%B3%E7%AD%96%E6%A0%91%E5%BD%92%E7%BA%B3/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>选择最佳划分的度量</title>
+    <link href="https://id-zy.github.io/2025/11/01/%E6%9C%80%E4%BD%B3%E5%88%92%E5%88%86/"/>
+    <id>https://id-zy.github.io/2025/11/01/%E6%9C%80%E4%BD%B3%E5%88%92%E5%88%86/</id>
+    <published>2025-11-01T15:06:11.659Z</published>
+    <updated>2025-11-01T09:40:44.388Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="核心思想"><a href="#核心思想" class="headerlink" title="核心思想"></a>核心思想</h3><p>对于连续属性，我们不可能像离散属性那样枚举所有可能的值作为分支。取而代之的是，我们将连续值排序，然后考虑<strong>一系列候选划分点</strong>，并找到一个能产生“最佳”子集的划分点。</p><h3 id="关键度量标准"><a href="#关键度量标准" class="headerlink" title="关键度量标准"></a>关键度量标准</h3><p>衡量“最佳”划分的度量标准主要有三个，它们都旨在衡量划分后子集的“纯度”提升。</p><h4 id="1-信息增益-基于信息熵"><a href="#1-信息增益-基于信息熵" class="headerlink" title="1. 信息增益 - 基于信息熵"></a>1. 信息增益 - 基于信息熵</h4><p>这是最经典的度量，用于<strong>ID3、C4.5</strong>等算法。</p><ul><li><p><strong>信息熵：</strong> 度量数据集 <code>D</code> 的不确定性（混乱程度）。<br>$Entropy(D) &#x3D; -Σ (p_i * log₂(p_i))$<br>其中 $p_i$ 是数据集中第 <code>i</code> 类样本所占的比例。熵越高，数据越混乱。</p></li><li><p><strong>信息增益：</strong> 使用属性 $A$在划分点 $t$进行划分后，数据集不确定性减少的程度。<br>$IG(D, A, t) &#x3D; Entropy(D) - Σ (|D_v| &#x2F; |D|) * Entropy(D_v)$<br>其中 $D_v$ 是划分后产生的子集（对于二分法，通常是两个子集：$D_left (A ≤ t) 和 D_right(A &gt; t)$。</p></li><li><p><strong>选择标准：</strong> <strong>选择能带来最大信息增益的那个划分点 <code>t</code></strong>。<br>$Best_split &#x3D; argmax(IG(D, A, t))$</p></li></ul><p><strong>缺点：</strong> 信息增益倾向于选择取值较多的属性（即使这个属性与分类无关），因为它更容易产生“纯”的子集。</p><h4 id="2-信息增益率-对信息增益的改进"><a href="#2-信息增益率-对信息增益的改进" class="headerlink" title="2. 信息增益率 - 对信息增益的改进"></a>2. 信息增益率 - 对信息增益的改进</h4><p>用于<strong>C4.5</strong>算法，以克服信息增益的缺点。</p><ul><li><p><strong>固有信息：</strong> 属性 <code>A</code> 在划分点 <code>t</code> 进行划分时本身产生的信息量。<br>$IV(D, A, t) &#x3D; -Σ (|D_v| &#x2F; |D|) * log₂(|D_v| &#x2F; |D|)$</p></li><li><p><strong>信息增益率：</strong><br>$Gain_ratio(D, A, t) &#x3D; IG(D, A, t) &#x2F; IV(D, A, t)$</p></li><li><p><strong>选择标准：</strong> <strong>选择具有最高信息增益率的划分点</strong>。</p></li></ul><p><strong>作用：</strong> 固有信息 <code>IV</code> 会惩罚那些取值很多、划分得很细的属性，从而避免了模型过拟合。</p><h4 id="3-基尼不纯度-用于CART算法"><a href="#3-基尼不纯度-用于CART算法" class="headerlink" title="3. 基尼不纯度 - 用于CART算法"></a>3. 基尼不纯度 - 用于CART算法</h4><p>CART（分类与回归树）算法使用基尼不纯度来构建二叉树。</p><ul><li><p><strong>基尼不纯度：</strong> 度量从数据集中随机抽取两个样本，其类别标签不一致的概率。基尼值越小，数据集越纯。<br>$Gini(D) &#x3D; 1 - Σ (p_i)²$</p></li><li><p><strong>基尼增益：</strong> 划分后基尼不纯度的减少量。通常我们直接计算划分后的加权基尼值，并寻找最小值。<br>$Gini_after_split &#x3D; Σ (|D_v| &#x2F; |D|) * Gini(D_v)$</p></li><li><p><strong>选择标准：</strong> <strong>选择能使划分后子集的加权基尼不纯度最小的那个划分点 <code>t</code></strong>。<br>$Best_split &#x3D; argmin(Gini_after_split)$</p></li></ul><p><strong>特点：</strong> 基尼不纯度的计算不涉及对数运算，因此计算效率通常比信息熵高。</p><hr><h3 id="寻找连续属性最佳划分点的具体步骤"><a href="#寻找连续属性最佳划分点的具体步骤" class="headerlink" title="寻找连续属性最佳划分点的具体步骤"></a>寻找连续属性最佳划分点的具体步骤</h3><p>假设我们有一个连续属性 <code>A</code>（例如“年龄”），和目标变量 <code>y</code>（例如“是否购买”）。</p><ol><li><p><strong>排序：</strong></p><ul><li>首先，根据属性 <code>A</code> 的值对数据集中的所有样本进行升序排序。</li></ul></li><li><p><strong>生成候选划分点：</strong></p><ul><li>通常，候选划分点取为连续值之间<strong>中点</strong>。例如，如果排序后的 <code>A</code> 值是 <code>[10, 15, 20, 25]</code>，那么候选划分点就是 <code>(10+15)/2 = 12.5</code>, <code>(15+20)/2 = 17.5</code>, <code>(20+25)/2 = 22.5</code>。</li><li><em>为什么是中点？</em> 因为对于任何在两个不同值 $a_i$和 $a_{i+1}$ 之间的阈值 <code>t</code>，其划分结果都是一样的。选择中点作为代表即可。</li></ul></li><li><p><strong>评估每个候选划分点：</strong></p><ul><li>对于每一个候选划分点 <code>t</code>，将数据集划分为两个子集：<ul><li>$D_left$: 满足 $A ≤ t$ 的样本</li><li>$D_right$: 满足 $A &gt; t$ 的样本</li></ul></li><li>使用选定的度量标准（如信息增益、基尼增益等）计算这个划分的“得分”。</li></ul></li><li><p><strong>选择最佳划分点：</strong></p><ul><li>比较所有候选划分点的得分，<strong>选择得分最高的那个点</strong>作为属性 <code>A</code> 的最佳划分点。</li><li>同时记录下这个最佳得分。</li></ul></li><li><p><strong>与其他属性比较：</strong></p><ul><li>对数据集中的每一个属性（包括其他连续属性和离散属性）都重复步骤1-4，找到每个属性的最佳划分点及其得分。</li><li>最终，<strong>从所有属性中选出得分最高的那个属性</strong>，作为当前节点的划分标准。</li></ul></li></ol><h3 id="举例说明（使用基尼不纯度）"><a href="#举例说明（使用基尼不纯度）" class="headerlink" title="举例说明（使用基尼不纯度）"></a>举例说明（使用基尼不纯度）</h3><p>假设我们有如下数据，要基于“年龄”预测“是否玩游戏”：</p><table><thead><tr><th align="left">年龄</th><th align="left">是否玩游戏</th></tr></thead><tbody><tr><td align="left">10</td><td align="left">否</td></tr><tr><td align="left">15</td><td align="left">否</td></tr><tr><td align="left">20</td><td align="left">是</td></tr><tr><td align="left">25</td><td align="left">是</td></tr></tbody></table><ol><li><p><strong>排序：</strong> 年龄已排序 <code>[10, 15, 20, 25]</code>。</p></li><li><p><strong>候选点：</strong> <code>12.5, 17.5, 22.5</code>。</p></li><li><p><strong>评估：</strong></p><ul><li><strong>划分点 t &#x3D; 12.5</strong>：<ul><li><code>D_left (A≤12.5)</code>: <code>[10]</code> -&gt; 类别 <code>[否]</code>， Gini &#x3D; 1 - (1² + 0²) &#x3D; 0</li><li><code>D_right (A&gt;12.5)</code>: <code>[15,20,25]</code> -&gt; 类别 <code>[否,是,是]</code>， Gini &#x3D; 1 - ((1&#x2F;3)² + (2&#x2F;3)²) &#x3D; 1 - (1&#x2F;9 + 4&#x2F;9) &#x3D; 4&#x2F;9 ≈ 0.444</li><li>加权基尼 &#x3D; (1&#x2F;4)<em>0 + (3&#x2F;4)</em>(4&#x2F;9) ≈ <strong>0.333</strong></li></ul></li><li><strong>划分点 t &#x3D; 17.5</strong>：<ul><li><code>D_left</code>: <code>[10,15]</code> -&gt; <code>[否,否]</code>， Gini &#x3D; 0</li><li><code>D_right</code>: <code>[20,25]</code> -&gt; <code>[是,是]</code>， Gini &#x3D; 0</li><li>加权基尼 &#x3D; (2&#x2F;4)*0 + (2&#x2F;4)*0 &#x3D; <strong>0</strong> （这是一个完美划分！）</li></ul></li><li><strong>划分点 t &#x3D; 22.5</strong>： …（计算过程略，其加权基尼值会大于0）</li></ul></li><li><p><strong>选择：</strong> 比较发现，划分点 <code>t=17.5</code> 的加权基尼值最小（为0），因此我们选择它作为“年龄”属性的最佳划分点。规则就是：<code>如果年龄 ≤ 17.5， 预测“否”； 否则预测“是”</code>。</p></li></ol><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><table><thead><tr><th align="left">度量标准</th><th align="left">核心思想</th><th align="left">常用算法</th><th align="left">选择目标</th></tr></thead><tbody><tr><td align="left"><strong>信息增益</strong></td><td align="left">划分后不确定性（熵）的减少量</td><td align="left">ID3</td><td align="left"><strong>最大化</strong>信息增益</td></tr><tr><td align="left"><strong>信息增益率</strong></td><td align="left">信息增益 &#x2F; 划分本身的固有信息</td><td align="left">C4.5</td><td align="left"><strong>最大化</strong>信息增益率</td></tr><tr><td align="left"><strong>基尼增益</strong></td><td align="left">划分后不纯度（基尼）的减少量</td><td align="left">CART</td><td align="left"><strong>最小化</strong>划分后的加权基尼不纯度</td></tr></tbody></table><p>对于连续属性，通过这种“排序-试探-评估”的流程，决策树能够高效地将其离散化，并找到最有区分能力的划分点。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="data mining" scheme="https://id-zy.github.io/categories/data-mining/"/>
+    
+    
+    <category term="数据挖掘" scheme="https://id-zy.github.io/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/"/>
+    
+    <category term="决策树归纳" scheme="https://id-zy.github.io/tags/%E5%86%B3%E7%AD%96%E6%A0%91%E5%BD%92%E7%BA%B3/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>11.1 日常 | 在游戏的酣畅与《窄门》的爱情之间</title>
+    <link href="https://id-zy.github.io/2025/11/01/11.1%E6%97%A5%E5%B8%B8/"/>
+    <id>https://id-zy.github.io/2025/11/01/11.1%E6%97%A5%E5%B8%B8/</id>
+    <published>2025-11-01T15:05:55.335Z</published>
+    <updated>2025-11-01T15:05:27.423Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>今天是周六，难得没有早课，却也在九点自然醒来。没有急着起床，放任自己沉浸在假期的松弛里，随后便进入召唤师峡谷，从上午一直酣战到午后两点多。</p><p>有些倦了，便上床小憩片刻。四点半醒来，一边观看 KT 与 GEN 的激烈对决，一边整理这段时间落下的笔记。KT 以 3:1 战胜 GEN，这个结果多少有些令人意外——在我原本的印象中，他们似乎是 LCK 四支队伍中实力最弱的一支。比赛的不可预测，或许正是其魅力所在。</p><p>晚间继续在英雄联盟中放松，直到十点半。随后，是每日例行的阅读时光。今天翻开的是《窄门》。</p><p>爱情，果然是文学中永恒的主题。《窄门》将男女初入爱河时那种细腻、矛盾又真实的心理刻画得淋漓尽致，也清晰地呈现了双方对爱情理解的差异：男性在情感萌发时，往往只看见眼前的幸福与光亮；而女性则更早地感知到背后的责任与重量。</p><p>这也不禁让人联想到现实——在爱情中，我们似乎常常走向两个极端：要么沉溺于一时的欢愉，不去思考未来；要么过早地被尚未到来的难题困住脚步，忘却了当下相爱的本心。</p><p>如何在“此刻”与“未来”之间找到那扇“窄门”，或许正是我们在爱中终其一生要学习的功课。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="日常闲谈" scheme="https://id-zy.github.io/categories/%E6%97%A5%E5%B8%B8%E9%97%B2%E8%B0%88/"/>
+    
+    
+    <category term="英雄联盟" scheme="https://id-zy.github.io/tags/%E8%8B%B1%E9%9B%84%E8%81%94%E7%9B%9F/"/>
+    
+    <category term="《窄门》" scheme="https://id-zy.github.io/tags/%E3%80%8A%E7%AA%84%E9%97%A8%E3%80%8B/"/>
+    
+  </entry>
   
   <entry>
     <title>10.31 日常 | 与地坛告别</title>
@@ -36,9 +114,9 @@
     <category term="日常闲谈" scheme="https://id-zy.github.io/categories/%E6%97%A5%E5%B8%B8%E9%97%B2%E8%B0%88/"/>
     
     
-    <category term="我与地坛" scheme="https://id-zy.github.io/tags/%E6%88%91%E4%B8%8E%E5%9C%B0%E5%9D%9B/"/>
-    
     <category term="英雄联盟" scheme="https://id-zy.github.io/tags/%E8%8B%B1%E9%9B%84%E8%81%94%E7%9B%9F/"/>
+    
+    <category term="我与地坛" scheme="https://id-zy.github.io/tags/%E6%88%91%E4%B8%8E%E5%9C%B0%E5%9D%9B/"/>
     
   </entry>
   
@@ -71,9 +149,9 @@
     <link href="https://id-zy.github.io/2025/10/29/%E5%86%B3%E7%AD%96%E6%A0%91%E5%BD%92%E7%BA%B3/"/>
     <id>https://id-zy.github.io/2025/10/29/%E5%86%B3%E7%AD%96%E6%A0%91%E5%BD%92%E7%BA%B3/</id>
     <published>2025-10-29T15:00:45.720Z</published>
-    <updated>2025-10-29T14:10:36.396Z</updated>
+    <updated>2025-11-01T09:08:41.264Z</updated>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="决策树分类法"><a href="#决策树分类法" class="headerlink" title="决策树分类法"></a>决策树分类法</h3><p> 树的节点：<br>         1.根节点：没有入边但有零条或多条出边<br>         2.内部节点：恰有一条入边和两条或多条出边<br>         3.叶节点：恰有一条入边，没有中边<br>工作原理：<br>        每个叶节点都赋予一个类标号。非终结点则包含属性测试条件，用以分开具有不同特性的记录</p><h3 id="决策树的建立"><a href="#决策树的建立" class="headerlink" title="决策树的建立"></a>决策树的建立</h3><p> Hunt算法<br>   思想：通过将训练记录相继划分成较纯的子集，以递归方式建立决策树。</p>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="决策树分类法"><a href="#决策树分类法" class="headerlink" title="决策树分类法"></a>决策树分类法</h3><p> 树的节点：<br>         1.根节点：没有入边但有零条或多条出边<br>         2.内部节点：恰有一条入边和两条或多条出边<br>         3.叶节点：恰有一条入边，没有中边<br>工作原理：<br>        每个叶节点都赋予一个类标号。非终结点则包含属性测试条件，用以分开具有不同特性的记录</p><h3 id="决策树的建立"><a href="#决策树的建立" class="headerlink" title="决策树的建立"></a>决策树的建立</h3><p> Hunt算法<br>   思想：通过将训练记录相继划分成较纯的子集，以递归方式建立决策树。<br>   递归定义：设Dt是与节点t相关联的训练记录集，而y&#x3D;{y1,y2,…,yc}是类标号<br>          (1)如果Dt中所有记录都属于同一个类yt。则t是叶结点，用yt标记；<br>          (2)如果Dt中包含属于多个类的记录，则选择一个属性测试条件,将记录划分成较小的子集。对于测试条件的每个输出，创造一个子女节点，并根据测试结果将Dt中的记录分布到子女结点中。然后，对于每个子女结点。递归地调用该算法</p><h3 id="决策树归纳地设计问题"><a href="#决策树归纳地设计问题" class="headerlink" title="决策树归纳地设计问题"></a>决策树归纳地设计问题</h3><h4 id="1-如何分裂训练记录"><a href="#1-如何分裂训练记录" class="headerlink" title="(1)如何分裂训练记录"></a>(1)如何分裂训练记录</h4><p>  树增长过程的每个递归步都必须选择一个属性测试条件，将记录划分成较小的子集<br>  为了实现这个步骤，算法必须提供为不同类型的属性指定测试条件的方法，并且提供评估每种测试条件的客观度量</p><h4 id="2-如何停止分裂过程"><a href="#2-如何停止分裂过程" class="headerlink" title="(2)如何停止分裂过程"></a>(2)如何停止分裂过程</h4><p>  需要有结束条件，已终止决策树的生长过程。一个可能的策略是分裂结点，直到所有的记录都属于同一个类，或者所有的记录都具有相同的属性值。尽管两个结束条件对于结束决策树归纳算法都是充分的。但是还可以使用其他的标准提前终止树的生长过程。  </p>]]></content>
     
     
       
@@ -85,6 +163,12 @@
     
     <category term="data mining" scheme="https://id-zy.github.io/categories/data-mining/"/>
     
+    
+    <category term="数据挖掘" scheme="https://id-zy.github.io/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/"/>
+    
+    <category term="决策树归纳" scheme="https://id-zy.github.io/tags/%E5%86%B3%E7%AD%96%E6%A0%91%E5%BD%92%E7%BA%B3/"/>
+    
+    <category term="分类技术" scheme="https://id-zy.github.io/tags/%E5%88%86%E7%B1%BB%E6%8A%80%E6%9C%AF/"/>
     
   </entry>
   
@@ -370,13 +454,13 @@
     <category term="日常闲谈" scheme="https://id-zy.github.io/categories/%E6%97%A5%E5%B8%B8%E9%97%B2%E8%B0%88/"/>
     
     
-    <category term="《瓦尔登湖》" scheme="https://id-zy.github.io/tags/%E3%80%8A%E7%93%A6%E5%B0%94%E7%99%BB%E6%B9%96%E3%80%8B/"/>
-    
     <category term="霜降" scheme="https://id-zy.github.io/tags/%E9%9C%9C%E9%99%8D/"/>
     
     <category term="计算机视觉" scheme="https://id-zy.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"/>
     
     <category term="足球" scheme="https://id-zy.github.io/tags/%E8%B6%B3%E7%90%83/"/>
+    
+    <category term="《瓦尔登湖》" scheme="https://id-zy.github.io/tags/%E3%80%8A%E7%93%A6%E5%B0%94%E7%99%BB%E6%B9%96%E3%80%8B/"/>
     
   </entry>
   
@@ -442,72 +526,6 @@
     
     
     <category term="日常闲谈" scheme="https://id-zy.github.io/categories/%E6%97%A5%E5%B8%B8%E9%97%B2%E8%B0%88/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>计网期末复习二</title>
-    <link href="https://id-zy.github.io/2025/05/28/%E8%AE%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E4%BA%8C/"/>
-    <id>https://id-zy.github.io/2025/05/28/%E8%AE%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E4%BA%8C/</id>
-    <published>2025-05-28T10:27:17.000Z</published>
-    <updated>2025-10-23T10:04:02.188Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p> 第三章剩余部分</p><p><img src="https://pic1.imgdb.cn/item/683704f458cb8da5c816607b.jpg"></p><p><img src="https://pic1.imgdb.cn/item/683704f358cb8da5c8166079.jpg"></p><p>第四章</p><p><img src="https://pic1.imgdb.cn/item/683704f458cb8da5c816607c.jpg"></p><p><img src="https://pic1.imgdb.cn/item/683704f458cb8da5c816607a.jpg"></p><p><img src="https://pic1.imgdb.cn/item/683704f358cb8da5c8166078.jpg"></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    <category term="复习笔记" scheme="https://id-zy.github.io/categories/%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>OS系统习题复习二</title>
-    <link href="https://id-zy.github.io/2025/05/28/OS%E7%B3%BB%E7%BB%9F%E4%B9%A0%E9%A2%98%E5%A4%8D%E4%B9%A0%E4%BA%8C/"/>
-    <id>https://id-zy.github.io/2025/05/28/OS%E7%B3%BB%E7%BB%9F%E4%B9%A0%E9%A2%98%E5%A4%8D%E4%B9%A0%E4%BA%8C/</id>
-    <published>2025-05-28T10:26:42.000Z</published>
-    <updated>2025-10-23T10:03:48.622Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>   第四章</p><p><img src="https://pic1.imgdb.cn/item/6837046758cb8da5c8165e64.jpg"></p><p><img src="https://pic1.imgdb.cn/item/6837047058cb8da5c8165e9c.jpg"></p><p><img src="https://pic1.imgdb.cn/item/6837047058cb8da5c8165ea0.jpg"></p><p><img src="https://pic1.imgdb.cn/item/6837047058cb8da5c8165e9f.jpg"></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    <category term="复习笔记" scheme="https://id-zy.github.io/categories/%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>OS系统习题复习一</title>
-    <link href="https://id-zy.github.io/2025/05/26/OS%E7%B3%BB%E7%BB%9F%E4%B9%A0%E9%A2%98%E5%A4%8D%E4%B9%A0%E4%B8%80/"/>
-    <id>https://id-zy.github.io/2025/05/26/OS%E7%B3%BB%E7%BB%9F%E4%B9%A0%E9%A2%98%E5%A4%8D%E4%B9%A0%E4%B8%80/</id>
-    <published>2025-05-26T13:45:09.000Z</published>
-    <updated>2025-10-23T10:03:55.301Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p> 第一章</p><p><img src="https://pic1.imgdb.cn/item/6834711258cb8da5c80fad10.jpg"></p><p> 第二章</p><p><img src="https://pic1.imgdb.cn/item/6834711258cb8da5c80fad0e.jpg"></p><p> 第三章</p><p><img src="https://pic1.imgdb.cn/item/6834711258cb8da5c80fad0f.jpg"></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    <category term="复习笔记" scheme="https://id-zy.github.io/categories/%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
     
   </entry>
