@@ -188,9 +188,9 @@
     <category term="日常闲谈" scheme="https://id-zy.github.io/categories/%E6%97%A5%E5%B8%B8%E9%97%B2%E8%B0%88/"/>
     
     
-    <category term="英雄联盟" scheme="https://id-zy.github.io/tags/%E8%8B%B1%E9%9B%84%E8%81%94%E7%9B%9F/"/>
-    
     <category term="我与地坛" scheme="https://id-zy.github.io/tags/%E6%88%91%E4%B8%8E%E5%9C%B0%E5%9D%9B/"/>
+    
+    <category term="英雄联盟" scheme="https://id-zy.github.io/tags/%E8%8B%B1%E9%9B%84%E8%81%94%E7%9B%9F/"/>
     
   </entry>
   
@@ -288,11 +288,11 @@
     <category term="日常闲谈" scheme="https://id-zy.github.io/categories/%E6%97%A5%E5%B8%B8%E9%97%B2%E8%B0%88/"/>
     
     
-    <category term="生活哲思" scheme="https://id-zy.github.io/tags/%E7%94%9F%E6%B4%BB%E5%93%B2%E6%80%9D/"/>
+    <category term="我与地坛" scheme="https://id-zy.github.io/tags/%E6%88%91%E4%B8%8E%E5%9C%B0%E5%9D%9B/"/>
     
     <category term="个人成长" scheme="https://id-zy.github.io/tags/%E4%B8%AA%E4%BA%BA%E6%88%90%E9%95%BF/"/>
     
-    <category term="我与地坛" scheme="https://id-zy.github.io/tags/%E6%88%91%E4%B8%8E%E5%9C%B0%E5%9D%9B/"/>
+    <category term="生活哲思" scheme="https://id-zy.github.io/tags/%E7%94%9F%E6%B4%BB%E5%93%B2%E6%80%9D/"/>
     
   </entry>
   
@@ -528,13 +528,13 @@
     <category term="日常闲谈" scheme="https://id-zy.github.io/categories/%E6%97%A5%E5%B8%B8%E9%97%B2%E8%B0%88/"/>
     
     
-    <category term="《瓦尔登湖》" scheme="https://id-zy.github.io/tags/%E3%80%8A%E7%93%A6%E5%B0%94%E7%99%BB%E6%B9%96%E3%80%8B/"/>
-    
     <category term="霜降" scheme="https://id-zy.github.io/tags/%E9%9C%9C%E9%99%8D/"/>
     
     <category term="计算机视觉" scheme="https://id-zy.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"/>
     
     <category term="足球" scheme="https://id-zy.github.io/tags/%E8%B6%B3%E7%90%83/"/>
+    
+    <category term="《瓦尔登湖》" scheme="https://id-zy.github.io/tags/%E3%80%8A%E7%93%A6%E5%B0%94%E7%99%BB%E6%B9%96%E3%80%8B/"/>
     
   </entry>
   
