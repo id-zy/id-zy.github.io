@@ -6,7 +6,7 @@
   <link href="https://id-zy.github.io/atom.xml" rel="self"/>
   
   <link href="https://id-zy.github.io/"/>
-  <updated>2025-11-13T14:34:33.759Z</updated>
+  <updated>2025-11-14T11:19:03.182Z</updated>
   <id>https://id-zy.github.io/</id>
   
   <author>
@@ -15,6 +15,102 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>比赛中的配对次数</title>
+    <link href="https://id-zy.github.io/2025/11/14/%E9%A2%988/"/>
+    <id>https://id-zy.github.io/2025/11/14/%E9%A2%988/</id>
+    <published>2025-11-14T12:07:23.655Z</published>
+    <updated>2025-11-14T11:19:03.182Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="题目描述题目来源于leetcode"><a class="markdownIt-Anchor" href="#题目描述题目来源于leetcode"></a> 题目描述(题目来源于LeetCode)</h2><p>给你一个整数 <code>n</code> ，表示比赛中的队伍数。比赛遵循一种独特的赛制：</p><ul><li>如果当前队伍数是 <strong>偶数</strong> ，那么每支队伍都会与另一支队伍配对。总共进行 <code>n / 2</code> 场比赛，且产生 <code>n / 2</code> 支队伍进入下一轮。</li><li>如果当前队伍数为 <strong>奇数</strong> ，那么将会随机轮空并晋级一支队伍，其余的队伍配对。总共进行 <code>(n - 1) / 2</code> 场比赛，且产生 <code>(n - 1) / 2 + 1</code> 支队伍进入下一轮。<br />返回在比赛中进行的配对次数，直到决出获胜队伍为止。</li></ul><h2 id="代码实现"><a class="markdownIt-Anchor" href="#代码实现"></a> 代码实现</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">numberOfMatches</span>(<span class="params">self, n: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line"></span><br><span class="line">        x=<span class="number">0</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> n!=<span class="number">1</span>:</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> n%<span class="number">2</span>==<span class="number">0</span>:</span><br><span class="line"></span><br><span class="line">                x+=n//<span class="number">2</span></span><br><span class="line"></span><br><span class="line">                n=n//<span class="number">2</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line"></span><br><span class="line">                x+=(n-<span class="number">1</span>)//<span class="number">2</span></span><br><span class="line"></span><br><span class="line">                n=(n-<span class="number">1</span>)//<span class="number">2</span>+<span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure><h2 id="代码分析"><a class="markdownIt-Anchor" href="#代码分析"></a> 代码分析</h2><h3 id="算法思路"><a class="markdownIt-Anchor" href="#算法思路"></a> 算法思路</h3><p>代码采用迭代方法模拟比赛过程：</p><ol><li><p>初始化配对次数 <code>x</code> 为 0</p></li><li><p>当队伍数 <code>n</code> 大于 1 时循环：</p><ul><li><p>如果 <code>n</code> 是偶数：配对次数增加 <code>n/2</code>，下一轮队伍数为 <code>n/2</code></p></li><li><p>如果 <code>n</code> 是奇数：配对次数增加 <code>(n-1)/2</code>，下一轮队伍数为 <code>(n-1)/2 + 1</code></p></li></ul></li><li><p>当队伍数减少到 1 时，返回总配对次数</p></li></ol><h3 id="时间复杂度分析"><a class="markdownIt-Anchor" href="#时间复杂度分析"></a> 时间复杂度分析</h3><ul><li><p>时间复杂度：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>l</mi><mi>o</mi><mi>g</mi><mi>N</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(log N)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mclose">)</span></span></span></span></p><ul><li><p>每次迭代队伍数至少减半</p></li><li><p>最坏情况下需要 O(log N) 次迭代</p></li></ul></li><li><p>空间复杂度：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></p><ul><li>只使用了常数级别的额外空间</li></ul></li></ul><h3 id="代码正确性"><a class="markdownIt-Anchor" href="#代码正确性"></a> 代码正确性</h3><p>代码逻辑清晰，正确处理了奇偶两种情况：</p><ul><li><p>偶数情况：<code>x += n//2</code> 和 <code>n = n//2</code></p></li><li><p>奇数情况：<code>x += (n-1)//2</code> 和 <code>n = (n-1)//2 + 1</code></p></li></ul><h2 id="优化建议"><a class="markdownIt-Anchor" href="#优化建议"></a> 优化建议</h2><p>实际上，这个问题有一个数学上的封闭解：配对次数总是等于 <code>n-1</code>，因为每场比赛淘汰一支队伍，最终只剩一支冠军队伍。</p><p>可以直接简化为：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">numberOfMatches</span>(<span class="params">self, n: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">    <span class="keyword">return</span> n - <span class="number">1</span></span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="作业练习" scheme="https://id-zy.github.io/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
+    
+    
+    <category term="LeetCode" scheme="https://id-zy.github.io/tags/LeetCode/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>title: 11.14 日常 | 思考的终结与头像的暗示</title>
+    <link href="https://id-zy.github.io/2025/11/14/11.14%E6%97%A5%E5%B8%B8/"/>
+    <id>https://id-zy.github.io/2025/11/14/11.14%E6%97%A5%E5%B8%B8/</id>
+    <published>2025-11-14T12:07:13.707Z</published>
+    <updated>2025-11-14T12:06:05.481Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>今天，我读完了《思考，快与慢》这本书。它系统性地揭示了&quot;快思考&quot;（系统1）与&quot;慢思考&quot;（系统2）如何深刻影响我们的行为、心理与人生抉择。书中不仅剖析了多种常见的认知偏见——如锚定效应、可得性启发、过度自信等，也融入了丰富的经济学原理与统计学视角，让我意识到直觉在带来效率的同时，也可能成为误导的源头。</p><p>作者提醒我们，在生活中做重要决策时，既要<strong>警惕直觉可能带来的偏见</strong>，也要<strong>积极寻求外部意见作为参照</strong>，并尝试运用&quot;四重模型&quot;来系统分析得失。这不仅是一种思维方法，更是一种生活态度的转变——从被动反应到主动觉察。</p><p>今天的英语短文探讨了一个有趣的现象：在网络交流中，<strong>你的头像会不自觉地和你的文字内容绑定在一起</strong>，影响他人对你的感知。同一段话，配上不同的头像，可能传递出完全不同的情绪与可信度。文章还指出，频繁更换头像往往反映了生活中的变动——无论是出于自我调节的需要，还是内心波动的外显。<br /><img src="https://pic1.imgdb.cn/item/69171b533203f7be0003e424.jpg" alt="" /></p><p>晚上，我系统整理了微机原理第二章的笔记，重点梳理了8086/8088 CPU的基本结构与引脚特性，并总结了&quot;器件学习方法论&quot;：</p><ol><li><strong>功能了解</strong> → 2. <strong>引脚特性分析</strong> → 3. <strong>内部结构理解</strong> → 4. <strong>硬件电路设计</strong> → 5. <strong>软件编程实现</strong></li></ol><p>此外，我也完成了一道LeetCode题目——“比赛中的配对次数”。最初我使用循环模拟比赛过程，后来发现这个问题存在一个优美的数学本质：<strong>每场比赛淘汰一支队伍，因此总配对次数始终为 n-1</strong>。这让我再次体会到，跳出程序思维，从数学视角审视问题，往往能发现更简洁的本质解。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">numberOfMatches</span>(<span class="params">self, n: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">    <span class="keyword">return</span> n - <span class="number">1</span></span><br></pre></td></tr></table></figure><hr /><h3 id="每日三思"><a class="markdownIt-Anchor" href="#每日三思"></a> 💭 每日三思</h3><p><strong>技术思辨</strong></p><blockquote><p>当调试代码时遇到棘手bug，是相信&quot;系统1&quot;的直觉定位，还是启动&quot;系统2&quot;的系统性排查？——《思考，快与慢》提醒我们：<strong>直觉是经验的礼物，但系统性思考才是工程的基石</strong></p></blockquote><p><strong>网络心理学</strong></p><blockquote><p>我的微信头像传递了什么潜在信号？是无意识的自我表达，还是有意识的形象管理？这小小的图片背后，藏着我对&quot;被如何看待&quot;的何种期待？</p></blockquote><p><strong>学习方法</strong></p><blockquote><p>整理微机原理笔记时，是在机械重复书本内容，还是在构建属于自己的知识体系？<strong>真正的理解，发生在将他人知识重构为自己语言的那一刻</strong></p></blockquote><hr /><p><strong>一点感悟：</strong><br />读完《思考，快与慢》，我意识到在学习编程和硬件时，那些一闪而过的&quot;直觉解&quot;有时是经验带来的礼物，有时却是思维陷阱。而整理笔记、总结方法，正是调用&quot;慢思考&quot;对抗认知偏见的实践。我们不仅是在学技术，也是在训练自己如何清醒地思考。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="日常闲谈" scheme="https://id-zy.github.io/categories/%E6%97%A5%E5%B8%B8%E9%97%B2%E8%B0%88/"/>
+    
+    
+    <category term="《思考，快与慢》" scheme="https://id-zy.github.io/tags/%E3%80%8A%E6%80%9D%E8%80%83%EF%BC%8C%E5%BF%AB%E4%B8%8E%E6%85%A2%E3%80%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>8086/8088 CPU</title>
+    <link href="https://id-zy.github.io/2025/11/14/16(32)%E4%BD%8D%E5%BE%AE%E5%A4%84%E7%90%86%E5%99%A8/"/>
+    <id>https://id-zy.github.io/2025/11/14/16(32)%E4%BD%8D%E5%BE%AE%E5%A4%84%E7%90%86%E5%99%A8/</id>
+    <published>2025-11-14T12:07:03.851Z</published>
+    <updated>2025-11-14T12:00:05.196Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>运用上一部分学到的器件使用的学习方法研究8086 CPU</p><h3 id="8086功能了解"><a class="markdownIt-Anchor" href="#8086功能了解"></a> 8086功能了解</h3><ol><li><p>1978年，8086第一代16位微处理器。</p></li><li><p>第一次将流水线思想引进微处理器：指令级流水。</p></li><li><p>存储器分段管理机制引入处理器，扩大寻址能力。</p></li><li><p>只有整数运算指令。可配套数值协处理器8087、</p></li><li><p>输入/输出协处理器8089，具备较强大计算能力和I/O处理能力。</p></li><li><p>1979年推出8088，8位外部数据总线，兼容丰富的8位配套器件， 8088内部结构与8086基本相同。</p></li><li><p>基于8088微处理器的IBM PC-XT以及兼容系统。</p></li></ol><h3 id="8086引脚特性分析"><a class="markdownIt-Anchor" href="#8086引脚特性分析"></a> 8086引脚特性分析</h3><h4 id="8086引脚基本功能"><a class="markdownIt-Anchor" href="#8086引脚基本功能"></a> 8086引脚基本功能</h4><h5 id="1电源引脚"><a class="markdownIt-Anchor" href="#1电源引脚"></a> 1.电源引脚</h5><p>GND、VCC，工作电压为5V</p><h5 id="2时钟-复位"><a class="markdownIt-Anchor" href="#2时钟-复位"></a> 2.时钟、复位</h5><p>CLK =5MHZ<br />复位信号（高电平有效)</p><h5 id="3最小模式最大模式"><a class="markdownIt-Anchor" href="#3最小模式最大模式"></a> 3.最小模式/最大模式</h5><h5 id="4地址-数据线"><a class="markdownIt-Anchor" href="#4地址-数据线"></a> 4.地址、数据线</h5><h5 id="5高字节数据选择"><a class="markdownIt-Anchor" href="#5高字节数据选择"></a> 5.高字节数据选择</h5>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="微原" scheme="https://id-zy.github.io/categories/%E5%BE%AE%E5%8E%9F/"/>
+    
+    
+    <category term="微机原理" scheme="https://id-zy.github.io/tags/%E5%BE%AE%E6%9C%BA%E5%8E%9F%E7%90%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>学习器件使用的方法</title>
+    <link href="https://id-zy.github.io/2025/11/14/%E5%99%A8%E4%BB%B6%E4%BD%BF%E7%94%A8/"/>
+    <id>https://id-zy.github.io/2025/11/14/%E5%99%A8%E4%BB%B6%E4%BD%BF%E7%94%A8/</id>
+    <published>2025-11-14T12:07:03.849Z</published>
+    <updated>2025-11-14T11:46:29.404Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="学习器件使用的方法"><a class="markdownIt-Anchor" href="#学习器件使用的方法"></a> 学习器件使用的方法</h2><h3 id="器件功能了解"><a class="markdownIt-Anchor" href="#器件功能了解"></a> 器件功能了解</h3><h3 id="器件引脚特性分析"><a class="markdownIt-Anchor" href="#器件引脚特性分析"></a> 器件引脚特性分析</h3><h4 id="引脚的功能"><a class="markdownIt-Anchor" href="#引脚的功能"></a> 引脚的功能</h4><p>引脚信号的定义、作用；<br />通常采用英文单词或其缩写表示</p><h4 id="信号的方向"><a class="markdownIt-Anchor" href="#信号的方向"></a> 信号的方向</h4><p>信号从芯片向外输出，还是从外部输入芯片或者是双向的</p><h4 id="有效电平"><a class="markdownIt-Anchor" href="#有效电平"></a> 有效电平</h4><p>起作用的逻辑电平<br />高电平<br />低电平<br />上升沿<br />下降沿</p><h4 id="三态能力"><a class="markdownIt-Anchor" href="#三态能力"></a> 三态能力</h4><p>除却正常的高低电平，还可以输出高阻的第三态</p><h3 id="内部结构工作原理分析"><a class="markdownIt-Anchor" href="#内部结构工作原理分析"></a> 内部结构/工作原理分析</h3><p>当我们了解引脚特性后，我们需要对器件的内部结构或者工作原理进行分析，比如CPU如何实现了存储器的读写操作，读写的时序是什么</p><h3 id="硬件电路设计"><a class="markdownIt-Anchor" href="#硬件电路设计"></a> 硬件电路设计</h3><p>将这个器件与外围器件进行具体硬件电路的连接，跟前面的引脚特性就密切相关了。<br />哪个是数据总线，哪个是地址总线，哪些是读写控制线，如何进行连接，都需要分析清楚。</p><h3 id="软件编程设计"><a class="markdownIt-Anchor" href="#软件编程设计"></a> 软件编程设计</h3><pre><code>(a)根据电路原理图中器件引脚连接关系(b)器件控制时序(c)题目的功能要求</code></pre><h2 id="习题"><a class="markdownIt-Anchor" href="#习题"></a> 习题</h2><h3 id="1器件引脚的有效电平"><a class="markdownIt-Anchor" href="#1器件引脚的有效电平"></a> 1.器件引脚的有效电平</h3><p>解答：高电平、低电平、上升沿、下降沿</p><h3 id="2在器件引脚分析中需要关注引脚的哪些方面"><a class="markdownIt-Anchor" href="#2在器件引脚分析中需要关注引脚的哪些方面"></a> 2.在器件引脚分析中，需要关注引脚的哪些方面</h3><p>解答：引脚的功能、信号的方向、有效电平、三态能力</p><h3 id="3软件编程设计需要根据哪些方面进行编程设计"><a class="markdownIt-Anchor" href="#3软件编程设计需要根据哪些方面进行编程设计"></a> 3.软件编程设计需要根据哪些方面进行编程设计</h3><p>解答：更具电路原理图器件引脚连接关系、器件控制时序、题目的功能要求</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="微原" scheme="https://id-zy.github.io/categories/%E5%BE%AE%E5%8E%9F/"/>
+    
+    
+    <category term="微机原理" scheme="https://id-zy.github.io/tags/%E5%BE%AE%E6%9C%BA%E5%8E%9F%E7%90%86/"/>
+    
+  </entry>
   
   <entry>
     <title>统计能整除数字的位数</title>
@@ -403,108 +499,6 @@
     
     
     <category term="《质数的孤独》" scheme="https://id-zy.github.io/tags/%E3%80%8A%E8%B4%A8%E6%95%B0%E7%9A%84%E5%AD%A4%E7%8B%AC%E3%80%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>写给十年前的自己</title>
-    <link href="https://id-zy.github.io/2025/11/07/%E5%86%99%E7%BB%99%E5%8D%81%E5%B9%B4%E5%89%8D%E7%9A%84%E8%87%AA%E5%B7%B1/"/>
-    <id>https://id-zy.github.io/2025/11/07/%E5%86%99%E7%BB%99%E5%8D%81%E5%B9%B4%E5%89%8D%E7%9A%84%E8%87%AA%E5%B7%B1/</id>
-    <published>2025-11-07T13:15:30.170Z</published>
-    <updated>2025-11-07T13:14:30.870Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>过去早已过去，未来只在未来，而现在仅存于过去与未来交叉的一瞬，而我站在这神奇的点时间上缅怀过去。寄情思于过去之自己，十年后的你并不一定如你当初所想的潇洒自在，但也绝没有忘记初心。所以就大胆地做自己一点吧，勇敢一点去表达情感去抒发所思，岁月从不许诺坦途，但它会记得所有不曾背叛自己的灵魂。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    <category term="创作" scheme="https://id-zy.github.io/categories/%E5%88%9B%E4%BD%9C/"/>
-    
-    
-    <category term="写作" scheme="https://id-zy.github.io/tags/%E5%86%99%E4%BD%9C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>11.7 日常 | 立冬，福建舰，与“良质”的完成</title>
-    <link href="https://id-zy.github.io/2025/11/07/11.7%E6%97%A5%E5%B8%B8/"/>
-    <id>https://id-zy.github.io/2025/11/07/11.7%E6%97%A5%E5%B8%B8/</id>
-    <published>2025-11-07T13:15:17.852Z</published>
-    <updated>2025-11-07T13:09:38.350Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>今日立冬。<br />“立，建始也；冬，终也，万物收藏也。”<br />节气流转至此，生气渐收，万物开始休养与贮藏。我们也该更加关照自己的身体，顺应天时，静养蓄力。</p><p>今天也是福建舰正式入列的日子。看见祖国在深蓝航道上稳步向前，心中自然升起一份踏实与期盼——愿她越来越强大。</p><p>早晨以“写给十年前的自己”为题，进行了一次创作。回望来路，时光无声，却处处是回响。</p><p>午间完成了算法作业，在逻辑与代码中穿行，也是一种思维的整理。</p><p>下午的数据挖掘课上，老师提到“AI无法真正判断谁是真正优秀的学生”。那一刻，我忽然想到《禅与摩托车维修艺术》中反复探讨的“良质”——或许，<strong>“良质”正是我们判断一个人是否优秀的真正基石</strong>，那是超越数据与指标的、属于人的温度与光芒。</p><p>今晚，我读完了《禅与摩托车维修艺术》。合上书页，内心仍被震撼着。<br />在第四章中，作者深入希腊哲学的腹地，批判亚里士多德的思想体系，指出智者学派所传授的并非“美德”，而是“卓越”。他认为，亚里士多德的哲学未必优于古希腊早期的思想。我对哲学史了解不深，无法妄作评判，但我认同他所说的：<strong>理性并不优于情感</strong>。古典认知孕育了科学，浪漫认知造就了艺术，但二者并非对立，而是可以在人的温情中融合。《道德经》有言：“万物负阴而抱阳，冲气以为和。”——世间万物，本就相生相济，在动态中走向和谐。</p><p>今天的人民日报英文版，读到“AI+机器人”对中国工业体系的深远影响。依托我国完整而庞大的工业基础，”AI+“在“Application first”的战略下已取得显著成果。而我在报外查到的信息显示，中国正进一步转向“All in AI”的整体布局。</p><p>从立冬的静谧，到福建舰的远航；<br />从“良质”的哲思，到AI的浪潮——<br />今天，依然是在时间、思想与时代之间穿行的一天。<br />冬已立，愿我们都能在收藏的季节里，安顿身心，静待春声。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    <category term="日常闲谈" scheme="https://id-zy.github.io/categories/%E6%97%A5%E5%B8%B8%E9%97%B2%E8%B0%88/"/>
-    
-    
-    <category term="生活哲思" scheme="https://id-zy.github.io/tags/%E7%94%9F%E6%B4%BB%E5%93%B2%E6%80%9D/"/>
-    
-    <category term="个人成长" scheme="https://id-zy.github.io/tags/%E4%B8%AA%E4%BA%BA%E6%88%90%E9%95%BF/"/>
-    
-    <category term="《禅与摩托车维修艺术》" scheme="https://id-zy.github.io/tags/%E3%80%8A%E7%A6%85%E4%B8%8E%E6%91%A9%E6%89%98%E8%BD%A6%E7%BB%B4%E4%BF%AE%E8%89%BA%E6%9C%AF%E3%80%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>11.6 日常 | 体测、斐德罗与未完成的良质</title>
-    <link href="https://id-zy.github.io/2025/11/06/11.6%E6%97%A5%E5%B8%B8/"/>
-    <id>https://id-zy.github.io/2025/11/06/11.6%E6%97%A5%E5%B8%B8/</id>
-    <published>2025-11-06T12:52:54.554Z</published>
-    <updated>2025-11-06T13:00:19.720Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>今天又是被课程填满的一天，走出实验室时，已是晚上八点半。不过有个小小的惊喜：50米体测跑出了<strong>6.97秒</strong>，比去年快了一秒——身体的进步，有时比思想的跃迁更让人感到踏实。</p><p>在断续的时间里，我勉强读到了《禅与摩托车维修艺术》的第四章。关于“良质”的探讨愈发深入，也愈发令我感到理解之难，却又感慨万分。</p><p>作者提出一个观点：<strong>我们并未“发现”真理，而是“定义”了最接近它的约定。</strong> 读到此处，我忽然想起那句“工于技，趋于道”——技艺的尽头是道路的开启。我早该想到的，作者在前文已埋下伏笔。</p><p>他进一步指出，在追求良质的路上，人应当保持<strong>专注、热忱、安静、谦逊与远望</strong>。我深以为然。这不仅是一种哲学态度，也是一种生命状态的修炼。</p><p>第四章的开篇，出现了一个迷人的转折：作者终于意识到，他潜意识中那个不断与他对话的“斐德罗”，正是他自己。<strong>斐德罗重回人间</strong>——这个身份的揭示，让我对后续的旅程充满好奇。</p><p>今天的英文短报，关注的是海南三亚自由贸易区的设立。一个更加开放的海南自由贸易港，必将为国家的未来发展注入新的活力。</p><p>从跑道上的秒表，到书页间的哲思，再到远方的经济蓝图，今天依然是在多重维度间穿行的一天。良质尚未完全显现，但追寻本身，已是一种回应。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    <category term="日常闲谈" scheme="https://id-zy.github.io/categories/%E6%97%A5%E5%B8%B8%E9%97%B2%E8%B0%88/"/>
-    
-    
-    <category term="《禅与摩托车维修艺术》" scheme="https://id-zy.github.io/tags/%E3%80%8A%E7%A6%85%E4%B8%8E%E6%91%A9%E6%89%98%E8%BD%A6%E7%BB%B4%E4%BF%AE%E8%89%BA%E6%9C%AF%E3%80%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>11.5日常|“良质”是否真的存在？</title>
-    <link href="https://id-zy.github.io/2025/11/05/11.5%E6%97%A5%E5%B8%B8/"/>
-    <id>https://id-zy.github.io/2025/11/05/11.5%E6%97%A5%E5%B8%B8/</id>
-    <published>2025-11-05T11:44:37.215Z</published>
-    <updated>2025-11-05T11:39:22.655Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>今天醒来时，已是中午十二点。放任自己在游戏世界里漫游，直到傍晚五点多。饭后去实验室打了个卡，随后便沉入今日的阅读时光——继续《禅与摩托车维修艺术》。</p><p>第三章的阅读并未如预期般顺利，它比我想象中更难捉摸。但我仍从中捕捉到一些闪烁的灵光：我们应当为知识本身而学习，不为其它外在目的，并始终保持终身学习的姿态。</p><p>作者在这一部分提出了一个极为重要的观点：<strong>“良质是心与物的起源”</strong>。他在现代哲学“物质决定精神还是精神决定物质”的二元对立中，开辟了第三种可能。斐德罗拒绝定义“良质”，而我从文字间理解的“良质”，是一种<strong>协律</strong>——一种使万物（无论是心还是物）保持和谐状态的内在韵律。</p><p>正因为它的存在，艺术才得以诞生，世界也由此被划分为“古典的认知”与“浪漫的认知”。它不可言说，却无处不在；它不被定义，却统摄着我们对美的感知、对真的追寻。</p><p>阅读间隙，我也照例看了一篇英文短报。今天的内容关于<strong>中国空间站投入使用1000多天的现状与成果</strong>。从地面的哲学沉思，到苍穹之外的科技脚步，人类对“良质”的追求，或许从未止息。</p><p>今天，是从慵懒放松，走向思维深处的安静一日。良质无声，却让一切渐渐和谐。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    <category term="日常闲谈" scheme="https://id-zy.github.io/categories/%E6%97%A5%E5%B8%B8%E9%97%B2%E8%B0%88/"/>
-    
-    
-    <category term="个人成长" scheme="https://id-zy.github.io/tags/%E4%B8%AA%E4%BA%BA%E6%88%90%E9%95%BF/"/>
-    
-    <category term="《禅与摩托车维修艺术》" scheme="https://id-zy.github.io/tags/%E3%80%8A%E7%A6%85%E4%B8%8E%E6%91%A9%E6%89%98%E8%BD%A6%E7%BB%B4%E4%BF%AE%E8%89%BA%E6%9C%AF%E3%80%8B/"/>
     
   </entry>
   
