@@ -6,7 +6,7 @@
   <link href="https://id-zy.github.io/atom.xml" rel="self"/>
   
   <link href="https://id-zy.github.io/"/>
-  <updated>2025-11-15T02:38:54.118Z</updated>
+  <updated>2025-11-16T10:00:54.516Z</updated>
   <id>https://id-zy.github.io/</id>
   
   <author>
@@ -15,6 +15,180 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>8086系统总线</title>
+    <link href="https://id-zy.github.io/2025/11/16/8086%E7%B3%BB%E7%BB%9F%E6%80%BB%E7%BA%BF/"/>
+    <id>https://id-zy.github.io/2025/11/16/8086%E7%B3%BB%E7%BB%9F%E6%80%BB%E7%BA%BF/</id>
+    <published>2025-11-16T14:45:48.406Z</published>
+    <updated>2025-11-16T10:00:54.516Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="系统总线类型"><a class="markdownIt-Anchor" href="#系统总线类型"></a> 系统总线类型</h1><ul><li>单向总线：单向三态门驱动器74LS244</li><li>双向总线：双向三态门驱动器<ul><li>8286</li><li>8287</li><li>74LS245</li></ul></li><li>带有三态输出的锁存器<ul><li>8282</li><li>8283</li><li>74LS373</li><li>74LS374</li></ul></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="微原" scheme="https://id-zy.github.io/categories/%E5%BE%AE%E5%8E%9F/"/>
+    
+    
+    <category term="微机原理" scheme="https://id-zy.github.io/tags/%E5%BE%AE%E6%9C%BA%E5%8E%9F%E7%90%86/"/>
+    
+    <category term="8086CPU" scheme="https://id-zy.github.io/tags/8086CPU/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>8086时序分析</title>
+    <link href="https://id-zy.github.io/2025/11/16/8086%E6%97%B6%E5%BA%8F%E5%88%86%E6%9E%90/"/>
+    <id>https://id-zy.github.io/2025/11/16/8086%E6%97%B6%E5%BA%8F%E5%88%86%E6%9E%90/</id>
+    <published>2025-11-16T14:45:48.403Z</published>
+    <updated>2025-11-16T09:53:28.436Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="基本概念"><a class="markdownIt-Anchor" href="#基本概念"></a> 基本概念</h1><ul><li>时钟周期：CPU处理动作的最小单位（T1~T4)</li><li>总线周期：至少包含传送地址和传送数据两个过程<ul><li>T1：CPU输出地址</li><li>T2~T4:数据传送</li></ul></li><li>等待周期<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mi>W</mi></msub></mrow><annotation encoding="application/x-tex">T_W</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">W</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>：当外设没有准备后，在T3周期后面插入等待周期。如果当前没有执行指令则处于空闲周期</li><li>指令周期：取值+执行<br />从整体上看，总线周期至少包含4个时钟周期，指令周期包括多个总线周期</li></ul><h1 id="研究原因"><a class="markdownIt-Anchor" href="#研究原因"></a> 研究原因</h1><ul><li>了解CPU工作时各引脚信号的相对时间关系</li><li>深入了解指令的执行过程</li><li>CPU与存储器、I/O等的时序配合</li><li>实时控制：精确计算程序运行时间</li></ul><h1 id="典型时序分析"><a class="markdownIt-Anchor" href="#典型时序分析"></a> 典型时序分析</h1><h2 id="内存读时序"><a class="markdownIt-Anchor" href="#内存读时序"></a> 内存读时序</h2><p><img src="https://pic1.imgdb.cn/item/6919993f3203f7be000a5645.png" alt="" /><br /><img src="https://pic1.imgdb.cn/item/69199a953203f7be000a5d3d.png" alt="" /></p><h2 id="最小模式总线时序"><a class="markdownIt-Anchor" href="#最小模式总线时序"></a> 最小模式总线时序</h2><h3 id="总线读操作"><a class="markdownIt-Anchor" href="#总线读操作"></a> 总线读操作</h3><p>（DS）=1000H，（SI）=2345H，（12345H）=78H ，MOV AL，[SI]<br /><img src="https://pic1.imgdb.cn/item/69199b903203f7be000a622e.png" alt="" /></p><h4 id="时序分析"><a class="markdownIt-Anchor" href="#时序分析"></a> 时序分析</h4><p>首先看T1周期<br />从上到下看，首先送出地址线，ALE高电平有效，进行地址锁存。<br />M/IO，低电平时读IO，高电平是读存储器。<br />T1周期，读信号无效。DT/R读操作，为低电平。目前是地址输出，所以DEN数据使能无效<br />T2周期，读信号低电平有效，数据使能，因为数据是输入的，地址是输出的，两种方向是不相同的，所以需要将总线先置为高阻态，为总线方向转换做准备。需要等待一个时钟周期。<br />T3周期，数据从总线上输入，保持读信号有效<br />T4周期，读信号撤销，DEN跟随读信号，变为高电平无效。为了保证数据能够正确输入，数据在读信号撤销后还保持一段时间。</p><h3 id="总线写周期"><a class="markdownIt-Anchor" href="#总线写周期"></a> 总线写周期</h3><p><img src="https://pic1.imgdb.cn/item/69199c323203f7be000a660e.png" alt="" /></p><h4 id="时序分析-2"><a class="markdownIt-Anchor" href="#时序分析-2"></a> 时序分析</h4><p>在T1周期，首先送出地址，ALE高电平有效，进行地址锁存。<br />T2周期，写信号低电平有效，DEN有效 .因为数据是从CPU直接发出的，不需要等待，所以数据在T2周期就出现在数据总线上。<br />T3周期，写信号、DEN和数据保持有效<br />T4周期，撤销写信号、DEN信号变为无效状态，为了保持数据正确输出，数据继续保持一段时间。</p><h3 id="读写操作不同点"><a class="markdownIt-Anchor" href="#读写操作不同点"></a> 读写操作不同点</h3><p>(1)  CPU不是输出读信号，而是输出写信号。<br />(2) DT/R整个总线周期为高电平，表示本总线周期为写周期，在接有数据总线收发器的系统中，用来控制数据传输方向。<br />(3) AD15～AD0在T2到T4状态输出数据，输出地址与输出数据为同一方向，无需像读周期那样要高阻态作缓冲，故T2状态无高阻态。</p><h3 id="中断响应"><a class="markdownIt-Anchor" href="#中断响应"></a> 中断响应</h3><p><img src="https://pic1.imgdb.cn/item/69199cd73203f7be000a6a4a.png" alt="" /></p><h4 id="时序分析-3"><a class="markdownIt-Anchor" href="#时序分析-3"></a> 时序分析</h4><p>中断响应操作，响应的条件是CPU的INTR引脚高电平，IF=1。<br />在第一个总线周期CPU发出ALE信号，作为地址锁存信号;<br />INTA中断应答信号低电平，通知外设CPU已接受其中断请求，同时使数据总线、地址总线悬空。<br />第二个总线周期，被响应的外设向数据总线发送一个字节的中断类型号，CPU读入后查中断向量表，找到中断服务程序入口地址，转去执行中断服务程序。</p><h2 id="最大模式时序与最小模式时序区别"><a class="markdownIt-Anchor" href="#最大模式时序与最小模式时序区别"></a> 最大模式时序与最小模式时序区别</h2><ul><li>（1）控制信号ALE、DEN和DT/R</li></ul><p>- 最大模式中，ALE、DEN和DT/R由总线控制器8288发出，DEN高电平有效。</p><p>- 最小模式中这三个信号由8086 CPU直接发出。DEN是低电平有效。</p><ul><li>（2）命令信号存储器读写和IO读写信号，和状态信号S2、S1和S0。由于在最大模式下必须使用总线控制器8288，因此在其时序图中必然出现访问存储器和I/O接口的命令信号。</li></ul><h2 id="习题"><a class="markdownIt-Anchor" href="#习题"></a> 习题</h2><h3 id="在最小模式下8086处理器的读信号和写信号在第几个时钟周期发出"><a class="markdownIt-Anchor" href="#在最小模式下8086处理器的读信号和写信号在第几个时钟周期发出"></a> 在最小模式下8086处理器的读信号和写信号在第几个时钟周期发出</h3><p>解答：T2</p><h3 id="中断响应的两个总线周期分别完成什么工作"><a class="markdownIt-Anchor" href="#中断响应的两个总线周期分别完成什么工作"></a> 中断响应的两个总线周期分别完成什么工作</h3><p>解答：第一总线周期完成中断响应信号发送；第二总线周期发送中断类型信号</p><h3 id="80868088处理器中断响应的第二个总线周期完成"><a class="markdownIt-Anchor" href="#80868088处理器中断响应的第二个总线周期完成"></a> 8086/8088处理器中断响应的第二个总线周期完成</h3><p>解答：外设发送中断类型码给CPU</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="微原" scheme="https://id-zy.github.io/categories/%E5%BE%AE%E5%8E%9F/"/>
+    
+    
+    <category term="微机原理" scheme="https://id-zy.github.io/tags/%E5%BE%AE%E6%9C%BA%E5%8E%9F%E7%90%86/"/>
+    
+    <category term="8086CPU" scheme="https://id-zy.github.io/tags/8086CPU/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>组合爆炸</title>
+    <link href="https://id-zy.github.io/2025/11/16/%E7%BB%84%E5%90%88%E7%88%86%E7%82%B8/"/>
+    <id>https://id-zy.github.io/2025/11/16/%E7%BB%84%E5%90%88%E7%88%86%E7%82%B8/</id>
+    <published>2025-11-16T14:45:36.251Z</published>
+    <updated>2025-11-16T13:54:18.830Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="理论定义"><a class="markdownIt-Anchor" href="#理论定义"></a> 理论定义</h1><p>可供选择的行动分支，必须严格地—却不现实地—受到限制，以使表征世界者（world-representer）的任务保持在可行界限之内。</p><h1 id="一般解决方法"><a class="markdownIt-Anchor" href="#一般解决方法"></a> 一般解决方法</h1><ul><li>在模拟世界中使用各个组件的复制品</li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="读书笔记" scheme="https://id-zy.github.io/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="《意识的解释》" scheme="https://id-zy.github.io/tags/%E3%80%8A%E6%84%8F%E8%AF%86%E7%9A%84%E8%A7%A3%E9%87%8A%E3%80%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>11.16 |平凡的一天</title>
+    <link href="https://id-zy.github.io/2025/11/16/11.16%E6%97%A5%E5%B8%B8/"/>
+    <id>https://id-zy.github.io/2025/11/16/11.16%E6%97%A5%E5%B8%B8/</id>
+    <published>2025-11-16T14:45:26.086Z</published>
+    <updated>2025-11-16T14:43:53.752Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="阅读与思考"><a class="markdownIt-Anchor" href="#阅读与思考"></a> 📖 阅读与思考</h3><p>今日阅读《<strong>意识的解释</strong>》，进度至<strong>第五章节</strong>。<br /><strong>感悟与联想</strong>：这次和以往有所不同，是我应用知识地图（MOC)去构建知识体系的一次实践。</p><h3 id="学习与代码"><a class="markdownIt-Anchor" href="#学习与代码"></a> 💻 学习与代码</h3><ul><li><p><strong>课程/领域</strong>：</p><ul><li>整理了8086时序分析、8086系统总线的相关笔记</li></ul></li><li><p><strong>实践/实验</strong>：</p><ul><li>LeetCode题10（公因子的数目）</li></ul></li></ul><h3 id="生活与观察"><a class="markdownIt-Anchor" href="#生活与观察"></a> 🎮 生活与观察</h3><ul><li><p><strong>日常小事</strong>：</p><ul><li>今天看看LOL解说杯的比赛，感觉也蛮燃的</li></ul></li><li><p><strong>网络见闻</strong>：</p><ul><li>今天短文是关于人们抢购药膳面包的，有点想到以前人们去中医馆吃早餐，去同仁堂买酸梅汤，感觉人们对养生和健康的追求越来越重视了<ul><li>今天的生词巩固<ul><li>fusion(n、融合)</li><li>souvenir(n、纪念品)</li></ul></li></ul></li></ul></li><li><p><strong>影评</strong>： 今天看完了一部黑色幽默的电影《龙虾》，可能是我还没有足够的阅历，有点不能理解电影所表现的讽刺，我只能大概看出这是对“那些选择将就，不追去心灵契合而陷入婚姻的人”的嘲讽。</p></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="日常闲谈" scheme="https://id-zy.github.io/categories/%E6%97%A5%E5%B8%B8%E9%97%B2%E8%B0%88/"/>
+    
+    
+    <category term="《龙虾》" scheme="https://id-zy.github.io/tags/%E3%80%8A%E9%BE%99%E8%99%BE%E3%80%8B/"/>
+    
+    <category term="《意识的解释》" scheme="https://id-zy.github.io/tags/%E3%80%8A%E6%84%8F%E8%AF%86%E7%9A%84%E8%A7%A3%E9%87%8A%E3%80%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>公因子的数目</title>
+    <link href="https://id-zy.github.io/2025/11/16/%E9%A2%9810/"/>
+    <id>https://id-zy.github.io/2025/11/16/%E9%A2%9810/</id>
+    <published>2025-11-16T14:44:53.136Z</published>
+    <updated>2025-11-16T10:27:03.529Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="题目描述来源于leetcode"><a class="markdownIt-Anchor" href="#题目描述来源于leetcode"></a> 题目描述（来源于LeetCode)</h1><p>给你两个正整数 <code>a</code> 和 <code>b</code> ，返回 <code>a</code> 和 <code>b</code> 的 <strong>公</strong> 因子的数目。<br />如果 <code>x</code> 可以同时整除 <code>a</code> 和 <code>b</code> ，则认为 <code>x</code> 是 <code>a</code> 和 <code>b</code> 的一个 <strong>公因子</strong> 。</p><h1 id="代码实现"><a class="markdownIt-Anchor" href="#代码实现"></a> 代码实现</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">commonFactors</span>(<span class="params">self, a: <span class="built_in">int</span>, b: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        x=<span class="built_in">min</span>(a,b)</span><br><span class="line">        i=<span class="number">1</span></span><br><span class="line">        count =<span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,x+<span class="number">1</span>):</span><br><span class="line">            <span class="keyword">if</span> a%i==<span class="number">0</span> <span class="keyword">and</span> b%i==<span class="number">0</span>:</span><br><span class="line">                 count +=<span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> count</span><br></pre></td></tr></table></figure><h1 id="复杂度分析"><a class="markdownIt-Anchor" href="#复杂度分析"></a> 复杂度分析</h1><ul><li>时间复杂度：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>d</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(d)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">d</span><span class="mclose">)</span></span></span></span> ，d为a、b最小值</li><li>空间复杂度：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span> - 只用了常数级别的额外空间</li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="作业练习" scheme="https://id-zy.github.io/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
+    
+    
+    <category term="LeetCode" scheme="https://id-zy.github.io/tags/LeetCode/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>缸中之脑</title>
+    <link href="https://id-zy.github.io/2025/11/16/%E7%BC%B8%E4%B8%AD%E4%B9%8B%E8%84%91/"/>
+    <id>https://id-zy.github.io/2025/11/16/%E7%BC%B8%E4%B8%AD%E4%B9%8B%E8%84%91/</id>
+    <published>2025-11-16T14:44:21.810Z</published>
+    <updated>2025-11-16T13:59:50.120Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="理论简介"><a class="markdownIt-Anchor" href="#理论简介"></a> 理论简介</h1><h2 id="书中描写"><a class="markdownIt-Anchor" href="#书中描写"></a> 书中描写</h2><p>假定在你睡觉的时候，一群邪恶的科学家把你的大脑移出体外，将它放到一个缸中的生命维持系统里。假定他们随后欺骗你，让你相信，你不只是一个放在缸中的大脑，而是健康如初，在真实世界中做着正常的活动</p><h2 id="百度百科"><a class="markdownIt-Anchor" href="#百度百科"></a> 百度百科</h2><p>缸中之脑（英语：Brain in a vat），又称桶中之脑（Brain in a jar），是知识论中的一个思想实验，由哲学家希拉里·普特南在《理性、真理和历史》（Reason, Truth, and History）一书中提出。<br />实验的基础是人所体验到的一切最终都要在大脑中转化为神经信号。假设一个疯子科学家、机器或其他任何意识将一个大脑从人体取出，放入一个装有营养液的缸里维持着它的生理活性，超级计算机通过神经末梢向大脑传递和原来一样的各种神经电信号，并对于大脑发出的信号给予和平时一样的信号反馈，则大脑所体验到的世界其实是计算机制造的一种虚拟现实，则此大脑能否意识到自己生活在虚拟现实之中？</p><h1 id="作者用意"><a class="markdownIt-Anchor" href="#作者用意"></a> 作者用意</h1><h2 id="揭露有关幻觉的一些奇怪事实"><a class="markdownIt-Anchor" href="#揭露有关幻觉的一些奇怪事实"></a> 揭露有关幻觉的一些奇怪事实</h2><ul><li>一旦让你在想象的世界中具有真正的探索能力，这些邪恶的科学家就会被组合爆炸吞没</li><li>得出两个结论<ul><li>我们不是缸中之脑</li><li>强幻觉绝不可能</li></ul></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="读书笔记" scheme="https://id-zy.github.io/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="《意识的解释》" scheme="https://id-zy.github.io/tags/%E3%80%8A%E6%84%8F%E8%AF%86%E7%9A%84%E8%A7%A3%E9%87%8A%E3%80%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>笛卡尔剧场</title>
+    <link href="https://id-zy.github.io/2025/11/16/%E7%AC%9B%E5%8D%A1%E5%B0%94%E5%89%A7%E5%9C%BA/"/>
+    <id>https://id-zy.github.io/2025/11/16/%E7%AC%9B%E5%8D%A1%E5%B0%94%E5%89%A7%E5%9C%BA/</id>
+    <published>2025-11-16T14:44:21.808Z</published>
+    <updated>2025-11-16T14:20:40.815Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="笛卡尔式物质论"><a class="markdownIt-Anchor" href="#笛卡尔式物质论"></a> 笛卡尔式物质论</h1><ul><li>一个人要对某个东西有意识，从感官传来的信息就必须到达这个站点，松果体在这里促成了一种特别的、魔力般的互动，即人的物质性大脑与非物质心智的互动</li></ul><h2 id="观点"><a class="markdownIt-Anchor" href="#观点"></a> 观点</h2><p>在脑中的某个地方存在一条关键的终点线或边界，它标出一个位置，在这个位置，信息到达的次序就等于在经验中“呈现”的次序，因为在这里所发生的就是你所意识的</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="读书笔记" scheme="https://id-zy.github.io/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="《意识的解释》" scheme="https://id-zy.github.io/tags/%E3%80%8A%E6%84%8F%E8%AF%86%E7%9A%84%E8%A7%A3%E9%87%8A%E3%80%8B/"/>
+    
+  </entry>
   
   <entry>
     <title>整数的各位积和之差</title>
@@ -333,174 +507,6 @@
     
     
     <category term="LeetCode" scheme="https://id-zy.github.io/tags/LeetCode/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>两整数相加</title>
-    <link href="https://id-zy.github.io/2025/11/13/%E9%A2%984/"/>
-    <id>https://id-zy.github.io/2025/11/13/%E9%A2%984/</id>
-    <published>2025-11-13T14:09:37.559Z</published>
-    <updated>2025-11-13T14:34:18.103Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="问题描述来源于leetcode"><a class="markdownIt-Anchor" href="#问题描述来源于leetcode"></a> 问题描述(来源于LeetCode)</h2><p>给定两个整数 <code>num1</code> 和 <code>num2</code>，返回这两个整数的和。</p><h2 id="解题思路分析"><a class="markdownIt-Anchor" href="#解题思路分析"></a> 解题思路分析</h2><h3 id="问题本质"><a class="markdownIt-Anchor" href="#问题本质"></a> 问题本质</h3><p>这是一个基础的算术运算问题，考察对编程语言基本运算符的掌握程度。</p><h3 id="核心思路"><a class="markdownIt-Anchor" href="#核心思路"></a> 核心思路</h3><p>直接使用加法运算符 <code>+</code> 计算两个整数的和。</p><h2 id="代码实现"><a class="markdownIt-Anchor" href="#代码实现"></a> 代码实现</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">sum</span>(<span class="params">self, num1: <span class="built_in">int</span>, num2: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        <span class="keyword">return</span> num1 + num2</span><br></pre></td></tr></table></figure><h2 id="算法详解"><a class="markdownIt-Anchor" href="#算法详解"></a> 算法详解</h2><h3 id="实现步骤"><a class="markdownIt-Anchor" href="#实现步骤"></a> 实现步骤</h3><ol><li><p><strong>接收参数</strong>：获取两个整数 <code>num1</code> 和 <code>num2</code></p></li><li><p><strong>计算和</strong>：使用加法运算符直接计算</p></li><li><p><strong>返回结果</strong>：返回计算结果</p></li></ol><h3 id="关键点"><a class="markdownIt-Anchor" href="#关键点"></a> 关键点</h3><ul><li><p>直接使用语言内置的加法运算符</p></li><li><p>不需要任何额外的数据处理或转换</p></li></ul><h2 id="复杂度分析"><a class="markdownIt-Anchor" href="#复杂度分析"></a> 复杂度分析</h2><ul><li><p><strong>时间复杂度</strong>：O(1)</p><ul><li>只进行一次加法运算</li></ul></li><li><p><strong>空间复杂度</strong>：O(1)</p><ul><li>不使用额外的存储空间</li></ul></li></ul><h2 id="边界情况考虑"><a class="markdownIt-Anchor" href="#边界情况考虑"></a> 边界情况考虑</h2><h3 id="正常情况"><a class="markdownIt-Anchor" href="#正常情况"></a> 正常情况</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：num1 = 12, num2 = 5</span><br><span class="line">输出：17</span><br></pre></td></tr></table></figure><h3 id="特殊情况"><a class="markdownIt-Anchor" href="#特殊情况"></a> 特殊情况</h3><ol><li><p><strong>包含零的情况</strong></p> <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：num1 = 0, num2 = 5</span><br><span class="line">输出：5</span><br></pre></td></tr></table></figure></li><li><p><strong>负数情况</strong></p> <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：num1 = -3, num2 = 7</span><br><span class="line">输出：4</span><br></pre></td></tr></table></figure></li><li><p><strong>两个负数</strong></p> <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：num1 = -5, num2 = -3</span><br><span class="line">输出：-8</span><br></pre></td></tr></table></figure></li></ol><h2 id="测试用例"><a class="markdownIt-Anchor" href="#测试用例"></a> 测试用例</h2><table><thead><tr><th>测试用例</th><th>输入</th><th>预期输出</th><th>说明</th></tr></thead><tbody><tr><td>1</td><td>num1=12, num2=5</td><td>17</td><td>正常正整数</td></tr><tr><td>2</td><td>num1=0, num2=0</td><td>0</td><td>两个零</td></tr><tr><td>3</td><td>num1=-10, num2=5</td><td>-5</td><td>包含负数</td></tr><tr><td>4</td><td>num1=1000, num2=2000</td><td>3000</td><td>较大数字</td></tr></tbody></table><h2 id="扩展思考"><a class="markdownIt-Anchor" href="#扩展思考"></a> 扩展思考</h2><h3 id="相关题目"><a class="markdownIt-Anchor" href="#相关题目"></a> 相关题目</h3><ol><li><p><strong>两数相减</strong>：实现两个整数的减法</p></li><li><p><strong>三数之和</strong>：计算三个整数的和</p></li><li><p><strong>链表相加</strong>：处理大数相加（超过整数范围）</p></li></ol><h3 id="实际应用"><a class="markdownIt-Anchor" href="#实际应用"></a> 实际应用</h3><ul><li><p>计算器应用中的基本运算</p></li><li><p>财务系统中的金额计算</p></li><li><p>游戏中的分数累加</p></li></ul><h2 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结</h2><p>这道题目是LeetCode中最基础的题目之一，主要目的是：</p><ol><li><p>熟悉编程环境的基本操作</p></li><li><p>掌握基本的数据类型和运算符</p></li><li><p>理解函数的输入输出格式</p></li></ol><p>虽然题目简单，但它体现了编程的核心思想：<strong>用最直接的方式解决问题</strong>。在解决更复杂问题时，这种&quot;化繁为简&quot;的思维方式同样重要。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    <category term="作业练习" scheme="https://id-zy.github.io/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
-    
-    
-    <category term="LeetCode" scheme="https://id-zy.github.io/tags/LeetCode/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>11.13 日常 | 直觉的陷阱与品牌的力量</title>
-    <link href="https://id-zy.github.io/2025/11/13/11.13%E6%97%A5%E5%B8%B8/"/>
-    <id>https://id-zy.github.io/2025/11/13/11.13%E6%97%A5%E5%B8%B8/</id>
-    <published>2025-11-13T14:09:26.895Z</published>
-    <updated>2025-11-13T14:09:12.845Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>今天继续阅读《思考，快与慢》的第三部分，深入了解了几个影响我们判断的重要概念：</p><ul><li><p><strong>大数定律</strong>：样本量越大，结果越接近理论预期</p></li><li><p><strong>小数定理</strong>：人们倾向于从小样本中过度推断结论</p></li><li><p><strong>锚定效应</strong>：初始值会像“锚”一样制约后续判断</p></li></ul><p>这些原理揭示了系统1（快思考）如何在无意识中主导我们的决策。书中提醒我们：<strong>无论直觉准确与否，都需要保持警惕</strong>。通过大量专注的练习和在合适环境下的应用，我们能够提升直觉的可靠性，但这需要持续的自我觉察。</p><p>今天还读到一篇关于苹果公司新款手机袋的短文。这款与三宅一生合作设计的布质手机袋起价150美元，引发了广泛争议。有人批评其定价过高，也有人赞赏其设计理念。这让我深刻感受到<strong>品牌效应</strong>的力量——当品牌积累足够的影响力时，即使看似简单的产品也能获得市场关注。<br /><img src="https://pic1.imgdb.cn/item/6915e6753203f7be0000a325.jpg" alt="" /></p><p>今日学习进展：</p><ul><li><p>上午完成了离散数学作业</p></li><li><p>中午刷了4道LeetCode算法题（包括两数相加、最小偶倍数等基础题型）</p></li><li><p>晚上学习了微机原理第三章，计划明天整理笔记</p></li></ul><p>从认知偏见到商业策略，从数学证明到系统编程，今天依然是在多重思维维度间穿梭的一天。保持理性的思考，同时理解感性的选择，或许就是我们这个时代需要的平衡。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    <category term="日常闲谈" scheme="https://id-zy.github.io/categories/%E6%97%A5%E5%B8%B8%E9%97%B2%E8%B0%88/"/>
-    
-    
-    <category term="《思考，快与慢》" scheme="https://id-zy.github.io/tags/%E3%80%8A%E6%80%9D%E8%80%83%EF%BC%8C%E5%BF%AB%E4%B8%8E%E6%85%A2%E3%80%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>11.12 日常 | 思考的顺序与善意的本能</title>
-    <link href="https://id-zy.github.io/2025/11/12/11.12%E6%97%A5%E5%B8%B8/"/>
-    <id>https://id-zy.github.io/2025/11/12/11.12%E6%97%A5%E5%B8%B8/</id>
-    <published>2025-11-12T14:37:33.980Z</published>
-    <updated>2025-11-12T14:36:14.750Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>今天继续阅读《思考，快与慢》。在第一部分中，我了解到人类思维运作的两种基本模式——系统1（快思考）与系统2（慢思考）。它们并无绝对的高下之分，而是各有所长：系统1依赖直觉与经验，是我们日常决策的主力；系统2则更理性、审慎，在复杂情境下被唤醒。</p><p>书中提到一个经典心理学实验，让我印象深刻：</p><blockquote><p>“所罗门·阿希曾描述两个人——艾伦与本，请受试者评价他们的性格：</p><ul><li><p>艾伦：聪明—勤奋—冲动—爱挑剔—固执—忌妒心强</p></li><li><p>本：忌妒心强—固执—爱挑剔—冲动—勤奋—聪明</p></li></ul><p>尽管两人特质完全相同，仅顺序相反，大多数人却更喜欢艾伦。前几条特质会改变我们对后续特质的理解——我们愿原谅聪明人的固执，却会因忌妒者的聪明而警觉。”</p></blockquote><p>原来，<strong>顺序本身就在无声地塑造我们的认知</strong>。这也让我联想到，“白月光之所以无可替代”，或许不仅因为那个人本身，也因ta出现在我们生命序列中最恰当的位置。</p><p>晚上读了一篇关于“潜在英雄”的短文。研究指出，人在危急时刻并非如电影中那样恐慌逃散，反而常会展现出自然的利他倾向。“旁观者冷漠”实为误解，团结互助才是人性底色。这令人感到温暖，也提醒我们：<strong>善意本就埋藏在每个人的本能之中</strong>。<br /><img src="https://pic1.imgdb.cn/item/69149b253203f7be00f99d53.jpg" alt="" /><br />今天，是从认知的秩序走向人性的微光的一天。我们如何思考，又如何选择成为谁——或许都藏在这些看似偶然的顺序与瞬间里。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    <category term="日常闲谈" scheme="https://id-zy.github.io/categories/%E6%97%A5%E5%B8%B8%E9%97%B2%E8%B0%88/"/>
-    
-    
-    <category term="《思考，快与慢》" scheme="https://id-zy.github.io/tags/%E3%80%8A%E6%80%9D%E8%80%83%EF%BC%8C%E5%BF%AB%E4%B8%8E%E6%85%A2%E3%80%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>温度转换</title>
-    <link href="https://id-zy.github.io/2025/11/12/%E9%A2%983/"/>
-    <id>https://id-zy.github.io/2025/11/12/%E9%A2%983/</id>
-    <published>2025-11-12T14:37:25.902Z</published>
-    <updated>2025-11-12T08:59:05.618Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="问题描述来源于leetcode"><a class="markdownIt-Anchor" href="#问题描述来源于leetcode"></a> 问题描述（来源于leetcode）</h2><p>给定一个四舍五入到两位小数的非负浮点数 <code>celsius</code> 表示摄氏度，需要将其转换为开氏度和华氏度，并以数组 <code>[kelvin, fahrenheit]</code> 的形式返回结果。</p><h3 id="转换公式"><a class="markdownIt-Anchor" href="#转换公式"></a> 转换公式</h3><ul><li><strong>开氏度</strong> = 摄氏度 + 273.15</li><li><strong>华氏度</strong> = 摄氏度 × 1.80 + 32.00</li></ul><p><strong>注意：</strong> 与实际答案误差不超过 10⁻⁵ 的结果被视为正确。</p><h2 id="解法分析"><a class="markdownIt-Anchor" href="#解法分析"></a> 解法分析</h2><p>这是一个基础的数学计算问题，直接应用给定的转换公式即可解决。</p><h3 id="代码实现"><a class="markdownIt-Anchor" href="#代码实现"></a> 代码实现</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">convertTemperature</span>(<span class="params">self, celsius: <span class="built_in">float</span></span>) -&gt; <span class="type">List</span>[<span class="built_in">float</span>]:</span><br><span class="line">        Kelvin = celsius + <span class="number">273.15</span></span><br><span class="line">        Fahrenheit = celsius * <span class="number">1.80</span> + <span class="number">32.00</span></span><br><span class="line">        <span class="keyword">return</span> [Kelvin, Fahrenheit]</span><br></pre></td></tr></table></figure><h2 id="算法详解"><a class="markdownIt-Anchor" href="#算法详解"></a> 算法详解</h2><h3 id="步骤分解"><a class="markdownIt-Anchor" href="#步骤分解"></a> 步骤分解</h3><ol><li><strong>接收输入</strong>：获取表示摄氏度的浮点数 <code>celsius</code></li><li><strong>计算开氏度</strong>：使用公式 <code>Kelvin = celsius + 273.15</code></li><li><strong>计算华氏度</strong>：使用公式 <code>Fahrenheit = celsius × 1.80 + 32.00</code></li><li><strong>返回结果</strong>：以数组形式返回 <code>[Kelvin, Fahrenheit]</code></li></ol><h3 id="复杂度分析"><a class="markdownIt-Anchor" href="#复杂度分析"></a> 复杂度分析</h3><ul><li><strong>时间复杂度</strong>：O(1) - 只涉及常数次数学运算</li><li><strong>空间复杂度</strong>：O(1) - 只使用了固定数量的变量</li></ul><h2 id="示例演示"><a class="markdownIt-Anchor" href="#示例演示"></a> 示例演示</h2><h3 id="示例-1"><a class="markdownIt-Anchor" href="#示例-1"></a> 示例 1</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入：celsius = 36.50</span><br><span class="line">输出：[309.65000, 97.70000]</span><br><span class="line">解释：</span><br><span class="line">开氏度 = 36.50 + 273.15 = 309.65</span><br><span class="line">华氏度 = 36.50 × 1.80 + 32.00 = 97.70</span><br></pre></td></tr></table></figure><h3 id="示例-2"><a class="markdownIt-Anchor" href="#示例-2"></a> 示例 2</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入：celsius = 122.11</span><br><span class="line">输出：[395.26000, 251.79800]</span><br><span class="line">解释：</span><br><span class="line">开氏度 = 122.11 + 273.15 = 395.26</span><br><span class="line">华氏度 = 122.11 × 1.80 + 32.00 = 251.798</span><br></pre></td></tr></table></figure><h2 id="温度单位知识扩展"><a class="markdownIt-Anchor" href="#温度单位知识扩展"></a> 温度单位知识扩展</h2><h3 id="三种温度标度对比"><a class="markdownIt-Anchor" href="#三种温度标度对比"></a> 三种温度标度对比</h3><table><thead><tr><th>温度标度</th><th>发明者</th><th>零点定义</th><th>沸点定义</th><th>应用领域</th></tr></thead><tbody><tr><td>摄氏度(°C)</td><td>安德斯·摄尔修斯</td><td>水的冰点</td><td>水的沸点</td><td>日常生活、科学</td></tr><tr><td>开氏度(K)</td><td>开尔文勋爵</td><td>绝对零度</td><td>水的沸点</td><td>科学研究</td></tr><tr><td>华氏度(°F)</td><td>丹尼尔·华伦海特</td><td>盐水冰点</td><td>人体温度</td><td>美国日常</td></tr></tbody></table><h3 id="转换公式总结"><a class="markdownIt-Anchor" href="#转换公式总结"></a> 转换公式总结</h3><ul><li><strong>摄氏转开氏</strong>：K = °C + 273.15</li><li><strong>开氏转摄氏</strong>：°C = K - 273.15</li><li><strong>摄氏转华氏</strong>：°F = °C × 1.8 + 32</li><li><strong>华氏转摄氏</strong>：°C = (°F - 32) ÷ 1.8</li></ul><h2 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结</h2><p>这道题目是一个基础的数学计算问题，主要考察：</p><ol><li>对基本数学公式的理解和应用能力</li><li>浮点数运算的准确性</li><li>数组的构建和返回</li></ol><p>虽然题目简单，但它涉及了实际生活中常用的温度单位转换，具有实用价值。通过解决这个问题，我们可以更好地理解不同温度标度之间的关系，为后续更复杂的计算问题打下基础。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    <category term="作业练习" scheme="https://id-zy.github.io/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
-    
-    
-    <category term="LeetCode" scheme="https://id-zy.github.io/tags/LeetCode/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>两数之和</title>
-    <link href="https://id-zy.github.io/2025/11/11/%E9%A2%982/"/>
-    <id>https://id-zy.github.io/2025/11/11/%E9%A2%982/</id>
-    <published>2025-11-11T13:06:27.966Z</published>
-    <updated>2025-11-11T12:55:38.852Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="问题描述问题来源于leetcode"><a class="markdownIt-Anchor" href="#问题描述问题来源于leetcode"></a> 问题描述(问题来源于LeetCode)</h2><p>给定一个整数数组 <code>nums</code> 和一个整数目标值 <code>target</code>，在数组中找出<strong>和为目标值</strong>的那<strong>两个</strong>整数，并返回它们的数组下标。</p><p>假设每种输入只会对应一个答案，并且不能使用两次相同的元素。</p><p><strong>示例：</strong></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">text</span><br><span class="line"></span><br><span class="line">输入：nums = [2,7,11,15], target = 9</span><br><span class="line">输出：[0,1]</span><br><span class="line">解释：nums[0] + nums[1] = 2 + 7 = 9</span><br></pre></td></tr></table></figure><h2 id="解法暴力枚举"><a class="markdownIt-Anchor" href="#解法暴力枚举"></a> 解法：暴力枚举</h2><h3 id="思路分析"><a class="markdownIt-Anchor" href="#思路分析"></a> 思路分析</h3><p>通过两层循环遍历所有可能的数字组合，检查它们的和是否等于目标值。</p><h3 id="代码实现"><a class="markdownIt-Anchor" href="#代码实现"></a> 代码实现</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">python</span><br><span class="line"></span><br><span class="line">class Solution:</span><br><span class="line">    def twoSum(self, nums: List[int], target: int) -&gt; List[int]:</span><br><span class="line">        for i in range(len(nums)):</span><br><span class="line">            for j in range(i + 1, len(nums)):</span><br><span class="line">                if nums[i] + nums[j] == target:</span><br><span class="line">                    return [i, j]</span><br></pre></td></tr></table></figure><h3 id="复杂度分析"><a class="markdownIt-Anchor" href="#复杂度分析"></a> 复杂度分析</h3><ul><li><p><strong>时间复杂度</strong>：O(n²) - 需要两层循环遍历所有组合</p></li><li><p><strong>空间复杂度</strong>：O(1) - 只使用了常数级别的额外空间</p></li></ul><h3 id="优缺点"><a class="markdownIt-Anchor" href="#优缺点"></a> 优缺点</h3><p><strong>优点：</strong></p><ul><li><p>思路简单直观，容易理解和实现</p></li><li><p>不需要额外空间</p></li></ul><p><strong>缺点：</strong></p><ul><li>时间复杂度高，在大数据量下性能较差</li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    <category term="作业练习" scheme="https://id-zy.github.io/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
-    
-    
-    <category term="LeetCode" scheme="https://id-zy.github.io/tags/LeetCode/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>11.11 日常 | 细菌、量子与延迟工作</title>
-    <link href="https://id-zy.github.io/2025/11/11/11.11%E6%97%A5%E5%B8%B8/"/>
-    <id>https://id-zy.github.io/2025/11/11/11.11%E6%97%A5%E5%B8%B8/</id>
-    <published>2025-11-11T13:06:20.385Z</published>
-    <updated>2025-11-11T13:05:21.073Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>今天早上读了一篇很有意思的科普短文，探讨了我们穿着外衣直接坐在床上是否会带来细菌污染。文章指出，虽然理论上衣物可能成为病菌传播的媒介，但实际风险很低——大多数病原体在织物上存活时间很短，且需要达到一定数量才能致病。不过，如果家里有免疫力较弱的成员，或是衣物被明显污染时，及时更换仍是明智之举。<br /><img src="https://pic1.imgdb.cn/item/691333b43203f7be00f4bd6a.jpg" alt="" /></p><p>中午终于读完了《上帝掷骰子吗》这本量子物理科普书。虽然之前通过《时间简史》对部分内容有所了解，但这次阅读仍让我收获颇丰，特别是对“观察者效应”和“超弦理论”有了更深入的理解。量子世界的发展史充满了意外与突破，许多伟大发现往往在多年后才显现其深远意义。<br />下午完成了操作系统实验二，晚上则练习了一道LeetCode算法题——经典的“两数之和”。我采用了暴力枚举的解法，虽然时间复杂度较高（O(n²)），但胜在思路直观，适合小规模数据。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">python</span><br><span class="line"></span><br><span class="line">class Solution:</span><br><span class="line">    def twoSum(self, nums: List[int], target: int) -&gt; List[int]:</span><br><span class="line">        for i in range(len(nums)):</span><br><span class="line">            for j in range(i + 1, len(nums)):</span><br><span class="line">                if nums[i] + nums[j] == target:</span><br><span class="line">                    return [i, j]</span><br></pre></td></tr></table></figure><p>此外，还研究了一个Linux内核模块的代码，涉及延迟工作队列（workqueue）和内核线程（kthread）的实现。通过创建10个工作项和10个内核线程，观察它们在不同延迟下的执行顺序，深入理解了内核中异步处理机制的运作方式。</p><p>今天是在科普知识、量子物理、系统编程和算法练习之间穿梭的一天。从微观世界的奇妙规律到代码世界的精确逻辑，每一种探索都在拓展认知的边界。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    <category term="日常闲谈" scheme="https://id-zy.github.io/categories/%E6%97%A5%E5%B8%B8%E9%97%B2%E8%B0%88/"/>
-    
-    
-    <category term="《上帝掷骰子吗》" scheme="https://id-zy.github.io/tags/%E3%80%8A%E4%B8%8A%E5%B8%9D%E6%8E%B7%E9%AA%B0%E5%AD%90%E5%90%97%E3%80%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>微型计算机概述</title>
-    <link href="https://id-zy.github.io/2025/11/10/%E5%BE%AE%E5%9E%8B%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%A6%82%E8%BF%B0/"/>
-    <id>https://id-zy.github.io/2025/11/10/%E5%BE%AE%E5%9E%8B%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%A6%82%E8%BF%B0/</id>
-    <published>2025-11-10T12:36:46.012Z</published>
-    <updated>2025-11-10T12:39:15.595Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="1基本概念"><a class="markdownIt-Anchor" href="#1基本概念"></a> 1基本概念</h3><h4 id="11"><a class="markdownIt-Anchor" href="#11"></a> 1.1</h4><p>微处理器：</p><ul><li>CPU内核</li><li>单核处理器</li><li>多核处理器<br />微型计算机<br />微型计算机系统<br />单片机<br />单片机系统<br />Soc(System on Chip)<br />嵌入式系统<br /><img src="https://pic1.imgdb.cn/item/6911a6133203f7be00ed2eb5.png" alt="" /></li></ul><h4 id="12微型计算机系统的简化结构"><a class="markdownIt-Anchor" href="#12微型计算机系统的简化结构"></a> 1.2微型计算机系统的简化结构</h4><p><img src="https://pic1.imgdb.cn/item/6911a6133203f7be00ed2eb8.png" alt="" /></p><h4 id="13嵌入式系统的特点"><a class="markdownIt-Anchor" href="#13嵌入式系统的特点"></a> 1.3嵌入式系统的特点</h4><ul><li><p><strong>以应用为核心，</strong></p></li><li><p><strong>以计算机技术为基础，</strong></p></li><li><p><strong>软、硬件可“裁剪”，</strong></p></li><li><p><strong>适合对功能、实时性、可靠性、安全性、体积、重量、成本、功耗、环境、安装方式等方面有严格要求的专用计算机系统。</strong></p></li><li><p><strong>更强功能、更小尺寸的高级单片机系统。</strong></p></li></ul><h3 id="2-微处理器概述"><a class="markdownIt-Anchor" href="#2-微处理器概述"></a> 2 微处理器概述</h3><h3 id="3-微型计算机pc概述"><a class="markdownIt-Anchor" href="#3-微型计算机pc概述"></a> 3 微型计算机（PC）概述</h3><h4 id="31-硬件"><a class="markdownIt-Anchor" href="#31-硬件"></a> 3.1 硬件</h4><ul><li><strong>①微型计算机（主机）：</strong><ul><li><strong>CPU、系统总线、内存、接口</strong></li></ul></li><li><strong>②外围设备：</strong><ul><li><strong>外部设备</strong><ul><li><strong>输入设备、输出设备、辅助存储器</strong></li></ul></li><li><strong>辅助设备：电源电路、时钟电路</strong></li></ul></li></ul><h4 id="32-软件"><a class="markdownIt-Anchor" href="#32-软件"></a> 3.2 软件</h4><ul><li><strong>①系统软件：</strong><ul><li><strong>对各部分硬件管理、协调：OS</strong></li><li><strong>编程语言开发工具、数据库管理系统、</strong></li><li><strong>硬件监测诊断工具</strong></li></ul></li><li><strong>②应用软件（用户软件）</strong></li></ul><h4 id="33-pc的基本组成"><a class="markdownIt-Anchor" href="#33-pc的基本组成"></a> 3.3 PC的基本组成</h4><p>内存：也称主存，CPU可直接访问的存储器。<br /><img src="https://pic1.imgdb.cn/item/6911a6133203f7be00ed2eb6.png" alt="" /><br /><img src="https://pic1.imgdb.cn/item/6911a6133203f7be00ed2eb7.png" alt="" /></p><h3 id="4-习题练习"><a class="markdownIt-Anchor" href="#4-习题练习"></a> 4 习题练习</h3><h4 id="18088是____位处理器"><a class="markdownIt-Anchor" href="#18088是____位处理器"></a> 1.8088是____位处理器</h4><p>解答：8088是16位处理器</p><h4 id="2-intel第一款32位处理器为"><a class="markdownIt-Anchor" href="#2-intel第一款32位处理器为"></a> 2. Intel第一款32位处理器为</h4><p>解答：80386</p><h4 id="3-intel-core-i7-处理器属于-______"><a class="markdownIt-Anchor" href="#3-intel-core-i7-处理器属于-______"></a> 3. Intel Core i7 处理器属于 ______</h4><p>解答：SOC</p><h4 id="4-计算机启动后最先执行的是______代码"><a class="markdownIt-Anchor" href="#4-计算机启动后最先执行的是______代码"></a> 4. 计算机启动后，最先执行的是______代码</h4><p>解答：BIOS 或 UEFI</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    <category term="微原" scheme="https://id-zy.github.io/categories/%E5%BE%AE%E5%8E%9F/"/>
-    
-    
-    <category term="微机原理" scheme="https://id-zy.github.io/tags/%E5%BE%AE%E6%9C%BA%E5%8E%9F%E7%90%86/"/>
     
   </entry>
   
