@@ -6,7 +6,7 @@
   <link href="https://id-zy.github.io/atom.xml" rel="self"/>
   
   <link href="https://id-zy.github.io/"/>
-  <updated>2025-11-20T12:11:57.779Z</updated>
+  <updated>2025-11-21T11:41:27.354Z</updated>
   <id>https://id-zy.github.io/</id>
   
   <author>
@@ -15,6 +15,152 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>11.21| 周五的迎来</title>
+    <link href="https://id-zy.github.io/2025/11/21/11.21%E6%97%A5%E5%B8%B8/"/>
+    <id>https://id-zy.github.io/2025/11/21/11.21%E6%97%A5%E5%B8%B8/</id>
+    <published>2025-11-21T11:39:14.770Z</published>
+    <updated>2025-11-21T11:41:27.354Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="阅读与思考"><a class="markdownIt-Anchor" href="#阅读与思考"></a> 📖 阅读与思考</h3><p>今日阅读《<strong>求医不如求己</strong>》，进度至“<strong>金鸡独立</strong>”章节。</p><p><strong>感悟与联想</strong>：<br />身体是最重要的，所以今天看了看养生理论的书籍。先看看书中给的方法，再去咨询一下有关人士，看是否符合科学依据。</p><h3 id="学习与代码"><a class="markdownIt-Anchor" href="#学习与代码"></a> 💻 学习与代码</h3><ul><li><strong>课程/领域</strong>：<ul><li>增加了<strong>哈希表</strong>的概念卡片</li><li>增加了<strong>哈希函数</strong>的概念卡</li></ul></li><li><strong>实践/实验</strong>：<ul><li>LeetCode题17-可回收且低脂的产品</li><li>LeetCode题18-寻找用户推荐人</li><li>LeetCode题19-最大回文数乘积</li></ul></li><li><strong>代码/项目</strong>：<ul><li>无</li></ul></li></ul><h3 id="生活与观察"><a class="markdownIt-Anchor" href="#生活与观察"></a> 🎮 生活与观察</h3><ul><li><p><strong>日常小事</strong>：</p><ul><li>今天是周五，很多东西都想放到明天去写</li></ul></li><li><p><strong>网络见闻</strong>：</p><ul><li>今天读的英语短报是关于邮箱里未读信息的处理会一定程度反应我们的自我概念，而且信息的处理与否对二氧化碳排放的影响</li></ul></li></ul><h3 id="今日三思"><a class="markdownIt-Anchor" href="#今日三思"></a> 💭 今日三思</h3><ol><li><strong>技术思辨</strong>：<ol><li>无</li></ol></li><li><strong>自我觉察</strong>：<ol><li>无</li></ol></li><li><strong>方法总结</strong>：<ol><li>无</li></ol></li></ol>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="日常闲谈" scheme="https://id-zy.github.io/categories/%E6%97%A5%E5%B8%B8%E9%97%B2%E8%B0%88/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>最大回文数乘积</title>
+    <link href="https://id-zy.github.io/2025/11/21/%E9%A2%9819/"/>
+    <id>https://id-zy.github.io/2025/11/21/%E9%A2%9819/</id>
+    <published>2025-11-21T11:39:07.801Z</published>
+    <updated>2025-11-21T10:57:21.285Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="最大回文数乘积"><a class="markdownIt-Anchor" href="#最大回文数乘积"></a> 最大回文数乘积</h1><h2 id="题目描述来源于leetcode"><a class="markdownIt-Anchor" href="#题目描述来源于leetcode"></a> 题目描述（来源于LeetCode）</h2><p>给定一个整数 n ，返回 <em>可表示为两个 <code>n</code> 位整数乘积的 <strong>最大回文整数</strong></em> 。因为答案可能非常大，所以返回它对 <code>1337</code> <strong>取余</strong> 。</p><h2 id="代码实现"><a class="markdownIt-Anchor" href="#代码实现"></a> 代码实现</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">largestPalindrome</span>(<span class="params">self, n: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        <span class="keyword">if</span> n == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">9</span></span><br><span class="line">            </span><br><span class="line">        max_num = <span class="number">10</span>**n - <span class="number">1</span></span><br><span class="line">        min_num = <span class="number">10</span>**(n-<span class="number">1</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> a <span class="keyword">in</span> <span class="built_in">range</span>(max_num, min_num - <span class="number">1</span>, -<span class="number">1</span>):</span><br><span class="line">            palindrome = <span class="built_in">int</span>(<span class="built_in">str</span>(a) + <span class="built_in">str</span>(a)[::-<span class="number">1</span>])</span><br><span class="line">            b = max_num</span><br><span class="line">            <span class="keyword">while</span> b * b &gt;= palindrome:</span><br><span class="line">                <span class="keyword">if</span> palindrome % b == <span class="number">0</span>:</span><br><span class="line">                    <span class="keyword">return</span> palindrome % <span class="number">1337</span></span><br><span class="line">                b -= <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br></pre></td></tr></table></figure><h2 id="复杂度分析"><a class="markdownIt-Anchor" href="#复杂度分析"></a> 复杂度分析</h2><ul><li>时间复杂度：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><msup><mi>N</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(N^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></li><li>空间复杂度：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="作业练习" scheme="https://id-zy.github.io/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
+    
+    
+    <category term="LeetCode" scheme="https://id-zy.github.io/tags/LeetCode/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>寻找用户推荐人</title>
+    <link href="https://id-zy.github.io/2025/11/21/%E9%A2%9818/"/>
+    <id>https://id-zy.github.io/2025/11/21/%E9%A2%9818/</id>
+    <published>2025-11-21T11:39:07.800Z</published>
+    <updated>2025-11-21T10:19:49.063Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="寻找用户推荐人"><a class="markdownIt-Anchor" href="#寻找用户推荐人"></a> 寻找用户推荐人</h1><h2 id="题目描述来源于leetcode"><a class="markdownIt-Anchor" href="#题目描述来源于leetcode"></a> 题目描述（来源于LeetCode）</h2><p>表: <code>Customer</code></p><p>±------------±--------+<br />| Column Name | Type    |<br />±------------±--------+<br />| id          | int     |<br />| name        | varchar |<br />| referee_id  | int     |<br />±------------±--------+<br />在 SQL 中，id 是该表的主键列。<br />该表的每一行表示一个客户的 id、姓名以及推荐他们的客户的 id。</p><p>找出以下客户的姓名：</p><ol><li><strong>被任何</strong> <code>id != 2</code> 的用户推荐。</li><li><strong>没有被</strong> 任何用户推荐。</li></ol><p>以 <strong>任意顺序</strong> 返回结果表。</p><h2 id="mysql语句实现"><a class="markdownIt-Anchor" href="#mysql语句实现"></a> mysql语句实现</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># Write your MySQL query statement below</span><br><span class="line"><span class="keyword">SELECT</span> name</span><br><span class="line"><span class="keyword">FROM</span> Customer</span><br><span class="line"><span class="keyword">WHERE</span> referee_id <span class="operator">&lt;&gt;</span> <span class="number">2</span> <span class="keyword">OR</span> referee_id <span class="keyword">IS</span> <span class="keyword">NULL</span></span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="作业练习" scheme="https://id-zy.github.io/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
+    
+    
+    <category term="LeetCode" scheme="https://id-zy.github.io/tags/LeetCode/"/>
+    
+    <category term="mysql" scheme="https://id-zy.github.io/tags/mysql/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>可回收且低脂的产品</title>
+    <link href="https://id-zy.github.io/2025/11/21/%E9%A2%9817/"/>
+    <id>https://id-zy.github.io/2025/11/21/%E9%A2%9817/</id>
+    <published>2025-11-21T11:39:07.798Z</published>
+    <updated>2025-11-21T10:18:49.374Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="可回收且低脂的产品"><a class="markdownIt-Anchor" href="#可回收且低脂的产品"></a> 可回收且低脂的产品</h1><h2 id="题目描述来源于leetcode"><a class="markdownIt-Anchor" href="#题目描述来源于leetcode"></a> 题目描述（来源于LeetCode）</h2><p>表：<code>Products</code><br />±------------±--------+<br />| Column Name | Type    |<br />±------------±--------+<br />| product_id  | int     |<br />| low_fats    | enum    |<br />| recyclable  | enum    |<br />±------------±--------+<br /><code>product_id</code> 是该表的主键（具有唯一值的列）。<br />low_fats 是枚举类型，取值为以下两种 (‘Y’, ‘N’)，其中 ‘Y’ 表示该产品是低脂产品，‘N’ 表示不是低脂产品。<br />recyclable 是枚举类型，取值为以下两种 (‘Y’, ‘N’)，其中 ‘Y’ 表示该产品可回收，而 ‘N’ 表示不可回收。</p><p>编写解决方案找出既是低脂又是可回收的产品编号。<br />返回结果 <strong>无顺序要求</strong> 。</p><h2 id="mysql语句实现"><a class="markdownIt-Anchor" href="#mysql语句实现"></a> mysql语句实现</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># Write your MySQL query statement below</span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> product_id</span><br><span class="line"><span class="keyword">FROM</span> products</span><br><span class="line"><span class="keyword">WHERE</span> low_fats<span class="operator">=</span><span class="string">&#x27;Y&#x27;</span> <span class="keyword">AND</span> recyclable<span class="operator">=</span><span class="string">&#x27;Y&#x27;</span></span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="作业练习" scheme="https://id-zy.github.io/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
+    
+    
+    <category term="LeetCode" scheme="https://id-zy.github.io/tags/LeetCode/"/>
+    
+    <category term="mysql" scheme="https://id-zy.github.io/tags/mysql/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>哈希函数</title>
+    <link href="https://id-zy.github.io/2025/11/21/%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0/"/>
+    <id>https://id-zy.github.io/2025/11/21/%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0/</id>
+    <published>2025-11-21T11:39:02.593Z</published>
+    <updated>2025-11-21T11:33:56.733Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="哈希函数"><a class="markdownIt-Anchor" href="#哈希函数"></a> 哈希函数</h1><p>哈希的过程中需要使用哈希函数进行计算。<br />哈希函数是一种映射关系，根据数据的关键词 key ，通过一定的函数关系，计算出该元素存储位置的函数。<br />表示为：</p><p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>a</mi><mi>d</mi><mi>d</mi><mi>r</mi><mi>e</mi><mi>s</mi><mi>s</mi><mo>=</mo><mi>H</mi><mo stretchy="false">[</mo><mi>k</mi><mi>e</mi><mi>y</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">address = H [key]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal">a</span><span class="mord mathnormal">d</span><span class="mord mathnormal">d</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">e</span><span class="mord mathnormal">s</span><span class="mord mathnormal">s</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="mopen">[</span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mclose">]</span></span></span></span></span></p><h2 id="几种常见的哈希函数散列函数构造方法"><a class="markdownIt-Anchor" href="#几种常见的哈希函数散列函数构造方法"></a> 几种常见的哈希函数（散列函数）构造方法</h2><ul><li>直接定址法</li><li>除留余数法</li><li>数字分析法</li><li>平方取中法</li><li>折叠法（叠加法）</li><li>随机数法</li></ul><h2 id="哈希冲突的解决"><a class="markdownIt-Anchor" href="#哈希冲突的解决"></a> 哈希冲突的解决</h2><p>选用哈希函数计算哈希值时，可能不同的 key 会得到相同的结果，一个地址怎么存放多个数据呢？这就是冲突。<br /><strong>解决方法</strong>：</p><ul><li>将所有关键字为同义词的结点链接在同一个单链表中</li><li>开放定址法<ul><li>当冲突发生时，使用某种探测技术在散列表中形成一个探测序列。沿此序列逐个单元地查找，直到找到给定的关键字，或者碰到一个开放的地址（即该地址单元为空）为止（若要插入，在探查到开放的地址，则可将待插入的新结点存人该地址单元）。查找时探测到开放的地址则表明表中无待查的关键字，即查找失败。<ul><li>线性探查法</li><li>二次探查法</li><li>双重散列法</li></ul></li></ul></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="数据结构" scheme="https://id-zy.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+    
+    <category term="算法" scheme="https://id-zy.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>哈希表</title>
+    <link href="https://id-zy.github.io/2025/11/21/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
+    <id>https://id-zy.github.io/2025/11/21/%E5%93%88%E5%B8%8C%E8%A1%A8/</id>
+    <published>2025-11-21T11:39:02.591Z</published>
+    <updated>2025-11-21T11:29:17.817Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="哈希表hash-table"><a class="markdownIt-Anchor" href="#哈希表hash-table"></a> 哈希表（Hash Table）</h1><p>又称为散列表，是一种基于<strong>键值对（Key-Value Pair）存储的数据结构。它通过哈希函数</strong>将键（Key）映射为数组索引，从而实现高效的插入、查找和删除操作。<br />简而言之：</p><blockquote><p>给定一个键 key，我们可以使用哈希函数快速定位其对应的值 value，时间复杂度接近<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span>。</p></blockquote><h2 id="哈希表的两个关键组件"><a class="markdownIt-Anchor" href="#哈希表的两个关键组件"></a> 哈希表的两个关键组件</h2><ul><li><strong>哈希函数</strong><ul><li>将任意长度的输入（如字符串、整数等）转换为固定长度的数值该数值再通过取模运算确定其在数组中的位置</li></ul></li><li><strong>冲突解决策略</strong><ul><li>不同的键可能映射到同一个位置（称为哈希冲突），需要通过链地址法、开放寻址法等方式解决。</li></ul></li></ul><h2 id="工作流程"><a class="markdownIt-Anchor" href="#工作流程"></a> 工作流程</h2><ol><li>插入操作：输入键 key → 哈希函数计算索引 → 存储值 value 到对应桶中。</li><li>查询操作：输入键 key → 哈希函数计算索引 → 直接访问桶获取值 value。</li><li>删除操作：类似查询，找到后进行删除。</li></ol>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="数据结构" scheme="https://id-zy.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+    
+    <category term="数据结构" scheme="https://id-zy.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+  </entry>
   
   <entry>
     <title>归因理论</title>
@@ -349,150 +495,6 @@
     
     
     <category term="《社会心理学》" scheme="https://id-zy.github.io/tags/%E3%80%8A%E7%A4%BE%E4%BC%9A%E5%BF%83%E7%90%86%E5%AD%A6%E3%80%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>自我概念</title>
-    <link href="https://id-zy.github.io/2025/11/18/%E8%87%AA%E6%88%91%E6%A6%82%E5%BF%B5/"/>
-    <id>https://id-zy.github.io/2025/11/18/%E8%87%AA%E6%88%91%E6%A6%82%E5%BF%B5/</id>
-    <published>2025-11-18T13:59:48.952Z</published>
-    <updated>2025-11-18T13:01:22.802Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="自我概念"><a class="markdownIt-Anchor" href="#自我概念"></a> 自我概念</h1><ul><li>自我图式</li><li>可能的自我</li></ul><h2 id="生理基础"><a class="markdownIt-Anchor" href="#生理基础"></a> 生理基础</h2><ul><li>脑部活动<ul><li>大脑右半球</li><li>内侧前额叶皮层</li></ul></li></ul><h2 id="自我图式"><a class="markdownIt-Anchor" href="#自我图式"></a> 自我图式</h2><pre><code> 你的自我概念构成要素以及定义你的自我的那些特殊信念</code></pre><h3 id="图式"><a class="markdownIt-Anchor" href="#图式"></a> 图式</h3><pre><code>我们组织自己所处世界的心里模板</code></pre><ul><li>我们的自我图式就是对自己的认识</li></ul><h2 id="影响自我概念的因素"><a class="markdownIt-Anchor" href="#影响自我概念的因素"></a> 影响自我概念的因素</h2><ul><li>基因</li><li>社会经验<ul><li>社会角色</li><li>社会比较</li><li>想象中的他人评价</li><li>文化</li></ul></li></ul><h2 id="自我认识"><a class="markdownIt-Anchor" href="#自我认识"></a> 自我认识</h2><ul><li>我们解释不了自我行为</li><li>我们预测不了自我行为（规划谬误）<ul><li>想到那句“人类唯一从历史学到的教训就是学不会任何教训”</li></ul></li><li>很难预测自我未来情绪的强度和持续时间</li><li>自我分析的智慧和错觉<ul><li>双重态度系统<br />控制我们社会行为的心理过程与解释我们行为的心理过程显然不同</li></ul></li><li>应用价值<ul><li>自我报告不可行</li><li>报告和解释其经验的真实性无法保证报告真实性</li></ul></li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    <category term="读书笔记" scheme="https://id-zy.github.io/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
-    
-    
-    <category term="《社会心理学》" scheme="https://id-zy.github.io/tags/%E3%80%8A%E7%A4%BE%E4%BC%9A%E5%BF%83%E7%90%86%E5%AD%A6%E3%80%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>商代数</title>
-    <link href="https://id-zy.github.io/2025/11/18/%E5%95%86%E4%BB%A3%E6%95%B0/"/>
-    <id>https://id-zy.github.io/2025/11/18/%E5%95%86%E4%BB%A3%E6%95%B0/</id>
-    <published>2025-11-18T13:59:28.513Z</published>
-    <updated>2025-11-18T01:43:45.864Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="商代数"><a class="markdownIt-Anchor" href="#商代数"></a> 商代数</h1><h2 id="定义"><a class="markdownIt-Anchor" href="#定义"></a> 定义</h2><p>设<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>=</mo><mo>&lt;</mo><mi>S</mi><mo separator="true">,</mo><mo>∗</mo><mo separator="true">,</mo><mi mathvariant="normal">Δ</mi><mo separator="true">,</mo><mi>K</mi><mo>&gt;</mo></mrow><annotation encoding="application/x-tex">A=&lt;S,*,Δ,K&gt;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span></span><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">Δ</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">K</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span></span></span></span>是一个代数系统，<sub>是A上的同余关系，A关于</sub>的商代数A/~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mo>&lt;</mo><mi>S</mi><mi mathvariant="normal">/</mi><mtext> </mtext><mo separator="true">,</mo><msup><mo>∗</mo><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup><mo separator="true">,</mo><msup><mi mathvariant="normal">Δ</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup><mo separator="true">,</mo><mo stretchy="false">[</mo><mi>K</mi><mo stretchy="false">]</mo><mo>&gt;</mo></mrow><annotation encoding="application/x-tex">=&lt;S/~,*&#x27;,Δ&#x27;,[K]&gt;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span></span><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.001892em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mord">/</span><span class="mspace nobreak"> </span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mbin">∗</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.751892em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord">Δ</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.751892em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mopen">[</span><span class="mord mathnormal" style="margin-right:0.07153em;">K</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span></span></span></span>.其中</p><p class='katex-block katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;$&#039; in math mode at position 12: Δ‘[a]=[Δa] $̲$$$ [a]*&#039;[b]=[a…'>Δ‘[a]=[Δa] $$$$ [a]*&#039;[b]=[a*b]</p><p>注意：</p><ul><li>A是代数系统</li><li>~是代数系统上的同余关系</li><li>S/~是集合的集合</li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    <category term="离散数学" scheme="https://id-zy.github.io/categories/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/"/>
-    
-    
-    <category term="离散数学" scheme="https://id-zy.github.io/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>鸽巢原理</title>
-    <link href="https://id-zy.github.io/2025/11/18/%E9%B8%BD%E5%B7%A2%E5%8E%9F%E7%90%86/"/>
-    <id>https://id-zy.github.io/2025/11/18/%E9%B8%BD%E5%B7%A2%E5%8E%9F%E7%90%86/</id>
-    <published>2025-11-18T13:59:28.510Z</published>
-    <updated>2025-11-18T06:33:40.990Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="鸽巢原理"><a class="markdownIt-Anchor" href="#鸽巢原理"></a> 鸽巢原理</h1><ul><li><p>如果有n+1个鸽子飞进了n个鸽巢中，那么必定有鸽巢中至少飞进了2只鸽子。</p></li><li><p>常被用于证明<strong>存在性证明</strong>，和<strong>求最坏情况下的解</strong>。</p></li><li><p>存在性证明：连最坏情况都不存在解，所以情况也就肯定不存在解。</p></li></ul><h2 id="证明"><a class="markdownIt-Anchor" href="#证明"></a> 证明</h2><p>将 n+1 个苹果，放到  n个抽屉中，那么有至少一个抽屉有两个（或以上）的苹果。</p><blockquote><p>这个定理看起来比较显然，证明方法考虑<strong>反证法</strong>：<br />假如每个抽屉有最多 1 个苹果，那么最多有 n 个苹果，而实际上有  n+1个苹果，矛盾。</p></blockquote>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    <category term="离散数学" scheme="https://id-zy.github.io/categories/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/"/>
-    
-    
-    <category term="算法" scheme="https://id-zy.github.io/tags/%E7%AE%97%E6%B3%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>半群与独异点</title>
-    <link href="https://id-zy.github.io/2025/11/18/%E5%8D%8A%E7%BE%A4%E4%B8%8E%E7%8B%AC%E5%BC%82%E7%82%B9/"/>
-    <id>https://id-zy.github.io/2025/11/18/%E5%8D%8A%E7%BE%A4%E4%B8%8E%E7%8B%AC%E5%BC%82%E7%82%B9/</id>
-    <published>2025-11-18T13:59:28.509Z</published>
-    <updated>2025-11-18T06:36:04.203Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="半群"><a class="markdownIt-Anchor" href="#半群"></a> 半群</h1><h2 id="定义"><a class="markdownIt-Anchor" href="#定义"></a> 定义</h2><p>一个代数系统<code>&lt;S,*&gt;</code>,其中S是非空集合，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∗</mo></mrow><annotation encoding="application/x-tex">*</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.46528em;vertical-align:0em;"></span><span class="mord">∗</span></span></span></span>是S上一个二元运算，如果满足：<br /><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>运算</mtext><mo>∗</mo><mtext>是可结合的，即</mtext><mi mathvariant="normal">∀</mi><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo separator="true">,</mo><mi>z</mi><mo>∈</mo><mi>S</mi></mrow><annotation encoding="application/x-tex">运算*是可结合的，即 \forall x,y,z \in S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">运</span><span class="mord cjk_fallback">算</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord cjk_fallback">是</span><span class="mord cjk_fallback">可</span><span class="mord cjk_fallback">结</span><span class="mord cjk_fallback">合</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">即</span><span class="mord">∀</span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span></span></span></span>,有</p><p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>∗</mo><mi>y</mi><mo stretchy="false">)</mo><mo>∗</mo><mi>z</mi><mo>=</mo><mi>x</mi><mo>∗</mo><mo stretchy="false">(</mo><mi>y</mi><mo>∗</mo><mi>z</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(x*y)*z =x*(y*z)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.46528em;vertical-align:0em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mclose">)</span></span></span></span></span></p><p>则称<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>&lt;</mo><mi>S</mi><mo separator="true">,</mo><mo>∗</mo><mo>&gt;</mo></mrow><annotation encoding="application/x-tex">&lt;S,*&gt;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span></span></span></span>为半群<br />注意：</p><ul><li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>&lt;</mo><mi>S</mi><mo separator="true">,</mo><mo>∗</mo><mo>&gt;</mo></mrow><annotation encoding="application/x-tex">&lt;S,*&gt;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span></span></span></span>是代数系统，满足封闭性</li><li>满足结合律</li></ul><h2 id="子半群"><a class="markdownIt-Anchor" href="#子半群"></a> 子半群</h2><p>设 <code>(S, *)</code> 是一个半群，如果 <code>T</code> 是 <code>S</code> 的一个非空子集，并且 <code>T</code> 在运算 <code>*</code> 下封闭（即对于任意 <code>a, b ∈ T</code>，有 <code>a * b ∈ T</code>），则 <code>(T, *)</code> 称为 <code>(S, *)</code> 的一个<strong>子半群</strong></p><h2 id="交换半群"><a class="markdownIt-Anchor" href="#交换半群"></a> 交换半群</h2><p>如果半群 <code>(S, *)</code> 的运算 <code>*</code> 满足<strong>交换律</strong>，即对于任意 <code>a, b ∈ S</code>，都有 <code>a * b = b * a</code>，则称这个半群为<strong>交换半群</strong>（或<strong>阿贝尔半群</strong>）。</p><h2 id="幂等元存在性"><a class="markdownIt-Anchor" href="#幂等元存在性"></a> 幂等元存在性</h2><h3 id="定理"><a class="markdownIt-Anchor" href="#定理"></a> <strong>定理</strong></h3><p>在有限半群中，<strong>每个元素都有幂等幂</strong>。也就是说，对于任意元素a∈S，存在正整数 n使得 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>a</mi><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">a^n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.664392em;vertical-align:0em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span></span></span></span> 是幂等元（即 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><msup><mi>a</mi><mi>n</mi></msup><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>=</mo><msup><mi>a</mi><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">(a^n)^2=a^n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.664392em;vertical-align:0em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span></span></span></span>）。</p><h3 id="证明思路"><a class="markdownIt-Anchor" href="#证明思路"></a> <strong>证明思路</strong></h3><p>考虑序列：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo separator="true">,</mo><msup><mi>a</mi><mn>2</mn></msup><mo separator="true">,</mo><msup><mi>a</mi><mn>3</mn></msup><mo separator="true">,</mo><msup><mi>a</mi><mn>4</mn></msup><mo separator="true">,</mo><mo>…</mo></mrow><annotation encoding="application/x-tex">a,a^2,a^3,a^4,…</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.008548em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">a</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">4</span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner">…</span></span></span></span><br />由于半群有限，根据<strong>鸽巢原理</strong>，必存在i&lt;j 使得 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>a</mi><mi>i</mi></msup><mo>=</mo><msup><mi>a</mi><mi>j</mi></msup></mrow><annotation encoding="application/x-tex">a^i=a^j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.824664em;vertical-align:0em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.824664em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.824664em;vertical-align:0em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.824664em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span></span></span></span></span></span></span></span><br />令 p=j−i&gt;0，则 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>a</mi><mi>i</mi></msup><mo>=</mo><msup><mi>a</mi><mrow><mi>i</mi><mo>+</mo><mi>p</mi></mrow></msup></mrow><annotation encoding="application/x-tex">a^i=a^{i+p}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.824664em;vertical-align:0em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.824664em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.824664em;vertical-align:0em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.824664em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mbin mtight">+</span><span class="mord mathnormal mtight">p</span></span></span></span></span></span></span></span></span></span></span></span><br />通过选择合适的 k，可以证明存在 n 使得 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><msup><mi>a</mi><mi>n</mi></msup><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>=</mo><msup><mi>a</mi><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">(a^n)^2=a^n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.664392em;vertical-align:0em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span></span></span></span></p><h1 id="独异点"><a class="markdownIt-Anchor" href="#独异点"></a> 独异点</h1><p>独异点是在半群的基础上，增加了一个更严格的要求。</p><h2 id="定义-2"><a class="markdownIt-Anchor" href="#定义-2"></a> <strong>定义</strong></h2><p>一个 <strong>独异点</strong>（也称为<strong>幺半群</strong>）是一个二元组 <code>(M, *)</code>，其中：</p><ol><li><p><code>M</code> 是一个非空集合。</p></li><li><p><code>*</code> 是 <code>M</code> 上的一个二元运算，且满足封闭性。</p></li><li><p>运算 <code>*</code> 满足结合律。</p></li><li><p>存在一个 <strong>单位元</strong>（或<strong>幺元</strong>） <code>e ∈ M</code>：对于任意 <code>a ∈ M</code>，都有 <code>e * a = a * e = a</code>。</p></li></ol><h2 id="子独异点"><a class="markdownIt-Anchor" href="#子独异点"></a> 子独异点</h2><p>设 <code>(M, *, e)</code> 是一个独异点（其中 <code>e</code> 是单位元），如果 <code>N</code> 是 <code>M</code> 的一个子集，满足：</p><ol><li><p><code>N</code> 在运算 <code>*</code> 下封闭</p></li><li><p>单位元 <code>e ∈ N</code></p></li><li><p><code>(N, *)</code> 本身构成一个独异点</p></li></ol><p>则称 <code>(N, *, e)</code> 是 <code>(M, *, e)</code> 的<strong>子独异点</strong>。</p><h3 id="要点"><a class="markdownIt-Anchor" href="#要点"></a> <strong>要点</strong></h3><ul><li>必须包含原独异点的单位元</li></ul><h2 id="循环独异点"><a class="markdownIt-Anchor" href="#循环独异点"></a> 循环独异点</h2><h3 id="定义-3"><a class="markdownIt-Anchor" href="#定义-3"></a> <strong>定义</strong></h3><p>一个独异点 <code>(M, *, e)</code> 称为<strong>循环独异点</strong>，如果存在一个元素 <code>a ∈ M</code>（称为<strong>生成元</strong>），使得 <code>M</code> 中的每一个元素都可以表示为 <code>a</code> 的若干次幂。</p><p>形式化地说：存在 <code>a ∈ M</code>，使得 <code>M = &#123;aⁿ | n ∈ ℕ&#125;</code>，其中：</p><ul><li><p><code>a⁰ = e</code>（单位元）</p></li><li><p><code>aⁿ⁺¹ = aⁿ * a</code>（n ≥ 0）</p></li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    <category term="离散数学" scheme="https://id-zy.github.io/categories/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/"/>
-    
-    
-    <category term="离散数学" scheme="https://id-zy.github.io/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>爬楼梯</title>
-    <link href="https://id-zy.github.io/2025/11/18/%E9%A2%9814/"/>
-    <id>https://id-zy.github.io/2025/11/18/%E9%A2%9814/</id>
-    <published>2025-11-18T13:59:15.415Z</published>
-    <updated>2025-11-18T12:42:34.785Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="题目表述来源leetcode"><a class="markdownIt-Anchor" href="#题目表述来源leetcode"></a> 题目表述（来源LeetCode）</h1><p>假设你正在爬楼梯。需要 <code>n</code> 阶你才能到达楼顶。</p><p>每次你可以爬 <code>1</code> 或 <code>2</code> 个台阶。你有多少种不同的方法可以爬到楼顶呢？</p><h1 id="代码实现"><a class="markdownIt-Anchor" href="#代码实现"></a> 代码实现</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">climbStairs</span>(<span class="params">self, n: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        a = [<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>] </span><br><span class="line">        i=<span class="number">3</span></span><br><span class="line">        <span class="keyword">if</span> n&gt;<span class="number">2</span>:</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>,n+<span class="number">1</span>):</span><br><span class="line">                a.append(a[i-<span class="number">1</span>]+a[i-<span class="number">2</span>])</span><br><span class="line">        <span class="keyword">return</span> a[n]</span><br></pre></td></tr></table></figure><h1 id="复杂度分析"><a class="markdownIt-Anchor" href="#复杂度分析"></a> 复杂度分析</h1><ul><li>时间复杂度：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></li><li>空间复杂度：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    <category term="作业练习" scheme="https://id-zy.github.io/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
-    
-    
-    <category term="LeetCode" scheme="https://id-zy.github.io/tags/LeetCode/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>斐波那契数</title>
-    <link href="https://id-zy.github.io/2025/11/18/%E9%A2%9813/"/>
-    <id>https://id-zy.github.io/2025/11/18/%E9%A2%9813/</id>
-    <published>2025-11-18T13:59:15.412Z</published>
-    <updated>2025-11-18T05:56:04.358Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="题目表述来源leetcode"><a class="markdownIt-Anchor" href="#题目表述来源leetcode"></a> 题目表述（来源LeetCode）</h1><p><strong>斐波那契数</strong> （通常用 <code>F(n)</code> 表示）形成的序列称为 <strong>斐波那契数列</strong> 。该数列由 <code>0</code> 和 <code>1</code> 开始，后面的每一项数字都是前面两项数字的和。也就是：<br />F(0) = 0，F(1) = 1<br />F(n) = F(n - 1) + F(n - 2)，其中 n &gt; 1<br />给定 <code>n</code> ，请计算 <code>F(n)</code></p><h1 id="代码实现"><a class="markdownIt-Anchor" href="#代码实现"></a> 代码实现</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">fib</span>(<span class="params">self, n: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        a = [<span class="number">0</span>,<span class="number">1</span>] </span><br><span class="line">        i=<span class="number">2</span></span><br><span class="line">        a[<span class="number">0</span>]=<span class="number">0</span></span><br><span class="line">        a[<span class="number">1</span>]=<span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> n&gt;<span class="number">1</span>:</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>,n+<span class="number">1</span>):</span><br><span class="line">                a.append(a[i-<span class="number">1</span>]+a[i-<span class="number">2</span>])</span><br><span class="line">        <span class="keyword">return</span> a[n]</span><br></pre></td></tr></table></figure><h1 id="复杂度分析"><a class="markdownIt-Anchor" href="#复杂度分析"></a> 复杂度分析</h1><ul><li>时间复杂度：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></li><li>空间复杂度：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    <category term="作业练习" scheme="https://id-zy.github.io/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
-    
-    
-    <category term="LeetCode" scheme="https://id-zy.github.io/tags/LeetCode/"/>
     
   </entry>
   
