@@ -6,7 +6,7 @@
   <link href="https://id-zy.github.io/atom.xml" rel="self"/>
   
   <link href="https://id-zy.github.io/"/>
-  <updated>2025-11-21T11:41:27.354Z</updated>
+  <updated>2025-11-22T13:31:23.211Z</updated>
   <id>https://id-zy.github.io/</id>
   
   <author>
@@ -15,6 +15,76 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="https://id-zy.github.io/2025/11/22/11.22%E6%97%A5%E5%B8%B8/"/>
+    <id>https://id-zy.github.io/2025/11/22/11.22%E6%97%A5%E5%B8%B8/</id>
+    <published>2025-11-22T13:31:47.406Z</published>
+    <updated>2025-11-22T13:31:23.211Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="阅读与思考"><a class="markdownIt-Anchor" href="#阅读与思考"></a> 📖 阅读与思考</h3><p>今日阅读《<strong>社会心理学</strong>》，进度至<strong>态度对行为的预测</strong>。</p><blockquote><p>批判而不愤世嫉俗，好奇而不受蒙蔽，开放而不被操纵。</p></blockquote><p><strong>感悟与联想</strong>：<br />今天仍然读的是《社会心理学》，为我的MOC中补充了<strong>态度形成</strong>和<strong>认知偏见</strong>两张概念卡。读认知偏见时，我了解到人对事物的认知受两方面因素的影响：一是信息，你得到的关于这个人的信息，会提前影响你对事物的认知，并且也将在事后发挥作用；二是态度，你对一些事物的先天立场和倾向也会对影响你的认知。这些都会让我们的认知陷入偏见。</p><h3 id="学习与代码"><a class="markdownIt-Anchor" href="#学习与代码"></a> 💻 学习与代码</h3><ul><li><p><strong>课程/领域</strong>：</p></li><li><p><strong>实践/实验</strong>：</p><ul><li>LeetCode题20（寻找最近的回文数）</li><li></li></ul></li><li><p><strong>代码/项目</strong>：</p><ul><li>完成计算机视觉——Exp2_Feature_Detection</li></ul></li></ul><h3 id="生活与观察"><a class="markdownIt-Anchor" href="#生活与观察"></a> 🎮 生活与观察</h3><ul><li><p><strong>日常小事</strong>：</p><ul><li>打了一天游戏</li></ul></li><li><p><strong>网络见闻</strong>：</p><ul><li>今天读的英文短报是关于“为什么过度完美的人反而不受待见”原因是容易让我们感到对比感</li></ul></li></ul><h3 id="今日三思"><a class="markdownIt-Anchor" href="#今日三思"></a> 💭 今日三思</h3><ol><li><p><strong>技术思辨</strong>：</p><ol><li>有时候需要考虑到数据的大小与复杂程度</li></ol></li><li><p><strong>自我觉察</strong>：</p><ol><li>自我控制能力不足</li></ol></li><li><p><strong>方法总结</strong>：</p><ol><li>无</li></ol></li></ol>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="日常闲谈" scheme="https://id-zy.github.io/categories/%E6%97%A5%E5%B8%B8%E9%97%B2%E8%B0%88/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>认知偏见</title>
+    <link href="https://id-zy.github.io/2025/11/22/%E8%AE%A4%E7%9F%A5%E5%81%8F%E8%A7%81/"/>
+    <id>https://id-zy.github.io/2025/11/22/%E8%AE%A4%E7%9F%A5%E5%81%8F%E8%A7%81/</id>
+    <published>2025-11-22T13:31:41.523Z</published>
+    <updated>2025-11-22T12:50:32.951Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="认知偏见"><a class="markdownIt-Anchor" href="#认知偏见"></a> 认知偏见</h1><h2 id="社会期望的影响"><a class="markdownIt-Anchor" href="#社会期望的影响"></a> 社会期望的影响</h2><p>社会期望的影响我们的信念有时会产生重要的作用。</p><ul><li>通常，我们对别人的信念是建立在现实基础之上的。</li><li>但是对研究者偏见和教师期望的研究显示，认为某些人的能力超常（或能力不足）的错误信念会引导教师和研究者给予那些人特别的关照。这可能会引发他们做出更出色（或平庸）的表现，并且因此看起来似乎会确证一个实际上错误的假定。</li><li>与此相类似，在日常生活中我们经常会获得对自己期望的行为确证。告诉自己即将与之见面的某个人是聪明有吸引力的，那么最后我们对这个人所留下的印象很可能是那些聪明和有吸引力的东西。</li></ul><h2 id="理论基础"><a class="markdownIt-Anchor" href="#理论基础"></a> 理论基础</h2><h3 id="实验者偏见罗伯特罗森塔尔"><a class="markdownIt-Anchor" href="#实验者偏见罗伯特罗森塔尔"></a> 实验者偏见（罗伯特·罗森塔尔）</h3><p>实验参与者会按着他们认为的主试想要的结果来行动。在一个研究中，研究者要求被试判断照片中出现的不同人的成功。研究者给所有被试读相同的指导语，并给他们看同样的照片。尽管如此，那些期望被试做出较高评价的研究者比那些期望被试把照片中的人看做失败者的研究者获得的评价更高。更为令人吃惊且富有争议的是，报告指出老师对学生的信念会产生类似的自我实现预言。</p><blockquote><p>较低的期望并不会毁掉一个有能力的孩子，同样较高的期望也不会魔术般地将一个学习吃力的孩子变成在毕业典礼上致词的毕业生代表。人类的天性不是如此易变的。<br />然而，较高的期望确实会影响成就低的人，对他们来说，  老师的正面态度可能是一缕带来希望的清新空气</p></blockquote><h2 id="行为确证"><a class="markdownIt-Anchor" href="#行为确证"></a> 行为确证</h2><p>一旦形成错误的社会信念，就可能引发他人做出某些行为反应以支持这些信念</p><h2 id="偏见的形成"><a class="markdownIt-Anchor" href="#偏见的形成"></a> 偏见的形成</h2><p>心智对于高效判断的偏向使我们的直觉难免会有误判。我们相当容易形成和保持错误信念。我们容易受先入之见和过度自信引导，被鲜活的逸闻甚至不可能存在的虚假相关和控制所说服，我们建构起自己的社会信念并继而影响他人去确证它们。</p><h2 id="对抗方法"><a class="markdownIt-Anchor" href="#对抗方法"></a> 对抗方法</h2><ul><li>批判而不愤世嫉俗</li><li>好奇而不受蒙蔽</li><li>开放而不被操纵</li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="读书笔记" scheme="https://id-zy.github.io/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="《社会心理学》" scheme="https://id-zy.github.io/tags/%E3%80%8A%E7%A4%BE%E4%BC%9A%E5%BF%83%E7%90%86%E5%AD%A6%E3%80%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>态度形成</title>
+    <link href="https://id-zy.github.io/2025/11/22/%E6%80%81%E5%BA%A6%E5%BD%A2%E6%88%90/"/>
+    <id>https://id-zy.github.io/2025/11/22/%E6%80%81%E5%BA%A6%E5%BD%A2%E6%88%90/</id>
+    <published>2025-11-22T13:31:41.522Z</published>
+    <updated>2025-11-22T13:07:09.415Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="态度形成"><a class="markdownIt-Anchor" href="#态度形成"></a> 态度形成</h1><h2 id="有关态度与行为的研究发展"><a class="markdownIt-Anchor" href="#有关态度与行为的研究发展"></a> 有关“态度”与“行为”的研究发展</h2><ul><li>最初：了解人们的态度就可以预测他们的行为</li><li>1960年费斯廷格指出‘’改变人们的态度并不能改变他们的行为。他认为，态度与行为的关系以其他方式运作‘’</li><li>20世纪60年代产生的最初的“态度决定行为”的论点遭到了对立观点的反驳，态度实际上什么也决定不了</li></ul><h2 id="态度的定义社会心理学"><a class="markdownIt-Anchor" href="#态度的定义社会心理学"></a> 态度的定义（社会心理学）</h2><p>与人或事物相关的信念和感受以及由此引发的行为倾向</p><ul><li>个人的态度可以界定为个体对人或事物的积极或消极的评价性反应</li><li>植于个体的信念，表现于个体的感受或者行为倾向中</li><li>有效地度量世界</li></ul><h2 id="态度对行为预测"><a class="markdownIt-Anchor" href="#态度对行为预测"></a> 态度对行为预测</h2><h3 id="思考问题"><a class="markdownIt-Anchor" href="#思考问题"></a> 思考问题</h3><p><strong>内在的态度在多大程度上且在什么条件下会影响我们外在的行为。</strong><br />社会心理学家艾伦·威克得出的结论：<strong>人们表现出的态度很难预测他们的各种行为。</strong></p><h3 id="态度何时能预测行为"><a class="markdownIt-Anchor" href="#态度何时能预测行为"></a> 态度何时能预测行为</h3><p>行为和我们表达出的态度之所以不同，是因为二者都受到其他因素的影响。一个社会心理学家找出了40个令它们之间关系复杂的因素。如果我们能将其他因素对行为的影响最小化，那么态度就可以精确地预测行为。</p><ul><li>某些测量通过内隐态度（无意识的）测量补充了传统自我报告对外显（有意识的）态度的测量<ul><li>测量面部肌肉对各种声明的反应</li><li><strong>内隐联想测试</strong>-用反应时来测量人们概念联想的速度<ul><li>内隐偏见普遍存在</li><li>内隐偏见存在个体差异</li><li>人们通常意识不到自己的内隐偏见</li><li>内隐即无意识的态度<br />外显（自我报告的）态度和内隐态度都有助于预测个体的行为和判断</li></ul></li></ul></li><li>对于那些形成于生命早期的态度，如种族和性别的态度，外显态度和内隐态度常常会出现分歧，内隐态度往往能够做出更好的预测</li><li>对于其他态度，比如与消费行为和支持政治候选人有关的态度，外显自我报告往往更有预测力。​</li><li>科学依据：当我们自动评价社会刺激时，我们大脑深部的一个区域（威胁知觉中心—杏仁核）会被激活。其他额叶区域参与了检测和调节内隐态度。<br />无论如何，外显态度和内隐态度的区分证实了21世纪心理学最大的课题：我们的“双重加工”能力：受控制的（目的性的、有意识的、外显的）思考和自动的（不费力的、习惯性的、内隐的）思考</li></ul><h3 id="态度何时是有效的"><a class="markdownIt-Anchor" href="#态度何时是有效的"></a> 态度何时是有效的</h3><ul><li>当我们思考自己的态度时，态度才会影响我们的行为。</li><li>通过经验建立稳定的态度<ul><li>当态度是由于某种经验而建立的，而不只是道听途说，它们就更具有可接近性，更持久，更能引发行为。</li><li>在某项研究中，大学生都对其学校的住宿供应短缺表现出了抱怨等消极态度。但假如有机会采取行动，比如签署一份请愿书，征集签名，加入一个委员会或写一封信，结果发现，只有那些从直接经验中获取态度的人才会采取行动</li></ul></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="读书笔记" scheme="https://id-zy.github.io/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="《社会心理学》" scheme="https://id-zy.github.io/tags/%E3%80%8A%E7%A4%BE%E4%BC%9A%E5%BF%83%E7%90%86%E5%AD%A6%E3%80%8B/"/>
+    
+  </entry>
   
   <entry>
     <title>11.21| 周五的迎来</title>
@@ -423,78 +493,6 @@
     
     
     <category term="离散数学" scheme="https://id-zy.github.io/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>超级次方</title>
-    <link href="https://id-zy.github.io/2025/11/19/%E9%A2%9815/"/>
-    <id>https://id-zy.github.io/2025/11/19/%E9%A2%9815/</id>
-    <published>2025-11-19T13:30:13.047Z</published>
-    <updated>2025-11-19T12:42:45.961Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="问题描述来源于leetcode"><a class="markdownIt-Anchor" href="#问题描述来源于leetcode"></a> 问题描述（来源于LeetCode)</h1><p>你的任务是计算 <code>a^b</code> 对 <code>1337</code> 取模，<code>a</code> 是一个正整数，<code>b</code> 是一个非常大的正整数且会以数组形式给出。</p><h1 id="代码实现"><a class="markdownIt-Anchor" href="#代码实现"></a> 代码实现</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">superPow</span>(<span class="params">self, a: <span class="built_in">int</span>, b: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">            mod = <span class="number">1337</span></span><br><span class="line">            a_mod = a % mod</span><br><span class="line">            powers = [<span class="built_in">pow</span>(a_mod, i, mod) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>)]</span><br><span class="line">            res = <span class="number">1</span></span><br><span class="line">            <span class="keyword">for</span> digit <span class="keyword">in</span> b:</span><br><span class="line">                res = (<span class="built_in">pow</span>(res, <span class="number">10</span>, mod) * powers[digit]) % mod</span><br><span class="line">            <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure><h1 id="复杂度分析"><a class="markdownIt-Anchor" href="#复杂度分析"></a> 复杂度分析</h1><ul><li>时间复杂度：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>N</mi><mi>L</mi><mi>o</mi><mi>g</mi><mi>N</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(NLogN)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mord mathnormal">L</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mclose">)</span></span></span></span></li><li>空间复杂度：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>N</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(N)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mclose">)</span></span></span></span></li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    <category term="作业练习" scheme="https://id-zy.github.io/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
-    
-    
-    <category term="LeetCode" scheme="https://id-zy.github.io/tags/LeetCode/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>11.19| 标题没想好</title>
-    <link href="https://id-zy.github.io/2025/11/19/11.19%E6%97%A5%E5%B8%B8/"/>
-    <id>https://id-zy.github.io/2025/11/19/11.19%E6%97%A5%E5%B8%B8/</id>
-    <published>2025-11-19T13:30:05.957Z</published>
-    <updated>2025-11-19T13:29:40.999Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="阅读与思考"><a class="markdownIt-Anchor" href="#阅读与思考"></a> 📖 阅读与思考</h3><p>今日阅读《<strong>社会心理学</strong>》，进度至<strong>社会信念和判断</strong>。<br /><strong>感悟与联想</strong>：<br />今天完成了“自我效能”“自我服务偏差”“自我 Presentation&quot;的概念卡片；自我服务偏差和自我展露很好地告诉我一些行为的原因。我还记得高中时，我总是不愿在考试前复习，然后考好了就觉得自己很有天赋；没考好就觉得要是我复习了就一定能考好。然后考好时，别人夸我聪明，我还要谦虚地说”自己其实怎么怎么的“还有为什么我在一些很重要的事前都要特地提前洗澡或者戴上手串，这些都是通过心理暗示提高我的自我效能。</p><h3 id="学习与代码"><a class="markdownIt-Anchor" href="#学习与代码"></a> 💻 学习与代码</h3><ul><li><p><strong>课程/领域</strong>：</p><ul><li>离散数学群</li></ul></li><li><p><strong>实践/实验</strong>：</p><ul><li>计算机安全导论第二章作业</li><li>LeetCode题15（超级次方）</li></ul></li><li><p><strong>代码/项目</strong>：</p></li></ul><h3 id="生活与观察"><a class="markdownIt-Anchor" href="#生活与观察"></a> 🎮 生活与观察</h3><ul><li><p><strong>日常小事</strong>：</p><ul><li>刷抖音忘记了写作业</li><li>洗了衣服</li><li>完成眼神训练</li></ul></li><li><p><strong>网络见闻</strong>：</p><ul><li>今天的英语短报是关于固体杨枝甘露，文章的重点是在介绍这种固体饮料对肠胃的危害。</li></ul></li></ul><h3 id="今日三思"><a class="markdownIt-Anchor" href="#今日三思"></a> 💭 今日三思</h3><ol><li><p><strong>技术思辨</strong>：</p><ol><li>无</li></ol></li><li><p><strong>自我觉察</strong>：</p><ol><li>没有掌控好时间</li></ol></li><li><p><strong>方法总结</strong>：</p><ol><li>无</li></ol></li></ol>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    <category term="日常闲谈" scheme="https://id-zy.github.io/categories/%E6%97%A5%E5%B8%B8%E9%97%B2%E8%B0%88/"/>
-    
-    
-    <category term="《社会心理学》" scheme="https://id-zy.github.io/tags/%E3%80%8A%E7%A4%BE%E4%BC%9A%E5%BF%83%E7%90%86%E5%AD%A6%E3%80%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>自尊的实质及其动机</title>
-    <link href="https://id-zy.github.io/2025/11/18/%E8%87%AA%E5%B0%8A/"/>
-    <id>https://id-zy.github.io/2025/11/18/%E8%87%AA%E5%B0%8A/</id>
-    <published>2025-11-18T13:59:48.955Z</published>
-    <updated>2025-11-18T13:18:44.677Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="自尊的实质及其动机"><a class="markdownIt-Anchor" href="#自尊的实质及其动机"></a> 自尊的实质及其动机</h1><h2 id="自尊"><a class="markdownIt-Anchor" href="#自尊"></a> 自尊</h2><p>我们对自我的全面评价</p><ul><li>具体的自我知觉会影响自我评价<ul><li>应用 夸人时应该具体的表扬<ul><li>比如 夸人漂亮时，不能只是说”你好漂亮“而应该换成“你的头发…你的皮肤…&quot;这类的</li></ul></li><li>真实的反馈是最好的<ul><li>所以不能硬夸</li></ul></li></ul></li><li>安全型自尊<br /><code>不是因为外在（例如成绩、长相、金钱和其他的赞美）​，而是因为自己的内在特质而感觉良好的人—一直处于健康的状态。</code><br /><code>与自尊建立在内部因素（如个人美德）上的人相比，自尊主要依赖于外部因素的人的自我价值感更脆弱，</code></li></ul><h2 id="动机"><a class="markdownIt-Anchor" href="#动机"></a> 动机</h2><h3 id="油量表马克利里"><a class="markdownIt-Anchor" href="#油量表马克利里"></a> 油量表（马克·利里）</h3><p>人际关系对我们的生存和发展具有导向意义。<br /><code>社会拒绝会降低我们的自尊，同时增强我们渴望被接受的意愿。当我们被藐视或抛弃时，我们感到自己缺乏魅力，能力不足。这种痛苦如同仪表盘上闪烁的指示灯一样，会驱使我们通过行动来发展自我，并在其他地方寻求社会接纳和认同。</code></p><h3 id="恐惧管理理论杰夫格林伯格"><a class="markdownIt-Anchor" href="#恐惧管理理论杰夫格林伯格"></a> 恐惧管理理论（杰夫·格林伯格）</h3><p>个体必须找到克服死亡恐惧的办法<br /><code>为了感受到生命的价值，我们必须通过迎合社会标准去坚持追求自尊。</code></p><h2 id="自尊的阴暗面"><a class="markdownIt-Anchor" href="#自尊的阴暗面"></a> 自尊的阴暗面</h2><ul><li>高自尊<ul><li>自恋（自负）</li><li>攻击性高</li></ul></li><li>低自尊<ul><li>容易抑郁</li></ul></li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    <category term="读书笔记" scheme="https://id-zy.github.io/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
-    
-    
-    <category term="《社会心理学》" scheme="https://id-zy.github.io/tags/%E3%80%8A%E7%A4%BE%E4%BC%9A%E5%BF%83%E7%90%86%E5%AD%A6%E3%80%8B/"/>
     
   </entry>
   
