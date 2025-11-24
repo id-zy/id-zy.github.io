@@ -6,7 +6,7 @@
   <link href="https://id-zy.github.io/atom.xml" rel="self"/>
   
   <link href="https://id-zy.github.io/"/>
-  <updated>2025-11-23T08:25:11.941Z</updated>
+  <updated>2025-11-24T12:40:37.301Z</updated>
   <id>https://id-zy.github.io/</id>
   
   <author>
@@ -15,6 +15,196 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>11.24|相似性往往决定本质</title>
+    <link href="https://id-zy.github.io/2025/11/24/11.24%E6%97%A5%E5%B8%B8/"/>
+    <id>https://id-zy.github.io/2025/11/24/11.24%E6%97%A5%E5%B8%B8/</id>
+    <published>2025-11-24T12:41:18.406Z</published>
+    <updated>2025-11-24T12:40:37.301Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="阅读与思考"><a class="markdownIt-Anchor" href="#阅读与思考"></a> 📖 阅读与思考</h3><p>今日阅读《<strong>社会心理学</strong>》，进度至<strong>从众</strong>。<br /><strong>感悟与联想</strong>：</p><ul><li>增加了<strong>人类的相似性和差异性</strong><br />在今天的阅读里，作者想要强调的观点是：<strong>演化成就了人类的相似性，而文化则是差异性的主要原因</strong>，其实这些观点我在很多书里都读到过，比如说《人类简史》《枪炮、病菌与钢铁》；它们都是以达尔文的“自然选择”理论为基础去阐述去证明，我们今天之所以是今天的模样就是自然演化的结果。我记得在《人类简史》有段话就很形象“不是人类驯服了自然，而是自然驯服了我们”</li></ul><h3 id="学习与代码"><a class="markdownIt-Anchor" href="#学习与代码"></a> 💻 学习与代码</h3><ul><li><strong>课程/领域</strong>：<ul><li>整理一部分离散数学的知识图谱<br /><img src="https://pic1.imgdb.cn/item/692448b63203f7be002b5a9e.png=%50" alt="" /></li><li>计算机安全导论第三章作业</li></ul></li><li><strong>实践/实验</strong>：<ul><li>LeetCode题22（4 的幂）</li><li>LeetCode题23（3 的幂）</li><li>LeetCode题24（大的国家）</li><li>LeetCode题25（文章浏览I）</li><li>LeetCode题26（无效的推文）</li></ul></li><li><strong>代码/项目</strong>：<ul><li>微机原理上机报告</li><li>OpenGauss实践能力评估</li></ul></li></ul><h3 id="生活与观察"><a class="markdownIt-Anchor" href="#生活与观察"></a> 🎮 生活与观察</h3><ul><li><p><strong>日常小事</strong>：</p></li><li><p><strong>网络见闻</strong>：</p><ul><li>今天的英文短报阅读是关于让话多以致于守不住秘密的人保持一个健康交谈距离</li></ul></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="日常闲谈" scheme="https://id-zy.github.io/categories/%E6%97%A5%E5%B8%B8%E9%97%B2%E8%B0%88/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>无效的推文</title>
+    <link href="https://id-zy.github.io/2025/11/24/%E9%A2%9826/"/>
+    <id>https://id-zy.github.io/2025/11/24/%E9%A2%9826/</id>
+    <published>2025-11-24T12:41:18.405Z</published>
+    <updated>2025-11-24T00:55:21.621Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="无效的推文"><a class="markdownIt-Anchor" href="#无效的推文"></a> 无效的推文</h1><h2 id="题目描述来源于leetcode"><a class="markdownIt-Anchor" href="#题目描述来源于leetcode"></a> 题目描述（来源于LeetCode)</h2><p>表：<code>Tweets</code></p><p>±---------------±--------+<br />| Column Name    | Type    |<br />±---------------±--------+<br />| tweet_id       | int     |<br />| content        | varchar |<br />±---------------±--------+<br />在 SQL 中，tweet_id 是这个表的主键。<br />content 只包含字母数字字符，‘!’，’ '，不包含其它特殊字符。<br />这个表包含某社交媒体 App 中所有的推文。</p><p>查询所有无效推文的编号（ID）。当推文内容中的字符数<strong>严格大于</strong> <code>15</code> 时，该推文是无效的。</p><p>以<strong>任意顺序</strong>返回结果表。</p><h3 id="初期思路"><a class="markdownIt-Anchor" href="#初期思路"></a> 初期思路</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> </span><br><span class="line">    tweet_id</span><br><span class="line"><span class="keyword">FROM</span> </span><br><span class="line">    tweets</span><br><span class="line"><span class="keyword">WHERE</span> </span><br><span class="line">    <span class="keyword">CHAR_LENGTH</span>(content) <span class="operator">&gt;</span> <span class="number">15</span></span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="作业练习" scheme="https://id-zy.github.io/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
+    
+    
+    <category term="LeetCode" scheme="https://id-zy.github.io/tags/LeetCode/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>文章浏览I</title>
+    <link href="https://id-zy.github.io/2025/11/24/%E9%A2%9825/"/>
+    <id>https://id-zy.github.io/2025/11/24/%E9%A2%9825/</id>
+    <published>2025-11-24T12:41:18.404Z</published>
+    <updated>2025-11-24T00:55:45.756Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="文章浏览i"><a class="markdownIt-Anchor" href="#文章浏览i"></a> 文章浏览I</h1><h2 id="题目描述来源于leetcode"><a class="markdownIt-Anchor" href="#题目描述来源于leetcode"></a> 题目描述（来源于LeetCode)</h2><p><code>Views</code> 表：</p><p>±--------------±--------+<br />| Column Name   | Type    |<br />±--------------±--------+<br />| article_id    | int     |<br />| author_id     | int     |<br />| viewer_id     | int     |<br />| view_date     | date    |<br />±--------------±--------+<br />此表可能会存在重复行。（换句话说，在 SQL 中这个表没有主键）<br />此表的每一行都表示某人在某天浏览了某位作者的某篇文章。<br />请注意，同一人的 author_id 和 viewer_id 是相同的。</p><p>请查询出所有浏览过自己文章的作者。</p><p>结果按照作者的 <code>id</code> 升序排列。</p><h3 id="初期思路"><a class="markdownIt-Anchor" href="#初期思路"></a> 初期思路</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># Write your MySQL query statement below</span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> author_id <span class="keyword">AS</span> id</span><br><span class="line"><span class="keyword">FROM</span> Views</span><br><span class="line"><span class="keyword">WHERE</span> author_id<span class="operator">=</span>viewer_id</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> author_id <span class="keyword">ASC</span></span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="作业练习" scheme="https://id-zy.github.io/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
+    
+    
+    <category term="LeetCode" scheme="https://id-zy.github.io/tags/LeetCode/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>大的国家</title>
+    <link href="https://id-zy.github.io/2025/11/24/%E9%A2%9824/"/>
+    <id>https://id-zy.github.io/2025/11/24/%E9%A2%9824/</id>
+    <published>2025-11-24T12:41:18.402Z</published>
+    <updated>2025-11-24T00:56:07.336Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="大的国家"><a class="markdownIt-Anchor" href="#大的国家"></a> 大的国家</h1><h2 id="题目描述来源于leetcode"><a class="markdownIt-Anchor" href="#题目描述来源于leetcode"></a> 题目描述（来源于LeetCode)</h2><p><code>World</code> 表：<br />±------------±--------+<br />| Column Name | Type    |<br />±------------±--------+<br />| name        | varchar |<br />| continent   | varchar |<br />| area        | int     |<br />| population  | int     |<br />| gdp         | bigint  |<br />±------------±--------+<br /><code>name</code> 是该表的主键（具有唯一值的列）。<br />这张表的每一行提供：国家名称、所属大陆、面积、人口和 GDP 值。</p><p>如果一个国家满足下述两个条件之一，则认为该国是 <strong>大国</strong> ：</p><ul><li>面积至少为 300 万平方公里（即，<code>3000000 km2</code>），或者</li><li>人口至少为 2500 万（即 <code>25000000</code>）</li></ul><p>编写解决方案找出 <strong>大国</strong> 的国家名称、人口和面积。</p><p>按 <strong>任意顺序</strong> 返回结果表。</p><p>返回结果格式如下例所示。</p><h3 id="初期思路"><a class="markdownIt-Anchor" href="#初期思路"></a> 初期思路</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># Write your MySQL query statement below</span><br><span class="line"><span class="keyword">SELECT</span> name,population,area</span><br><span class="line"><span class="keyword">FROM</span> World</span><br><span class="line"><span class="keyword">WHERE</span> area <span class="operator">&gt;=</span><span class="number">3000000</span> <span class="keyword">OR</span> population<span class="operator">&gt;=</span> <span class="number">25000000</span></span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="作业练习" scheme="https://id-zy.github.io/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
+    
+    
+    <category term="LeetCode" scheme="https://id-zy.github.io/tags/LeetCode/"/>
+    
+  </entry>
+  
+  <entry>
+    <title> 4 的幂</title>
+    <link href="https://id-zy.github.io/2025/11/24/%E9%A2%9822/"/>
+    <id>https://id-zy.github.io/2025/11/24/%E9%A2%9822/</id>
+    <published>2025-11-24T12:41:18.401Z</published>
+    <updated>2025-11-24T05:31:55.648Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="4-的幂"><a class="markdownIt-Anchor" href="#4-的幂"></a> 4 的幂</h1><h2 id="题目描述来源于leetcode"><a class="markdownIt-Anchor" href="#题目描述来源于leetcode"></a> 题目描述（来源于LeetCode)</h2><p>给定一个整数，写一个函数来判断它是否是 4 的幂次方。如果是，返回 <code>true</code> ；否则，返回 <code>false</code> 。</p><p>整数 <code>n</code> 是 4 的幂次方需满足：存在整数 <code>x</code> 使得 <code>n == 4x</code></p><h3 id="初期思路"><a class="markdownIt-Anchor" href="#初期思路"></a> 初期思路</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">isPowerOfFour</span>(<span class="params">self, n: <span class="built_in">int</span></span>) -&gt; <span class="built_in">bool</span>:</span><br><span class="line">        i =<span class="number">31</span></span><br><span class="line">        pid =<span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> i:</span><br><span class="line">            <span class="keyword">if</span> n ==<span class="number">1</span>:</span><br><span class="line">                pid =<span class="number">1</span></span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            n/=<span class="number">4</span></span><br><span class="line">            i-=<span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> pid:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure><h4 id="复杂度分析"><a class="markdownIt-Anchor" href="#复杂度分析"></a> 复杂度分析</h4><ul><li>时间复杂度：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>l</mi><mi>o</mi><mi>g</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(log(n))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span></li><li>空间复杂度：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></li></ul><h2 id="进阶"><a class="markdownIt-Anchor" href="#进阶"></a> 进阶</h2><p>使用位运算：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">isPowerOfFour</span>(<span class="params">self, n: <span class="built_in">int</span></span>) -&gt; <span class="built_in">bool</span>:</span><br><span class="line">        <span class="keyword">if</span> n ==<span class="number">0</span> :</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        <span class="keyword">if</span> n&amp;(n-<span class="number">1</span>)==<span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> (n&amp;<span class="number">2863311530</span>)==<span class="number">0</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure><h4 id="复杂度分析-2"><a class="markdownIt-Anchor" href="#复杂度分析-2"></a> 复杂度分析</h4><ul><li>时间复杂度：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></li><li>空间复杂度：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="作业练习" scheme="https://id-zy.github.io/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
+    
+    
+    <category term="LeetCode" scheme="https://id-zy.github.io/tags/LeetCode/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>人类的相似性和差异性</title>
+    <link href="https://id-zy.github.io/2025/11/24/%E4%BA%BA%E7%B1%BB%E7%9A%84%E7%9B%B8%E4%BC%BC%E6%80%A7%E5%92%8C%E5%B7%AE%E5%BC%82%E6%80%A7/"/>
+    <id>https://id-zy.github.io/2025/11/24/%E4%BA%BA%E7%B1%BB%E7%9A%84%E7%9B%B8%E4%BC%BC%E6%80%A7%E5%92%8C%E5%B7%AE%E5%BC%82%E6%80%A7/</id>
+    <published>2025-11-24T12:41:18.399Z</published>
+    <updated>2025-11-24T08:16:47.088Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="人类的相似性和差异性"><a class="markdownIt-Anchor" href="#人类的相似性和差异性"></a> 人类的相似性和差异性</h1><p>在人类的相似性和差异性方面主要有两种观点：</p><ul><li>演化的观点强调人类的相似性</li><li>文化的观点强调人类的差异性<br />书中说人类的相似性较之差异性更加显著</li></ul><h2 id="自然选择"><a class="markdownIt-Anchor" href="#自然选择"></a> 自然选择</h2><p>达尔文认为自然选择得以进行</p><blockquote><p>生物体有许多不同的后代。<br />这些后代在环境中互相竞争以求生存。<br />某些特定的生理和行为变异会提高他们在相应环境中繁殖和存活的概率。<br />存活下来的后代更有可能将他们的基因传递给下一代。<br />因此，随着时间的推移，族群特征可能会发生变化。某些基因会增加物种生存和繁衍的几率，因此自然选择意味着这些基因的数量会越来越多。比如，在北极严寒的条件下，北极熊的那些可以形成白色厚实毛皮的基因就会在竞争中获胜并占据主导地位。</p></blockquote><h2 id="自然选择-进化心理学"><a class="markdownIt-Anchor" href="#自然选择-进化心理学"></a> 自然选择-&gt;进化心理学</h2><h3 id="进化心理学的研究对象"><a class="markdownIt-Anchor" href="#进化心理学的研究对象"></a> 进化心理学的研究对象</h3><ul><li>自然选择如何影响那些有利于适应特定环境的生理特征</li><li>那些有利于基因存活和延续的心理特征以及社会行为</li></ul><h2 id="进化心理学家的观点"><a class="markdownIt-Anchor" href="#进化心理学家的观点"></a> 进化心理学家的观点</h2><p>我们人类就应该是现在这个样子，因为在我们祖先众多的后代中，自然选择了那些拥有我们如今特性的个体—比如，偏爱食用营养丰富、高能量的甜食，讨厌有毒食物的酸苦味道。而那些没有这类偏好的祖先不太可能存活下来以繁衍后代。<br />演化论的观点强调我们人类共同的属性。<strong>我们不仅具有相似的食物偏好，而且对一些社会问题也会有同样的回答</strong></p><h2 id="文化"><a class="markdownIt-Anchor" href="#文化"></a> 文化</h2><p>正是人类共有的生理基础使得我们具有了文化上的多样性。它可以令一种文化(culture)里的人们珍视决断、喜欢坦率或者接受婚前性行为，而另一个文化里的人们则可以完全相反<br />先天属性和后天养育共同塑造了我们。基因并不能决定一切，它们的表达还依赖于环境的影响<br /><strong>文化的多样性影响着我们的社会行为</strong><br />然而多样的文化内部也存在一定的相似性</p><ul><li>普遍的友谊规范</li><li>普遍的特质维度</li><li>普遍的社会信念维度</li><li>普遍的地位等级规范</li><li>乱伦禁忌</li><li>战争规范</li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="读书笔记" scheme="https://id-zy.github.io/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="《社会心理学》" scheme="https://id-zy.github.io/tags/%E3%80%8A%E7%A4%BE%E4%BC%9A%E5%BF%83%E7%90%86%E5%AD%A6%E3%80%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>从众</title>
+    <link href="https://id-zy.github.io/2025/11/24/%E4%BB%8E%E4%BC%97/"/>
+    <id>https://id-zy.github.io/2025/11/24/%E4%BB%8E%E4%BC%97/</id>
+    <published>2025-11-24T12:41:18.398Z</published>
+    <updated>2025-11-24T08:34:48.420Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="从众"><a class="markdownIt-Anchor" href="#从众"></a> 从众</h1><p>从众有时有害、有时有益、有时无关紧要</p><h2 id="从众-顺从-服从和接纳的定义"><a class="markdownIt-Anchor" href="#从众-顺从-服从和接纳的定义"></a> 从众、顺从、服从和接纳的定义</h2><table><thead><tr><th>标签</th><th>定义</th></tr></thead><tbody><tr><td>从众</td><td>不仅仅是与其他人一样地行动，还指个人受他人行动的影响</td></tr><tr><td></td><td>指根据他人而做出的行为或信念的改变</td></tr><tr><td></td><td>人是否从众的关键是，当你脱离群体时，你的行为和信念是否仍保持不变</td></tr><tr><td>顺从</td><td>尽管自己讨厌这样做。这种由外部力量施压而违心的从众行为</td></tr><tr><td>服从</td><td>尽管自己讨厌这样做。这种由外部力量施压而违心的从众行为</td></tr><tr><td></td><td>顺从的一种，是指对直接命令的顺从</td></tr><tr><td>接纳</td><td>发自内心真诚的从众行为</td></tr><tr><td></td><td>内心认可社会压力并在行动上保持一致。</td></tr></tbody></table><h2 id="经典的从众和服从研究"><a class="markdownIt-Anchor" href="#经典的从众和服从研究"></a> 经典的从众和服从研究</h2><ul><li>谢里夫的规范形成研究</li><li>阿施的群体压力研究</li><li>米尔格拉姆的服从实验</li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="读书笔记" scheme="https://id-zy.github.io/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="《社会心理学》" scheme="https://id-zy.github.io/tags/%E3%80%8A%E7%A4%BE%E4%BC%9A%E5%BF%83%E7%90%86%E5%AD%A6%E3%80%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>3 的幂</title>
+    <link href="https://id-zy.github.io/2025/11/24/%E9%A2%9823/"/>
+    <id>https://id-zy.github.io/2025/11/24/%E9%A2%9823/</id>
+    <published>2025-11-24T12:41:18.397Z</published>
+    <updated>2025-11-24T12:40:09.395Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="3-的幂"><a class="markdownIt-Anchor" href="#3-的幂"></a> 3 的幂</h1><h2 id="题目描述来源于leetcode"><a class="markdownIt-Anchor" href="#题目描述来源于leetcode"></a> 题目描述（来源于LeetCode)</h2><p>给定一个整数，写一个函数来判断它是否是 3 的幂次方。如果是，返回 <code>true</code> ；否则，返回 <code>false</code> 。</p><p>整数 <code>n</code> 是 3 的幂次方需满足：存在整数 <code>x</code> 使得 <code>n == 3x</code></p><h3 id="初期思路"><a class="markdownIt-Anchor" href="#初期思路"></a> 初期思路</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">isPowerOfThree</span>(<span class="params">self, n: <span class="built_in">int</span></span>) -&gt; <span class="built_in">bool</span>:</span><br><span class="line">        i =<span class="number">31</span></span><br><span class="line">        pid =<span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> i:</span><br><span class="line">            <span class="keyword">if</span> n ==<span class="number">1</span>:</span><br><span class="line">                pid =<span class="number">1</span></span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            n/=<span class="number">3</span></span><br><span class="line">            i-=<span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> pid:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure><h4 id="复杂度分析"><a class="markdownIt-Anchor" href="#复杂度分析"></a> 复杂度分析</h4><ul><li>时间复杂度：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>l</mi><mi>o</mi><msub><mi>g</mi><mn>3</mn></msub><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(log_3(n))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span></li><li>空间复杂度：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="作业练习" scheme="https://id-zy.github.io/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
+    
+    
+    <category term="LeetCode" scheme="https://id-zy.github.io/tags/LeetCode/"/>
+    
+  </entry>
   
   <entry>
     <title>认知失调理论</title>
@@ -297,202 +487,6 @@
     
     
     <category term="LeetCode" scheme="https://id-zy.github.io/tags/LeetCode/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>寻找用户推荐人</title>
-    <link href="https://id-zy.github.io/2025/11/21/%E9%A2%9818/"/>
-    <id>https://id-zy.github.io/2025/11/21/%E9%A2%9818/</id>
-    <published>2025-11-21T11:39:07.800Z</published>
-    <updated>2025-11-21T10:19:49.063Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="寻找用户推荐人"><a class="markdownIt-Anchor" href="#寻找用户推荐人"></a> 寻找用户推荐人</h1><h2 id="题目描述来源于leetcode"><a class="markdownIt-Anchor" href="#题目描述来源于leetcode"></a> 题目描述（来源于LeetCode）</h2><p>表: <code>Customer</code></p><p>±------------±--------+<br />| Column Name | Type    |<br />±------------±--------+<br />| id          | int     |<br />| name        | varchar |<br />| referee_id  | int     |<br />±------------±--------+<br />在 SQL 中，id 是该表的主键列。<br />该表的每一行表示一个客户的 id、姓名以及推荐他们的客户的 id。</p><p>找出以下客户的姓名：</p><ol><li><strong>被任何</strong> <code>id != 2</code> 的用户推荐。</li><li><strong>没有被</strong> 任何用户推荐。</li></ol><p>以 <strong>任意顺序</strong> 返回结果表。</p><h2 id="mysql语句实现"><a class="markdownIt-Anchor" href="#mysql语句实现"></a> mysql语句实现</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># Write your MySQL query statement below</span><br><span class="line"><span class="keyword">SELECT</span> name</span><br><span class="line"><span class="keyword">FROM</span> Customer</span><br><span class="line"><span class="keyword">WHERE</span> referee_id <span class="operator">&lt;&gt;</span> <span class="number">2</span> <span class="keyword">OR</span> referee_id <span class="keyword">IS</span> <span class="keyword">NULL</span></span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    <category term="作业练习" scheme="https://id-zy.github.io/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
-    
-    
-    <category term="LeetCode" scheme="https://id-zy.github.io/tags/LeetCode/"/>
-    
-    <category term="mysql" scheme="https://id-zy.github.io/tags/mysql/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>可回收且低脂的产品</title>
-    <link href="https://id-zy.github.io/2025/11/21/%E9%A2%9817/"/>
-    <id>https://id-zy.github.io/2025/11/21/%E9%A2%9817/</id>
-    <published>2025-11-21T11:39:07.798Z</published>
-    <updated>2025-11-21T10:18:49.374Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="可回收且低脂的产品"><a class="markdownIt-Anchor" href="#可回收且低脂的产品"></a> 可回收且低脂的产品</h1><h2 id="题目描述来源于leetcode"><a class="markdownIt-Anchor" href="#题目描述来源于leetcode"></a> 题目描述（来源于LeetCode）</h2><p>表：<code>Products</code><br />±------------±--------+<br />| Column Name | Type    |<br />±------------±--------+<br />| product_id  | int     |<br />| low_fats    | enum    |<br />| recyclable  | enum    |<br />±------------±--------+<br /><code>product_id</code> 是该表的主键（具有唯一值的列）。<br />low_fats 是枚举类型，取值为以下两种 (‘Y’, ‘N’)，其中 ‘Y’ 表示该产品是低脂产品，‘N’ 表示不是低脂产品。<br />recyclable 是枚举类型，取值为以下两种 (‘Y’, ‘N’)，其中 ‘Y’ 表示该产品可回收，而 ‘N’ 表示不可回收。</p><p>编写解决方案找出既是低脂又是可回收的产品编号。<br />返回结果 <strong>无顺序要求</strong> 。</p><h2 id="mysql语句实现"><a class="markdownIt-Anchor" href="#mysql语句实现"></a> mysql语句实现</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># Write your MySQL query statement below</span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> product_id</span><br><span class="line"><span class="keyword">FROM</span> products</span><br><span class="line"><span class="keyword">WHERE</span> low_fats<span class="operator">=</span><span class="string">&#x27;Y&#x27;</span> <span class="keyword">AND</span> recyclable<span class="operator">=</span><span class="string">&#x27;Y&#x27;</span></span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    <category term="作业练习" scheme="https://id-zy.github.io/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
-    
-    
-    <category term="LeetCode" scheme="https://id-zy.github.io/tags/LeetCode/"/>
-    
-    <category term="mysql" scheme="https://id-zy.github.io/tags/mysql/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>哈希函数</title>
-    <link href="https://id-zy.github.io/2025/11/21/%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0/"/>
-    <id>https://id-zy.github.io/2025/11/21/%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0/</id>
-    <published>2025-11-21T11:39:02.593Z</published>
-    <updated>2025-11-21T11:33:56.733Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="哈希函数"><a class="markdownIt-Anchor" href="#哈希函数"></a> 哈希函数</h1><p>哈希的过程中需要使用哈希函数进行计算。<br />哈希函数是一种映射关系，根据数据的关键词 key ，通过一定的函数关系，计算出该元素存储位置的函数。<br />表示为：</p><p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>a</mi><mi>d</mi><mi>d</mi><mi>r</mi><mi>e</mi><mi>s</mi><mi>s</mi><mo>=</mo><mi>H</mi><mo stretchy="false">[</mo><mi>k</mi><mi>e</mi><mi>y</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">address = H [key]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal">a</span><span class="mord mathnormal">d</span><span class="mord mathnormal">d</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">e</span><span class="mord mathnormal">s</span><span class="mord mathnormal">s</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="mopen">[</span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mclose">]</span></span></span></span></span></p><h2 id="几种常见的哈希函数散列函数构造方法"><a class="markdownIt-Anchor" href="#几种常见的哈希函数散列函数构造方法"></a> 几种常见的哈希函数（散列函数）构造方法</h2><ul><li>直接定址法</li><li>除留余数法</li><li>数字分析法</li><li>平方取中法</li><li>折叠法（叠加法）</li><li>随机数法</li></ul><h2 id="哈希冲突的解决"><a class="markdownIt-Anchor" href="#哈希冲突的解决"></a> 哈希冲突的解决</h2><p>选用哈希函数计算哈希值时，可能不同的 key 会得到相同的结果，一个地址怎么存放多个数据呢？这就是冲突。<br /><strong>解决方法</strong>：</p><ul><li>将所有关键字为同义词的结点链接在同一个单链表中</li><li>开放定址法<ul><li>当冲突发生时，使用某种探测技术在散列表中形成一个探测序列。沿此序列逐个单元地查找，直到找到给定的关键字，或者碰到一个开放的地址（即该地址单元为空）为止（若要插入，在探查到开放的地址，则可将待插入的新结点存人该地址单元）。查找时探测到开放的地址则表明表中无待查的关键字，即查找失败。<ul><li>线性探查法</li><li>二次探查法</li><li>双重散列法</li></ul></li></ul></li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    <category term="数据结构" scheme="https://id-zy.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-    
-    <category term="算法" scheme="https://id-zy.github.io/tags/%E7%AE%97%E6%B3%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>哈希表</title>
-    <link href="https://id-zy.github.io/2025/11/21/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
-    <id>https://id-zy.github.io/2025/11/21/%E5%93%88%E5%B8%8C%E8%A1%A8/</id>
-    <published>2025-11-21T11:39:02.591Z</published>
-    <updated>2025-11-21T11:29:17.817Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="哈希表hash-table"><a class="markdownIt-Anchor" href="#哈希表hash-table"></a> 哈希表（Hash Table）</h1><p>又称为散列表，是一种基于<strong>键值对（Key-Value Pair）存储的数据结构。它通过哈希函数</strong>将键（Key）映射为数组索引，从而实现高效的插入、查找和删除操作。<br />简而言之：</p><blockquote><p>给定一个键 key，我们可以使用哈希函数快速定位其对应的值 value，时间复杂度接近<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span>。</p></blockquote><h2 id="哈希表的两个关键组件"><a class="markdownIt-Anchor" href="#哈希表的两个关键组件"></a> 哈希表的两个关键组件</h2><ul><li><strong>哈希函数</strong><ul><li>将任意长度的输入（如字符串、整数等）转换为固定长度的数值该数值再通过取模运算确定其在数组中的位置</li></ul></li><li><strong>冲突解决策略</strong><ul><li>不同的键可能映射到同一个位置（称为哈希冲突），需要通过链地址法、开放寻址法等方式解决。</li></ul></li></ul><h2 id="工作流程"><a class="markdownIt-Anchor" href="#工作流程"></a> 工作流程</h2><ol><li>插入操作：输入键 key → 哈希函数计算索引 → 存储值 value 到对应桶中。</li><li>查询操作：输入键 key → 哈希函数计算索引 → 直接访问桶获取值 value。</li><li>删除操作：类似查询，找到后进行删除。</li></ol>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    <category term="数据结构" scheme="https://id-zy.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-    
-    <category term="数据结构" scheme="https://id-zy.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>归因理论</title>
-    <link href="https://id-zy.github.io/2025/11/20/%E5%BD%92%E5%9B%A0%E7%90%86%E8%AE%BA/"/>
-    <id>https://id-zy.github.io/2025/11/20/%E5%BD%92%E5%9B%A0%E7%90%86%E8%AE%BA/</id>
-    <published>2025-11-20T13:48:14.883Z</published>
-    <updated>2025-11-20T12:11:57.779Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="归因理论海德"><a class="markdownIt-Anchor" href="#归因理论海德"></a> 归因理论（海德）</h1><h2 id="理论背景"><a class="markdownIt-Anchor" href="#理论背景"></a> 理论背景</h2><p>我们无休止地分析和讨论事情为什么发生，特别是当我们经历一些消极事件或者预期之外事件的时候</p><h2 id="目的"><a class="markdownIt-Anchor" href="#目的"></a> 目的</h2><p>描述了我们如何解释人们的行为</p><h2 id="理论"><a class="markdownIt-Anchor" href="#理论"></a> 理论</h2><p>人们通常试图将个体的行为或者归结为内部原因（例如个人的性格）​，或者归结为外部原因（例如人们所处的情境）而且我们当中的某些人更倾向于将行为归因于稳定的性格因素；而其他的一些人则更倾向于将行为归因于情境因素</p><h3 id="推断特质"><a class="markdownIt-Anchor" href="#推断特质"></a> 推断特质</h3><ul><li>而且我们当中的某些人更倾向于将行为归因于稳定的性格因素；而其他的一些人则更倾向于将行为归因于情境因素</li></ul><h2 id="解释行为一般使用的三种信息"><a class="markdownIt-Anchor" href="#解释行为一般使用的三种信息"></a> 解释行为一般使用的三种信息</h2><ul><li>一致性：个体在这种情境下出现类似行为的一致性如何？</li><li>区别性：个体的这种行为是否具体对应于该特定情境？</li><li>共同反应：个体的这种行为是否具体对应于该特定情境？</li></ul><h3 id="举例说明"><a class="markdownIt-Anchor" href="#举例说明"></a> 举例说明</h3><p>当解释为什么埃德加用电脑的时候总是出问题时<br />参考信息</p><ul><li>一致性：（埃德加经常都无法使其电脑正常工作吗？​）​</li><li>区别性：（埃德加是仅仅不能使用这台电脑还是其他的电脑也不能使用？​）​，</li><li>共同反应：（其他人在用这个型号的电脑时也会出现问题吗？​）​<br />当我们了解到埃德加在使用所有电脑都会遇到麻烦时，那么我们往往会将原因归结于埃德加，而不是电脑本身的问题</li></ul><h2 id="基本归因错误"><a class="markdownIt-Anchor" href="#基本归因错误"></a> 基本归因错误</h2><p>个体在归因时低估情境因素作用的倾向<br />体现：</p><ul><li>我们会觉得人们摔倒是因为他们笨拙，而不会觉得是因为他们被绊了一下<br />原因：</li><li>我们通常认为他人的行为就是其内在特点的直接反映。</li><li>视角和情境意识:当观察他人和我们自己的亲身经历时，我们的观点会有所不同。当我们作为行动者时，环境会支配我们的注意；而当我们观察别人的行为时，作为行为载体的人则会成为我们注意的中心，而环境变得相对模糊。<ul><li>如果我自己狂怒，那是因为当时的情境让我太生气了。但当我看到别人暴怒时，会觉得他似乎脾气不大好。</li></ul></li><li>一旦曾经可见的行动者在记忆中变得模糊，观察者通常会分配给情境更多的权重。听到某人以某一指定的立场辩论后立刻做出归因的话，那么人们会假定那个立场就是辩论者自己真正的立场</li><li>我们从自己关注的地方寻找原因。</li><li>文化差异</li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    <category term="读书笔记" scheme="https://id-zy.github.io/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
-    
-    
-    <category term="《社会心理学》" scheme="https://id-zy.github.io/tags/%E3%80%8A%E7%A4%BE%E4%BC%9A%E5%BF%83%E7%90%86%E5%AD%A6%E3%80%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>信念固着</title>
-    <link href="https://id-zy.github.io/2025/11/20/%E4%BF%A1%E5%BF%B5%E5%9B%BA%E7%9D%80/"/>
-    <id>https://id-zy.github.io/2025/11/20/%E4%BF%A1%E5%BF%B5%E5%9B%BA%E7%9D%80/</id>
-    <published>2025-11-20T13:48:14.871Z</published>
-    <updated>2025-11-20T11:48:30.783Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="信念固着"><a class="markdownIt-Anchor" href="#信念固着"></a> 信念固着</h1><h2 id="定义"><a class="markdownIt-Anchor" href="#定义"></a> 定义</h2><p>一旦人们为错误的信息建立了理论基础，那么就很难再让他们否定这条错误的信息</p><h2 id="理论基础"><a class="markdownIt-Anchor" href="#理论基础"></a> 理论基础</h2><p>我们的信念和期待在很大程度上会影响我们对事件的建构</p><ul><li>我们越是极力想证明我们的理论和解释可能是正确的，我们就对挑战自己信念的信息越封闭。</li><li>一旦我们确信一个被指控的人犯了罪、一个令人讨厌的陌生人的确会表现出那样的行为</li><li>我们相信钟爱的某一股票的市值一定会有所上升，那么，我们就会为维护我们的解释而回击各种挑战</li></ul><h2 id="纠正方法"><a class="markdownIt-Anchor" href="#纠正方法"></a> 纠正方法</h2><p>唯一的方法是<strong>解释相反的观点</strong><br />假设自己是持相反观点的人，自己是否会得出同样的结论</p><h2 id="信念影响着我们的观点与回忆"><a class="markdownIt-Anchor" href="#信念影响着我们的观点与回忆"></a> 信念影响着我们的观点与回忆</h2><ul><li>先见会影响我们对事物的观点<ul><li>比如你从某个人那听说这个怎么样，你下意识地就会为他贴上标签</li></ul></li><li>事后感受会影响我们的回忆<ul><li>如果最后你的感受是快乐，你会忽视掉开头的不愉悦</li></ul></li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    <category term="读书笔记" scheme="https://id-zy.github.io/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
-    
-    
-    <category term="《社会心理学》" scheme="https://id-zy.github.io/tags/%E3%80%8A%E7%A4%BE%E4%BC%9A%E5%BF%83%E7%90%86%E5%AD%A6%E3%80%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>11.20|持续充电中</title>
-    <link href="https://id-zy.github.io/2025/11/20/11.20%E6%97%A5%E5%B8%B8/"/>
-    <id>https://id-zy.github.io/2025/11/20/11.20%E6%97%A5%E5%B8%B8/</id>
-    <published>2025-11-20T13:47:55.302Z</published>
-    <updated>2025-11-20T13:46:03.077Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="阅读与思考"><a class="markdownIt-Anchor" href="#阅读与思考"></a> 📖 阅读与思考</h3><p>今日阅读《<strong>社会心理学</strong>》，进度至<strong>社会期望的影响</strong>章节。<br /><strong>感悟与联想</strong>：今天为MOC补充了信念固着与归因理论两张概念卡，有种集卡的感觉。难不成我也成为牌佬？信念固着解释了为什么有什么我们总会坚持自己的想法，并不断试图去寻找证据证明自己的观点却忽视那些对自己观点不利的证据；而归因理论则更好地帮助我理解自己或者他人做出行为背后的原因</p><h3 id="学习与代码"><a class="markdownIt-Anchor" href="#学习与代码"></a> 💻 学习与代码</h3><ul><li><p><strong>课程/领域</strong>：</p><ul><li>补充离散数学<strong>群</strong>概念卡片（阿贝尔群、循环群）</li><li>增加了离散数学<strong>子群</strong>和<strong>群同态</strong>的概念卡片</li><li>增加了快速幂算法的概念卡片</li></ul></li><li><p><strong>实践/实验</strong>：</p><ul><li>LeetCode题16（整数反转）使用了字符串的知识</li><li>离散数学第九次作业</li></ul></li><li><p><strong>代码/项目</strong>：</p><ul><li>项目<strong>二分网络上的链路预测</strong>实现中</li></ul></li></ul><h3 id="生活与观察"><a class="markdownIt-Anchor" href="#生活与观察"></a> 🎮 生活与观察</h3><ul><li><p><strong>日常小事</strong>：</p><ul><li>梦到自己大学转学了？还遇到以前的初中同学、还学的双学位</li><li>昨天为朋友送上生日祝福和礼物</li></ul></li><li><p><strong>网络见闻</strong>：</p><ul><li>今天的英文短报是关于谷歌公司最新推出的AI大模型’Gemini3’</li></ul></li></ul><h3 id="今日三思"><a class="markdownIt-Anchor" href="#今日三思"></a> 💭 今日三思</h3><ol><li><p><strong>技术思辨</strong>：</p><ol><li>在使用字符串时，我们可以将多种操作放在同一条语句以增加简洁性</li></ol></li><li><p><strong>自我觉察</strong>：</p><ol><li>在踢完球后，心情总会得到放松，更愿意表达自己</li></ol></li><li><p><strong>方法总结</strong>：</p><ol><li>暂无</li></ol></li></ol><hr /><h3 id="小结与预告"><a class="markdownIt-Anchor" href="#小结与预告"></a> 🌱 小结与预告</h3><p>今日是在<strong>课程</strong>与<strong>反思</strong>之间穿行的一天。<br />明日计划：</p><ul><li>[ ] LeetCode算法训练</li><li>[ ] 二分网络项目攻坚</li><li>[ ] 在Obsidian中建立<code>[[哈希函数]]</code>概念卡</li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    <category term="日常闲谈" scheme="https://id-zy.github.io/categories/%E6%97%A5%E5%B8%B8%E9%97%B2%E8%B0%88/"/>
-    
-    
-    <category term="《意识的解释》" scheme="https://id-zy.github.io/tags/%E3%80%8A%E6%84%8F%E8%AF%86%E7%9A%84%E8%A7%A3%E9%87%8A%E3%80%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>群同态</title>
-    <link href="https://id-zy.github.io/2025/11/20/%E7%BE%A4%E5%90%8C%E6%80%81/"/>
-    <id>https://id-zy.github.io/2025/11/20/%E7%BE%A4%E5%90%8C%E6%80%81/</id>
-    <published>2025-11-20T13:47:14.177Z</published>
-    <updated>2025-11-20T01:04:20.127Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="群同态"><a class="markdownIt-Anchor" href="#群同态"></a> 群同态</h1><h2 id="定义"><a class="markdownIt-Anchor" href="#定义"></a> 定义</h2><p>设 (G, *) 和 (H, ∘) 是两个群。如果映射 f: G → H 满足：<br /><strong>对任意 a, b ∈ G，都有 f(a * b) = f(a) ∘ f(b)</strong><br />则称 f 是从 G 到 H 的一个<strong>群同态</strong>。</p><h2 id="同态象"><a class="markdownIt-Anchor" href="#同态象"></a> 同态象</h2><p>设 $h:(G,∗)→(H,⋅) 是一个群同态映射，即对于任意 a,b∈G，有：</p><p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>h</mi><mo stretchy="false">(</mo><mi>a</mi><mtext>∗</mtext><mi>b</mi><mo stretchy="false">)</mo><mo>=</mo><mi>h</mi><mo stretchy="false">(</mo><mi>a</mi><mo stretchy="false">)</mo><mo>⋅</mo><mi>h</mi><mo stretchy="false">(</mo><mi>b</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">h(a∗b)=h(a)⋅h(b)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">h</span><span class="mopen">(</span><span class="mord mathnormal">a</span><span class="mord">∗</span><span class="mord mathnormal">b</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">h</span><span class="mopen">(</span><span class="mord mathnormal">a</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">h</span><span class="mopen">(</span><span class="mord mathnormal">b</span><span class="mclose">)</span></span></span></span></span></p><p><strong>同态象</strong> 定义为：</p><p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>h</mi><mo stretchy="false">(</mo><mi>G</mi><mo stretchy="false">)</mo><mo>=</mo><mo stretchy="false">(</mo><mi>h</mi><mo stretchy="false">(</mo><mi>g</mi><mo stretchy="false">)</mo><mo>∣</mo><mi>g</mi><mo>∈</mo><mi>G</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">h(G)=(h(g)∣g∈G)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">h</span><span class="mopen">(</span><span class="mord mathnormal">G</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">h</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∣</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.7335400000000001em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">G</span><span class="mclose">)</span></span></span></span></span></p><h2 id="群同态的性质"><a class="markdownIt-Anchor" href="#群同态的性质"></a> 群同态的性质</h2><ul><li>同态象是群</li><li>同态象是<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>&lt;</mo><mi>H</mi><mo separator="true">,</mo><mtext>∘</mtext><mo>&gt;</mo></mrow><annotation encoding="application/x-tex">&lt;H,∘&gt;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∘</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span></span></span></span>的子群</li></ul><h2 id="同态核"><a class="markdownIt-Anchor" href="#同态核"></a> 同态核</h2><p>设h是从群<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>&lt;</mo><mi>G</mi><mo separator="true">,</mo><mo>∗</mo><mo>&gt;</mo></mrow><annotation encoding="application/x-tex">&lt;G,*&gt;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">G</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span></span></span></span>到<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>&lt;</mo><mi>H</mi><mo separator="true">,</mo><mtext>☆</mtext><mo>&gt;</mo></mrow><annotation encoding="application/x-tex">&lt;H, ☆&gt;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">☆</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span></span></span></span>的一个 同态映射，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>e</mi><mi>H</mi></msub></mrow><annotation encoding="application/x-tex">e_H</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.08125em;">H</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>是<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>&lt;</mo><mi>H</mi><mo separator="true">,</mo><mtext>☆</mtext><mo>&gt;</mo></mrow><annotation encoding="application/x-tex">&lt;H, ☆&gt;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">☆</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span></span></span></span>中的幺元</p><p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>K</mi><mi>e</mi><mi>r</mi><mo stretchy="false">(</mo><mi>h</mi><mo stretchy="false">)</mo><mo>=</mo><mrow><mi>x</mi><mi mathvariant="normal">∣</mi><mi>x</mi><mo>∈</mo><mi>G</mi><mo>∧</mo><mi>h</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><msub><mi>e</mi><mi>H</mi></msub></mrow></mrow><annotation encoding="application/x-tex">Ker(h)={x|x∈G ∧h(x)=e_H}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">K</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mopen">(</span><span class="mord mathnormal">h</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="mord">∣</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord mathnormal">G</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∧</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathnormal">h</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.08125em;">H</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span></span></p><p>称Ker(h)为群同态映射h的核，简称h的同态核。</p><h3 id="关于核的定理"><a class="markdownIt-Anchor" href="#关于核的定理"></a> 关于核的定理</h3><ul><li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>&lt;</mo><mi>K</mi><mi>e</mi><mi>r</mi><mo stretchy="false">(</mo><mi>h</mi><mo stretchy="false">)</mo><mo separator="true">,</mo><mo>∗</mo><mo>&gt;</mo></mrow><annotation encoding="application/x-tex">&lt;Ker(h),*&gt;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">K</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mopen">(</span><span class="mord mathnormal">h</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span></span></span></span>是<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>&lt;</mo><mi>G</mi><mo separator="true">,</mo><mo>∗</mo><mo>&gt;</mo></mrow><annotation encoding="application/x-tex">&lt;G,*&gt;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">G</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span></span></span></span>的子群。</li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    <category term="离散数学" scheme="https://id-zy.github.io/categories/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/"/>
-    
-    
-    <category term="离散数学" scheme="https://id-zy.github.io/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/"/>
     
   </entry>
   
