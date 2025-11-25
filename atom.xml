@@ -6,7 +6,7 @@
   <link href="https://id-zy.github.io/atom.xml" rel="self"/>
   
   <link href="https://id-zy.github.io/"/>
-  <updated>2025-11-24T12:40:37.301Z</updated>
+  <updated>2025-11-25T13:49:37.576Z</updated>
   <id>https://id-zy.github.io/</id>
   
   <author>
@@ -15,6 +15,76 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>使用唯一标识码替换员工ID</title>
+    <link href="https://id-zy.github.io/2025/11/25/%E9%A2%9827/"/>
+    <id>https://id-zy.github.io/2025/11/25/%E9%A2%9827/</id>
+    <published>2025-11-25T14:11:43.716Z</published>
+    <updated>2025-11-25T13:49:37.576Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="使用唯一标识码替换员工id"><a class="markdownIt-Anchor" href="#使用唯一标识码替换员工id"></a> 使用唯一标识码替换员工ID</h1><h2 id="问题描述来源于leetcode"><a class="markdownIt-Anchor" href="#问题描述来源于leetcode"></a> 问题描述（来源于LeetCode）</h2><p><code>Employees</code> 表：<br />±--------------±--------+<br />| Column Name   | Type    |<br />±--------------±--------+<br />| id            | int     |<br />| name          | varchar |<br />±--------------±--------+<br />在 SQL 中，id 是这张表的主键。<br />这张表的每一行分别代表了某公司其中一位员工的名字和 ID 。<br /><code>EmployeeUNI</code> 表：<br />±--------------±--------+<br />| Column Name   | Type    |<br />±--------------±--------+<br />| id            | int     |<br />| unique_id     | int     |<br />±--------------±--------+<br />在 SQL 中，(id, unique_id) 是这张表的主键。<br />这张表的每一行包含了该公司某位员工的 ID 和他的唯一标识码（unique ID）。<br />展示每位用户的 <strong>唯一标识码（unique ID ）</strong>；如果某位员工没有唯一标识码，使用 null 填充即可。<br />你可以以 <strong>任意</strong> 顺序返回结果表。</p><h2 id="代码实现"><a class="markdownIt-Anchor" href="#代码实现"></a> 代码实现</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># Write your MySQL query statement below</span><br><span class="line"><span class="keyword">SELECT</span> t2.unique_id, t1.name</span><br><span class="line"><span class="keyword">FROM</span> Employees t1</span><br><span class="line"><span class="keyword">LEFT</span> <span class="keyword">JOIN</span> EmployeeUNI t2 </span><br><span class="line"><span class="keyword">ON</span> t1.id <span class="operator">=</span> t2.id;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="作业练习" scheme="https://id-zy.github.io/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
+    
+    
+    <category term="LeetCode" scheme="https://id-zy.github.io/tags/LeetCode/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>七进制数</title>
+    <link href="https://id-zy.github.io/2025/11/25/%E9%A2%9828/"/>
+    <id>https://id-zy.github.io/2025/11/25/%E9%A2%9828/</id>
+    <published>2025-11-25T14:11:43.715Z</published>
+    <updated>2025-11-25T14:00:08.383Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="七进制数"><a class="markdownIt-Anchor" href="#七进制数"></a> 七进制数</h1><h2 id="问题描述来源于leetcode"><a class="markdownIt-Anchor" href="#问题描述来源于leetcode"></a> 问题描述（来源于LeetCode）</h2><p>给定一个整数 <code>num</code>，将其转化为 <strong>7 进制</strong>，并以字符串形式输出。</p><h2 id="代码实现"><a class="markdownIt-Anchor" href="#代码实现"></a> 代码实现</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">convertToBase7</span>(<span class="params">self, num: <span class="built_in">int</span></span>) -&gt; <span class="built_in">str</span>:</span><br><span class="line">        <span class="keyword">if</span> num==<span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&#x27;0&#x27;</span></span><br><span class="line">        pid = <span class="number">0</span></span><br><span class="line">        <span class="keyword">if</span> num &lt; <span class="number">0</span>:</span><br><span class="line">            num = -num</span><br><span class="line">            pid =<span class="number">1</span></span><br><span class="line">        x= <span class="string">&#x27;&#x27;</span></span><br><span class="line">        <span class="keyword">while</span> num:</span><br><span class="line">            a = num % <span class="number">7</span></span><br><span class="line">            num =num // <span class="number">7</span></span><br><span class="line">            x=<span class="built_in">str</span>(a)+x</span><br><span class="line">        <span class="keyword">if</span> pid:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&#x27;-&#x27;</span>+x</span><br><span class="line">        <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure><h2 id="复杂度分析"><a class="markdownIt-Anchor" href="#复杂度分析"></a> 复杂度分析</h2><ul><li>时间复杂度<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>L</mi><mi>o</mi><mi>g</mi><mn>7</mn><mi>N</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(Log7N)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">L</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord">7</span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mclose">)</span></span></span></span></li><li>空间复杂度<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>L</mi><mi>o</mi><mi>g</mi><mn>7</mn><mi>N</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(Log7N)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">L</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord">7</span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mclose">)</span></span></span></span></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="作业练习" scheme="https://id-zy.github.io/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
+    
+    
+    <category term="LeetCode" scheme="https://id-zy.github.io/tags/LeetCode/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>11.25日常</title>
+    <link href="https://id-zy.github.io/2025/11/25/11.25%E6%97%A5%E5%B8%B8/"/>
+    <id>https://id-zy.github.io/2025/11/25/11.25%E6%97%A5%E5%B8%B8/</id>
+    <published>2025-11-25T14:11:43.713Z</published>
+    <updated>2025-11-25T14:06:42.117Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="阅读与思考"><a class="markdownIt-Anchor" href="#阅读与思考"></a> 📖 阅读与思考</h3><p>今日阅读《<strong>社会心理学</strong>》，进度至<strong>说服</strong>。<br /><strong>感悟与联想</strong>：</p><ul><li>增加了<strong>从众</strong>的概念卡<br />在今天的阅读中，了解从众的表现形式、引发从众现象的因素等。其中让我颇有感悟的是社会角色对从总的影响。社会角色这个感念我并不陌生，不仅平时就有听过，更在于在自我概念那节中，我了解了角色扮演对自我概念的影响。今天再次提到角色扮演，让我突然想到《诡秘之主》中的扮演法，我们只有扮演好自己的社会角色，才能更好地挖掘到能量。立身就是要找到自己的社会角色，找到自己的社会定位。只有知道自己是谁，才能更好地寄心于世。</li></ul><h3 id="学习与代码"><a class="markdownIt-Anchor" href="#学习与代码"></a> 💻 学习与代码</h3><ul><li><strong>课程/领域</strong>：<ul><li>计算机安全导论234章作业</li><li></li></ul></li><li><strong>实践/实验</strong>：<ul><li>LeetCode题27（使用唯一标识码替换员工ID）</li><li>LeetCode题28(七进制数)</li></ul></li><li><h2 id="代码项目"><a class="markdownIt-Anchor" href="#代码项目"></a> <strong>代码/项目</strong>：</h2></li></ul><h3 id="生活与观察"><a class="markdownIt-Anchor" href="#生活与观察"></a> 🎮 生活与观察</h3><ul><li><p><strong>日常小事</strong>：</p><ul><li>作为劳育活动小组组长组织劳育活动</li></ul></li><li><p><strong>网络见闻</strong>：</p><ul><li>今天的英文阅读是关于男性也需要精神上的安慰。</li></ul></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="日常闲谈" scheme="https://id-zy.github.io/categories/%E6%97%A5%E5%B8%B8%E9%97%B2%E8%B0%88/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>11.24|相似性往往决定本质</title>
@@ -163,9 +233,9 @@
     <link href="https://id-zy.github.io/2025/11/24/%E4%BB%8E%E4%BC%97/"/>
     <id>https://id-zy.github.io/2025/11/24/%E4%BB%8E%E4%BC%97/</id>
     <published>2025-11-24T12:41:18.398Z</published>
-    <updated>2025-11-24T08:34:48.420Z</updated>
+    <updated>2025-11-25T10:44:11.615Z</updated>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="从众"><a class="markdownIt-Anchor" href="#从众"></a> 从众</h1><p>从众有时有害、有时有益、有时无关紧要</p><h2 id="从众-顺从-服从和接纳的定义"><a class="markdownIt-Anchor" href="#从众-顺从-服从和接纳的定义"></a> 从众、顺从、服从和接纳的定义</h2><table><thead><tr><th>标签</th><th>定义</th></tr></thead><tbody><tr><td>从众</td><td>不仅仅是与其他人一样地行动，还指个人受他人行动的影响</td></tr><tr><td></td><td>指根据他人而做出的行为或信念的改变</td></tr><tr><td></td><td>人是否从众的关键是，当你脱离群体时，你的行为和信念是否仍保持不变</td></tr><tr><td>顺从</td><td>尽管自己讨厌这样做。这种由外部力量施压而违心的从众行为</td></tr><tr><td>服从</td><td>尽管自己讨厌这样做。这种由外部力量施压而违心的从众行为</td></tr><tr><td></td><td>顺从的一种，是指对直接命令的顺从</td></tr><tr><td>接纳</td><td>发自内心真诚的从众行为</td></tr><tr><td></td><td>内心认可社会压力并在行动上保持一致。</td></tr></tbody></table><h2 id="经典的从众和服从研究"><a class="markdownIt-Anchor" href="#经典的从众和服从研究"></a> 经典的从众和服从研究</h2><ul><li>谢里夫的规范形成研究</li><li>阿施的群体压力研究</li><li>米尔格拉姆的服从实验</li></ul>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="从众"><a class="markdownIt-Anchor" href="#从众"></a> 从众</h1><p>从众有时有害、有时有益、有时无关紧要</p><h2 id="从众-顺从-服从和接纳的定义"><a class="markdownIt-Anchor" href="#从众-顺从-服从和接纳的定义"></a> 从众、顺从、服从和接纳的定义</h2><table><thead><tr><th>标签</th><th>定义</th></tr></thead><tbody><tr><td>从众</td><td>不仅仅是与其他人一样地行动，还指个人受他人行动的影响</td></tr><tr><td></td><td>指根据他人而做出的行为或信念的改变</td></tr><tr><td></td><td>人是否从众的关键是，当你脱离群体时，你的行为和信念是否仍保持不变</td></tr><tr><td>顺从</td><td>尽管自己讨厌这样做。这种由外部力量施压而违心的从众行为</td></tr><tr><td>服从</td><td>尽管自己讨厌这样做。这种由外部力量施压而违心的从众行为</td></tr><tr><td></td><td>顺从的一种，是指对直接命令的顺从</td></tr><tr><td>接纳</td><td>发自内心真诚的从众行为</td></tr><tr><td></td><td>内心认可社会压力并在行动上保持一致。</td></tr></tbody></table><h2 id="经典的从众和服从研究"><a class="markdownIt-Anchor" href="#经典的从众和服从研究"></a> 经典的从众和服从研究</h2><ul><li>谢里夫的规范形成研究<ul><li>我们对现实的看法未必就仅仅是自己的观点</li><li>变色龙效应。我们会自然地模仿他人的姿势和语言，这能促使别人喜欢我们，但仿效他人的消极表情（如生气）除外。</li></ul></li><li>阿施的群体压力研究</li><li>米尔格拉姆的服从实验<ul><li>引起服从的因素<ul><li>与受害者的情感距离</li><li>权威的接近性与正当性</li><li>机构的权威性</li><li>群体影响的额释放效应</li></ul></li></ul></li></ul><h2 id="引发较少或较多从众行为的情景"><a class="markdownIt-Anchor" href="#引发较少或较多从众行为的情景"></a> 引发较少或较多从众行为的情景</h2><ul><li>群体规模的大小（并非越多越好）</li><li>一致性</li><li>凝聚力</li><li>地位（或者说权重）</li><li>公开的反应</li><li>事前承诺</li></ul><h2 id="引发个体从众的因素"><a class="markdownIt-Anchor" href="#引发个体从众的因素"></a> 引发个体从众的因素</h2><ul><li>规范影响<ul><li>想获得群体的接纳和免遭拒绝</li></ul></li><li>信息影响<ul><li>获得重要信息<br />规范影响指个体要“与群体保持一致”以免遭拒绝，获得人们的接纳或赞赏<br />信息影响来自于他人提供的事实证据。遇到困难的决策任务时从众度也较高，这反映了信息影响的力量：我们希望能正确行事。<br />信息影响会导致人们接纳<br />信息影响来自于他人提供的事实证据。遇到困难的决策任务时从众度也较高，这反映了信息影响的力量：我们希望能正确行事。</li></ul></li></ul><h2 id="从众的个体差异"><a class="markdownIt-Anchor" href="#从众的个体差异"></a> 从众的个体差异</h2><h3 id="人格"><a class="markdownIt-Anchor" href="#人格"></a> 人格</h3><p>所有的心理事件都取决于个体的状态，同时也取决于环境，尽管它们的相对影响在不同情况下会有差异”</p><h3 id="文化"><a class="markdownIt-Anchor" href="#文化"></a> 文化</h3><p>文化背景能帮助我们预测人们的从众行为</p><h3 id="社会角色"><a class="markdownIt-Anchor" href="#社会角色"></a> 社会角色</h3><p><strong>角色能产生巨大的影响</strong><br />角色扮演也可以成为积极的力量。有意扮演新角色并服从它的规范，人们有时能改变自己，或者对角色与己不同的人感同身受。<br />有点像《诡秘之主》中的扮演法一般，我们本能地扮演着自己的角色，并遵循它的本能</p><h2 id="人们主动抵制从众的原因"><a class="markdownIt-Anchor" href="#人们主动抵制从众的原因"></a> 人们主动抵制从众的原因</h2><ul><li>逆反<ul><li>个体都珍视自己的自由感和自我效能感。所以，如果社会压力非常明显，以至于威胁到个体的自由感时，他们常常会反抗。</li></ul></li><li>坚持独特性<ul><li>个体与周围的人差别太大时会感觉不舒服</li></ul></li></ul>]]></content>
     
     
       
@@ -207,13 +277,13 @@
   </entry>
   
   <entry>
-    <title>说服</title>
-    <link href="https://id-zy.github.io/2025/11/23/%E8%AF%B4%E6%9C%8D/"/>
-    <id>https://id-zy.github.io/2025/11/23/%E8%AF%B4%E6%9C%8D/</id>
+    <title>认知失调理论</title>
+    <link href="https://id-zy.github.io/2025/11/23/%E8%AE%A4%E7%9F%A5%E5%A4%B1%E8%B0%83%E7%90%86%E8%AE%BA/"/>
+    <id>https://id-zy.github.io/2025/11/23/%E8%AE%A4%E7%9F%A5%E5%A4%B1%E8%B0%83%E7%90%86%E8%AE%BA/</id>
     <published>2025-11-23T12:48:35.478Z</published>
-    <updated>2025-11-23T08:11:55.194Z</updated>
+    <updated>2025-11-23T08:25:11.941Z</updated>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="说服"><a class="markdownIt-Anchor" href="#说服"></a> 说服</h1><h2 id="角色扮演"><a class="markdownIt-Anchor" href="#角色扮演"></a> 角色扮演</h2><blockquote><p>角色(role)这个词来源于戏剧，正如在戏剧中一样，它指的是那些处于特定社会位置的人被期望表现出的行为。当我们扮演一个新的社会角色时，起初我们可能觉得很虚假，但很快我们就会适应。</p></blockquote><p>我们处于的社会定位或角色会影响我们的行为</p><h3 id="一些证据"><a class="markdownIt-Anchor" href="#一些证据"></a> 一些证据</h3><ul><li>在你进入大学校园后的第一周，你也许会对新的社会环境非常敏感，努力表现得成熟，并避免做出高中时的一些行为</li><li>模拟的监狱实验（菲利普·津巴多）<ul><li>津巴多用抛硬币的方式，指派一些学生做狱卒。他给他们分发制服、警棍和哨子，并且命令他们按规则行事。另一半的学生则扮作犯人，他们穿着令人羞耻的囚服，并被关进单人牢房里。在经过了一天愉快的角色扮演之后，狱卒和犯人，甚至研究者，都进入了情境。狱卒开始贬损犯人，并且一些人开始制定残酷的污辱性规则。犯人崩溃、造反，或者变得冷漠。津巴多(Zimbardo,1972)报告说：​“人们越来越分不清现实和幻觉、扮演的角色和自己的身份……这个创造出来的监狱……正在同化我们，使我们成为它的傀儡。​”随后津巴多发现社会病理学症状正在出现，他不得不在第六天放弃了这个本来计划为期两周的实验。</li></ul></li></ul><h2 id="登门槛现象"><a class="markdownIt-Anchor" href="#登门槛现象"></a> 登门槛现象</h2><p>如果想要别人帮你一个大忙，一个有效的策略是先请他们帮一个小忙</p>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="认知失调理论利昂费斯廷格"><a class="markdownIt-Anchor" href="#认知失调理论利昂费斯廷格"></a> 认知失调理论（利昂·费斯廷格）</h1><p>我们的态度改变是因为我们想要保持认知间的一致性<br />理论假定，当两种想法或信念（​“认知”​）在心理上不一致时，我们就会感到紧张（​“失调”​）​。费斯廷格的研究表明，为了减少这种不愉快的感觉体验，我们经常会调整自己的想法</p><h2 id="减小失调感的方法"><a class="markdownIt-Anchor" href="#减小失调感的方法"></a> 减小失调感的方法</h2><p>选择性接触支持自己结论的信息</p><h2 id="关于减小失调的表现"><a class="markdownIt-Anchor" href="#关于减小失调的表现"></a> 关于减小失调的表现</h2><ul><li>如果我们的行为不能完全用外部报酬或强迫性因素来解释，我们就会体验到失调—我们可以通过相信自己的所作所为来减少失调</li><li>当做出重要决策以后，我们经常会高度评价自己的选择而贬低放弃的选择，以此来减少失调</li><li>我们的偏好会影响决定，而决定又会强化我们的偏好一旦做出决定，它就会自圆其说</li></ul>]]></content>
     
     
       
@@ -231,13 +301,13 @@
   </entry>
   
   <entry>
-    <title>认知失调理论</title>
-    <link href="https://id-zy.github.io/2025/11/23/%E8%AE%A4%E7%9F%A5%E5%A4%B1%E8%B0%83%E7%90%86%E8%AE%BA/"/>
-    <id>https://id-zy.github.io/2025/11/23/%E8%AE%A4%E7%9F%A5%E5%A4%B1%E8%B0%83%E7%90%86%E8%AE%BA/</id>
+    <title>说服</title>
+    <link href="https://id-zy.github.io/2025/11/23/%E8%AF%B4%E6%9C%8D/"/>
+    <id>https://id-zy.github.io/2025/11/23/%E8%AF%B4%E6%9C%8D/</id>
     <published>2025-11-23T12:48:35.478Z</published>
-    <updated>2025-11-23T08:25:11.941Z</updated>
+    <updated>2025-11-23T08:11:55.194Z</updated>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="认知失调理论利昂费斯廷格"><a class="markdownIt-Anchor" href="#认知失调理论利昂费斯廷格"></a> 认知失调理论（利昂·费斯廷格）</h1><p>我们的态度改变是因为我们想要保持认知间的一致性<br />理论假定，当两种想法或信念（​“认知”​）在心理上不一致时，我们就会感到紧张（​“失调”​）​。费斯廷格的研究表明，为了减少这种不愉快的感觉体验，我们经常会调整自己的想法</p><h2 id="减小失调感的方法"><a class="markdownIt-Anchor" href="#减小失调感的方法"></a> 减小失调感的方法</h2><p>选择性接触支持自己结论的信息</p><h2 id="关于减小失调的表现"><a class="markdownIt-Anchor" href="#关于减小失调的表现"></a> 关于减小失调的表现</h2><ul><li>如果我们的行为不能完全用外部报酬或强迫性因素来解释，我们就会体验到失调—我们可以通过相信自己的所作所为来减少失调</li><li>当做出重要决策以后，我们经常会高度评价自己的选择而贬低放弃的选择，以此来减少失调</li><li>我们的偏好会影响决定，而决定又会强化我们的偏好一旦做出决定，它就会自圆其说</li></ul>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="说服"><a class="markdownIt-Anchor" href="#说服"></a> 说服</h1><h2 id="角色扮演"><a class="markdownIt-Anchor" href="#角色扮演"></a> 角色扮演</h2><blockquote><p>角色(role)这个词来源于戏剧，正如在戏剧中一样，它指的是那些处于特定社会位置的人被期望表现出的行为。当我们扮演一个新的社会角色时，起初我们可能觉得很虚假，但很快我们就会适应。</p></blockquote><p>我们处于的社会定位或角色会影响我们的行为</p><h3 id="一些证据"><a class="markdownIt-Anchor" href="#一些证据"></a> 一些证据</h3><ul><li>在你进入大学校园后的第一周，你也许会对新的社会环境非常敏感，努力表现得成熟，并避免做出高中时的一些行为</li><li>模拟的监狱实验（菲利普·津巴多）<ul><li>津巴多用抛硬币的方式，指派一些学生做狱卒。他给他们分发制服、警棍和哨子，并且命令他们按规则行事。另一半的学生则扮作犯人，他们穿着令人羞耻的囚服，并被关进单人牢房里。在经过了一天愉快的角色扮演之后，狱卒和犯人，甚至研究者，都进入了情境。狱卒开始贬损犯人，并且一些人开始制定残酷的污辱性规则。犯人崩溃、造反，或者变得冷漠。津巴多(Zimbardo,1972)报告说：​“人们越来越分不清现实和幻觉、扮演的角色和自己的身份……这个创造出来的监狱……正在同化我们，使我们成为它的傀儡。​”随后津巴多发现社会病理学症状正在出现，他不得不在第六天放弃了这个本来计划为期两周的实验。</li></ul></li></ul><h2 id="登门槛现象"><a class="markdownIt-Anchor" href="#登门槛现象"></a> 登门槛现象</h2><p>如果想要别人帮你一个大忙，一个有效的策略是先请他们帮一个小忙</p>]]></content>
     
     
       
@@ -417,76 +487,6 @@
     
     
     <category term="《社会心理学》" scheme="https://id-zy.github.io/tags/%E3%80%8A%E7%A4%BE%E4%BC%9A%E5%BF%83%E7%90%86%E5%AD%A6%E3%80%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>态度形成</title>
-    <link href="https://id-zy.github.io/2025/11/22/%E6%80%81%E5%BA%A6%E5%BD%A2%E6%88%90/"/>
-    <id>https://id-zy.github.io/2025/11/22/%E6%80%81%E5%BA%A6%E5%BD%A2%E6%88%90/</id>
-    <published>2025-11-22T13:31:41.522Z</published>
-    <updated>2025-11-22T13:07:09.415Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="态度形成"><a class="markdownIt-Anchor" href="#态度形成"></a> 态度形成</h1><h2 id="有关态度与行为的研究发展"><a class="markdownIt-Anchor" href="#有关态度与行为的研究发展"></a> 有关“态度”与“行为”的研究发展</h2><ul><li>最初：了解人们的态度就可以预测他们的行为</li><li>1960年费斯廷格指出‘’改变人们的态度并不能改变他们的行为。他认为，态度与行为的关系以其他方式运作‘’</li><li>20世纪60年代产生的最初的“态度决定行为”的论点遭到了对立观点的反驳，态度实际上什么也决定不了</li></ul><h2 id="态度的定义社会心理学"><a class="markdownIt-Anchor" href="#态度的定义社会心理学"></a> 态度的定义（社会心理学）</h2><p>与人或事物相关的信念和感受以及由此引发的行为倾向</p><ul><li>个人的态度可以界定为个体对人或事物的积极或消极的评价性反应</li><li>植于个体的信念，表现于个体的感受或者行为倾向中</li><li>有效地度量世界</li></ul><h2 id="态度对行为预测"><a class="markdownIt-Anchor" href="#态度对行为预测"></a> 态度对行为预测</h2><h3 id="思考问题"><a class="markdownIt-Anchor" href="#思考问题"></a> 思考问题</h3><p><strong>内在的态度在多大程度上且在什么条件下会影响我们外在的行为。</strong><br />社会心理学家艾伦·威克得出的结论：<strong>人们表现出的态度很难预测他们的各种行为。</strong></p><h3 id="态度何时能预测行为"><a class="markdownIt-Anchor" href="#态度何时能预测行为"></a> 态度何时能预测行为</h3><p>行为和我们表达出的态度之所以不同，是因为二者都受到其他因素的影响。一个社会心理学家找出了40个令它们之间关系复杂的因素。如果我们能将其他因素对行为的影响最小化，那么态度就可以精确地预测行为。</p><ul><li>某些测量通过内隐态度（无意识的）测量补充了传统自我报告对外显（有意识的）态度的测量<ul><li>测量面部肌肉对各种声明的反应</li><li><strong>内隐联想测试</strong>-用反应时来测量人们概念联想的速度<ul><li>内隐偏见普遍存在</li><li>内隐偏见存在个体差异</li><li>人们通常意识不到自己的内隐偏见</li><li>内隐即无意识的态度<br />外显（自我报告的）态度和内隐态度都有助于预测个体的行为和判断</li></ul></li></ul></li><li>对于那些形成于生命早期的态度，如种族和性别的态度，外显态度和内隐态度常常会出现分歧，内隐态度往往能够做出更好的预测</li><li>对于其他态度，比如与消费行为和支持政治候选人有关的态度，外显自我报告往往更有预测力。​</li><li>科学依据：当我们自动评价社会刺激时，我们大脑深部的一个区域（威胁知觉中心—杏仁核）会被激活。其他额叶区域参与了检测和调节内隐态度。<br />无论如何，外显态度和内隐态度的区分证实了21世纪心理学最大的课题：我们的“双重加工”能力：受控制的（目的性的、有意识的、外显的）思考和自动的（不费力的、习惯性的、内隐的）思考</li></ul><h3 id="态度何时是有效的"><a class="markdownIt-Anchor" href="#态度何时是有效的"></a> 态度何时是有效的</h3><ul><li>当我们思考自己的态度时，态度才会影响我们的行为。</li><li>通过经验建立稳定的态度<ul><li>当态度是由于某种经验而建立的，而不只是道听途说，它们就更具有可接近性，更持久，更能引发行为。</li><li>在某项研究中，大学生都对其学校的住宿供应短缺表现出了抱怨等消极态度。但假如有机会采取行动，比如签署一份请愿书，征集签名，加入一个委员会或写一封信，结果发现，只有那些从直接经验中获取态度的人才会采取行动</li></ul></li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    <category term="读书笔记" scheme="https://id-zy.github.io/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
-    
-    
-    <category term="《社会心理学》" scheme="https://id-zy.github.io/tags/%E3%80%8A%E7%A4%BE%E4%BC%9A%E5%BF%83%E7%90%86%E5%AD%A6%E3%80%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>11.21| 周五的迎来</title>
-    <link href="https://id-zy.github.io/2025/11/21/11.21%E6%97%A5%E5%B8%B8/"/>
-    <id>https://id-zy.github.io/2025/11/21/11.21%E6%97%A5%E5%B8%B8/</id>
-    <published>2025-11-21T11:39:14.770Z</published>
-    <updated>2025-11-21T11:41:27.354Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="阅读与思考"><a class="markdownIt-Anchor" href="#阅读与思考"></a> 📖 阅读与思考</h3><p>今日阅读《<strong>求医不如求己</strong>》，进度至“<strong>金鸡独立</strong>”章节。</p><p><strong>感悟与联想</strong>：<br />身体是最重要的，所以今天看了看养生理论的书籍。先看看书中给的方法，再去咨询一下有关人士，看是否符合科学依据。</p><h3 id="学习与代码"><a class="markdownIt-Anchor" href="#学习与代码"></a> 💻 学习与代码</h3><ul><li><strong>课程/领域</strong>：<ul><li>增加了<strong>哈希表</strong>的概念卡片</li><li>增加了<strong>哈希函数</strong>的概念卡</li></ul></li><li><strong>实践/实验</strong>：<ul><li>LeetCode题17-可回收且低脂的产品</li><li>LeetCode题18-寻找用户推荐人</li><li>LeetCode题19-最大回文数乘积</li></ul></li><li><strong>代码/项目</strong>：<ul><li>无</li></ul></li></ul><h3 id="生活与观察"><a class="markdownIt-Anchor" href="#生活与观察"></a> 🎮 生活与观察</h3><ul><li><p><strong>日常小事</strong>：</p><ul><li>今天是周五，很多东西都想放到明天去写</li></ul></li><li><p><strong>网络见闻</strong>：</p><ul><li>今天读的英语短报是关于邮箱里未读信息的处理会一定程度反应我们的自我概念，而且信息的处理与否对二氧化碳排放的影响</li></ul></li></ul><h3 id="今日三思"><a class="markdownIt-Anchor" href="#今日三思"></a> 💭 今日三思</h3><ol><li><strong>技术思辨</strong>：<ol><li>无</li></ol></li><li><strong>自我觉察</strong>：<ol><li>无</li></ol></li><li><strong>方法总结</strong>：<ol><li>无</li></ol></li></ol>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    <category term="日常闲谈" scheme="https://id-zy.github.io/categories/%E6%97%A5%E5%B8%B8%E9%97%B2%E8%B0%88/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>最大回文数乘积</title>
-    <link href="https://id-zy.github.io/2025/11/21/%E9%A2%9819/"/>
-    <id>https://id-zy.github.io/2025/11/21/%E9%A2%9819/</id>
-    <published>2025-11-21T11:39:07.801Z</published>
-    <updated>2025-11-21T10:57:21.285Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="最大回文数乘积"><a class="markdownIt-Anchor" href="#最大回文数乘积"></a> 最大回文数乘积</h1><h2 id="题目描述来源于leetcode"><a class="markdownIt-Anchor" href="#题目描述来源于leetcode"></a> 题目描述（来源于LeetCode）</h2><p>给定一个整数 n ，返回 <em>可表示为两个 <code>n</code> 位整数乘积的 <strong>最大回文整数</strong></em> 。因为答案可能非常大，所以返回它对 <code>1337</code> <strong>取余</strong> 。</p><h2 id="代码实现"><a class="markdownIt-Anchor" href="#代码实现"></a> 代码实现</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">largestPalindrome</span>(<span class="params">self, n: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        <span class="keyword">if</span> n == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">9</span></span><br><span class="line">            </span><br><span class="line">        max_num = <span class="number">10</span>**n - <span class="number">1</span></span><br><span class="line">        min_num = <span class="number">10</span>**(n-<span class="number">1</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> a <span class="keyword">in</span> <span class="built_in">range</span>(max_num, min_num - <span class="number">1</span>, -<span class="number">1</span>):</span><br><span class="line">            palindrome = <span class="built_in">int</span>(<span class="built_in">str</span>(a) + <span class="built_in">str</span>(a)[::-<span class="number">1</span>])</span><br><span class="line">            b = max_num</span><br><span class="line">            <span class="keyword">while</span> b * b &gt;= palindrome:</span><br><span class="line">                <span class="keyword">if</span> palindrome % b == <span class="number">0</span>:</span><br><span class="line">                    <span class="keyword">return</span> palindrome % <span class="number">1337</span></span><br><span class="line">                b -= <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br></pre></td></tr></table></figure><h2 id="复杂度分析"><a class="markdownIt-Anchor" href="#复杂度分析"></a> 复杂度分析</h2><ul><li>时间复杂度：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><msup><mi>N</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(N^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></li><li>空间复杂度：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    <category term="作业练习" scheme="https://id-zy.github.io/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
-    
-    
-    <category term="LeetCode" scheme="https://id-zy.github.io/tags/LeetCode/"/>
     
   </entry>
   
