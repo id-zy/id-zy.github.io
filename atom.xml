@@ -6,7 +6,7 @@
   <link href="https://id-zy.github.io/atom.xml" rel="self"/>
   
   <link href="https://id-zy.github.io/"/>
-  <updated>2025-11-28T13:58:49.956Z</updated>
+  <updated>2025-11-29T14:43:24.469Z</updated>
   <id>https://id-zy.github.io/</id>
   
   <author>
@@ -15,6 +15,100 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>11.29日常</title>
+    <link href="https://id-zy.github.io/2025/11/29/11.29%E6%97%A5%E5%B8%B8/"/>
+    <id>https://id-zy.github.io/2025/11/29/11.29%E6%97%A5%E5%B8%B8/</id>
+    <published>2025-11-29T14:57:06.675Z</published>
+    <updated>2025-11-29T14:43:24.469Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="阅读与思考"><a class="markdownIt-Anchor" href="#阅读与思考"></a> 📖 阅读与思考</h3><p>今日阅读《<strong>社会心理学</strong>》，进度至<strong>第十章</strong>。<br /><strong>感悟与联想</strong>：</p><ul><li>增加了<strong>偏见</strong>的概念卡<br />在今天的阅读中，我知道了偏见形成的原因包括社会原因和认知原因。</li></ul><h3 id="学习与代码"><a class="markdownIt-Anchor" href="#学习与代码"></a> 💻 学习与代码</h3><ul><li><p><strong>课程/领域</strong>：</p><ul><li>Obsidian插件Tasks的使用</li><li>Obsidian插件Templates的使用</li></ul></li><li><p><strong>实践/实验</strong>：</p><ul><li>LeetCode题36（汉明距离总和）</li><li>LeetCode题37（上升的温度）</li><li>2-6续指数平均法预测</li></ul></li><li><p><strong>代码/项目</strong>：</p></li></ul><h3 id="生活与观察"><a class="markdownIt-Anchor" href="#生活与观察"></a> 🎮 生活与观察</h3><ul><li><p><strong>日常小事</strong>：</p></li><li><p><strong>网络见闻</strong>：</p><ul><li>今天的英语短报阅读是关于“卡片巴拉”，文章描述为什么今天大多数人都会喜欢他，可能是因为他随遇而安的行为。</li></ul></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="日常闲谈" scheme="https://id-zy.github.io/categories/%E6%97%A5%E5%B8%B8%E9%97%B2%E8%B0%88/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>偏见</title>
+    <link href="https://id-zy.github.io/2025/11/29/%E5%81%8F%E8%A7%81/"/>
+    <id>https://id-zy.github.io/2025/11/29/%E5%81%8F%E8%A7%81/</id>
+    <published>2025-11-29T14:57:06.673Z</published>
+    <updated>2025-11-29T14:56:44.919Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="偏见"><a class="markdownIt-Anchor" href="#偏见"></a> 偏见</h1><p>对一个群体及其成员负面的预先判断</p><h3 id="刻板影响"><a class="markdownIt-Anchor" href="#刻板影响"></a> 刻板影响</h3><p>刻板印象是一种概括性的看法<br />我们会因为对事物的某种属性而对其有了一个预先判断。</p><h3 id="歧视"><a class="markdownIt-Anchor" href="#歧视"></a> 歧视</h3><p>偏见是一种负面态度；歧视是一种负面行为。歧视行为的根源往往在于偏见</p><h3 id="偏见的常见表现"><a class="markdownIt-Anchor" href="#偏见的常见表现"></a> 偏见的常见表现</h3><ul><li>种族歧视</li><li>性别歧视</li></ul><h3 id="偏见的形式"><a class="markdownIt-Anchor" href="#偏见的形式"></a> 偏见的形式</h3><div class="tabs"><div class="nav-tabs"><button type="button" class="tab active">微妙的、无意识的形式</button><button type="button" class="tab">公开的、有意识的形式</button></div><div class="tab-contents"><div class="tab-item-content active"><p>偏见态度或歧视行为一旦能隐藏于某些其他动机之后，便可能浮现出来</p></div><div class="tab-item-content"><p>内隐偏见可以预测行为，范围从友好行为到工作评价</p></div></div><div class="tab-to-top"><button type="button" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div><h2 id="偏见的社会根源"><a class="markdownIt-Anchor" href="#偏见的社会根源"></a> 偏见的社会根源</h2><ul><li>一旦群体为稀缺资源而竞争，就会出现偏见</li><li>不平等的社会地位滋生了偏见</li><li>偏见起源于不平等的社会经济地位以及其他社会原因，包括我们习得的价值观和态度</li><li>权威人格</li><li>宗教与偏见</li><li>从众<ul><li>偏见一旦形成，它在很大程度上就会由于惯性而持久存在。如果偏见被社会所接受，那么许多人将会遵循阻力较小的通道，顺从这种潮流</li></ul></li></ul><h2 id="偏见的动机根源"><a class="markdownIt-Anchor" href="#偏见的动机根源"></a> 偏见的动机根源</h2><h3 id="替罪羊理论"><a class="markdownIt-Anchor" href="#替罪羊理论"></a> 替罪羊理论</h3><p>当我们遭遇挫折的原因令人胆怯或者尚未可知的时候，我们往往会转移我们的敌对方向</p><h3 id="社会同一性理论"><a class="markdownIt-Anchor" href="#社会同一性理论"></a> 社会同一性理论</h3><ul><li>我们归类：我们发现将人，包括我们自己，归入各种类别是很有用的。</li><li>我们认同：我们将自己与特定的群体［我们的内群体(ingroup)］联系起来，并以此获得自尊</li><li>我们比较：我们将自己的群体与其他群体［外群体(outgroup)］进行比较，并且偏爱自己的群体。<ul><li>我是一名X（你的群体）​。X很优秀，所以，我也很优秀。​”</li></ul></li><li>如果缺乏积极的个人同一性，人们往往会通过认同某一群体来获得自尊</li></ul><h3 id="内群体偏差"><a class="markdownIt-Anchor" href="#内群体偏差"></a> 内群体偏差</h3><p>描述你不是谁。包含“我们”​（内群体）的圈子，自然就排除了“他们”​（外群体）​。</p><blockquote><p>如果问孩子们：​“你们学校的学生和他们（附近另一所学校的学生）比起来，哪里的学生更优秀？​”基本上所有的孩子都会说自己学校的学生更优秀。</p></blockquote><ul><li>内群体偏差提供积极自我概念</li><li>内群体偏差滋生偏袒</li></ul><h3 id="社会地位-自我关注和归属的需要"><a class="markdownIt-Anchor" href="#社会地位-自我关注和归属的需要"></a> 社会地位、自我关注和归属的需要</h3><p>社会地位是相对的：要感觉自己有地位，就需要有人不如我们<br />从偏见或任何地位等级系统中可以获得的一个心理优势就是高人一等的感觉<br /><strong>恐惧管理策略</strong><br />即蔑视那些不断挑战他们的世界观、使他们感到更焦虑的人<br />我们通过贬低他人来进行自我说服、自我夸耀</p><h3 id="避免偏见的动机"><a class="markdownIt-Anchor" href="#避免偏见的动机"></a> 避免偏见的动机</h3><p>不好（不和谐）的想法和情感往往长久存在，打破这种偏见习惯并非是一件容易的事情。<br />通过提高志愿者的意识和关注程度，训练他们用无偏见的自动反应替代偏见反应，可以克服偏见。</p><h2 id="偏见的认知根源"><a class="markdownIt-Anchor" href="#偏见的认知根源"></a> 偏见的认知根源</h2><h3 id="类别化将人归入不同群体"><a class="markdownIt-Anchor" href="#类别化将人归入不同群体"></a> 类别化：将人归入不同群体</h3><p>有社会同一性的解释中：我们简化世界的方法之一就是归类—通过把客体归入不同的类别来组织世界<br />而一旦给客体打上标签，就不可避免地具有偏见</p><h3 id="独特性感知那些突出的人"><a class="markdownIt-Anchor" href="#独特性感知那些突出的人"></a> 独特性：感知那些突出的人</h3><p>独特的人、生动或者极端的事件往往能吸引我们的注意力并歪曲我们的判断。<br />当群体中的某个人变得显而易见（显著）时，我们倾向于认为发生的所有事情都是这个人引起的<br /><strong>污名意识</strong><br />污名意识就是人们在多大程度上预期他人会对他们产生刻板印象</p><h3 id="归因错误"><a class="markdownIt-Anchor" href="#归因错误"></a> 归因错误</h3><p>归因错误：我们总是热衷于将人们的行为归结于他们的内在倾向，而忽视那些重要的情境力量</p><h4 id="公正世界现象"><a class="markdownIt-Anchor" href="#公正世界现象"></a> 公正世界现象</h4><p>指责受害者源于一个公认的假设：因为这是一个公正的世界，人们得到的是他们应得的一切。<br />人们之所以对社会不公漠不关心，并不是因为他们不关心公正，而是因为他们眼里看不到不公正。那些相信世界是公正的人，认为被强奸的受害者一定行为轻佻遭遇虐待的配偶一定是自作自受穷人注定就过不上好日子生病的人应该为他们的疾病负责</p><h2 id="偏见的后果"><a class="markdownIt-Anchor" href="#偏见的后果"></a> 偏见的后果</h2><ul><li>刻板印象一旦形成，就趋向于永久存在，并且抗拒改变。它们还会通过自我实现的预言创造出相应的现实。</li><li>偏见通过让人担心其他人会刻板化地看待自己，利用刻板印象威胁来妨碍一个人的表现。</li><li>刻板印象，特别是强烈的刻板印象，会影响我们感知他人和解释事件的方式。</li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="读书笔记" scheme="https://id-zy.github.io/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="《社会心理学》" scheme="https://id-zy.github.io/tags/%E3%80%8A%E7%A4%BE%E4%BC%9A%E5%BF%83%E7%90%86%E5%AD%A6%E3%80%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="https://id-zy.github.io/2025/11/29/%E4%B8%8A%E5%8D%87%E7%9A%84%E6%B8%A9%E5%BA%A6/"/>
+    <id>https://id-zy.github.io/2025/11/29/%E4%B8%8A%E5%8D%87%E7%9A%84%E6%B8%A9%E5%BA%A6/</id>
+    <published>2025-11-28T16:00:00.000Z</published>
+    <updated>2025-11-29T09:31:20.527Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="上升的温度"><a class="markdownIt-Anchor" href="#上升的温度"></a> 上升的温度</h1><h2 id="问题描述来源于leetcode"><a class="markdownIt-Anchor" href="#问题描述来源于leetcode"></a> 问题描述（来源于LeetCode）</h2><p>表： <code>Weather</code></p><p>±--------------±--------+<br />| Column Name   | Type    |<br />±--------------±--------+<br />| id            | int     |<br />| recordDate    | date    |<br />| temperature   | int     |<br />±--------------±--------+<br />id 是该表具有唯一值的列。<br />没有具有相同 recordDate 的不同行。<br />该表包含特定日期的温度信息</p><p>编写解决方案，找出与之前（昨天的）日期相比温度更高的所有日期的 <code>id</code> 。</p><p>返回结果 <strong>无顺序要求</strong> 。</p><h2 id="代码实现"><a class="markdownIt-Anchor" href="#代码实现"></a> 代码实现</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># Write your MySQL query statement below</span><br><span class="line"><span class="keyword">SELECT</span> t2.id <span class="keyword">AS</span> Id</span><br><span class="line"><span class="keyword">FROM</span> Weather t1</span><br><span class="line"><span class="keyword">CROSS</span> <span class="keyword">JOIN</span> Weather t2 </span><br><span class="line"><span class="keyword">ON</span> DATEDIFF(t1.recordDate,t2.recordDate)<span class="operator">=</span><span class="number">-1</span></span><br><span class="line"><span class="keyword">WHERE</span> t2.Temperature<span class="operator">&gt;</span>t1.Temperature</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="作业练习" scheme="https://id-zy.github.io/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
+    
+    
+    <category term="LeetCode" scheme="https://id-zy.github.io/tags/LeetCode/"/>
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="https://id-zy.github.io/2025/11/29/%E6%B1%89%E6%98%8E%E8%B7%9D%E7%A6%BB%E6%80%BB%E5%92%8C/"/>
+    <id>https://id-zy.github.io/2025/11/29/%E6%B1%89%E6%98%8E%E8%B7%9D%E7%A6%BB%E6%80%BB%E5%92%8C/</id>
+    <published>2025-11-28T16:00:00.000Z</published>
+    <updated>2025-11-29T09:44:09.984Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="汉明距离总和"><a class="markdownIt-Anchor" href="#汉明距离总和"></a> 汉明距离总和</h1><h2 id="问题描述来源于leetcode"><a class="markdownIt-Anchor" href="#问题描述来源于leetcode"></a> 问题描述（来源于LeetCode）</h2><p>两个整数的 <a href="https://baike.baidu.com/item/%E6%B1%89%E6%98%8E%E8%B7%9D%E7%A6%BB/475174?fr=aladdin">汉明距离</a> 指的是这两个数字的二进制数对应位不同的数量。</p><p>给你一个整数数组 <code>nums</code>，请你计算并返回 <code>nums</code> 中任意两个数之间 <strong>汉明距离的总和</strong> 。</p><h2 id="代码实现"><a class="markdownIt-Anchor" href="#代码实现"></a> 代码实现</h2><h3 id="暴力破解"><a class="markdownIt-Anchor" href="#暴力破解"></a> 暴力破解</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">totalHammingDistance</span>(<span class="params">self, nums: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        n=<span class="number">0</span></span><br><span class="line">        i=<span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(nums)):</span><br><span class="line">        j=i+<span class="number">1</span></span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(nums)):</span><br><span class="line">                n+=<span class="built_in">bin</span>(nums[i]^nums[j]).count(<span class="string">&quot;1&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> n//<span class="number">2</span></span><br></pre></td></tr></table></figure><h4 id="复杂度分析"><a class="markdownIt-Anchor" href="#复杂度分析"></a> 复杂度分析</h4><ul><li>时间复杂度<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><msup><mi>n</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></li><li>空间复杂度<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span><br />由于时间复杂度过大，所以数据较大时效率很低，所以进行优化</li></ul><h3 id="优化算法1"><a class="markdownIt-Anchor" href="#优化算法1"></a> 优化算法1</h3><p>优化思路，我们对所有数的每一位统计1和0的数量，那么这一位的汉明距离=l的数量<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∗</mo></mrow><annotation encoding="application/x-tex">*</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.46528em;vertical-align:0em;"></span><span class="mord">∗</span></span></span></span> 0的数量，遍历32位即可。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">totalHammingDistance</span>(<span class="params">self, nums: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        n=<span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">32</span>):</span><br><span class="line">            co=<span class="number">0</span></span><br><span class="line">            <span class="keyword">for</span> num <span class="keyword">in</span> nums:</span><br><span class="line">                <span class="keyword">if</span> num&amp;(<span class="number">1</span>&lt;&lt;i):</span><br><span class="line">                    co+=<span class="number">1</span></span><br><span class="line">            n+=co*(<span class="built_in">len</span>(nums)-co)</span><br><span class="line">        <span class="keyword">return</span> n</span><br></pre></td></tr></table></figure><h4 id="复杂度分析-2"><a class="markdownIt-Anchor" href="#复杂度分析-2"></a> 复杂度分析</h4><ul><li>时间复杂度<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></li><li>空间复杂度<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="作业练习" scheme="https://id-zy.github.io/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
+    
+    
+    <category term="LeetCode" scheme="https://id-zy.github.io/tags/LeetCode/"/>
+    
+  </entry>
   
   <entry>
     <title>汉明距离</title>
@@ -385,100 +479,6 @@
     
     <category term="日常闲谈" scheme="https://id-zy.github.io/categories/%E6%97%A5%E5%B8%B8%E9%97%B2%E8%B0%88/"/>
     
-    
-  </entry>
-  
-  <entry>
-    <title>11.24|相似性往往决定本质</title>
-    <link href="https://id-zy.github.io/2025/11/24/11.24%E6%97%A5%E5%B8%B8/"/>
-    <id>https://id-zy.github.io/2025/11/24/11.24%E6%97%A5%E5%B8%B8/</id>
-    <published>2025-11-24T12:41:18.406Z</published>
-    <updated>2025-11-24T12:40:37.301Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="阅读与思考"><a class="markdownIt-Anchor" href="#阅读与思考"></a> 📖 阅读与思考</h3><p>今日阅读《<strong>社会心理学</strong>》，进度至<strong>从众</strong>。<br /><strong>感悟与联想</strong>：</p><ul><li>增加了<strong>人类的相似性和差异性</strong><br />在今天的阅读里，作者想要强调的观点是：<strong>演化成就了人类的相似性，而文化则是差异性的主要原因</strong>，其实这些观点我在很多书里都读到过，比如说《人类简史》《枪炮、病菌与钢铁》；它们都是以达尔文的“自然选择”理论为基础去阐述去证明，我们今天之所以是今天的模样就是自然演化的结果。我记得在《人类简史》有段话就很形象“不是人类驯服了自然，而是自然驯服了我们”</li></ul><h3 id="学习与代码"><a class="markdownIt-Anchor" href="#学习与代码"></a> 💻 学习与代码</h3><ul><li><strong>课程/领域</strong>：<ul><li>整理一部分离散数学的知识图谱<br /><img src="https://pic1.imgdb.cn/item/692448b63203f7be002b5a9e.png=%50" alt="" /></li><li>计算机安全导论第三章作业</li></ul></li><li><strong>实践/实验</strong>：<ul><li>LeetCode题22（4 的幂）</li><li>LeetCode题23（3 的幂）</li><li>LeetCode题24（大的国家）</li><li>LeetCode题25（文章浏览I）</li><li>LeetCode题26（无效的推文）</li></ul></li><li><strong>代码/项目</strong>：<ul><li>微机原理上机报告</li><li>OpenGauss实践能力评估</li></ul></li></ul><h3 id="生活与观察"><a class="markdownIt-Anchor" href="#生活与观察"></a> 🎮 生活与观察</h3><ul><li><p><strong>日常小事</strong>：</p></li><li><p><strong>网络见闻</strong>：</p><ul><li>今天的英文短报阅读是关于让话多以致于守不住秘密的人保持一个健康交谈距离</li></ul></li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    <category term="日常闲谈" scheme="https://id-zy.github.io/categories/%E6%97%A5%E5%B8%B8%E9%97%B2%E8%B0%88/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>无效的推文</title>
-    <link href="https://id-zy.github.io/2025/11/24/%E9%A2%9826/"/>
-    <id>https://id-zy.github.io/2025/11/24/%E9%A2%9826/</id>
-    <published>2025-11-24T12:41:18.405Z</published>
-    <updated>2025-11-24T00:55:21.621Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="无效的推文"><a class="markdownIt-Anchor" href="#无效的推文"></a> 无效的推文</h1><h2 id="题目描述来源于leetcode"><a class="markdownIt-Anchor" href="#题目描述来源于leetcode"></a> 题目描述（来源于LeetCode)</h2><p>表：<code>Tweets</code></p><p>±---------------±--------+<br />| Column Name    | Type    |<br />±---------------±--------+<br />| tweet_id       | int     |<br />| content        | varchar |<br />±---------------±--------+<br />在 SQL 中，tweet_id 是这个表的主键。<br />content 只包含字母数字字符，‘!’，’ '，不包含其它特殊字符。<br />这个表包含某社交媒体 App 中所有的推文。</p><p>查询所有无效推文的编号（ID）。当推文内容中的字符数<strong>严格大于</strong> <code>15</code> 时，该推文是无效的。</p><p>以<strong>任意顺序</strong>返回结果表。</p><h3 id="初期思路"><a class="markdownIt-Anchor" href="#初期思路"></a> 初期思路</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> </span><br><span class="line">    tweet_id</span><br><span class="line"><span class="keyword">FROM</span> </span><br><span class="line">    tweets</span><br><span class="line"><span class="keyword">WHERE</span> </span><br><span class="line">    <span class="keyword">CHAR_LENGTH</span>(content) <span class="operator">&gt;</span> <span class="number">15</span></span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    <category term="作业练习" scheme="https://id-zy.github.io/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
-    
-    
-    <category term="LeetCode" scheme="https://id-zy.github.io/tags/LeetCode/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>文章浏览I</title>
-    <link href="https://id-zy.github.io/2025/11/24/%E9%A2%9825/"/>
-    <id>https://id-zy.github.io/2025/11/24/%E9%A2%9825/</id>
-    <published>2025-11-24T12:41:18.404Z</published>
-    <updated>2025-11-24T00:55:45.756Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="文章浏览i"><a class="markdownIt-Anchor" href="#文章浏览i"></a> 文章浏览I</h1><h2 id="题目描述来源于leetcode"><a class="markdownIt-Anchor" href="#题目描述来源于leetcode"></a> 题目描述（来源于LeetCode)</h2><p><code>Views</code> 表：</p><p>±--------------±--------+<br />| Column Name   | Type    |<br />±--------------±--------+<br />| article_id    | int     |<br />| author_id     | int     |<br />| viewer_id     | int     |<br />| view_date     | date    |<br />±--------------±--------+<br />此表可能会存在重复行。（换句话说，在 SQL 中这个表没有主键）<br />此表的每一行都表示某人在某天浏览了某位作者的某篇文章。<br />请注意，同一人的 author_id 和 viewer_id 是相同的。</p><p>请查询出所有浏览过自己文章的作者。</p><p>结果按照作者的 <code>id</code> 升序排列。</p><h3 id="初期思路"><a class="markdownIt-Anchor" href="#初期思路"></a> 初期思路</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># Write your MySQL query statement below</span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> author_id <span class="keyword">AS</span> id</span><br><span class="line"><span class="keyword">FROM</span> Views</span><br><span class="line"><span class="keyword">WHERE</span> author_id<span class="operator">=</span>viewer_id</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> author_id <span class="keyword">ASC</span></span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    <category term="作业练习" scheme="https://id-zy.github.io/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
-    
-    
-    <category term="LeetCode" scheme="https://id-zy.github.io/tags/LeetCode/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>大的国家</title>
-    <link href="https://id-zy.github.io/2025/11/24/%E9%A2%9824/"/>
-    <id>https://id-zy.github.io/2025/11/24/%E9%A2%9824/</id>
-    <published>2025-11-24T12:41:18.402Z</published>
-    <updated>2025-11-24T00:56:07.336Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="大的国家"><a class="markdownIt-Anchor" href="#大的国家"></a> 大的国家</h1><h2 id="题目描述来源于leetcode"><a class="markdownIt-Anchor" href="#题目描述来源于leetcode"></a> 题目描述（来源于LeetCode)</h2><p><code>World</code> 表：<br />±------------±--------+<br />| Column Name | Type    |<br />±------------±--------+<br />| name        | varchar |<br />| continent   | varchar |<br />| area        | int     |<br />| population  | int     |<br />| gdp         | bigint  |<br />±------------±--------+<br /><code>name</code> 是该表的主键（具有唯一值的列）。<br />这张表的每一行提供：国家名称、所属大陆、面积、人口和 GDP 值。</p><p>如果一个国家满足下述两个条件之一，则认为该国是 <strong>大国</strong> ：</p><ul><li>面积至少为 300 万平方公里（即，<code>3000000 km2</code>），或者</li><li>人口至少为 2500 万（即 <code>25000000</code>）</li></ul><p>编写解决方案找出 <strong>大国</strong> 的国家名称、人口和面积。</p><p>按 <strong>任意顺序</strong> 返回结果表。</p><p>返回结果格式如下例所示。</p><h3 id="初期思路"><a class="markdownIt-Anchor" href="#初期思路"></a> 初期思路</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># Write your MySQL query statement below</span><br><span class="line"><span class="keyword">SELECT</span> name,population,area</span><br><span class="line"><span class="keyword">FROM</span> World</span><br><span class="line"><span class="keyword">WHERE</span> area <span class="operator">&gt;=</span><span class="number">3000000</span> <span class="keyword">OR</span> population<span class="operator">&gt;=</span> <span class="number">25000000</span></span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    <category term="作业练习" scheme="https://id-zy.github.io/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
-    
-    
-    <category term="LeetCode" scheme="https://id-zy.github.io/tags/LeetCode/"/>
     
   </entry>
   
