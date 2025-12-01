@@ -1,0 +1,205 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>群组测试 | 笺札</title><meta name="author" content="zhaoyuan"><meta name="copyright" content="zhaoyuan"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="群组测试 群组测试（Group Testing）是一种通过组合检测来高效识别少数异常个体（如感染者、缺陷品）的统计方法。其核心思想是将多个样本混合后进行单次测试，根据结果推断每个样本的状态，从而在总体样本量较大且异常比例较低时大幅减少检测次数。该方法最初由Rosenblatt和Dorfman于二战时期提出，用于美军梅毒血液筛查，如今已成为计算机科学、生物信息学、通信工程等多个领域的重要工具。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="群组测试">
+<meta property="og:url" content="https://id-zy.github.io/2025/12/01/%E7%BE%A4%E7%BB%84%E6%B5%8B%E8%AF%95/index.html">
+<meta property="og:site_name" content="笺札">
+<meta property="og:description" content="群组测试 群组测试（Group Testing）是一种通过组合检测来高效识别少数异常个体（如感染者、缺陷品）的统计方法。其核心思想是将多个样本混合后进行单次测试，根据结果推断每个样本的状态，从而在总体样本量较大且异常比例较低时大幅减少检测次数。该方法最初由Rosenblatt和Dorfman于二战时期提出，用于美军梅毒血液筛查，如今已成为计算机科学、生物信息学、通信工程等多个领域的重要工具。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic1.imgdb.cn/item/6908b7e53203f7be00cc7a21.jpg">
+<meta property="article:published_time" content="2025-12-01T14:31:47.453Z">
+<meta property="article:modified_time" content="2025-12-01T05:20:57.898Z">
+<meta property="article:author" content="zhaoyuan">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic1.imgdb.cn/item/6908b7e53203f7be00cc7a21.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "群组测试",
+  "url": "https://id-zy.github.io/2025/12/01/%E7%BE%A4%E7%BB%84%E6%B5%8B%E8%AF%95/",
+  "image": "https://pic1.imgdb.cn/item/6908b7e53203f7be00cc7a21.jpg",
+  "datePublished": "2025-12-01T14:31:47.453Z",
+  "dateModified": "2025-12-01T05:20:57.898Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "zhaoyuan",
+      "url": "https://id-zy.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="https://pic1.imgdb.cn/item/6829891e58cb8da5c8fabff0.png"><link rel="canonical" href="https://id-zy.github.io/2025/12/01/%E7%BE%A4%E7%BB%84%E6%B5%8B%E8%AF%95/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '群组测试',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'"><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="笺札" type="application/atom+xml">
+</head><body><div id="web_bg" style="background-image: url(https://pic1.imgdb.cn/item/68230f1c58cb8da5c8f082ff.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://pic1.imgdb.cn/item/6829891e58cb8da5c8fabff0.png" onerror="this.onerror=null;this.src='/img/friend_04.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">152</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">34</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fa fa-camera-retro faa-float animared"></i><span> 相册</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video faa-float animared"></i><span> 影视</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book  faa-float animared"></i><span> 图书</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://pic1.imgdb.cn/item/6908b7e53203f7be00cc7a21.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">笺札</span></a><a class="nav-page-title" href="/"><span class="site-name">群组测试</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fa fa-camera-retro faa-float animared"></i><span> 相册</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video faa-float animared"></i><span> 影视</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book  faa-float animared"></i><span> 图书</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">群组测试</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-12-01T14:31:47.453Z" title="发表于 2025-12-01 22:31:47">2025-12-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-12-01T05:20:57.898Z" title="更新于 2025-12-01 13:20:57">2025-12-01</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="群组测试"><a class="markdownIt-Anchor" href="#群组测试"></a> 群组测试</h1>
+<p>群组测试（Group Testing）是一种通过组合检测来高效识别少数异常个体（如感染者、缺陷品）的统计方法。其核心思想是将多个样本混合后进行单次测试，根据结果推断每个样本的状态，从而在总体样本量较大且异常比例较低时大幅减少检测次数。该方法最初由Rosenblatt和Dorfman于二战时期提出，用于美军梅毒血液筛查，如今已成为计算机科学、生物信息学、通信工程等多个领域的重要工具。</p>
+<h2 id="基本模型"><a class="markdownIt-Anchor" href="#基本模型"></a> 基本模型</h2>
+<p>假设有 n 个物品，其中至多d个为“缺陷品”（阳性）。每次测试可以选择任意物品子集，并获得一个二进制结果：1表示该子集中至少包含一个缺陷品，0表示没有缺陷品。目标是设计一系列测试，以最少的测试次数确定所有缺陷品的具体身份。</p>
+<h2 id="分类"><a class="markdownIt-Anchor" href="#分类"></a> 分类</h2>
+<ul>
+<li><strong>自适应群组测试</strong>：后续测试依赖先前测试结果，可动态调整策略。经典案例如二分搜索，适用于缺陷品数量较少时，最优测试次数为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>O</mi><mo stretchy="false">(</mo><mi>d</mi><mi>log</mi><mo>⁡</mo><mi>n</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(O(d \log n))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">d</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">n</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span>。</li>
+<li><strong>非自适应群组测试</strong>：所有测试提前设计，可并行执行。通常用 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>×</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">t \times n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69841em;vertical-align:-0.08333em;"></span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">n</span></span></span></span> 的二进制矩阵表示，每行对应一个测试，每列对应一个物品。矩阵设计需满足分离性质（如disjunct或separable），以保证能从结果中唯一解码缺陷集合。所需测试次数一般多于自适应方法，但并行性更适合大规模应用。</li>
+<li><strong>组合群组测试</strong>：假设缺陷品数量严格不超过 d，设计确定性测试方案。</li>
+<li><strong>概率群组测试</strong>：假设每个物品独立以概率 p 为缺陷，旨在以高概率正确识别，通常可进一步减少测试次数。</li>
+</ul>
+<h2 id="计算机科学中的应用"><a class="markdownIt-Anchor" href="#计算机科学中的应用"></a> 计算机科学中的应用</h2>
+<ol>
+<li><strong>多重访问通信</strong>：在多用户信道中，识别活跃用户可视为群组测试问题，通过时隙分配减少冲突。</li>
+<li><strong>数据压缩与稀疏恢复</strong>：压缩感知中，群组测试用于从少量线性测量中恢复稀疏信号。</li>
+<li><strong>DNA库筛选与测序</strong>：在生物信息学中，通过混合多个DNA样本进行测序，降低成本和耗时。</li>
+<li><strong>软件测试与故障诊断</strong>：检测软件中罕见bug或硬件中故障组件，通过测试用例组合定位问题。</li>
+<li><strong>网络安全</strong>：检测网络中的异常主机或恶意流量，通过聚合探测提高效率。</li>
+<li><strong>数据流处理</strong>：在流式数据中识别频繁项或重元素，使用类群组测试的哈希技术。</li>
+</ol>
+<h2 id="关键结果"><a class="markdownIt-Anchor" href="#关键结果"></a> 关键结果</h2>
+<ul>
+<li>自适应群组测试的下界为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Ω</mi><mo stretchy="false">(</mo><mi>d</mi><mi>log</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>n</mi><mi mathvariant="normal">/</mi><mi>d</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\Omega(d \log(n/d))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">Ω</span><span class="mopen">(</span><span class="mord mathnormal">d</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mord">/</span><span class="mord mathnormal">d</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span>，存在算法（如二分搜索、Sobel算法）达到 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>d</mi><mi>log</mi><mo>⁡</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(d \log n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">d</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>。</li>
+<li>非自适应群组测试：存在构造性方案使用 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><msup><mi>d</mi><mn>2</mn></msup><mi>log</mi><mo>⁡</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(d^2 \log n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">d</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span> 或 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>d</mi><msup><mo><mi>log</mi><mo>⁡</mo></mo><mn>2</mn></msup><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(d \log^2 n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.148448em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">d</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8984479999999999em;"><span style="top:-3.1473400000000002em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>次测试，具体取决于矩阵设计（如使用纠错码、随机矩阵）。</li>
+<li>当 d 很小（如常数）时，非自适应测试次数可接近 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>log</mi><mo>⁡</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(\log n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>；当 d 较大时，通常需要更多测试。</li>
+</ul>
+<h2 id="现代发展"><a class="markdownIt-Anchor" href="#现代发展"></a> 现代发展</h2>
+<p>群组测试与稀疏信号处理、信息论、组合设计等密切相关。特别是压缩感知的兴起，使得群组测试在高效传感、图像处理、机器学习中得到新的应用。例如，在神经网络剪枝中，可通过群组测试快速识别重要权重。<br />
+总之，群组测试是一种高效利用资源的结构化检测方法，在计算机科学中广泛应用于需要从大量数据中提取稀疏信息的场景。其核心优势在于通过巧妙的组合设计，将问题规模从个体级别降低到组级别，从而实现指数级的速度提升或成本节约。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://id-zy.github.io">zhaoyuan</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://id-zy.github.io/2025/12/01/%E7%BE%A4%E7%BB%84%E6%B5%8B%E8%AF%95/">https://id-zy.github.io/2025/12/01/%E7%BE%A4%E7%BB%84%E6%B5%8B%E8%AF%95/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://id-zy.github.io" target="_blank">笺札</a>！</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="https://pic1.imgdb.cn/item/6908b7e53203f7be00cc7a21.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2025/12/01/%E9%A6%99%E5%86%9C%E7%86%B5/" title="香农熵"><img class="cover" src="https://pic1.imgdb.cn/item/6908b7ef3203f7be00cc7a28.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">香农熵</div></div><div class="info-2"><div class="info-item-1">如果说群组测试是一种“工程方法”，那么香农熵就是支撑其背后的“物理定律”之一（在信息论中）。  香农熵 香农熵，由克劳德·香农在1948年的划时代论文《通信的数学理论》中提出，是信息论的基石。它从根本上量化了“信息”、“不确定性”和“随机性”。  核心思想与定义 你可以把香农熵想象成**“意料之外”的平均程度**。  一个必然发生的事情（概率为1） 告诉你时，你不会感到任何“意外”，它提供零信息。 一个极不可能发生的事情（概率接近0） 发生时，你会感到巨大的“意外”，它提供了大量信息。  香农熵公式（对于离散随机变量X）： H(X)=−∑ip(xi)log⁡2p(xi)H(X) = -\sum_{i} p(x_i) \log_2 p(x_i) H(X)=−i∑​p(xi​)log2​p(xi​) 其中： *p(xi)p(x_i)p(xi​)是事件xix_ixi​发生的概率。  对数的底数通常为2，此时熵的单位是比特。   直观理解与例子 假设你有一枚硬币：   均匀硬币（公平）：  正面概率p=0.5p = 0.5p=0.5，反面概率q=0.5q = 0.5q=0.5。 熵：H=...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://pic1.imgdb.cn/item/6829891e58cb8da5c8fabff0.png" onerror="this.onerror=null;this.src='/img/friend_04.gif'" alt="avatar"/></div><div class="author-info-name">zhaoyuan</div><div class="author-info-description">一封封记录足迹与所悟的信集</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">152</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">34</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BE%A4%E7%BB%84%E6%B5%8B%E8%AF%95"><span class="toc-number">1.</span> <span class="toc-text"> 群组测试</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.1.</span> <span class="toc-text"> 基本模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E7%B1%BB"><span class="toc-number">1.2.</span> <span class="toc-text"> 分类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc-number">1.3.</span> <span class="toc-text"> 计算机科学中的应用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E7%BB%93%E6%9E%9C"><span class="toc-number">1.4.</span> <span class="toc-text"> 关键结果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%B0%E4%BB%A3%E5%8F%91%E5%B1%95"><span class="toc-number">1.5.</span> <span class="toc-text"> 现代发展</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/12/01/%E7%BE%A4%E7%BB%84%E6%B5%8B%E8%AF%95/" title="群组测试"><img src="https://pic1.imgdb.cn/item/6908b7e53203f7be00cc7a21.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="群组测试"/></a><div class="content"><a class="title" href="/2025/12/01/%E7%BE%A4%E7%BB%84%E6%B5%8B%E8%AF%95/" title="群组测试">群组测试</a><time datetime="2025-12-01T14:31:47.453Z" title="发表于 2025-12-01 22:31:47">2025-12-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/12/01/%E9%A6%99%E5%86%9C%E7%86%B5/" title="香农熵"><img src="https://pic1.imgdb.cn/item/6908b7ef3203f7be00cc7a28.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="香农熵"/></a><div class="content"><a class="title" href="/2025/12/01/%E9%A6%99%E5%86%9C%E7%86%B5/" title="香农熵">香农熵</a><time datetime="2025-12-01T14:31:47.452Z" title="发表于 2025-12-01 22:31:47">2025-12-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/12/01/%E5%90%B8%E5%BC%95%E5%92%8C%E4%BA%B2%E5%AF%86/" title="吸引和亲密"><img src="https://pic1.imgdb.cn/item/6909bf693203f7be00cf7039.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="吸引和亲密"/></a><div class="content"><a class="title" href="/2025/12/01/%E5%90%B8%E5%BC%95%E5%92%8C%E4%BA%B2%E5%AF%86/" title="吸引和亲密">吸引和亲密</a><time datetime="2025-12-01T14:31:47.447Z" title="发表于 2025-12-01 22:31:47">2025-12-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/12/01/12.1%E6%97%A5%E5%B8%B8/" title="12.1日常"><img src="https://pic1.imgdb.cn/item/6908b7d53203f7be00cc7a0d.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="12.1日常"/></a><div class="content"><a class="title" href="/2025/12/01/12.1%E6%97%A5%E5%B8%B8/" title="12.1日常">12.1日常</a><time datetime="2025-12-01T14:31:47.445Z" title="发表于 2025-12-01 22:31:47">2025-12-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/12/01/%E4%BA%A4%E6%9B%BF%E4%BD%8D%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%95%B0/" title="交替位二进制数"><img src="https://pic1.imgdb.cn/item/6909bfa63203f7be00cf70c5.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="交替位二进制数"/></a><div class="content"><a class="title" href="/2025/12/01/%E4%BA%A4%E6%9B%BF%E4%BD%8D%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%95%B0/" title="交替位二进制数">交替位二进制数</a><time datetime="2025-11-30T16:00:00.000Z" title="发表于 2025-12-01 00:00:00">2025-12-01</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2019 - 2025 By zhaoyuan</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(async () => {
+  const showKatex = () => {
+    document.querySelectorAll('#article-container .katex').forEach(el => el.classList.add('katex-show'))
+  }
+
+  if (!window.katex_js_css) {
+    window.katex_js_css = true
+    await btf.getCSS('https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css')
+    if (false) {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js')
+    }
+  }
+
+  showKatex()
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
