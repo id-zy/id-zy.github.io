@@ -6,7 +6,7 @@
   <link href="https://id-zy.github.io/atom.xml" rel="self"/>
   
   <link href="https://id-zy.github.io/"/>
-  <updated>2025-12-02T13:05:17.772Z</updated>
+  <updated>2025-12-02T13:39:56.042Z</updated>
   <id>https://id-zy.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>12.2日常</title>
+    <link href="https://id-zy.github.io/2025/12/02/12.2%E6%97%A5%E5%B8%B8/"/>
+    <id>https://id-zy.github.io/2025/12/02/12.2%E6%97%A5%E5%B8%B8/</id>
+    <published>2025-12-02T14:05:25.654Z</published>
+    <updated>2025-12-02T13:39:56.042Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="阅读与思考"><a class="markdownIt-Anchor" href="#阅读与思考"></a> 📖 阅读与思考</h3><p>今日阅读《<strong>社会心理学</strong>》，进度至<strong>章节</strong>。<br /><strong>感悟与联想</strong>：</p><ul><li>补充了<strong>吸引和亲密</strong>的概念卡</li><li>增加了<strong>帮助行为</strong>的概念卡<br />在今天的阅读中，我更能理解在一段健康的爱情中，爱情的双方应该具有怎样的品质或心态以致于使他们的爱情转换为相伴之爱。之后在帮助行为这一章节中，我了解到为何我们向他人伸出援助的基本原因和帮助行为存在的必要性。</li></ul><h3 id="学习与代码"><a class="markdownIt-Anchor" href="#学习与代码"></a> 💻 学习与代码</h3><ul><li><p><strong>课程/领域</strong>：</p><ul><li>数据库4、5、6章作业</li></ul></li><li><p><strong>实践/实验</strong>：</p><ul><li>LeetCode 最大交换</li><li>LeetCode Excel 表列序号</li><li>LeetCode Excel 表列名称</li><li>LeetCode 数字转换成十六进制数</li></ul></li><li><h2 id="代码项目"><a class="markdownIt-Anchor" href="#代码项目"></a> <strong>代码/项目</strong>：</h2></li></ul><h3 id="生活与观察"><a class="markdownIt-Anchor" href="#生活与观察"></a> 🎮 生活与观察</h3><ul><li><strong>日常小事</strong>：<ul><li>最近感冒+鼻炎复发：注重身体健康啊</li></ul></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="日常闲谈" scheme="https://id-zy.github.io/categories/%E6%97%A5%E5%B8%B8%E9%97%B2%E8%B0%88/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>帮助行为</title>
@@ -459,30 +481,6 @@
     
     
     <category term="《社会心理学》" scheme="https://id-zy.github.io/tags/%E3%80%8A%E7%A4%BE%E4%BC%9A%E5%BF%83%E7%90%86%E5%AD%A6%E3%80%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>上升的温度</title>
-    <link href="https://id-zy.github.io/2025/11/29/%E4%B8%8A%E5%8D%87%E7%9A%84%E6%B8%A9%E5%BA%A6/"/>
-    <id>https://id-zy.github.io/2025/11/29/%E4%B8%8A%E5%8D%87%E7%9A%84%E6%B8%A9%E5%BA%A6/</id>
-    <published>2025-11-28T16:00:00.000Z</published>
-    <updated>2025-11-29T15:01:08.691Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="上升的温度"><a class="markdownIt-Anchor" href="#上升的温度"></a> 上升的温度</h1><h2 id="问题描述来源于leetcode"><a class="markdownIt-Anchor" href="#问题描述来源于leetcode"></a> 问题描述（来源于LeetCode）</h2><p>表： <code>Weather</code></p><p>±--------------±--------+<br />| Column Name   | Type    |<br />±--------------±--------+<br />| id            | int     |<br />| recordDate    | date    |<br />| temperature   | int     |<br />±--------------±--------+<br />id 是该表具有唯一值的列。<br />没有具有相同 recordDate 的不同行。<br />该表包含特定日期的温度信息</p><p>编写解决方案，找出与之前（昨天的）日期相比温度更高的所有日期的 <code>id</code> 。</p><p>返回结果 <strong>无顺序要求</strong> 。</p><h2 id="代码实现"><a class="markdownIt-Anchor" href="#代码实现"></a> 代码实现</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># Write your MySQL query statement below</span><br><span class="line"><span class="keyword">SELECT</span> t2.id <span class="keyword">AS</span> Id</span><br><span class="line"><span class="keyword">FROM</span> Weather t1</span><br><span class="line"><span class="keyword">CROSS</span> <span class="keyword">JOIN</span> Weather t2 </span><br><span class="line"><span class="keyword">ON</span> DATEDIFF(t1.recordDate,t2.recordDate)<span class="operator">=</span><span class="number">-1</span></span><br><span class="line"><span class="keyword">WHERE</span> t2.Temperature<span class="operator">&gt;</span>t1.Temperature</span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    <category term="作业练习" scheme="https://id-zy.github.io/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
-    
-    
-    <category term="LeetCode" scheme="https://id-zy.github.io/tags/LeetCode/"/>
     
   </entry>
   
