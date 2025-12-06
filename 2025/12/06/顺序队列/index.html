@@ -1,0 +1,216 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>顺序队列 | 笺札</title><meta name="author" content="zhaoyuan"><meta name="copyright" content="zhaoyuan"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="顺序队列  基本概念  数据结构的三要素  逻辑结构  线性结构   存储结构  顺序存储   数据的运算   费曼理解 队列就是排队，先进来的就可以先出去  内部实现： 12345define MaxSize 10;typedef struct &#123;	ElemType data[MaxSize];	int front,rear;&#125;SqQueue;  复杂度分析：  初始化 1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="顺序队列">
+<meta property="og:url" content="https://id-zy.github.io/2025/12/06/%E9%A1%BA%E5%BA%8F%E9%98%9F%E5%88%97/index.html">
+<meta property="og:site_name" content="笺札">
+<meta property="og:description" content="顺序队列  基本概念  数据结构的三要素  逻辑结构  线性结构   存储结构  顺序存储   数据的运算   费曼理解 队列就是排队，先进来的就可以先出去  内部实现： 12345define MaxSize 10;typedef struct &#123;	ElemType data[MaxSize];	int front,rear;&#125;SqQueue;  复杂度分析：  初始化 1">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic1.imgdb.cn/item/6909bfa63203f7be00cf70c5.jpg">
+<meta property="article:published_time" content="2025-12-06T15:38:26.023Z">
+<meta property="article:modified_time" content="2025-12-06T09:25:48.547Z">
+<meta property="article:author" content="zhaoyuan">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic1.imgdb.cn/item/6909bfa63203f7be00cf70c5.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "顺序队列",
+  "url": "https://id-zy.github.io/2025/12/06/%E9%A1%BA%E5%BA%8F%E9%98%9F%E5%88%97/",
+  "image": "https://pic1.imgdb.cn/item/6909bfa63203f7be00cf70c5.jpg",
+  "datePublished": "2025-12-06T15:38:26.023Z",
+  "dateModified": "2025-12-06T09:25:48.547Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "zhaoyuan",
+      "url": "https://id-zy.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="https://pic1.imgdb.cn/item/6829891e58cb8da5c8fabff0.png"><link rel="canonical" href="https://id-zy.github.io/2025/12/06/%E9%A1%BA%E5%BA%8F%E9%98%9F%E5%88%97/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '顺序队列',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'"><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="笺札" type="application/atom+xml">
+</head><body><div id="web_bg" style="background-image: url(https://pic1.imgdb.cn/item/68230f1c58cb8da5c8f082ff.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://pic1.imgdb.cn/item/6829891e58cb8da5c8fabff0.png" onerror="this.onerror=null;this.src='/img/friend_04.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">175</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">34</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fa fa-camera-retro faa-float animared"></i><span> 相册</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video faa-float animared"></i><span> 影视</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book  faa-float animared"></i><span> 图书</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://pic1.imgdb.cn/item/6909bfa63203f7be00cf70c5.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">笺札</span></a><a class="nav-page-title" href="/"><span class="site-name">顺序队列</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fa fa-camera-retro faa-float animared"></i><span> 相册</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video faa-float animared"></i><span> 影视</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book  faa-float animared"></i><span> 图书</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">顺序队列</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-12-06T15:38:26.023Z" title="发表于 2025-12-06 23:38:26">2025-12-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-12-06T09:25:48.547Z" title="更新于 2025-12-06 17:25:48">2025-12-06</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="顺序队列"><a class="markdownIt-Anchor" href="#顺序队列"></a> 顺序队列</h1>
+<h2 id="基本概念"><a class="markdownIt-Anchor" href="#基本概念"></a> 基本概念</h2>
+<h2 id="数据结构的三要素"><a class="markdownIt-Anchor" href="#数据结构的三要素"></a> 数据结构的三要素</h2>
+<ul>
+<li>逻辑结构
+<ul>
+<li>线性结构</li>
+</ul>
+</li>
+<li>存储结构
+<ul>
+<li>顺序存储</li>
+</ul>
+</li>
+<li>数据的运算</li>
+</ul>
+<h3 id="费曼理解"><a class="markdownIt-Anchor" href="#费曼理解"></a> 费曼理解</h3>
+<p>队列就是排队，先进来的就可以先出去</p>
+<h2 id="内部实现"><a class="markdownIt-Anchor" href="#内部实现"></a> 内部实现：</h2>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">define MaxSize <span class="number">10</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">	ElemType data[MaxSize];</span><br><span class="line">	<span class="type">int</span> front,rear;</span><br><span class="line">&#125;SqQueue;</span><br></pre></td></tr></table></figure>
+<h2 id="复杂度分析"><a class="markdownIt-Anchor" href="#复杂度分析"></a> 复杂度分析：</h2>
+<h3 id="初始化"><a class="markdownIt-Anchor" href="#初始化"></a> 初始化</h3>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">InitQueue</span><span class="params">(SqQueue &amp;Q)</span>&#123;</span><br><span class="line">	Q.front=<span class="number">0</span>;</span><br><span class="line">	Q.rear=<span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="判断队列是否为空"><a class="markdownIt-Anchor" href="#判断队列是否为空"></a> 判断队列是否为空</h3>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">bool</span> <span class="title function_">QueueEmpty</span><span class="params">(SqQueue &amp;Q)</span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(Q.front==Q.rear)</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="入队"><a class="markdownIt-Anchor" href="#入队"></a> 入队</h3>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">bool</span> <span class="title function_">EnQueue</span><span class="params">(SqQueue &amp;Q,ElemType e)</span>&#123;</span><br><span class="line">	<span class="comment">//边界判断</span></span><br><span class="line">	<span class="keyword">if</span>(Q.rear-Q.front==MaxSize&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	Q.data[Q.rear]=e;</span><br><span class="line">	Q.rear++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="复杂度分析-2"><a class="markdownIt-Anchor" href="#复杂度分析-2"></a> 复杂度分析</h4>
+<ul>
+<li>时间复杂度：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></li>
+<li>空间复杂度：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></li>
+</ul>
+<h3 id="出队"><a class="markdownIt-Anchor" href="#出队"></a> 出队</h3>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">bool</span> <span class="title function_">OutQueue</span><span class="params">(SqQueue &amp;Q.ElemType &amp;e)</span>&#123;</span><br><span class="line">	<span class="comment">//边界判断</span></span><br><span class="line">	<span class="keyword">if</span>(Q.rear==Q.front)&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	e=Q.data[Q.front];</span><br><span class="line">	Q.front++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="复杂度分析-3"><a class="markdownIt-Anchor" href="#复杂度分析-3"></a> 复杂度分析</h4>
+<ul>
+<li>时间复杂度：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></li>
+<li>空间复杂度：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></li>
+</ul>
+<h2 id="应用场景"><a class="markdownIt-Anchor" href="#应用场景"></a> 应用场景：</h2>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://id-zy.github.io">zhaoyuan</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://id-zy.github.io/2025/12/06/%E9%A1%BA%E5%BA%8F%E9%98%9F%E5%88%97/">https://id-zy.github.io/2025/12/06/%E9%A1%BA%E5%BA%8F%E9%98%9F%E5%88%97/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://id-zy.github.io" target="_blank">笺札</a>！</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="https://pic1.imgdb.cn/item/6909bfa63203f7be00cf70c5.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2025/12/06/%E7%BC%BA%E5%A4%B1%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%AD%A3%E6%95%B0/" title="缺失的第一个正数"><img class="cover" src="https://pic1.imgdb.cn/item/6909bfa63203f7be00cf70c4.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">缺失的第一个正数</div></div><div class="info-2"><div class="info-item-1"> 缺失的第一个正数  🎯 问题描述（来源于LeetCode） 给你一个未排序的整数数组 nums ，请你找出其中没有出现的最小的正整数。 请你实现时间复杂度为 O(n) 并且只使用常数级别额外空间的解决方案。  💻 代码实现 1234567891011class Solution:    def firstMissingPositive(self, nums: List[int]) -&gt; int:        l=len(nums)        for i in range(l):            while 1&lt;=nums[i]&lt;=l and nums[i]!=nums[nums[i]-1]:                j=nums[i]-1                nums[j],nums[i]=nums[i],nums[j]        for i in range(l):            if nums[i]!=i+1:                return i+1        return l+1  📊 性能分...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://pic1.imgdb.cn/item/6829891e58cb8da5c8fabff0.png" onerror="this.onerror=null;this.src='/img/friend_04.gif'" alt="avatar"/></div><div class="author-info-name">zhaoyuan</div><div class="author-info-description">一封封记录足迹与所悟的信集</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">175</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">34</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A1%BA%E5%BA%8F%E9%98%9F%E5%88%97"><span class="toc-number">1.</span> <span class="toc-text"> 顺序队列</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">1.1.</span> <span class="toc-text"> 基本概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%9A%84%E4%B8%89%E8%A6%81%E7%B4%A0"><span class="toc-number">1.2.</span> <span class="toc-text"> 数据结构的三要素</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B4%B9%E6%9B%BC%E7%90%86%E8%A7%A3"><span class="toc-number">1.2.1.</span> <span class="toc-text"> 费曼理解</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E9%83%A8%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.3.</span> <span class="toc-text"> 内部实现：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90"><span class="toc-number">1.4.</span> <span class="toc-text"> 复杂度分析：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">1.4.1.</span> <span class="toc-text"> 初始化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A4%E6%96%AD%E9%98%9F%E5%88%97%E6%98%AF%E5%90%A6%E4%B8%BA%E7%A9%BA"><span class="toc-number">1.4.2.</span> <span class="toc-text"> 判断队列是否为空</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A5%E9%98%9F"><span class="toc-number">1.4.3.</span> <span class="toc-text"> 入队</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90-2"><span class="toc-number">1.4.3.1.</span> <span class="toc-text"> 复杂度分析</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BA%E9%98%9F"><span class="toc-number">1.4.4.</span> <span class="toc-text"> 出队</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90-3"><span class="toc-number">1.4.4.1.</span> <span class="toc-text"> 复杂度分析</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">1.5.</span> <span class="toc-text"> 应用场景：</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/12/06/%E9%A1%BA%E5%BA%8F%E9%98%9F%E5%88%97/" title="顺序队列"><img src="https://pic1.imgdb.cn/item/6909bfa63203f7be00cf70c5.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="顺序队列"/></a><div class="content"><a class="title" href="/2025/12/06/%E9%A1%BA%E5%BA%8F%E9%98%9F%E5%88%97/" title="顺序队列">顺序队列</a><time datetime="2025-12-06T15:38:26.023Z" title="发表于 2025-12-06 23:38:26">2025-12-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/12/06/%E6%89%BE%E5%88%B0%E6%95%B0%E7%BB%84%E4%B8%AD%E6%89%80%E6%9C%89%E6%B6%88%E5%A4%B1%E7%9A%84%E6%95%B0%E5%AD%97/" title="找到数组中所有消失的数字"><img src="https://pic1.imgdb.cn/item/6908b7e53203f7be00cc7a24.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="找到数组中所有消失的数字"/></a><div class="content"><a class="title" href="/2025/12/06/%E6%89%BE%E5%88%B0%E6%95%B0%E7%BB%84%E4%B8%AD%E6%89%80%E6%9C%89%E6%B6%88%E5%A4%B1%E7%9A%84%E6%95%B0%E5%AD%97/" title="找到数组中所有消失的数字">找到数组中所有消失的数字</a><time datetime="2025-12-05T16:00:00.000Z" title="发表于 2025-12-06 00:00:00">2025-12-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/12/06/%E6%95%B0%E7%BB%84%E4%B8%AD%E9%87%8D%E5%A4%8D%E7%9A%84%E6%95%B0%E6%8D%AE/" title="数组中重复的数据"><img src="https://pic1.imgdb.cn/item/6909bfed3203f7be00cf7176.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="数组中重复的数据"/></a><div class="content"><a class="title" href="/2025/12/06/%E6%95%B0%E7%BB%84%E4%B8%AD%E9%87%8D%E5%A4%8D%E7%9A%84%E6%95%B0%E6%8D%AE/" title="数组中重复的数据">数组中重复的数据</a><time datetime="2025-12-05T16:00:00.000Z" title="发表于 2025-12-06 00:00:00">2025-12-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/12/06/%E7%BC%BA%E5%A4%B1%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%AD%A3%E6%95%B0/" title="缺失的第一个正数"><img src="https://pic1.imgdb.cn/item/6909bfa63203f7be00cf70c4.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="缺失的第一个正数"/></a><div class="content"><a class="title" href="/2025/12/06/%E7%BC%BA%E5%A4%B1%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%AD%A3%E6%95%B0/" title="缺失的第一个正数">缺失的第一个正数</a><time datetime="2025-12-05T16:00:00.000Z" title="发表于 2025-12-06 00:00:00">2025-12-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/12/05/%E4%B8%89%E4%B8%AA%E6%95%B0%E7%9A%84%E6%9C%80%E5%A4%A7%E4%B9%98%E7%A7%AF/" title="三个数的最大乘积"><img src="https://pic1.imgdb.cn/item/6908b7a43203f7be00cc79ce.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="三个数的最大乘积"/></a><div class="content"><a class="title" href="/2025/12/05/%E4%B8%89%E4%B8%AA%E6%95%B0%E7%9A%84%E6%9C%80%E5%A4%A7%E4%B9%98%E7%A7%AF/" title="三个数的最大乘积">三个数的最大乘积</a><time datetime="2025-12-04T16:00:00.000Z" title="发表于 2025-12-05 00:00:00">2025-12-05</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2019 - 2025 By zhaoyuan</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(async () => {
+  const showKatex = () => {
+    document.querySelectorAll('#article-container .katex').forEach(el => el.classList.add('katex-show'))
+  }
+
+  if (!window.katex_js_css) {
+    window.katex_js_css = true
+    await btf.getCSS('https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css')
+    if (false) {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js')
+    }
+  }
+
+  showKatex()
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
