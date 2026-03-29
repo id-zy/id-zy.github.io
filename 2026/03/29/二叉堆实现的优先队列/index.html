@@ -1,0 +1,206 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>二叉堆实现的优先队列 | 笺札</title><meta name="author" content="zhaoyuan"><meta name="copyright" content="zhaoyuan"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="二叉堆实现的优先队列  二叉堆的定义 二叉堆是一种完全二叉树，分为两类：  大顶堆：每个节点值 ≥ 子节点值 小顶堆：每个节点值 ≤ 子节点值   基本操作 优先队列主要有两种操作：  入队（heappush）：将新元素加到数组末尾，然后从下往上调整，恢复堆结构。 出队（heappop）：将堆顶元素与末尾元素交换，弹出末尾元素，再对新堆顶自上而下调整，恢复堆结构。   内部实现：  使用heap">
+<meta property="og:type" content="article">
+<meta property="og:title" content="二叉堆实现的优先队列">
+<meta property="og:url" content="https://id-zy.github.io/2026/03/29/%E4%BA%8C%E5%8F%89%E5%A0%86%E5%AE%9E%E7%8E%B0%E7%9A%84%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/index.html">
+<meta property="og:site_name" content="笺札">
+<meta property="og:description" content="二叉堆实现的优先队列  二叉堆的定义 二叉堆是一种完全二叉树，分为两类：  大顶堆：每个节点值 ≥ 子节点值 小顶堆：每个节点值 ≤ 子节点值   基本操作 优先队列主要有两种操作：  入队（heappush）：将新元素加到数组末尾，然后从下往上调整，恢复堆结构。 出队（heappop）：将堆顶元素与末尾元素交换，弹出末尾元素，再对新堆顶自上而下调整，恢复堆结构。   内部实现：  使用heap">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic1.imgdb.cn/item/6908b7233203f7be00cc7959.jpg">
+<meta property="article:published_time" content="2026-03-29T13:52:09.285Z">
+<meta property="article:modified_time" content="2026-03-23T08:34:57.764Z">
+<meta property="article:author" content="zhaoyuan">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic1.imgdb.cn/item/6908b7233203f7be00cc7959.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "二叉堆实现的优先队列",
+  "url": "https://id-zy.github.io/2026/03/29/%E4%BA%8C%E5%8F%89%E5%A0%86%E5%AE%9E%E7%8E%B0%E7%9A%84%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/",
+  "image": "https://pic1.imgdb.cn/item/6908b7233203f7be00cc7959.jpg",
+  "datePublished": "2026-03-29T13:52:09.285Z",
+  "dateModified": "2026-03-23T08:34:57.764Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "zhaoyuan",
+      "url": "https://id-zy.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="https://pic1.imgdb.cn/item/6829891e58cb8da5c8fabff0.png"><link rel="canonical" href="https://id-zy.github.io/2026/03/29/%E4%BA%8C%E5%8F%89%E5%A0%86%E5%AE%9E%E7%8E%B0%E7%9A%84%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '二叉堆实现的优先队列',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'"><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="笺札" type="application/atom+xml">
+</head><body><div id="web_bg" style="background-image: url(https://pic1.imgdb.cn/item/68230f1c58cb8da5c8f082ff.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://pic1.imgdb.cn/item/6829891e58cb8da5c8fabff0.png" onerror="this.onerror=null;this.src='/img/friend_04.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">273</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">34</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fa fa-camera-retro faa-float animared"></i><span> 相册</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video faa-float animared"></i><span> 影视</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book  faa-float animared"></i><span> 图书</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://pic1.imgdb.cn/item/6908b7233203f7be00cc7959.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">笺札</span></a><a class="nav-page-title" href="/"><span class="site-name">二叉堆实现的优先队列</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fa fa-camera-retro faa-float animared"></i><span> 相册</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video faa-float animared"></i><span> 影视</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book  faa-float animared"></i><span> 图书</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">二叉堆实现的优先队列</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-03-29T13:52:09.285Z" title="发表于 2026-03-29 21:52:09">2026-03-29</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-03-23T08:34:57.764Z" title="更新于 2026-03-23 16:34:57">2026-03-23</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="二叉堆实现的优先队列"><a class="markdownIt-Anchor" href="#二叉堆实现的优先队列"></a> 二叉堆实现的优先队列</h1>
+<h2 id="二叉堆的定义"><a class="markdownIt-Anchor" href="#二叉堆的定义"></a> 二叉堆的定义</h2>
+<p>二叉<a href="%E5%A0%86.md">堆</a>是一种完全二叉树，分为两类：</p>
+<ul>
+<li><strong>大顶堆</strong>：每个节点值 ≥ 子节点值</li>
+<li><strong>小顶堆</strong>：每个节点值 ≤ 子节点值</li>
+</ul>
+<h2 id="基本操作"><a class="markdownIt-Anchor" href="#基本操作"></a> 基本操作</h2>
+<p>优先队列主要有两种操作：</p>
+<ul>
+<li><strong>入队（heappush）</strong>：将新元素加到数组末尾，然后从下往上调整，恢复堆结构。</li>
+<li><strong>出队（heappop）</strong>：将堆顶元素与末尾元素交换，弹出末尾元素，再对新堆顶自上而下调整，恢复堆结构。</li>
+</ul>
+<h2 id="内部实现"><a class="markdownIt-Anchor" href="#内部实现"></a> 内部实现：</h2>
+<ul>
+<li>使用heapq模块实现优先队列</li>
+<li><code>heapq.heappush(heap, item)</code>：将元素 <code>item</code> 压入堆 <code>heap</code> 中，保持堆结构。</li>
+<li><code>heapq.heappop(heap)</code>：弹出并返回堆中的最小元素。<br />
+<strong>注意事项</strong>：</li>
+<li><code>heapq</code> 默认是小顶堆，即每次弹出的是最小值。</li>
+<li>如果需实现「大顶堆」（每次弹出最大优先级元素），可将优先级取负数存入堆中。</li>
+<li>为保证当优先级相同时元素的入队顺序，通常可额外存储一个自增索引。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> heapq</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">PriortyQueue</span>:</span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">		<span class="variable language_">self</span>.queue=[]</span><br><span class="line">		<span class="variable language_">self</span>.index=<span class="number">0</span></span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">push</span>(<span class="params">self,item,priority</span>):</span><br><span class="line">		heapq.heappush(<span class="variable language_">self</span>.queue,(-priority,<span class="variable language_">self</span>.index,item))</span><br><span class="line">		<span class="variable language_">self</span>.index+=<span class="number">1</span></span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">pop</span>(<span class="params">self</span>):</span><br><span class="line">		<span class="keyword">if</span> <span class="keyword">not</span> <span class="variable language_">self</span>.queue:</span><br><span class="line">			<span class="keyword">raise</span> IndexError(<span class="string">&quot;pop from empty priorty queue&quot;</span>)</span><br><span class="line">		<span class="keyword">return</span> heapq.heapppop(<span class="variable language_">self</span>.queue)[-<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+<h2 id="应用场景"><a class="markdownIt-Anchor" href="#应用场景"></a> 应用场景：</h2>
+<ul>
+<li>215.[[数组中的第k个最大元素]]</li>
+<li>347.[[前k个高频元素]]</li>
+<li>451.<a href="%E6%A0%B9%E6%8D%AE%E5%AD%97%E7%AC%A6%E5%87%BA%E7%8E%B0%E9%A2%91%E7%8E%87%E6%8E%92%E5%BA%8F.md">根据字符出现频率排序</a></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://id-zy.github.io">zhaoyuan</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://id-zy.github.io/2026/03/29/%E4%BA%8C%E5%8F%89%E5%A0%86%E5%AE%9E%E7%8E%B0%E7%9A%84%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/">https://id-zy.github.io/2026/03/29/%E4%BA%8C%E5%8F%89%E5%A0%86%E5%AE%9E%E7%8E%B0%E7%9A%84%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://id-zy.github.io" target="_blank">笺札</a>！</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="https://pic1.imgdb.cn/item/6908b7233203f7be00cc7959.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/03/29/%E6%BB%9A%E5%8A%A8%E5%93%88%E5%B8%8C/" title="滚动哈希"><img class="cover" src="https://pic1.imgdb.cn/item/6908b7e53203f7be00cc7a25.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">滚动哈希</div></div><div class="info-2"><div class="info-item-1"> 滚动哈希  基本概念 滚动哈希是一种高效的字符串匹配算法，常用于解决模式匹配、最长公共子串等问题。它通过哈希函数快速计算字符串的哈希值，并利用前后子串的关系，在常数时间内更新哈希值。  基本原理 滚动哈希的核心思想是将字符串映射为整数，并使用这个整数进行比较。常见的哈希函数包括直接哈希法、幂次哈希法和旋转哈希法。滚动哈希利用字符串前后子串的关系，只需 O(1) 的时间即可计算新的哈希值。 具体来说，滚动哈希的计算公式如下： hash(s)=(s[0]⋅basen−1+s[1]⋅basen−2+s[2]⋅basen−3+...+s[n−1])modmodhash(s)=(s[0]⋅basen−1+s[1]⋅basen−2+s[2]⋅basen−3+...+s[n−1])modmod hash(s)=(s[0]⋅basen−1+s[1]⋅basen−2+s[2]⋅basen−3+...+s[n−1])modmod 其中，hash(si…i+m−1) 表示从第 i 个字符开始长度为 m 的子串的哈希值，d 表示一个常数（通常取较大的质数，如 31、131 或 13331），si 和 ...</div></div></div></a><a class="pagination-related" href="/2026/03/29/Rabin%20Karp%20%E7%AE%97%E6%B3%95/" title="Rabin Karp 算法"><img class="cover" src="https://pic1.imgdb.cn/item/6909bfa63203f7be00cf70c5.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Rabin Karp 算法</div></div><div class="info-2"><div class="info-item-1"> Rabin Karp 算法  基本概念 Rabin Karp（RK）算法：由 Michael Oser Rabin 与 Richard Manning Karp 于 1987 年提出，是一种利用哈希快速筛查匹配起点的单模式串匹配算法。  Rabin Karp 算法核心思想：给定文本串 T 与模式串 p，先计算 p 的哈希值，再对T的所有长度为 m=∣p∣的子串高效计算哈希。借助「滚动哈希」在 O(1)时间更新相邻子串的哈希，用哈希相等作为快速筛选，仅在相等时再逐字符比对以排除哈希冲突。   算法步骤  设n=∣T∣、m=∣p∣ 计算模式串哈希H(p) 计算文本首个长度为m的字串T[0,m−1]​T[0,m−1]​T[0,m−1]​的哈希 H(T[0,m−1])H(T[0,m−1])H(T[0,m−1]),并用滚动哈希依次得到其余n-m个相邻字串的哈希 逐一比较H(T[i,i+m−1])H(T_{[i,i+m-1]})H(T[i,i+m−1]​)与H(p):  如果不相等，跳过 如果相等，逐字符核验：完全相同则返回起点i，否则继续   全部位置检查后仍未匹配，返回-1   内部实...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://pic1.imgdb.cn/item/6829891e58cb8da5c8fabff0.png" onerror="this.onerror=null;this.src='/img/friend_04.gif'" alt="avatar"/></div><div class="author-info-name">zhaoyuan</div><div class="author-info-description">一封封记录足迹与所悟的信集</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">273</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">34</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E5%8F%89%E5%A0%86%E5%AE%9E%E7%8E%B0%E7%9A%84%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97"><span class="toc-number">1.</span> <span class="toc-text"> 二叉堆实现的优先队列</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E5%8F%89%E5%A0%86%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-number">1.1.</span> <span class="toc-text"> 二叉堆的定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="toc-number">1.2.</span> <span class="toc-text"> 基本操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E9%83%A8%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.3.</span> <span class="toc-text"> 内部实现：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">1.4.</span> <span class="toc-text"> 应用场景：</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/03/29/%E5%AD%97%E7%AC%A6%E4%B8%B2/" title="字符串"><img src="https://pic1.imgdb.cn/item/6908b7e53203f7be00cc7a22.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="字符串"/></a><div class="content"><a class="title" href="/2026/03/29/%E5%AD%97%E7%AC%A6%E4%B8%B2/" title="字符串">字符串</a><time datetime="2026-03-29T13:52:09.295Z" title="发表于 2026-03-29 21:52:09">2026-03-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/29/%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/" title="优先队列"><img src="https://pic1.imgdb.cn/item/6908b7e53203f7be00cc7a23.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="优先队列"/></a><div class="content"><a class="title" href="/2026/03/29/%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/" title="优先队列">优先队列</a><time datetime="2026-03-29T13:52:09.294Z" title="发表于 2026-03-29 21:52:09">2026-03-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/29/%E6%BB%9A%E5%8A%A8%E5%93%88%E5%B8%8C/" title="滚动哈希"><img src="https://pic1.imgdb.cn/item/6908b7e53203f7be00cc7a25.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="滚动哈希"/></a><div class="content"><a class="title" href="/2026/03/29/%E6%BB%9A%E5%8A%A8%E5%93%88%E5%B8%8C/" title="滚动哈希">滚动哈希</a><time datetime="2026-03-29T13:52:09.288Z" title="发表于 2026-03-29 21:52:09">2026-03-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/29/%E4%BA%8C%E5%8F%89%E5%A0%86%E5%AE%9E%E7%8E%B0%E7%9A%84%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/" title="二叉堆实现的优先队列"><img src="https://pic1.imgdb.cn/item/6908b7233203f7be00cc7959.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="二叉堆实现的优先队列"/></a><div class="content"><a class="title" href="/2026/03/29/%E4%BA%8C%E5%8F%89%E5%A0%86%E5%AE%9E%E7%8E%B0%E7%9A%84%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/" title="二叉堆实现的优先队列">二叉堆实现的优先队列</a><time datetime="2026-03-29T13:52:09.285Z" title="发表于 2026-03-29 21:52:09">2026-03-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/29/Rabin%20Karp%20%E7%AE%97%E6%B3%95/" title="Rabin Karp 算法"><img src="https://pic1.imgdb.cn/item/6909bfa63203f7be00cf70c5.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Rabin Karp 算法"/></a><div class="content"><a class="title" href="/2026/03/29/Rabin%20Karp%20%E7%AE%97%E6%B3%95/" title="Rabin Karp 算法">Rabin Karp 算法</a><time datetime="2026-03-29T13:52:09.281Z" title="发表于 2026-03-29 21:52:09">2026-03-29</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2019 - 2026 By zhaoyuan</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(async () => {
+  const showKatex = () => {
+    document.querySelectorAll('#article-container .katex').forEach(el => el.classList.add('katex-show'))
+  }
+
+  if (!window.katex_js_css) {
+    window.katex_js_css = true
+    await btf.getCSS('https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css')
+    if (false) {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js')
+    }
+  }
+
+  showKatex()
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
