@@ -1,0 +1,254 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>使数组平衡的最少移除数目-LeetCode | 笺札</title><meta name="author" content="zhaoyuan"><meta name="copyright" content="zhaoyuan"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="3634-使数组平衡的最少移除数目  🎯 问题描述（来源于LeetCode） 描述： 给你一个整数数组 nums 和一个整数 k。 你需要移除最少数量的元素，使得剩余数组中最大值不超过最小值的 k 倍。 即：对于剩余数组中的任意元素，满足 max &lt;&#x3D; min * k。 请你返回最少需要移除的元素个数。 说明：  如果数组为空或只有一个元素，天然满足条件。 题目等价于寻找一个最长的子序列">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使数组平衡的最少移除数目-LeetCode">
+<meta property="og:url" content="https://id-zy.github.io/2026/04/15/%E4%BD%BF%E6%95%B0%E7%BB%84%E5%B9%B3%E8%A1%A1%E7%9A%84%E6%9C%80%E5%B0%91%E7%A7%BB%E9%99%A4%E6%95%B0%E7%9B%AE/index.html">
+<meta property="og:site_name" content="笺札">
+<meta property="og:description" content="3634-使数组平衡的最少移除数目  🎯 问题描述（来源于LeetCode） 描述： 给你一个整数数组 nums 和一个整数 k。 你需要移除最少数量的元素，使得剩余数组中最大值不超过最小值的 k 倍。 即：对于剩余数组中的任意元素，满足 max &lt;&#x3D; min * k。 请你返回最少需要移除的元素个数。 说明：  如果数组为空或只有一个元素，天然满足条件。 题目等价于寻找一个最长的子序列">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic1.imgdb.cn/item/6908b7d53203f7be00cc7a10.jpg">
+<meta property="article:published_time" content="2026-04-14T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-04-15T08:09:15.359Z">
+<meta property="article:author" content="zhaoyuan">
+<meta property="article:tag" content="LeetCode">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic1.imgdb.cn/item/6908b7d53203f7be00cc7a10.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "使数组平衡的最少移除数目-LeetCode",
+  "url": "https://id-zy.github.io/2026/04/15/%E4%BD%BF%E6%95%B0%E7%BB%84%E5%B9%B3%E8%A1%A1%E7%9A%84%E6%9C%80%E5%B0%91%E7%A7%BB%E9%99%A4%E6%95%B0%E7%9B%AE/",
+  "image": "https://pic1.imgdb.cn/item/6908b7d53203f7be00cc7a10.jpg",
+  "datePublished": "2026-04-14T16:00:00.000Z",
+  "dateModified": "2026-04-15T08:09:15.359Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "zhaoyuan",
+      "url": "https://id-zy.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="https://pic1.imgdb.cn/item/6829891e58cb8da5c8fabff0.png"><link rel="canonical" href="https://id-zy.github.io/2026/04/15/%E4%BD%BF%E6%95%B0%E7%BB%84%E5%B9%B3%E8%A1%A1%E7%9A%84%E6%9C%80%E5%B0%91%E7%A7%BB%E9%99%A4%E6%95%B0%E7%9B%AE/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '使数组平衡的最少移除数目-LeetCode',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'"><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="笺札" type="application/atom+xml">
+</head><body><div id="web_bg" style="background-image: url(https://pic1.imgdb.cn/item/68230f1c58cb8da5c8f082ff.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://pic1.imgdb.cn/item/6829891e58cb8da5c8fabff0.png" onerror="this.onerror=null;this.src='/img/friend_04.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">375</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">37</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fa fa-camera-retro faa-float animared"></i><span> 相册</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video faa-float animared"></i><span> 影视</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book  faa-float animared"></i><span> 图书</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://pic1.imgdb.cn/item/6908b7d53203f7be00cc7a10.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">笺札</span></a><a class="nav-page-title" href="/"><span class="site-name">使数组平衡的最少移除数目-LeetCode</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fa fa-camera-retro faa-float animared"></i><span> 相册</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video faa-float animared"></i><span> 影视</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book  faa-float animared"></i><span> 图书</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">使数组平衡的最少移除数目-LeetCode</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-04-14T16:00:00.000Z" title="发表于 2026-04-15 00:00:00">2026-04-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-04-15T08:09:15.359Z" title="更新于 2026-04-15 16:09:15">2026-04-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/">作业练习</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="3634-使数组平衡的最少移除数目"><a class="markdownIt-Anchor" href="#3634-使数组平衡的最少移除数目"></a> 3634-使数组平衡的最少移除数目</h1>
+<h2 id="问题描述来源于leetcode"><a class="markdownIt-Anchor" href="#问题描述来源于leetcode"></a> 🎯 问题描述（来源于LeetCode）</h2>
+<p><strong>描述</strong>：<br />
+给你一个整数数组 <code>nums</code> 和一个整数 <code>k</code>。<br />
+你需要移除最少数量的元素，使得剩余数组中<strong>最大值</strong>不超过<strong>最小值</strong>的 <code>k</code> 倍。<br />
+即：对于剩余数组中的任意元素，满足 <code>max &lt;= min * k</code>。<br />
+请你返回最少需要移除的元素个数。</p>
+<p><strong>说明</strong>：</p>
+<ul>
+<li>如果数组为空或只有一个元素，天然满足条件。</li>
+<li>题目等价于寻找一个<strong>最长的子序列</strong>，使得该子序列满足上述倍数关系。</li>
+</ul>
+<p><strong>示例</strong>：</p>
+<ul>
+<li>示例 1：  <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">输入: nums = [1, 3, 6, 8], k = 2</span><br><span class="line">输出: 2</span><br><span class="line">解释: </span><br><span class="line">排序后为 [1, 3, 6, 8]。</span><br><span class="line">我们可以保留 [3, 6] (6 &lt;= 3*2) 或者 [6, 8] (8 &lt;= 6*2)，最长长度为 2。</span><br><span class="line">需要移除的元素数量 = 4 - 2 = 2。</span><br></pre></td></tr></table></figure>
+</li>
+<li>示例 2：  <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: nums = [1, 1, 1], k = 1</span><br><span class="line">输出: 0</span><br><span class="line">解释: 所有元素相等，不需要移除。</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="解题思路"><a class="markdownIt-Anchor" href="#解题思路"></a> 💻 解题思路</h2>
+<p><strong>思路1：排序 + 滑动窗口</strong></p>
+<ol>
+<li><strong>排序</strong>：
+<ul>
+<li>由于只关心数值的倍数关系，顺序无关紧要。</li>
+<li>排序后，子序列的最大值和最小值分别对应区间的右端点和左端点。</li>
+</ul>
+</li>
+<li><strong>维护窗口</strong>：
+<ul>
+<li>维护一个窗口 <code>[left, right]</code>，保证窗口内的最大值不超过最小值的 <code>k</code> 倍。</li>
+<li>即：<code>nums[right] &lt;= nums[left] * k</code>。</li>
+</ul>
+</li>
+<li><strong>滑动逻辑</strong>：
+<ul>
+<li>遍历 <code>right</code> 指针扩展窗口。</li>
+<li>如果 <code>nums[left] * k &lt; nums[right]</code>，说明当前窗口不满足条件，移动 <code>left</code> 指针直到满足条件。</li>
+</ul>
+</li>
+<li><strong>计算结果</strong>：
+<ul>
+<li>记录满足条件的窗口最大长度 <code>ans</code>。</li>
+<li>最少移除数量 = 总长度 <code>n</code> - 最长合法窗口长度 <code>ans</code>。</li>
+</ul>
+</li>
+</ol>
+<h3 id="思路1代码实现"><a class="markdownIt-Anchor" href="#思路1代码实现"></a> 思路1：代码实现</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">minRemoval</span>(<span class="params">self, nums: <span class="type">List</span>[<span class="built_in">int</span>], k: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        n = <span class="built_in">len</span>(nums)</span><br><span class="line">        <span class="keyword">if</span> n == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        ans = <span class="number">0</span></span><br><span class="line">        left = <span class="number">0</span></span><br><span class="line">        nums.sort()</span><br><span class="line">        <span class="keyword">for</span> right, num <span class="keyword">in</span> <span class="built_in">enumerate</span>(nums):</span><br><span class="line">            <span class="keyword">while</span> nums[left] * k &lt; num:</span><br><span class="line">                left += <span class="number">1</span></span><br><span class="line">            ans = <span class="built_in">max</span>(ans, right - left + <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> n - ans</span><br></pre></td></tr></table></figure>
+<h3 id="思路1-性能分析"><a class="markdownIt-Anchor" href="#思路1-性能分析"></a> 思路1：📊 性能分析</h3>
+<h4 id="复杂度验证"><a class="markdownIt-Anchor" href="#复杂度验证"></a> 复杂度验证</h4>
+<ul>
+<li><strong>时间复杂度</strong>：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mi>log</mi><mo>⁡</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n \log n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>
+<ul>
+<li>排序消耗 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mi>log</mi><mo>⁡</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n \log n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>，双指针遍历消耗 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>。</li>
+</ul>
+</li>
+<li><strong>空间复杂度</strong>：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span>
+<ul>
+<li>只使用了常数级额外空间（不考虑排序的系统栈空间）。</li>
+</ul>
+</li>
+</ul>
+<h4 id="思考"><a class="markdownIt-Anchor" href="#思考"></a> 思考</h4>
+<ol>
+<li><strong>为什么 <code>nums[left] * k &lt; num</code> 时要移动 <code>left</code>？</strong>
+<ul>
+<li>因为 <code>num</code> 是当前窗口的最大值，<code>nums[left]</code> 是当前窗口的最小值。</li>
+<li>如果 <code>最小值 * k &lt; 最大值</code>，说明倍数关系不成立，必须丢弃最小值（移动 <code>left</code>），尝试寻找更大的最小值。</li>
+</ul>
+</li>
+<li><strong>为什么排序是关键？</strong>
+<ul>
+<li>排序将“任意子序列”问题转化为“连续子数组”问题，使得滑动窗口算法成立。</li>
+</ul>
+</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://id-zy.github.io">zhaoyuan</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://id-zy.github.io/2026/04/15/%E4%BD%BF%E6%95%B0%E7%BB%84%E5%B9%B3%E8%A1%A1%E7%9A%84%E6%9C%80%E5%B0%91%E7%A7%BB%E9%99%A4%E6%95%B0%E7%9B%AE/">https://id-zy.github.io/2026/04/15/%E4%BD%BF%E6%95%B0%E7%BB%84%E5%B9%B3%E8%A1%A1%E7%9A%84%E6%9C%80%E5%B0%91%E7%A7%BB%E9%99%A4%E6%95%B0%E7%9B%AE/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://id-zy.github.io" target="_blank">笺札</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/LeetCode/">LeetCode</a></div><div class="post-share"><div class="social-share" data-image="https://pic1.imgdb.cn/item/6908b7d53203f7be00cc7a10.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/04/15/%E5%88%A0%E6%8E%89%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0%E4%BB%A5%E5%90%8E%E5%85%A8%E4%B8%BA1%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E6%95%B0%E7%BB%84/" title="删掉一个元素以后全为1的最长子数组-LeetCode"><img class="cover" src="https://pic1.imgdb.cn/item/6909bfa63203f7be00cf70c6.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">删掉一个元素以后全为1的最长子数组-LeetCode</div></div><div class="info-2"><div class="info-item-1"> 🎯 问题描述（来源于LeetCode） 描述：给你一个二进制数组 nums，你可以在其中删除至多一个元素。请你返回删除一个元素后，数组中全为 1 的最长子数组的长度。 说明：如果数组全是 1，你必须删除一个，所以结果要减 1。  示例：  示例 1：  123输入: nums = [1,1,0,1]输出: 3解释: 删除下标 2 的 0，得到 [1,1,1]。  示例 2：  123输入: nums = [1,1,1]输出: 2解释: 必须删除一个 1，结果为 [1,1]。      💻 解题思路 思路：滑动窗口 (Sliding Window)  维护窗口：维护一个窗口，使其最多包含 1 个 0。 移动指针：  right 指针遍历数组，将元素加入窗口。 如果窗口内 0 的数量超过 1，则移动 left 指针收缩窗口。   更新答案：在窗口合法时，利用 Counter 直接获取窗口内 1 的数量更新最大值。 边界处理：如果最大长度等于数组长度，说明全是 1，必须减 1。   思路1：代码实现 123456789101112131415161718192021class S...</div></div></div></a><a class="pagination-related" href="/2026/04/15/%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA/" title="买卖股票的最佳时机-LeetCode"><img class="cover" src="https://pic1.imgdb.cn/item/6909bfa63203f7be00cf70c9.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">买卖股票的最佳时机-LeetCode</div></div><div class="info-2"><div class="info-item-1"> 121. 买卖股票的最佳时机  🎯 问题描述（来源于LeetCode） 描述： 给定一个数组 prices，它的第 i 个元素 prices[i] 表示一支给定股票第 i 天的价格。 你只能选择某一天买入这只股票，并选择在未来的某一个不同的日子卖出该股票。 设计一个算法来计算你所能获取的最大利润。 返回你可以从这笔交易中获取的最大利润。如果你不能获取任何利润，返回 0。 说明：   这是一个经典的贪心算法或动态规划问题。   核心逻辑是维护一个“历史最低价格”，并在每一天计算如果今天卖出能获得的最大利润。   通过一次遍历即可完成查找。   示例：   示例 1：   12345输入：[7,1,5,3,6,4]输出：5解释：- 在第 2 天（股票价格 = 1）的时候买入，在第 5 天（股票价格 = 6）的时候卖出，最大利润 = 6-1 = 5。- 注意利润不能是 7-1 = 6，因为卖出价格需要大于买入价格，且必须在买入之后卖出。  示例 2：  1234输入：[7,6,4,3,1]输出：0解释：- 在这种情况下，没有交易完成，所以最大利润为 0。  💻 解题思路  思路1...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2026/04/17/132%E6%A8%A1%E5%BC%8F/" title="132模式-LeetCode"><img class="cover" src="https://pic1.imgdb.cn/item/6909bfa63203f7be00cf70c5.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-17</div><div class="info-item-2">132模式-LeetCode</div></div><div class="info-2"><div class="info-item-1"> 456. 132 模式  🎯 问题描述 描述： 给你一个整数数组 nums，数组中共有 n 个整数。 132 模式的子序列由三个整数 nums[i]、nums[j] 和 nums[k] 组成，并同时满足：  i &lt; j &lt; k nums[i] &lt; nums[k] &lt; nums[j]  如果 nums 中存在 132 模式的子序列，返回 true；否则，返回 false。 说明：  这是一个枚举中间最大值结合有序集合维护后缀的问题。 核心策略：  我们要找 nums[i]&lt;nums[k]&lt;nums[j]nums[i] &lt; nums[k] &lt; nums[j]nums[i]&lt;nums[k]&lt;nums[j]。 我们可以枚举中间的元素 nums[j] 作为“3”（最大值）。 左侧 (1)：为了让 nums[i]&lt;nums[k]nums[i] &lt; nums[k]nums[i]&lt;nums[k] 更容易满足，对于固定的 j，我们需要知道 j 左侧的最小值 min_left。 右侧 (2)：我们需要在 j 的右侧找到...</div></div></div></a><a class="pagination-related" href="/2025/12/02/Excel%20%E8%A1%A8%E5%88%97%E5%90%8D%E7%A7%B0/" title="Excel 表列名称"><img class="cover" src="https://pic1.imgdb.cn/item/69171fdd3203f7be0003e730.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-02</div><div class="info-item-2">Excel 表列名称</div></div><div class="info-2"><div class="info-item-1"> Excel 表列名称  🎯 问题描述（来源于LeetCode） 12345678910给你一个整数 columnNumber，返回它在 Excel 表中相对应的列名称。例如：A -&gt; 1B -&gt; 2C -&gt; 3...Z -&gt; 26AA -&gt; 27AB -&gt; 28 ...  💻 代码实现 12345678910class Solution:    def convertToTitle(self, columnNumber: int) -&gt; str:        n=columnNumber        s=&#x27;&#x27;        while (n &gt; 0):           m = n % 26           if (m == 0): m = 26           s = chr(m + 64) + s           n = (n - m) // 26        return s  📊 性能分析  提交结果  运行时间：0ms击败100.00% 内存消耗：17.38MB击败93.22...</div></div></div></a><a class="pagination-related" href="/2025/12/02/Excel%20%E8%A1%A8%E5%88%97%E5%BA%8F%E5%8F%B7/" title="Excel 表列序号"><img class="cover" src="https://pic1.imgdb.cn/item/6909bfe13203f7be00cf713f.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-02</div><div class="info-item-2">Excel 表列序号</div></div><div class="info-2"><div class="info-item-1"> Excel 表列序号  🎯 问题描述（来源于LeetCode） 12345678910给你一个字符串columnTitle，表示 Excel 表格中的列名称。返回 _该列名称对应的列序号_ 。例如：A -&gt; 1B -&gt; 2C -&gt; 3...Z -&gt; 26AA -&gt; 27AB -&gt; 28 ...  💻 代码实现 123456789101112131415class Solution:    def titleToNumber(self, columnTitle: str) -&gt; int:          s=columnTitle          a = list(map(lambda x: chr(x), range(ord(&#x27;A&#x27;), ord(&#x27;Z&#x27;) + 1)))          l = len(s)          sum = 0          if l &gt; 1:              for i in range(l - 1):                  ...</div></div></div></a><a class="pagination-related" href="/2025/12/07/H%E6%8C%87%E6%95%B0/" title="H指数-LeetCode"><img class="cover" src="https://pic1.imgdb.cn/item/6908b7e53203f7be00cc7a23.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-07</div><div class="info-item-2">H指数-LeetCode</div></div><div class="info-2"><div class="info-item-1"> H指数  🎯 问题描述（来源于LeetCode） 给你一个整数数组 citations ，其中 citations[i] 表示研究者的第 i 篇论文被引用的次数。计算并返回该研究者的 h 指数。 根据维基百科上 h 指数的定义：h 代表“高引用次数” ，一名科研人员的 h 指数 是指他（她）至少发表了 h 篇论文，并且 至少 有 h 篇论文被引用次数大于等于 h 。如果 h 有多种可能的值，h 指数 是其中最大的那个。  💻 代码实现 12345678910111213141516171819class Solution:    def hIndex(self, citations: List[int]) -&gt; int:        l=len(citations)        nums=citations        count=0        acount=0        h=0        nums.sort()        for i in range(l+1):            x=i            count =i       ...</div></div></div></a><a class="pagination-related" href="/2026/04/15/K%E5%92%8C%E6%95%B0%E5%AF%B9%E7%9A%84%E6%9C%80%E5%A4%A7%E6%95%B0%E7%9B%AE/" title="K和数对的最大数目-LeetCode"><img class="cover" src="https://pic1.imgdb.cn/item/6909bff93203f7be00cf718f.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-15</div><div class="info-item-2">K和数对的最大数目-LeetCode</div></div><div class="info-2"><div class="info-item-1"> 1679. K 和数对的最大数目  🎯 问题描述（来源于LeetCode） 描述： 给你一个整数数组 nums 和一个整数 k。 在一步操作中，你可以选择数组中的两个数字，如果它们的和等于 k，就将它们从数组中移除。 请你返回你可以执行的最大操作数目。 说明：   这是一个哈希表计数结合贪心算法的问题。   核心逻辑是：对于每个数字 num，查找其互补数 k - num 是否存在。   如果存在，则配对成功，操作数加一，并减少互补数的计数。   如果不存在，则将当前数字加入哈希表，等待后续的互补数。   示例：   示例 1：   123456输入：nums = [1,2,3,4], k = 5输出：2解释：- 移除 1 和 4 (1+4=5)- 移除 2 和 3 (2+3=5)- 总共 2 次操作。  示例 2：  123456输入：nums = [3,1,3,4,3], k = 6输出：1解释：- 只能移除一对 3 (3+3=6)- 剩下的数字无法组成和为 6 的数对。- 总共 1 次操作。  💻 解题思路  思路1：哈希表 + 贪心匹配  思路1：代码实现 12345...</div></div></div></a><a class="pagination-related" href="/2025/11/30/Pow(x,%20n)/" title="Pow(x, n)"><img class="cover" src="https://pic1.imgdb.cn/item/6908b7d53203f7be00cc7a0c.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-11-30</div><div class="info-item-2">Pow(x, n)</div></div><div class="info-2"><div class="info-item-1"> Pow(x, n)  🎯 问题描述（来源于LeetCode） 1实现pow(_x_, _n_) ，即计算x的整n次幂函数（即，x^n ）。  💻 代码实现 暴力破解快速幂优化算法12345678910class Solution:    def myPow(self, x: float, n: int) -&gt; float:         ans=1.0         i=0         if n&lt;0:            x=1/x            n=-n         for i in range(n):            ans*=x         return ans使用快速幂降低其时间复杂度 12345678910111213class Solution:    def myPow(self, x: float, n: int) -&gt; float:         ans=1.0         i=0         if n&lt;0:            x=1/x            n=-n         ...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://pic1.imgdb.cn/item/6829891e58cb8da5c8fabff0.png" onerror="this.onerror=null;this.src='/img/friend_04.gif'" alt="avatar"/></div><div class="author-info-name">zhaoyuan</div><div class="author-info-description">一封封记录足迹与所悟的信集</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">375</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">37</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#3634-%E4%BD%BF%E6%95%B0%E7%BB%84%E5%B9%B3%E8%A1%A1%E7%9A%84%E6%9C%80%E5%B0%91%E7%A7%BB%E9%99%A4%E6%95%B0%E7%9B%AE"><span class="toc-number">1.</span> <span class="toc-text"> 3634-使数组平衡的最少移除数目</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0%E6%9D%A5%E6%BA%90%E4%BA%8Eleetcode"><span class="toc-number">1.1.</span> <span class="toc-text"> 🎯 问题描述（来源于LeetCode）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF"><span class="toc-number">1.2.</span> <span class="toc-text"> 💻 解题思路</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF1%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.2.1.</span> <span class="toc-text"> 思路1：代码实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF1-%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90"><span class="toc-number">1.2.2.</span> <span class="toc-text"> 思路1：📊 性能分析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%8D%E6%9D%82%E5%BA%A6%E9%AA%8C%E8%AF%81"><span class="toc-number">1.2.2.1.</span> <span class="toc-text"> 复杂度验证</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%9D%E8%80%83"><span class="toc-number">1.2.2.2.</span> <span class="toc-text"> 思考</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/04/19/%E5%9B%BE%E8%AE%BA%E7%BB%93%E6%9E%84/" title="图论结构"><img src="https://pic1.imgdb.cn/item/6909bfed3203f7be00cf7173.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="图论结构"/></a><div class="content"><a class="title" href="/2026/04/19/%E5%9B%BE%E8%AE%BA%E7%BB%93%E6%9E%84/" title="图论结构">图论结构</a><time datetime="2026-04-19T14:44:11.168Z" title="发表于 2026-04-19 22:44:11">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/04/19/%E5%9F%83%E6%8B%89%E6%89%98%E6%96%AF%E7%89%B9%E5%B0%BC%E7%AD%9B%E6%B3%95/" title="埃拉托斯特尼筛法"><img src="https://pic1.imgdb.cn/item/6908b7a43203f7be00cc79cc.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="埃拉托斯特尼筛法"/></a><div class="content"><a class="title" href="/2026/04/19/%E5%9F%83%E6%8B%89%E6%89%98%E6%96%AF%E7%89%B9%E5%B0%BC%E7%AD%9B%E6%B3%95/" title="埃拉托斯特尼筛法">埃拉托斯特尼筛法</a><time datetime="2026-04-19T14:44:11.166Z" title="发表于 2026-04-19 22:44:11">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/04/19/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" title="动态规划"><img src="https://pic1.imgdb.cn/item/6909bfed3203f7be00cf7172.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="动态规划"/></a><div class="content"><a class="title" href="/2026/04/19/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" title="动态规划">动态规划</a><time datetime="2026-04-19T14:44:11.165Z" title="发表于 2026-04-19 22:44:11">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/04/19/%E8%AE%B0%E5%BF%86%E5%8C%96%E6%90%9C%E7%B4%A2/" title="记忆化搜索"><img src="https://pic1.imgdb.cn/item/6908b7e53203f7be00cc7a21.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="记忆化搜索"/></a><div class="content"><a class="title" href="/2026/04/19/%E8%AE%B0%E5%BF%86%E5%8C%96%E6%90%9C%E7%B4%A2/" title="记忆化搜索">记忆化搜索</a><time datetime="2026-04-19T14:44:11.164Z" title="发表于 2026-04-19 22:44:11">2026-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/04/19/%E9%80%92%E5%BD%92%E7%AE%97%E6%B3%95/" title="递归算法"><img src="https://pic1.imgdb.cn/item/6909bfe13203f7be00cf7142.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="递归算法"/></a><div class="content"><a class="title" href="/2026/04/19/%E9%80%92%E5%BD%92%E7%AE%97%E6%B3%95/" title="递归算法">递归算法</a><time datetime="2026-04-19T14:44:11.162Z" title="发表于 2026-04-19 22:44:11">2026-04-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2019 - 2026 By zhaoyuan</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(async () => {
+  const showKatex = () => {
+    document.querySelectorAll('#article-container .katex').forEach(el => el.classList.add('katex-show'))
+  }
+
+  if (!window.katex_js_css) {
+    window.katex_js_css = true
+    await btf.getCSS('https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css')
+    if (false) {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js')
+    }
+  }
+
+  showKatex()
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
