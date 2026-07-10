@@ -1,0 +1,281 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>K 次乘运算后的最终数组状态-LeetCode | 笺札</title><meta name="author" content="zhaoyuan"><meta name="copyright" content="zhaoyuan"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="3264. K 次乘运算后的最终数组状态  🎯 问题描述 描述： 给你一个整数数组 nums，一个整数 k 和一个整数 multiplier。 你需要对 nums 执行 k 次操作，每次操作中：  找到 nums 中的 最小值 x。如果有多个最小值，选择 下标最小 的那个。 将该最小值替换为 x * multiplier。  请你返回执行完 k 次操作后，最终的 nums 数组。 说明：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="K 次乘运算后的最终数组状态-LeetCode">
+<meta property="og:url" content="https://id-zy.github.io/2026/04/30/K%20%E6%AC%A1%E4%B9%98%E8%BF%90%E7%AE%97%E5%90%8E%E7%9A%84%E6%9C%80%E7%BB%88%E6%95%B0%E7%BB%84%E7%8A%B6%E6%80%81/index.html">
+<meta property="og:site_name" content="笺札">
+<meta property="og:description" content="3264. K 次乘运算后的最终数组状态  🎯 问题描述 描述： 给你一个整数数组 nums，一个整数 k 和一个整数 multiplier。 你需要对 nums 执行 k 次操作，每次操作中：  找到 nums 中的 最小值 x。如果有多个最小值，选择 下标最小 的那个。 将该最小值替换为 x * multiplier。  请你返回执行完 k 次操作后，最终的 nums 数组。 说明：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic1.imgdb.cn/item/69171fdd3203f7be0003e730.png">
+<meta property="article:published_time" content="2026-04-29T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-04-30T09:54:04.771Z">
+<meta property="article:author" content="zhaoyuan">
+<meta property="article:tag" content="LeetCode">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic1.imgdb.cn/item/69171fdd3203f7be0003e730.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "K 次乘运算后的最终数组状态-LeetCode",
+  "url": "https://id-zy.github.io/2026/04/30/K%20%E6%AC%A1%E4%B9%98%E8%BF%90%E7%AE%97%E5%90%8E%E7%9A%84%E6%9C%80%E7%BB%88%E6%95%B0%E7%BB%84%E7%8A%B6%E6%80%81/",
+  "image": "https://pic1.imgdb.cn/item/69171fdd3203f7be0003e730.png",
+  "datePublished": "2026-04-29T16:00:00.000Z",
+  "dateModified": "2026-04-30T09:54:04.771Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "zhaoyuan",
+      "url": "https://id-zy.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="https://pic1.imgdb.cn/item/6829891e58cb8da5c8fabff0.png"><link rel="canonical" href="https://id-zy.github.io/2026/04/30/K%20%E6%AC%A1%E4%B9%98%E8%BF%90%E7%AE%97%E5%90%8E%E7%9A%84%E6%9C%80%E7%BB%88%E6%95%B0%E7%BB%84%E7%8A%B6%E6%80%81/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'K 次乘运算后的最终数组状态-LeetCode',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'"><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="笺札" type="application/atom+xml">
+</head><body><div id="web_bg" style="background-image: url(https://pic1.imgdb.cn/item/68230f1c58cb8da5c8f082ff.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://pic1.imgdb.cn/item/6829891e58cb8da5c8fabff0.png" onerror="this.onerror=null;this.src='/img/friend_04.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">485</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">37</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fa fa-camera-retro faa-float animared"></i><span> 相册</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video faa-float animared"></i><span> 影视</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book  faa-float animared"></i><span> 图书</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://pic1.imgdb.cn/item/69171fdd3203f7be0003e730.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">笺札</span></a><a class="nav-page-title" href="/"><span class="site-name">K 次乘运算后的最终数组状态-LeetCode</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fa fa-camera-retro faa-float animared"></i><span> 相册</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video faa-float animared"></i><span> 影视</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book  faa-float animared"></i><span> 图书</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">K 次乘运算后的最终数组状态-LeetCode</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-04-29T16:00:00.000Z" title="发表于 2026-04-30 00:00:00">2026-04-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-04-30T09:54:04.771Z" title="更新于 2026-04-30 17:54:04">2026-04-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/">作业练习</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="3264-k-次乘运算后的最终数组状态"><a class="markdownIt-Anchor" href="#3264-k-次乘运算后的最终数组状态"></a> 3264. K 次乘运算后的最终数组状态</h1>
+<h2 id="问题描述"><a class="markdownIt-Anchor" href="#问题描述"></a> 🎯 问题描述</h2>
+<p><strong>描述</strong>：<br />
+给你一个整数数组 <code>nums</code>，一个整数 <code>k</code> 和一个整数 <code>multiplier</code>。<br />
+你需要对 <code>nums</code> 执行 <code>k</code> 次操作，每次操作中：</p>
+<ol>
+<li>找到 <code>nums</code> 中的 <strong>最小值</strong> <code>x</code>。如果有多个最小值，选择 <strong>下标最小</strong> 的那个。</li>
+<li>将该最小值替换为 <code>x * multiplier</code>。</li>
+</ol>
+<p>请你返回执行完 <code>k</code> 次操作后，最终的 <code>nums</code> 数组。</p>
+<p><strong>说明</strong>：</p>
+<ul>
+<li>
+<p>这是一个典型的**堆（优先队列）**应用问题。</p>
+</li>
+<li>
+<p><strong>核心策略</strong>：</p>
+<ul>
+<li>题目要求每次都要找到“最小”且“下标最小”的元素，这正是最小堆最擅长的操作。</li>
+<li>由于 Python 的 <code>heapq</code> 模块默认提供<strong>最小堆</strong>，我们可以直接将元素存入堆中。</li>
+<li>为了满足“数值相同取下标最小”的条件，我们将 <code>(数值, 下标)</code> 作为一个元组存入堆中。Python 在比较元组时，会优先比较第一个元素，如果相同再比较第二个元素，完美契合题目要求。</li>
+<li>每次从堆顶取出最小元素，乘以 <code>multiplier</code> 后再放回堆中，重复 <code>k</code> 次即可。</li>
+</ul>
+</li>
+<li>
+<p><strong>示例</strong>：</p>
+</li>
+<li>
+<p><strong>示例 1</strong>：</p>
+</li>
+</ul>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">输入：nums = [2,1,3,5,6], k = 5, multiplier = 2</span><br><span class="line">输出：[8,4,6,5,6]</span><br><span class="line">解释：</span><br><span class="line">操作 1：最小值为 1 (下标 1)，变为 1*2=2，数组变为 [2,2,3,5,6]</span><br><span class="line">操作 2：最小值为 2 (下标 0)，变为 2*2=4，数组变为 [4,2,3,5,6]</span><br><span class="line">操作 3：最小值为 2 (下标 1)，变为 2*2=4，数组变为 [4,4,3,5,6]</span><br><span class="line">操作 4：最小值为 3 (下标 2)，变为 3*2=6，数组变为 [4,4,6,5,6]</span><br><span class="line">操作 5：最小值为 4 (下标 0)，变为 4*2=8，数组变为 [8,4,6,5,6]</span><br></pre></td></tr></table></figure>
+<h2 id="解题思路"><a class="markdownIt-Anchor" href="#解题思路"></a> 💻 解题思路</h2>
+<h3 id="思路1最小堆优先队列模拟"><a class="markdownIt-Anchor" href="#思路1最小堆优先队列模拟"></a> 思路1：最小堆（优先队列）模拟</h3>
+<h4 id="核心逻辑"><a class="markdownIt-Anchor" href="#核心逻辑"></a> 核心逻辑</h4>
+<ol>
+<li><strong>构建最小堆</strong>：
+<ul>
+<li>遍历 <code>nums</code> 数组，将每个元素的 <code>(数值, 原始下标)</code> 作为一个元组存入列表。</li>
+<li>使用 <code>heapq.heapify()</code> 将列表原地转换为最小堆。</li>
+</ul>
+</li>
+<li><strong>模拟 k 次操作</strong>：
+<ul>
+<li>循环 <code>k</code> 次，每次从堆顶弹出最小的元组 <code>(val, idx)</code>。</li>
+<li>将 <code>val</code> 乘以 <code>multiplier</code>，得到新值。</li>
+<li>将新值与原始下标组成的元组 <code>(val * multiplier, idx)</code> 重新压入堆中。</li>
+</ul>
+</li>
+<li><strong>还原最终数组</strong>：
+<ul>
+<li>操作结束后，堆中包含了所有元素的最终状态，但顺序是堆序而非原始顺序。</li>
+<li>创建一个长度为 <code>n</code> 的结果数组 <code>res</code>。</li>
+<li>遍历堆中的所有元组，根据元组中的 <code>idx</code> 将最终的 <code>val</code> 填入 <code>res</code> 的对应位置。</li>
+</ul>
+</li>
+</ol>
+<h4 id="代码实现"><a class="markdownIt-Anchor" href="#代码实现"></a> 代码实现</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> heapq</span><br><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">List</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">getFinalState</span>(<span class="params">self, nums: <span class="type">List</span>[<span class="built_in">int</span>], k: <span class="built_in">int</span>, multiplier: <span class="built_in">int</span></span>) -&gt; <span class="type">List</span>[<span class="built_in">int</span>]:</span><br><span class="line">        n = <span class="built_in">len</span>(nums)</span><br><span class="line">        <span class="comment"># 1. 构建最小堆，存入 (数值, 原始下标) 的元组</span></span><br><span class="line">        <span class="comment"># Python 比较元组时，会先比第一个元素，再比第二个，完美满足题目要求</span></span><br><span class="line">        heap = [(nums[i], i) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n)]</span><br><span class="line">        heapq.heapify(heap)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 2. 模拟 k 次乘运算操作</span></span><br><span class="line">        <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(k):</span><br><span class="line">            val, idx = heapq.heappop(heap)  <span class="comment"># 弹出当前最小且下标最小的元素</span></span><br><span class="line">            heapq.heappush(heap, (val * multiplier, idx))  <span class="comment"># 乘完后放回堆中</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 3. 根据原始下标还原最终的数组顺序</span></span><br><span class="line">        res = [<span class="number">0</span>] * n</span><br><span class="line">        <span class="keyword">for</span> val, idx <span class="keyword">in</span> heap:</span><br><span class="line">            res[idx] = val</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+<h4 id="性能分析"><a class="markdownIt-Anchor" href="#性能分析"></a> 📊 性能分析</h4>
+<ul>
+<li><strong>时间复杂度</strong>：<strong>O((n + k) log n)</strong>
+<ul>
+<li>构建初始堆的时间复杂度为 O(n)。</li>
+<li>每次 <code>heappop</code> 和 <code>heappush</code> 操作的时间复杂度为 O(log n)。</li>
+<li>我们一共进行 <code>k</code> 次操作，因此总时间复杂度为 O((n + k) log n)。</li>
+</ul>
+</li>
+<li><strong>空间复杂度</strong>：<strong>O(n)</strong>
+<ul>
+<li>需要一个堆来存储 <code>n</code> 个元素的元组，以及一个结果数组。</li>
+</ul>
+</li>
+</ul>
+<h4 id="思考"><a class="markdownIt-Anchor" href="#思考"></a> 思考</h4>
+<ol>
+<li>
+<p><strong>为什么要存 <code>(数值, 下标)</code> 元组？</strong></p>
+<ul>
+<li>题目有一个关键约束：“如果有多个最小值，选择下标最小的那个”。</li>
+<li>如果只存数值，当数值相同时，堆无法区分哪个下标更小。</li>
+<li>利用 Python 元组的比较规则（先比第一个元素，相等则比第二个），将 <code>(数值, 下标)</code> 存入堆中，可以自动保证在数值相同时，下标小的元组会排在堆顶。</li>
+</ul>
+</li>
+<li>
+<p><strong>为什么最后需要还原数组？</strong></p>
+<ul>
+<li>堆是一个完全二叉树结构，它只保证堆顶是最小值，堆内的其他元素并不是按顺序排列的。</li>
+<li>因此，操作结束后，堆中元素的顺序并不是原始数组的顺序。我们需要利用存入的 <code>idx</code>（原始下标）将最终的计算结果填回正确的位置。</li>
+</ul>
+</li>
+<li>
+<p><strong>数据范围的考量</strong>：</p>
+<ul>
+<li>在实际的编程中，如果 <code>k</code> 很大且 <code>multiplier</code> 很大，<code>val * multiplier</code> 可能会导致整数溢出。不过在 Python 中，整数可以无限大，不需要担心溢出问题。但在 C++ 或 Java 等语言中，可能需要使用 <code>long long</code> 类型。</li>
+</ul>
+</li>
+<li>
+<p><strong>与其他解法的对比</strong>：</p>
+<ul>
+<li>如果使用暴力法，每次操作都遍历数组找最小值，时间复杂度为 O(k * n)。当 <code>k</code> 和 <code>n</code> 较大时，效率会远低于堆解法。</li>
+</ul>
+</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://id-zy.github.io">zhaoyuan</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://id-zy.github.io/2026/04/30/K%20%E6%AC%A1%E4%B9%98%E8%BF%90%E7%AE%97%E5%90%8E%E7%9A%84%E6%9C%80%E7%BB%88%E6%95%B0%E7%BB%84%E7%8A%B6%E6%80%81/">https://id-zy.github.io/2026/04/30/K%20%E6%AC%A1%E4%B9%98%E8%BF%90%E7%AE%97%E5%90%8E%E7%9A%84%E6%9C%80%E7%BB%88%E6%95%B0%E7%BB%84%E7%8A%B6%E6%80%81/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://id-zy.github.io" target="_blank">笺札</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/LeetCode/">LeetCode</a></div><div class="post-share"><div class="social-share" data-image="https://pic1.imgdb.cn/item/69171fdd3203f7be0003e730.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/04/30/%E4%BB%8E%E6%95%B0%E9%87%8F%E6%9C%80%E5%A4%9A%E7%9A%84%E5%A0%86%E5%8F%96%E8%B5%B0%E7%A4%BC%E7%89%A9/" title="从数量最多的堆取走礼物-LeetCode"><img class="cover" src="https://pic1.imgdb.cn/item/6909bfa63203f7be00cf70c9.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">从数量最多的堆取走礼物-LeetCode</div></div><div class="info-2"><div class="info-item-1"> 2558. 从数量最多的堆取走礼物  🎯 问题描述 描述： 给你一个整数数组 gifts，表示各堆礼物的数量。每一秒，你需要执行以下操作：  选择礼物数量最多的那一堆（如果有多堆数量相同且最多，任选其一）。 将该堆的礼物数量减少到原来的平方根（向下取整）。  返回 k 秒后剩下的礼物总数量。 说明：   这是一个典型的**堆（优先队列）**应用问题。   核心策略：  题目要求每次都要找到当前“最大值”进行操作，这正是最大堆（大根堆）的拿手好戏。 由于 Python 的 heapq 模块默认只提供最小堆，我们依然采用将数值取相反数（负数）的方法，来巧妙地模拟最大堆。 每次从堆顶取出绝对值最大的负数（即最多的礼物堆），计算其平方根后，再将结果的相反数放回堆中。    示例：   示例 1：   12345678输入：gifts = [25,64,9,4,100], k = 4输出：29解释：第1秒：选100，变为 sqrt(100)=10，数组变为 [25,64,9,4,10]第2秒：选64，变为 sqrt(64)=8，数组变为 [25,8,9,4,10]第3秒：选25，变为 ...</div></div></div></a><a class="pagination-related" href="/2026/04/30/Dota2%E5%8F%82%E8%AE%AE%E9%99%A2/" title="Dota2参议院-LeetCode"><img class="cover" src="https://pic1.imgdb.cn/item/6909bfa63203f7be00cf70c5.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Dota2参议院-LeetCode</div></div><div class="info-2"><div class="info-item-1"> 649. Dota2 参议院  🎯 问题描述 描述： Dota2 的世界里有两个阵营：Radiant（天辉）和 Dire（夜魇）。参议院由来自两派的参议员组成。现在他们要对游戏中的改变进行投票。投票过程是轮次的，每位参议员可以行使两项权利之一：  禁止一名参议员的权利：使另一名参议员在后续所有轮次中失去投票权。 宣布胜利：如果当前轮次中，有投票权的参议员都来自同一个阵营，那么他可以宣布胜利。  给定一个代表每个参议员阵营的字符串 senate（‘R’ 代表 Radiant，‘D’ 代表 Dire），假设每位参议员都会为自己的阵营做出最明智的选择（即优先禁止对自己阵营威胁最大的敌方参议员）。你需要预测最终哪一方会宣布胜利。 说明：   这是一个队列模拟与贪心问题。   核心策略：  参议员按照字符串顺序轮流行动。 最明智的选择是：禁止掉下一个即将行动的敌方参议员。因为如果不禁止，对方下一轮就会禁止自己阵营的队友。 使用队列模拟轮流行动的过程，每次行动时直接在队列中寻找并移除敌方参议员。    示例：   示例 1：   12345输入：senate = &quot;RD&quo...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2026/04/17/132%E6%A8%A1%E5%BC%8F/" title="132模式-LeetCode"><img class="cover" src="https://pic1.imgdb.cn/item/69171fdd3203f7be0003e72f.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-17</div><div class="info-item-2">132模式-LeetCode</div></div><div class="info-2"><div class="info-item-1"> 456. 132 模式  🎯 问题描述 描述： 给你一个整数数组 nums，数组中共有 n 个整数。 132 模式的子序列由三个整数 nums[i]、nums[j] 和 nums[k] 组成，并同时满足：  i &lt; j &lt; k nums[i] &lt; nums[k] &lt; nums[j]  如果 nums 中存在 132 模式的子序列，返回 true；否则，返回 false。 说明：  这是一个枚举中间最大值结合有序集合维护后缀的问题。 核心策略：  我们要找 nums[i]&lt;nums[k]&lt;nums[j]nums[i] &lt; nums[k] &lt; nums[j]nums[i]&lt;nums[k]&lt;nums[j]。 我们可以枚举中间的元素 nums[j] 作为“3”（最大值）。 左侧 (1)：为了让 nums[i]&lt;nums[k]nums[i] &lt; nums[k]nums[i]&lt;nums[k] 更容易满足，对于固定的 j，我们需要知道 j 左侧的最小值 min_left。 右侧 (2)：我们需要在 j 的右侧找到...</div></div></div></a><a class="pagination-related" href="/2026/04/30/Dota2%E5%8F%82%E8%AE%AE%E9%99%A2/" title="Dota2参议院-LeetCode"><img class="cover" src="https://pic1.imgdb.cn/item/6909bfa63203f7be00cf70c5.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-30</div><div class="info-item-2">Dota2参议院-LeetCode</div></div><div class="info-2"><div class="info-item-1"> 649. Dota2 参议院  🎯 问题描述 描述： Dota2 的世界里有两个阵营：Radiant（天辉）和 Dire（夜魇）。参议院由来自两派的参议员组成。现在他们要对游戏中的改变进行投票。投票过程是轮次的，每位参议员可以行使两项权利之一：  禁止一名参议员的权利：使另一名参议员在后续所有轮次中失去投票权。 宣布胜利：如果当前轮次中，有投票权的参议员都来自同一个阵营，那么他可以宣布胜利。  给定一个代表每个参议员阵营的字符串 senate（‘R’ 代表 Radiant，‘D’ 代表 Dire），假设每位参议员都会为自己的阵营做出最明智的选择（即优先禁止对自己阵营威胁最大的敌方参议员）。你需要预测最终哪一方会宣布胜利。 说明：   这是一个队列模拟与贪心问题。   核心策略：  参议员按照字符串顺序轮流行动。 最明智的选择是：禁止掉下一个即将行动的敌方参议员。因为如果不禁止，对方下一轮就会禁止自己阵营的队友。 使用队列模拟轮流行动的过程，每次行动时直接在队列中寻找并移除敌方参议员。    示例：   示例 1：   12345输入：senate = &quot;RD&quo...</div></div></div></a><a class="pagination-related" href="/2025/12/02/Excel%20%E8%A1%A8%E5%88%97%E5%90%8D%E7%A7%B0/" title="Excel 表列名称"><img class="cover" src="https://pic1.imgdb.cn/item/6908b7a43203f7be00cc79ce.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-02</div><div class="info-item-2">Excel 表列名称</div></div><div class="info-2"><div class="info-item-1"> Excel 表列名称  🎯 问题描述（来源于LeetCode） 12345678910给你一个整数 columnNumber，返回它在 Excel 表中相对应的列名称。例如：A -&gt; 1B -&gt; 2C -&gt; 3...Z -&gt; 26AA -&gt; 27AB -&gt; 28 ...  💻 代码实现 12345678910class Solution:    def convertToTitle(self, columnNumber: int) -&gt; str:        n=columnNumber        s=&#x27;&#x27;        while (n &gt; 0):           m = n % 26           if (m == 0): m = 26           s = chr(m + 64) + s           n = (n - m) // 26        return s  📊 性能分析  提交结果  运行时间：0ms击败100.00% 内存消耗：17.38MB击败93.22...</div></div></div></a><a class="pagination-related" href="/2025/12/02/Excel%20%E8%A1%A8%E5%88%97%E5%BA%8F%E5%8F%B7/" title="Excel 表列序号"><img class="cover" src="https://pic1.imgdb.cn/item/6908b7233203f7be00cc7956.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-02</div><div class="info-item-2">Excel 表列序号</div></div><div class="info-2"><div class="info-item-1"> Excel 表列序号  🎯 问题描述（来源于LeetCode） 12345678910给你一个字符串columnTitle，表示 Excel 表格中的列名称。返回 _该列名称对应的列序号_ 。例如：A -&gt; 1B -&gt; 2C -&gt; 3...Z -&gt; 26AA -&gt; 27AB -&gt; 28 ...  💻 代码实现 123456789101112131415class Solution:    def titleToNumber(self, columnTitle: str) -&gt; int:          s=columnTitle          a = list(map(lambda x: chr(x), range(ord(&#x27;A&#x27;), ord(&#x27;Z&#x27;) + 1)))          l = len(s)          sum = 0          if l &gt; 1:              for i in range(l - 1):                  ...</div></div></div></a><a class="pagination-related" href="/2025/12/07/H%E6%8C%87%E6%95%B0/" title="H指数-LeetCode"><img class="cover" src="https://pic1.imgdb.cn/item/6908b7d53203f7be00cc7a11.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-07</div><div class="info-item-2">H指数-LeetCode</div></div><div class="info-2"><div class="info-item-1"> H指数  🎯 问题描述（来源于LeetCode） 给你一个整数数组 citations ，其中 citations[i] 表示研究者的第 i 篇论文被引用的次数。计算并返回该研究者的 h 指数。 根据维基百科上 h 指数的定义：h 代表“高引用次数” ，一名科研人员的 h 指数 是指他（她）至少发表了 h 篇论文，并且 至少 有 h 篇论文被引用次数大于等于 h 。如果 h 有多种可能的值，h 指数 是其中最大的那个。  💻 代码实现 12345678910111213141516171819class Solution:    def hIndex(self, citations: List[int]) -&gt; int:        l=len(citations)        nums=citations        count=0        acount=0        h=0        nums.sort()        for i in range(l+1):            x=i            count =i       ...</div></div></div></a><a class="pagination-related" href="/2026/04/15/K%E5%92%8C%E6%95%B0%E5%AF%B9%E7%9A%84%E6%9C%80%E5%A4%A7%E6%95%B0%E7%9B%AE/" title="K和数对的最大数目-LeetCode"><img class="cover" src="https://pic1.imgdb.cn/item/6909bfa63203f7be00cf70c4.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-15</div><div class="info-item-2">K和数对的最大数目-LeetCode</div></div><div class="info-2"><div class="info-item-1"> 1679. K 和数对的最大数目  🎯 问题描述（来源于LeetCode） 描述： 给你一个整数数组 nums 和一个整数 k。 在一步操作中，你可以选择数组中的两个数字，如果它们的和等于 k，就将它们从数组中移除。 请你返回你可以执行的最大操作数目。 说明：   这是一个哈希表计数结合贪心算法的问题。   核心逻辑是：对于每个数字 num，查找其互补数 k - num 是否存在。   如果存在，则配对成功，操作数加一，并减少互补数的计数。   如果不存在，则将当前数字加入哈希表，等待后续的互补数。   示例：   示例 1：   123456输入：nums = [1,2,3,4], k = 5输出：2解释：- 移除 1 和 4 (1+4=5)- 移除 2 和 3 (2+3=5)- 总共 2 次操作。  示例 2：  123456输入：nums = [3,1,3,4,3], k = 6输出：1解释：- 只能移除一对 3 (3+3=6)- 剩下的数字无法组成和为 6 的数对。- 总共 1 次操作。  💻 解题思路  思路1：哈希表 + 贪心匹配  思路1：代码实现 12345...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://pic1.imgdb.cn/item/6829891e58cb8da5c8fabff0.png" onerror="this.onerror=null;this.src='/img/friend_04.gif'" alt="avatar"/></div><div class="author-info-name">zhaoyuan</div><div class="author-info-description">一封封记录足迹与所悟的信集</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">485</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">37</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#3264-k-%E6%AC%A1%E4%B9%98%E8%BF%90%E7%AE%97%E5%90%8E%E7%9A%84%E6%9C%80%E7%BB%88%E6%95%B0%E7%BB%84%E7%8A%B6%E6%80%81"><span class="toc-number">1.</span> <span class="toc-text"> 3264. K 次乘运算后的最终数组状态</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0"><span class="toc-number">1.1.</span> <span class="toc-text"> 🎯 问题描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF"><span class="toc-number">1.2.</span> <span class="toc-text"> 💻 解题思路</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF1%E6%9C%80%E5%B0%8F%E5%A0%86%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97%E6%A8%A1%E6%8B%9F"><span class="toc-number">1.2.1.</span> <span class="toc-text"> 思路1：最小堆（优先队列）模拟</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E9%80%BB%E8%BE%91"><span class="toc-number">1.2.1.1.</span> <span class="toc-text"> 核心逻辑</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.2.1.2.</span> <span class="toc-text"> 代码实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90"><span class="toc-number">1.2.1.3.</span> <span class="toc-text"> 📊 性能分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%9D%E8%80%83"><span class="toc-number">1.2.1.4.</span> <span class="toc-text"> 思考</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/07/10/%E5%88%A0%E9%99%A4%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E9%A1%B9/" title="删除有序数组中的重复项 -LeetCode"><img src="https://pic1.imgdb.cn/item/6909bfed3203f7be00cf7171.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="删除有序数组中的重复项 -LeetCode"/></a><div class="content"><a class="title" href="/2026/07/10/%E5%88%A0%E9%99%A4%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E9%A1%B9/" title="删除有序数组中的重复项 -LeetCode">删除有序数组中的重复项 -LeetCode</a><time datetime="2026-07-09T16:00:00.000Z" title="发表于 2026-07-10 00:00:00">2026-07-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/07/10/%E6%89%BE%E5%87%BA%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%89%80%E6%9C%89%20K%20%E8%BF%91%E9%82%BB%E4%B8%8B%E6%A0%87/" title="找出数组中的所有 K 近邻下标 -LeetCode"><img src="https://pic1.imgdb.cn/item/6909bfa63203f7be00cf70c7.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="找出数组中的所有 K 近邻下标 -LeetCode"/></a><div class="content"><a class="title" href="/2026/07/10/%E6%89%BE%E5%87%BA%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%89%80%E6%9C%89%20K%20%E8%BF%91%E9%82%BB%E4%B8%8B%E6%A0%87/" title="找出数组中的所有 K 近邻下标 -LeetCode">找出数组中的所有 K 近邻下标 -LeetCode</a><time datetime="2026-07-09T16:00:00.000Z" title="发表于 2026-07-10 00:00:00">2026-07-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/07/10/%E6%9C%89%E6%95%88%E4%B8%89%E8%A7%92%E5%BD%A2%E7%9A%84%E4%B8%AA%E6%95%B0/" title="有效三角形的个数-LeetCode"><img src="https://pic1.imgdb.cn/item/6909bfa63203f7be00cf70c6.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="有效三角形的个数-LeetCode"/></a><div class="content"><a class="title" href="/2026/07/10/%E6%9C%89%E6%95%88%E4%B8%89%E8%A7%92%E5%BD%A2%E7%9A%84%E4%B8%AA%E6%95%B0/" title="有效三角形的个数-LeetCode">有效三角形的个数-LeetCode</a><time datetime="2026-07-09T16:00:00.000Z" title="发表于 2026-07-10 00:00:00">2026-07-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/07/09/%E5%88%A0%E9%99%A4%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%A4%E7%AB%AF%E7%9B%B8%E5%90%8C%E5%AD%97%E7%AC%A6%E5%90%8E%E7%9A%84%E6%9C%80%E7%9F%AD%E9%95%BF%E5%BA%A6/" title="删除字符串两端相同字符后的最短长度-LeetCode"><img src="https://pic1.imgdb.cn/item/6909bfed3203f7be00cf7174.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="删除字符串两端相同字符后的最短长度-LeetCode"/></a><div class="content"><a class="title" href="/2026/07/09/%E5%88%A0%E9%99%A4%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%A4%E7%AB%AF%E7%9B%B8%E5%90%8C%E5%AD%97%E7%AC%A6%E5%90%8E%E7%9A%84%E6%9C%80%E7%9F%AD%E9%95%BF%E5%BA%A6/" title="删除字符串两端相同字符后的最短长度-LeetCode">删除字符串两端相同字符后的最短长度-LeetCode</a><time datetime="2026-07-08T16:00:00.000Z" title="发表于 2026-07-09 00:00:00">2026-07-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/07/09/%E5%8F%8D%E8%BD%AC%E4%B8%80%E4%B8%AA%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%87%8C%E7%9A%84%E5%AD%97%E6%AF%8D%E5%90%8E%E5%8F%8D%E8%BD%AC%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6/" title="反转一个字符串里的字母后反转特殊字符-LeetCode"><img src="https://pic1.imgdb.cn/item/6909bfa63203f7be00cf70c6.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="反转一个字符串里的字母后反转特殊字符-LeetCode"/></a><div class="content"><a class="title" href="/2026/07/09/%E5%8F%8D%E8%BD%AC%E4%B8%80%E4%B8%AA%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%87%8C%E7%9A%84%E5%AD%97%E6%AF%8D%E5%90%8E%E5%8F%8D%E8%BD%AC%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6/" title="反转一个字符串里的字母后反转特殊字符-LeetCode">反转一个字符串里的字母后反转特殊字符-LeetCode</a><time datetime="2026-07-08T16:00:00.000Z" title="发表于 2026-07-09 00:00:00">2026-07-09</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2019 - 2026 By zhaoyuan</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(async () => {
+  const showKatex = () => {
+    document.querySelectorAll('#article-container .katex').forEach(el => el.classList.add('katex-show'))
+  }
+
+  if (!window.katex_js_css) {
+    window.katex_js_css = true
+    await btf.getCSS('https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css')
+    if (false) {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js')
+    }
+  }
+
+  showKatex()
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

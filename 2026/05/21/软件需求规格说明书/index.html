@@ -1,0 +1,830 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>笺札 | 笺札</title><meta name="author" content="zhaoyuan"><meta name="copyright" content="zhaoyuan"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="智琴云钢琴学习平台软件需求规格说明书  1. 引言  1.1 编写目的 本文档按照《计算机软件文档编制规范》GB&#x2F;T 8567-2006 的软件需求规格说明书编写思路，对钢琴学习平台的需求获取过程、功能性需求、非功能性需求、用例模型、顺序图、类图和状态图进行说明，为后续系统设计、编码实现、测试验收和项目答辩提供依据。  1.2 项目背景 传统钢琴学习主要依赖线下授课和人工陪练，存在时间地点受限、">
+<meta property="og:type" content="article">
+<meta property="og:title" content="笺札">
+<meta property="og:url" content="https://id-zy.github.io/2026/05/21/%E8%BD%AF%E4%BB%B6%E9%9C%80%E6%B1%82%E8%A7%84%E6%A0%BC%E8%AF%B4%E6%98%8E%E4%B9%A6/index.html">
+<meta property="og:site_name" content="笺札">
+<meta property="og:description" content="智琴云钢琴学习平台软件需求规格说明书  1. 引言  1.1 编写目的 本文档按照《计算机软件文档编制规范》GB&#x2F;T 8567-2006 的软件需求规格说明书编写思路，对钢琴学习平台的需求获取过程、功能性需求、非功能性需求、用例模型、顺序图、类图和状态图进行说明，为后续系统设计、编码实现、测试验收和项目答辩提供依据。  1.2 项目背景 传统钢琴学习主要依赖线下授课和人工陪练，存在时间地点受限、">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic1.imgdb.cn/item/6909bfe13203f7be00cf7141.jpg">
+<meta property="article:published_time" content="2026-05-21T01:47:34.746Z">
+<meta property="article:modified_time" content="2026-05-05T14:32:20.678Z">
+<meta property="article:author" content="zhaoyuan">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic1.imgdb.cn/item/6909bfe13203f7be00cf7141.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "",
+  "url": "https://id-zy.github.io/2026/05/21/%E8%BD%AF%E4%BB%B6%E9%9C%80%E6%B1%82%E8%A7%84%E6%A0%BC%E8%AF%B4%E6%98%8E%E4%B9%A6/",
+  "image": "https://pic1.imgdb.cn/item/6909bfe13203f7be00cf7141.jpg",
+  "datePublished": "2026-05-21T01:47:34.746Z",
+  "dateModified": "2026-05-05T14:32:20.678Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "zhaoyuan",
+      "url": "https://id-zy.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="https://pic1.imgdb.cn/item/6829891e58cb8da5c8fabff0.png"><link rel="canonical" href="https://id-zy.github.io/2026/05/21/%E8%BD%AF%E4%BB%B6%E9%9C%80%E6%B1%82%E8%A7%84%E6%A0%BC%E8%AF%B4%E6%98%8E%E4%B9%A6/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '笺札',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'"><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="笺札" type="application/atom+xml">
+</head><body><div id="web_bg" style="background-image: url(https://pic1.imgdb.cn/item/68230f1c58cb8da5c8f082ff.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://pic1.imgdb.cn/item/6829891e58cb8da5c8fabff0.png" onerror="this.onerror=null;this.src='/img/friend_04.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">485</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">37</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fa fa-camera-retro faa-float animared"></i><span> 相册</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video faa-float animared"></i><span> 影视</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book  faa-float animared"></i><span> 图书</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://pic1.imgdb.cn/item/6909bfe13203f7be00cf7141.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">笺札</span></a><a class="nav-page-title" href="/"><span class="site-name">笺札</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fa fa-camera-retro faa-float animared"></i><span> 相册</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video faa-float animared"></i><span> 影视</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book  faa-float animared"></i><span> 图书</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">无标题</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-05-21T01:47:34.746Z" title="发表于 2026-05-21 09:47:34">2026-05-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-05-05T14:32:20.678Z" title="更新于 2026-05-05 22:32:20">2026-05-05</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="智琴云钢琴学习平台软件需求规格说明书"><a class="markdownIt-Anchor" href="#智琴云钢琴学习平台软件需求规格说明书"></a> 智琴云钢琴学习平台软件需求规格说明书</h1>
+<h2 id="1-引言"><a class="markdownIt-Anchor" href="#1-引言"></a> 1. 引言</h2>
+<h3 id="11-编写目的"><a class="markdownIt-Anchor" href="#11-编写目的"></a> 1.1 编写目的</h3>
+<p>本文档按照《计算机软件文档编制规范》GB/T 8567-2006 的软件需求规格说明书编写思路，对钢琴学习平台的需求获取过程、功能性需求、非功能性需求、用例模型、顺序图、类图和状态图进行说明，为后续系统设计、编码实现、测试验收和项目答辩提供依据。</p>
+<h3 id="12-项目背景"><a class="markdownIt-Anchor" href="#12-项目背景"></a> 1.2 项目背景</h3>
+<p>传统钢琴学习主要依赖线下授课和人工陪练，存在时间地点受限、练习监督成本高、学习反馈不及时、学习资源分散等问题。随着在线教育、音视频通信和音频识别技术的发展，建设一个面向钢琴学习者、教师、家长和管理员的一体化平台具有可行性和实际价值。</p>
+<h3 id="13-项目范围"><a class="markdownIt-Anchor" href="#13-项目范围"></a> 1.3 项目范围</h3>
+<p>本系统面向钢琴学习全过程，提供用户管理、曲库乐谱、智能陪练评分、课程约课、教学资源、社区交流、学习监督和后台管理等功能。系统重点解决“如何练习、如何评价、如何监督、如何教学、如何交流”的问题。</p>
+<h3 id="14-参考资料"><a class="markdownIt-Anchor" href="#14-参考资料"></a> 1.4 参考资料</h3>
+<ul>
+<li>《计算机软件文档编制规范》GB/T 8567-2006。</li>
+<li>本项目《可行性分析报告》。</li>
+</ul>
+<h3 id="15-术语和缩略语"><a class="markdownIt-Anchor" href="#15-术语和缩略语"></a> 1.5 术语和缩略语</h3>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>学生</td>
+<td>使用平台进行钢琴学习、练习、评分和约课的用户</td>
+</tr>
+<tr>
+<td>教师</td>
+<td>在平台提供课程、资源、点评和教学服务的用户</td>
+</tr>
+<tr>
+<td>家长</td>
+<td>与学生账号关联并查看学习监督数据的用户</td>
+</tr>
+<tr>
+<td>管理员</td>
+<td>负责内容审核、用户管理、投诉处理和系统维护的用户</td>
+</tr>
+<tr>
+<td>乐谱</td>
+<td>平台中的曲谱资源，可采用 MusicXML 等标准格式保存</td>
+</tr>
+<tr>
+<td>练习记录</td>
+<td>学生一次练习产生的音频、时间、评分和分析结果</td>
+</tr>
+<tr>
+<td>智能陪练</td>
+<td>系统采集演奏音频并对音高、节奏等进行识别和反馈的功能</td>
+</tr>
+<tr>
+<td>UML</td>
+<td>统一建模语言，用于描述软件系统的结构和行为</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-任务概述"><a class="markdownIt-Anchor" href="#2-任务概述"></a> 2. 任务概述</h2>
+<h3 id="21-系统目标"><a class="markdownIt-Anchor" href="#21-系统目标"></a> 2.1 系统目标</h3>
+<p>系统建设目标如下：</p>
+<ul>
+<li>为学生提供曲库浏览、在线练习、智能评分和学习报告功能。</li>
+<li>为教师提供资源上传、课程发布、学生进度查看和作业评价功能。</li>
+<li>为家长提供学生练习监督、学习进度查看和阶段报告功能。</li>
+<li>为管理员提供用户、资源、课程、社区内容和投诉的后台管理能力。</li>
+<li>通过数据记录和可视化分析提升钢琴学习过程的可量化程度。</li>
+</ul>
+<h3 id="22-用户特点"><a class="markdownIt-Anchor" href="#22-用户特点"></a> 2.2 用户特点</h3>
+<table>
+<thead>
+<tr>
+<th>用户类别</th>
+<th>用户特点</th>
+<th>关注重点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>学生</td>
+<td>年龄跨度较大，可能包含少儿、青少年和成人爱好者</td>
+<td>操作简单、反馈及时、练习有成就感</td>
+</tr>
+<tr>
+<td>教师</td>
+<td>关注教学效率和学生练习质量</td>
+<td>约课管理、资源发布、作业点评、进度跟踪</td>
+</tr>
+<tr>
+<td>家长</td>
+<td>关注孩子是否持续练习以及练习效果</td>
+<td>练习时长、成绩变化、阶段报告</td>
+</tr>
+<tr>
+<td>管理员</td>
+<td>关注平台内容合规和运行秩序</td>
+<td>审核、投诉、权限、统计和维护</td>
+</tr>
+</tbody>
+</table>
+<h3 id="23-假定和约束"><a class="markdownIt-Anchor" href="#23-假定和约束"></a> 2.3 假定和约束</h3>
+<ul>
+<li>系统优先支持 Web 端和平板端，后续可扩展移动端或小程序端。</li>
+<li>智能评分功能在初期以基础曲目、单旋律和节奏识别为主要场景。</li>
+<li>乐谱、视频、音频等资源必须考虑版权授权和内容审核。</li>
+<li>用户录音、课程视频和未成年人信息必须进行隐私保护。</li>
+<li>系统需要具备可扩展性，便于后续增加推荐、AI 分析和更多资源类型。</li>
+</ul>
+<h2 id="3-需求获取"><a class="markdownIt-Anchor" href="#3-需求获取"></a> 3. 需求获取</h2>
+<h3 id="31-需求获取方法"><a class="markdownIt-Anchor" href="#31-需求获取方法"></a> 3.1 需求获取方法</h3>
+<p>本项目采用以下方法获取和整理需求：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>具体做法</th>
+<th>获得的信息</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>文档分析法</td>
+<td>分析项目原始设想材料和 GB/T 8567-2006 文档规范</td>
+<td>明确平台建设目标、文档结构和交付要求</td>
+</tr>
+<tr>
+<td>用户访谈法</td>
+<td>假定访谈学生、教师、家长和管理员四类角色</td>
+<td>获取不同角色的核心业务诉求</td>
+</tr>
+<tr>
+<td>场景分析法</td>
+<td>按“学生练习、教师授课、家长监督、管理员审核”梳理典型场景</td>
+<td>提炼主要功能流程和边界条件</td>
+</tr>
+<tr>
+<td>竞品分析法</td>
+<td>参考在线音乐教育、智能陪练、在线约课类产品</td>
+<td>提炼曲库、评分、报告、约课和社区等通用能力</td>
+</tr>
+<tr>
+<td>原型评审法</td>
+<td>将需求转化为用例、顺序图和状态图进行检查</td>
+<td>验证交互流程是否完整、需求是否可实现</td>
+</tr>
+</tbody>
+</table>
+<h3 id="32-需求获取对象"><a class="markdownIt-Anchor" href="#32-需求获取对象"></a> 3.2 需求获取对象</h3>
+<ul>
+<li>学生用户：关注找谱、练习、打分、反馈、约课和交流。</li>
+<li>教师用户：关注课程发布、资源上传、作业评价和学生进度。</li>
+<li>家长用户：关注练习时长、评分变化、阶段报告和监督提醒。</li>
+<li>管理员：关注账号管理、资源审核、社区治理、投诉处理和数据统计。</li>
+</ul>
+<h3 id="33-需求获取结论"><a class="markdownIt-Anchor" href="#33-需求获取结论"></a> 3.3 需求获取结论</h3>
+<p>经过需求获取和分析，系统应重点建设以下能力：</p>
+<ul>
+<li>学生可以完成“选曲、练习、评分、查看报告”的完整闭环。</li>
+<li>教师可以完成“发布课程、确认约课、授课、评价学生”的教学闭环。</li>
+<li>教学资源需要具备上传、分类、审核、浏览和下载流程。</li>
+<li>社区交流需要具备发布、评论、点赞、举报和管理员处理能力。</li>
+<li>家长和教师需要通过学习看板查看学生的练习数据和成长趋势。</li>
+</ul>
+<h2 id="4-自然语言需求描述"><a class="markdownIt-Anchor" href="#4-自然语言需求描述"></a> 4. 自然语言需求描述</h2>
+<h3 id="41-功能性需求"><a class="markdownIt-Anchor" href="#41-功能性需求"></a> 4.1 功能性需求</h3>
+<p>本节先用自然语言描述系统的功能性需求，再在后续章节中使用用例图、用例描述和顺序图进一步建模。</p>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>功能需求描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR-01</td>
+<td>系统应支持学生、教师、家长和管理员注册、登录、退出和身份认证。</td>
+</tr>
+<tr>
+<td>FR-02</td>
+<td>系统应支持按角色分配权限，不同角色只能访问其被授权的功能。</td>
+</tr>
+<tr>
+<td>FR-03</td>
+<td>系统应支持用户维护个人资料，包括昵称、头像、简介和联系方式等。</td>
+</tr>
+<tr>
+<td>FR-04</td>
+<td>系统应支持学生浏览曲库，按曲名、作曲家、难度、风格等条件检索乐谱。</td>
+</tr>
+<tr>
+<td>FR-05</td>
+<td>系统应支持展示乐谱详情，包括曲目简介、难度等级、示范资源和练习入口。</td>
+</tr>
+<tr>
+<td>FR-06</td>
+<td>系统应支持学生选择曲目并开始练习，采集演奏音频。</td>
+</tr>
+<tr>
+<td>FR-07</td>
+<td>系统应支持对学生练习音频进行音高、节奏和完整度评分。</td>
+</tr>
+<tr>
+<td>FR-08</td>
+<td>系统应支持在练习结束后生成练习报告，展示得分、薄弱点和改进建议。</td>
+</tr>
+<tr>
+<td>FR-09</td>
+<td>系统应保存练习历史记录，支持学生、教师和家长按权限查看。</td>
+</tr>
+<tr>
+<td>FR-10</td>
+<td>系统应支持教师发布课程信息，包括课程名称、时间、价格、简介和授课方式。</td>
+</tr>
+<tr>
+<td>FR-11</td>
+<td>系统应支持学生向教师发起约课申请，教师可以确认、调整或拒绝。</td>
+</tr>
+<tr>
+<td>FR-12</td>
+<td>系统应支持课程状态管理，包括待确认、已排课、进行中、待评价、已完成和已取消。</td>
+</tr>
+<tr>
+<td>FR-13</td>
+<td>系统应支持教师上传教学视频、音频、乐谱、文档和图片资料。</td>
+</tr>
+<tr>
+<td>FR-14</td>
+<td>系统应支持管理员对上传资源进行审核、通过、驳回、下架和分类管理。</td>
+</tr>
+<tr>
+<td>FR-15</td>
+<td>系统应支持学生浏览、收藏和下载被授权的教学资源。</td>
+</tr>
+<tr>
+<td>FR-16</td>
+<td>系统应支持用户发布社区动态、练习心得和学习成果。</td>
+</tr>
+<tr>
+<td>FR-17</td>
+<td>系统应支持评论、点赞、收藏、举报等社区互动操作。</td>
+</tr>
+<tr>
+<td>FR-18</td>
+<td>系统应支持教师和家长查看学生学习看板，包括练习次数、练习时长、评分变化和曲目完成情况。</td>
+</tr>
+<tr>
+<td>FR-19</td>
+<td>系统应支持生成阶段性学习报告。</td>
+</tr>
+<tr>
+<td>FR-20</td>
+<td>系统应支持管理员管理用户、课程、资源、社区内容和投诉记录。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="42-非功能性需求"><a class="markdownIt-Anchor" href="#42-非功能性需求"></a> 4.2 非功能性需求</h3>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>非功能需求描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NFR-01</td>
+<td>易用性：系统界面应简洁清晰，学生、教师和家长能够快速理解主要操作。</td>
+</tr>
+<tr>
+<td>NFR-02</td>
+<td>性能：普通页面操作应在可接受时间内响应，练习评分反馈应尽量保持低延迟。</td>
+</tr>
+<tr>
+<td>NFR-03</td>
+<td>可靠性：练习记录、课程状态、资源审核等关键数据不得无故丢失。</td>
+</tr>
+<tr>
+<td>NFR-04</td>
+<td>安全性：系统应进行身份认证、权限控制和关键操作日志记录。</td>
+</tr>
+<tr>
+<td>NFR-05</td>
+<td>隐私保护：系统应保护用户资料、练习录音、课程视频和未成年人相关数据。</td>
+</tr>
+<tr>
+<td>NFR-06</td>
+<td>可维护性：系统应采用模块化结构，便于后续维护和功能扩展。</td>
+</tr>
+<tr>
+<td>NFR-07</td>
+<td>兼容性：系统应适配常见浏览器、平板和手机浏览环境。</td>
+</tr>
+<tr>
+<td>NFR-08</td>
+<td>合规性：平台上传的乐谱、视频和教学资料应具备版权审核和违规处理机制。</td>
+</tr>
+<tr>
+<td>NFR-09</td>
+<td>可扩展性：系统应支持后续扩展 AI 评测、个性化推荐、移动端和更多教学资源类型。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="5-功能性需求的用例模型"><a class="markdownIt-Anchor" href="#5-功能性需求的用例模型"></a> 5. 功能性需求的用例模型</h2>
+<h3 id="51-参与者说明"><a class="markdownIt-Anchor" href="#51-参与者说明"></a> 5.1 参与者说明</h3>
+<table>
+<thead>
+<tr>
+<th>参与者</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>学生</td>
+<td>进行注册登录、浏览曲库、智能练习、约课、查看报告、参与社区</td>
+</tr>
+<tr>
+<td>教师</td>
+<td>发布课程、确认约课、上传资源、点评作业、查看学生进度</td>
+</tr>
+<tr>
+<td>家长</td>
+<td>关联学生账号，查看练习记录和学习监督看板</td>
+</tr>
+<tr>
+<td>管理员</td>
+<td>审核资源和社区内容，管理用户与投诉</td>
+</tr>
+<tr>
+<td>评分服务</td>
+<td>对学生练习音频进行识别、评分和报告生成的外部或内部服务</td>
+</tr>
+</tbody>
+</table>
+<h3 id="52-用例图"><a class="markdownIt-Anchor" href="#52-用例图"></a> 5.2 用例图</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">graph TD</span><br><span class="line">    Student[👤学生]</span><br><span class="line">    Teacher[👤教师]</span><br><span class="line">    Parent[👤家长]</span><br><span class="line">    Admin[👤管理员]</span><br><span class="line">    ScoreService[评分服务]</span><br><span class="line"></span><br><span class="line">    subgraph System[钢琴学习平台]</span><br><span class="line">        UC01((注册/登录))</span><br><span class="line">        UC02((浏览曲库与乐谱))</span><br><span class="line">        UC03((智能陪练与打分))</span><br><span class="line">        UC04((查看练习报告))</span><br><span class="line">        UC05((一对一约课))</span><br><span class="line">        UC06((在线授课))</span><br><span class="line">        UC07((上传教学资源))</span><br><span class="line">        UC08((审核资源与内容))</span><br><span class="line">        UC09((发布社区动态))</span><br><span class="line">        UC10((评论点赞举报))</span><br><span class="line">        UC11((查看学习监督看板))</span><br><span class="line">        UC12((处理投诉))</span><br><span class="line">        UC13((管理用户权限))</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    Student --&gt; UC01</span><br><span class="line">    Student --&gt; UC02</span><br><span class="line">    Student --&gt; UC03</span><br><span class="line">    Student --&gt; UC04</span><br><span class="line">    Student --&gt; UC05</span><br><span class="line">    Student --&gt; UC09</span><br><span class="line">    Student --&gt; UC10</span><br><span class="line"></span><br><span class="line">    Teacher --&gt; UC01</span><br><span class="line">    Teacher --&gt; UC05</span><br><span class="line">    Teacher --&gt; UC06</span><br><span class="line">    Teacher --&gt; UC07</span><br><span class="line">    Teacher --&gt; UC11</span><br><span class="line"></span><br><span class="line">    Parent --&gt; UC01</span><br><span class="line">    Parent --&gt; UC11</span><br><span class="line"></span><br><span class="line">    Admin --&gt; UC08</span><br><span class="line">    Admin --&gt; UC12</span><br><span class="line">    Admin --&gt; UC13</span><br><span class="line"></span><br><span class="line">    ScoreService --&gt; UC03</span><br></pre></td></tr></table></figure>
+<h2 id="6-核心用例描述"><a class="markdownIt-Anchor" href="#6-核心用例描述"></a> 6. 核心用例描述</h2>
+<h3 id="61-uc-03-智能陪练与打分"><a class="markdownIt-Anchor" href="#61-uc-03-智能陪练与打分"></a> 6.1 UC-03 智能陪练与打分</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>用例名称</td>
+<td>智能陪练与打分</td>
+</tr>
+<tr>
+<td>主要参与者</td>
+<td>学生</td>
+</tr>
+<tr>
+<td>相关参与者</td>
+<td>评分服务、数据库</td>
+</tr>
+<tr>
+<td>前置条件</td>
+<td>学生已登录，已选择可练习曲目，设备麦克风可用</td>
+</tr>
+<tr>
+<td>后置条件</td>
+<td>系统保存练习记录并生成练习报告</td>
+</tr>
+<tr>
+<td>基本事件流</td>
+<td>1. 学生进入曲目详情页并点击“开始练习”。<br>2. 系统加载乐谱和标准节奏数据。<br>3. 系统请求麦克风权限并开始采集音频。<br>4. 学生演奏曲目。<br>5. 系统将音频片段发送给评分服务。<br>6. 评分服务识别音高、节奏和完整度。<br>7. 评分服务返回评分结果。<br>8. 系统生成练习报告并保存记录。<br>9. 学生查看得分和改进建议。</td>
+</tr>
+<tr>
+<td>备选事件流</td>
+<td>A1. 麦克风权限被拒绝，系统提示用户开启权限后重试。<br>A2. 评分服务不可用，系统先保存音频并提示稍后生成报告。</td>
+</tr>
+<tr>
+<td>异常处理</td>
+<td>网络中断时保存本地临时记录，恢复网络后继续上传。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="62-uc-05-一对一约课"><a class="markdownIt-Anchor" href="#62-uc-05-一对一约课"></a> 6.2 UC-05 一对一约课</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>用例名称</td>
+<td>一对一约课</td>
+</tr>
+<tr>
+<td>主要参与者</td>
+<td>学生</td>
+</tr>
+<tr>
+<td>相关参与者</td>
+<td>教师、通知服务、数据库</td>
+</tr>
+<tr>
+<td>前置条件</td>
+<td>学生和教师均已注册，教师已发布可预约课程</td>
+</tr>
+<tr>
+<td>后置条件</td>
+<td>生成课程预约记录，并进入待确认或已排课状态</td>
+</tr>
+<tr>
+<td>基本事件流</td>
+<td>1. 学生浏览教师列表和课程信息。<br>2. 学生选择教师、课程和期望时间。<br>3. 系统校验课程是否可预约。<br>4. 学生提交约课申请。<br>5. 系统生成待确认预约记录。<br>6. 系统通知教师处理申请。<br>7. 教师确认预约。<br>8. 系统将课程状态更新为已排课并通知学生。</td>
+</tr>
+<tr>
+<td>备选事件流</td>
+<td>A1. 教师调整时间，学生确认后课程进入已排课状态。<br>A2. 教师拒绝申请，课程状态变为已取消。</td>
+</tr>
+<tr>
+<td>异常处理</td>
+<td>预约时间冲突时，系统提示学生重新选择时间。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="63-uc-07-上传教学资源"><a class="markdownIt-Anchor" href="#63-uc-07-上传教学资源"></a> 6.3 UC-07 上传教学资源</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>用例名称</td>
+<td>上传教学资源</td>
+</tr>
+<tr>
+<td>主要参与者</td>
+<td>教师</td>
+</tr>
+<tr>
+<td>相关参与者</td>
+<td>管理员、对象存储、数据库</td>
+</tr>
+<tr>
+<td>前置条件</td>
+<td>教师已登录并具有资源上传权限</td>
+</tr>
+<tr>
+<td>后置条件</td>
+<td>资源进入待审核状态，审核通过后可被学生浏览</td>
+</tr>
+<tr>
+<td>基本事件流</td>
+<td>1. 教师进入资源管理页面。<br>2. 教师选择资源类型并填写标题、简介、标签和适用难度。<br>3. 教师上传视频、音频、乐谱或文档文件。<br>4. 系统校验文件格式和大小。<br>5. 系统将文件保存到对象存储。<br>6. 系统生成资源记录并标记为待审核。<br>7. 管理员审核资源。<br>8. 审核通过后资源上架。</td>
+</tr>
+<tr>
+<td>备选事件流</td>
+<td>A1. 审核不通过，系统记录驳回原因并通知教师。<br>A2. 教师修改资源后可重新提交审核。</td>
+</tr>
+<tr>
+<td>异常处理</td>
+<td>文件上传失败时，系统提示重试并保留已填写的资源信息。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="64-uc-09-发布社区动态"><a class="markdownIt-Anchor" href="#64-uc-09-发布社区动态"></a> 6.4 UC-09 发布社区动态</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>用例名称</td>
+<td>发布社区动态</td>
+</tr>
+<tr>
+<td>主要参与者</td>
+<td>学生或教师</td>
+</tr>
+<tr>
+<td>相关参与者</td>
+<td>管理员、数据库</td>
+</tr>
+<tr>
+<td>前置条件</td>
+<td>用户已登录，账号状态正常</td>
+</tr>
+<tr>
+<td>后置条件</td>
+<td>动态发布成功或进入待审核状态</td>
+</tr>
+<tr>
+<td>基本事件流</td>
+<td>1. 用户进入社区页面。<br>2. 用户编辑文字内容并可选择上传图片、音频或视频。<br>3. 系统进行格式校验和敏感内容检查。<br>4. 用户点击发布。<br>5. 系统保存动态内容。<br>6. 若内容无需人工审核，系统立即展示动态。<br>7. 其他用户可评论、点赞或举报。</td>
+</tr>
+<tr>
+<td>备选事件流</td>
+<td>A1. 内容触发敏感词规则，动态进入待审核状态。<br>A2. 管理员审核不通过，系统隐藏动态并通知发布者。</td>
+</tr>
+<tr>
+<td>异常处理</td>
+<td>上传附件失败时，系统提示用户重新上传或仅发布文字内容。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="65-uc-11-查看学习监督看板"><a class="markdownIt-Anchor" href="#65-uc-11-查看学习监督看板"></a> 6.5 UC-11 查看学习监督看板</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>用例名称</td>
+<td>查看学习监督看板</td>
+</tr>
+<tr>
+<td>主要参与者</td>
+<td>家长、教师</td>
+</tr>
+<tr>
+<td>相关参与者</td>
+<td>学生、统计服务、数据库</td>
+</tr>
+<tr>
+<td>前置条件</td>
+<td>家长已关联学生账号，教师与学生存在教学关系</td>
+</tr>
+<tr>
+<td>后置条件</td>
+<td>用户查看学生阶段性学习数据和分析结果</td>
+</tr>
+<tr>
+<td>基本事件流</td>
+<td>1. 家长或教师进入学习看板页面。<br>2. 系统校验其是否具有查看该学生数据的权限。<br>3. 用户选择时间范围。<br>4. 系统查询练习记录、课程记录和评分数据。<br>5. 统计服务计算练习时长、次数、平均分和进步趋势。<br>6. 系统展示图表、薄弱点和阶段建议。</td>
+</tr>
+<tr>
+<td>备选事件流</td>
+<td>A1. 学生暂无练习数据，系统展示空状态和练习建议。<br>A2. 用户无权限查看，系统拒绝访问并提示原因。</td>
+</tr>
+<tr>
+<td>异常处理</td>
+<td>统计服务异常时，系统展示基础记录列表并提示稍后查看图表。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="7-核心顺序图"><a class="markdownIt-Anchor" href="#7-核心顺序图"></a> 7. 核心顺序图</h2>
+<h3 id="71-智能陪练与打分顺序图"><a class="markdownIt-Anchor" href="#71-智能陪练与打分顺序图"></a> 7.1 智能陪练与打分顺序图</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">sequenceDiagram</span><br><span class="line">    actor Student as 学生</span><br><span class="line">    participant Client as 客户端</span><br><span class="line">    participant MusicCtrl as 练习控制类</span><br><span class="line">    participant AudioBoundary as 音频采集边界类</span><br><span class="line">    participant ScoreCtrl as 评分控制类</span><br><span class="line">    participant ScoreService as 评分服务</span><br><span class="line">    participant RecordEntity as 练习记录实体</span><br><span class="line">    participant DB as 数据库</span><br><span class="line"></span><br><span class="line">    Student-&gt;&gt;Client: 点击开始练习</span><br><span class="line">    Client-&gt;&gt;MusicCtrl: 请求曲谱与标准数据</span><br><span class="line">    MusicCtrl-&gt;&gt;DB: 查询曲目和乐谱</span><br><span class="line">    DB--&gt;&gt;MusicCtrl: 返回乐谱与标准数据</span><br><span class="line">    MusicCtrl--&gt;&gt;Client: 展示乐谱</span><br><span class="line">    Student-&gt;&gt;AudioBoundary: 授权麦克风并演奏</span><br><span class="line">    AudioBoundary-&gt;&gt;ScoreCtrl: 提交音频片段</span><br><span class="line">    ScoreCtrl-&gt;&gt;ScoreService: 请求音高节奏识别</span><br><span class="line">    ScoreService--&gt;&gt;ScoreCtrl: 返回评分结果</span><br><span class="line">    ScoreCtrl-&gt;&gt;RecordEntity: 创建练习记录和报告</span><br><span class="line">    RecordEntity-&gt;&gt;DB: 保存练习记录</span><br><span class="line">    DB--&gt;&gt;Client: 返回练习报告</span><br><span class="line">    Client--&gt;&gt;Student: 展示得分和建议</span><br></pre></td></tr></table></figure>
+<h3 id="72-一对一约课顺序图"><a class="markdownIt-Anchor" href="#72-一对一约课顺序图"></a> 7.2 一对一约课顺序图</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">sequenceDiagram</span><br><span class="line">    actor Student as 学生</span><br><span class="line">    actor Teacher as 教师</span><br><span class="line">    participant CourseBoundary as 课程界面边界类</span><br><span class="line">    participant BookingCtrl as 约课控制类</span><br><span class="line">    participant CourseEntity as 课程实体</span><br><span class="line">    participant NotifyCtrl as 通知控制类</span><br><span class="line">    participant DB as 数据库</span><br><span class="line"></span><br><span class="line">    Student-&gt;&gt;CourseBoundary: 浏览教师课程</span><br><span class="line">    CourseBoundary-&gt;&gt;BookingCtrl: 查询可预约时间</span><br><span class="line">    BookingCtrl-&gt;&gt;DB: 查询课程排期</span><br><span class="line">    DB--&gt;&gt;BookingCtrl: 返回排期</span><br><span class="line">    Student-&gt;&gt;CourseBoundary: 提交约课申请</span><br><span class="line">    CourseBoundary-&gt;&gt;BookingCtrl: 创建预约</span><br><span class="line">    BookingCtrl-&gt;&gt;CourseEntity: 生成待确认课程记录</span><br><span class="line">    CourseEntity-&gt;&gt;DB: 保存预约</span><br><span class="line">    BookingCtrl-&gt;&gt;NotifyCtrl: 通知教师</span><br><span class="line">    NotifyCtrl--&gt;&gt;Teacher: 发送约课申请</span><br><span class="line">    Teacher-&gt;&gt;CourseBoundary: 确认预约</span><br><span class="line">    CourseBoundary-&gt;&gt;BookingCtrl: 更新课程状态</span><br><span class="line">    BookingCtrl-&gt;&gt;CourseEntity: 状态变更为已排课</span><br><span class="line">    CourseEntity-&gt;&gt;DB: 保存状态</span><br><span class="line">    NotifyCtrl--&gt;&gt;Student: 通知预约成功</span><br></pre></td></tr></table></figure>
+<h3 id="73-上传教学资源顺序图"><a class="markdownIt-Anchor" href="#73-上传教学资源顺序图"></a> 7.3 上传教学资源顺序图</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">sequenceDiagram</span><br><span class="line">    actor Teacher as 教师</span><br><span class="line">    actor Admin as 管理员</span><br><span class="line">    participant ResourceBoundary as 资源管理边界类</span><br><span class="line">    participant ResourceCtrl as 资源控制类</span><br><span class="line">    participant Storage as 对象存储</span><br><span class="line">    participant AuditCtrl as 审核控制类</span><br><span class="line">    participant ResourceEntity as 资源实体</span><br><span class="line">    participant DB as 数据库</span><br><span class="line"></span><br><span class="line">    Teacher-&gt;&gt;ResourceBoundary: 填写资源信息并上传文件</span><br><span class="line">    ResourceBoundary-&gt;&gt;ResourceCtrl: 提交资源数据</span><br><span class="line">    ResourceCtrl-&gt;&gt;ResourceCtrl: 校验格式和大小</span><br><span class="line">    ResourceCtrl-&gt;&gt;Storage: 上传资源文件</span><br><span class="line">    Storage--&gt;&gt;ResourceCtrl: 返回文件地址</span><br><span class="line">    ResourceCtrl-&gt;&gt;ResourceEntity: 创建待审核资源</span><br><span class="line">    ResourceEntity-&gt;&gt;DB: 保存资源记录</span><br><span class="line">    AuditCtrl--&gt;&gt;Admin: 推送待审核任务</span><br><span class="line">    Admin-&gt;&gt;AuditCtrl: 审核资源</span><br><span class="line">    AuditCtrl-&gt;&gt;ResourceEntity: 更新审核状态</span><br><span class="line">    ResourceEntity-&gt;&gt;DB: 保存审核结果</span><br><span class="line">    AuditCtrl--&gt;&gt;Teacher: 通知审核结果</span><br></pre></td></tr></table></figure>
+<h3 id="74-发布社区动态顺序图"><a class="markdownIt-Anchor" href="#74-发布社区动态顺序图"></a> 7.4 发布社区动态顺序图</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">sequenceDiagram</span><br><span class="line">    actor User as 学生或教师</span><br><span class="line">    actor Admin as 管理员</span><br><span class="line">    participant CommunityBoundary as 社区边界类</span><br><span class="line">    participant PostCtrl as 动态控制类</span><br><span class="line">    participant ModerationCtrl as 内容审核控制类</span><br><span class="line">    participant PostEntity as 动态实体</span><br><span class="line">    participant DB as 数据库</span><br><span class="line"></span><br><span class="line">    User-&gt;&gt;CommunityBoundary: 编辑并发布动态</span><br><span class="line">    CommunityBoundary-&gt;&gt;PostCtrl: 提交动态内容</span><br><span class="line">    PostCtrl-&gt;&gt;ModerationCtrl: 进行敏感内容检查</span><br><span class="line">    alt 内容正常</span><br><span class="line">        ModerationCtrl--&gt;&gt;PostCtrl: 审核通过</span><br><span class="line">        PostCtrl-&gt;&gt;PostEntity: 创建已发布动态</span><br><span class="line">        PostEntity-&gt;&gt;DB: 保存动态</span><br><span class="line">        CommunityBoundary--&gt;&gt;User: 显示发布成功</span><br><span class="line">    else 需要人工审核</span><br><span class="line">        ModerationCtrl--&gt;&gt;PostCtrl: 标记待审核</span><br><span class="line">        PostCtrl-&gt;&gt;PostEntity: 创建待审核动态</span><br><span class="line">        PostEntity-&gt;&gt;DB: 保存动态</span><br><span class="line">        Admin-&gt;&gt;ModerationCtrl: 人工审核</span><br><span class="line">        ModerationCtrl-&gt;&gt;PostEntity: 更新审核结果</span><br><span class="line">        PostEntity-&gt;&gt;DB: 保存结果</span><br><span class="line">    end</span><br></pre></td></tr></table></figure>
+<h3 id="75-查看学习监督看板顺序图"><a class="markdownIt-Anchor" href="#75-查看学习监督看板顺序图"></a> 7.5 查看学习监督看板顺序图</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">sequenceDiagram</span><br><span class="line">    actor Viewer as 家长或教师</span><br><span class="line">    participant DashboardBoundary as 看板边界类</span><br><span class="line">    participant PermissionCtrl as 权限控制类</span><br><span class="line">    participant DashboardCtrl as 看板控制类</span><br><span class="line">    participant StatService as 统计服务</span><br><span class="line">    participant PracticeEntity as 练习记录实体</span><br><span class="line">    participant DB as 数据库</span><br><span class="line"></span><br><span class="line">    Viewer-&gt;&gt;DashboardBoundary: 选择学生和时间范围</span><br><span class="line">    DashboardBoundary-&gt;&gt;PermissionCtrl: 校验查看权限</span><br><span class="line">    PermissionCtrl-&gt;&gt;DB: 查询关联关系</span><br><span class="line">    DB--&gt;&gt;PermissionCtrl: 返回权限结果</span><br><span class="line">    PermissionCtrl--&gt;&gt;DashboardBoundary: 允许访问</span><br><span class="line">    DashboardBoundary-&gt;&gt;DashboardCtrl: 请求学习数据</span><br><span class="line">    DashboardCtrl-&gt;&gt;PracticeEntity: 查询练习记录</span><br><span class="line">    PracticeEntity-&gt;&gt;DB: 查询练习和评分数据</span><br><span class="line">    DB--&gt;&gt;PracticeEntity: 返回数据</span><br><span class="line">    DashboardCtrl-&gt;&gt;StatService: 计算统计指标</span><br><span class="line">    StatService--&gt;&gt;DashboardCtrl: 返回趋势和分析</span><br><span class="line">    DashboardCtrl--&gt;&gt;DashboardBoundary: 返回看板数据</span><br><span class="line">    DashboardBoundary--&gt;&gt;Viewer: 展示图表和建议</span><br></pre></td></tr></table></figure>
+<h2 id="8-分析类与完整系统类图"><a class="markdownIt-Anchor" href="#8-分析类与完整系统类图"></a> 8. 分析类与完整系统类图</h2>
+<h3 id="81-顺序图中的分析类提取"><a class="markdownIt-Anchor" href="#81-顺序图中的分析类提取"></a> 8.1 顺序图中的分析类提取</h3>
+<p>根据 5 个顺序图，可提取边界类、控制类和实体类如下：</p>
+<table>
+<thead>
+<tr>
+<th>类别</th>
+<th>分析类</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>边界类</td>
+<td>练习界面、音频采集边界类、课程界面边界类、资源管理边界类、社区边界类、看板边界类</td>
+</tr>
+<tr>
+<td>控制类</td>
+<td>练习控制类、评分控制类、约课控制类、通知控制类、资源控制类、审核控制类、动态控制类、权限控制类、看板控制类</td>
+</tr>
+<tr>
+<td>实体类</td>
+<td>用户、学生档案、教师档案、家长关联、曲目、乐谱、练习记录、评分报告、课程、预约、教学资源、审核记录、动态、评论、投诉、通知</td>
+</tr>
+</tbody>
+</table>
+<h3 id="82-完整系统类图"><a class="markdownIt-Anchor" href="#82-完整系统类图"></a> 8.2 完整系统类图</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br></pre></td><td class="code"><pre><span class="line">classDiagram</span><br><span class="line">    class User &#123;</span><br><span class="line">        +userId: String</span><br><span class="line">        +role: String</span><br><span class="line">        +nickname: String</span><br><span class="line">        +phone: String</span><br><span class="line">        +status: String</span><br><span class="line">        +login()</span><br><span class="line">        +updateProfile()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    class StudentProfile &#123;</span><br><span class="line">        +studentId: String</span><br><span class="line">        +level: String</span><br><span class="line">        +learningGoal: String</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    class TeacherProfile &#123;</span><br><span class="line">        +teacherId: String</span><br><span class="line">        +qualification: String</span><br><span class="line">        +introduction: String</span><br><span class="line">        +rating: Float</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    class ParentBinding &#123;</span><br><span class="line">        +bindingId: String</span><br><span class="line">        +relation: String</span><br><span class="line">        +bindStatus: String</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    class MusicPiece &#123;</span><br><span class="line">        +musicId: String</span><br><span class="line">        +title: String</span><br><span class="line">        +composer: String</span><br><span class="line">        +difficulty: String</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    class SheetMusic &#123;</span><br><span class="line">        +sheetId: String</span><br><span class="line">        +format: String</span><br><span class="line">        +fileUrl: String</span><br><span class="line">        +auditStatus: String</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    class PracticeRecord &#123;</span><br><span class="line">        +recordId: String</span><br><span class="line">        +startTime: DateTime</span><br><span class="line">        +duration: Int</span><br><span class="line">        +audioUrl: String</span><br><span class="line">        +status: String</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    class ScoreReport &#123;</span><br><span class="line">        +reportId: String</span><br><span class="line">        +pitchScore: Float</span><br><span class="line">        +rhythmScore: Float</span><br><span class="line">        +totalScore: Float</span><br><span class="line">        +suggestion: String</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    class Course &#123;</span><br><span class="line">        +courseId: String</span><br><span class="line">        +title: String</span><br><span class="line">        +price: Float</span><br><span class="line">        +scheduleTime: DateTime</span><br><span class="line">        +status: String</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    class Booking &#123;</span><br><span class="line">        +bookingId: String</span><br><span class="line">        +requestTime: DateTime</span><br><span class="line">        +status: String</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    class TeachingResource &#123;</span><br><span class="line">        +resourceId: String</span><br><span class="line">        +title: String</span><br><span class="line">        +type: String</span><br><span class="line">        +fileUrl: String</span><br><span class="line">        +auditStatus: String</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    class AuditRecord &#123;</span><br><span class="line">        +auditId: String</span><br><span class="line">        +targetType: String</span><br><span class="line">        +result: String</span><br><span class="line">        +reason: String</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    class Post &#123;</span><br><span class="line">        +postId: String</span><br><span class="line">        +content: String</span><br><span class="line">        +publishTime: DateTime</span><br><span class="line">        +status: String</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    class Comment &#123;</span><br><span class="line">        +commentId: String</span><br><span class="line">        +content: String</span><br><span class="line">        +createTime: DateTime</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    class Complaint &#123;</span><br><span class="line">        +complaintId: String</span><br><span class="line">        +reason: String</span><br><span class="line">        +status: String</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    class Notification &#123;</span><br><span class="line">        +noticeId: String</span><br><span class="line">        +title: String</span><br><span class="line">        +content: String</span><br><span class="line">        +readStatus: String</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    User &quot;1&quot; --&gt; &quot;0..1&quot; StudentProfile : 拥有</span><br><span class="line">    User &quot;1&quot; --&gt; &quot;0..1&quot; TeacherProfile : 拥有</span><br><span class="line">    User &quot;1&quot; --&gt; &quot;0..*&quot; ParentBinding : 建立</span><br><span class="line">    ParentBinding &quot;*&quot; --&gt; &quot;1&quot; StudentProfile : 监督</span><br><span class="line">    MusicPiece &quot;1&quot; --&gt; &quot;1..*&quot; SheetMusic : 包含</span><br><span class="line">    User &quot;1&quot; --&gt; &quot;0..*&quot; PracticeRecord : 产生</span><br><span class="line">    PracticeRecord &quot;*&quot; --&gt; &quot;1&quot; MusicPiece : 基于</span><br><span class="line">    PracticeRecord &quot;1&quot; --&gt; &quot;0..1&quot; ScoreReport : 生成</span><br><span class="line">    TeacherProfile &quot;1&quot; --&gt; &quot;0..*&quot; Course : 发布</span><br><span class="line">    Course &quot;1&quot; --&gt; &quot;0..*&quot; Booking : 对应</span><br><span class="line">    User &quot;1&quot; --&gt; &quot;0..*&quot; Booking : 发起</span><br><span class="line">    User &quot;1&quot; --&gt; &quot;0..*&quot; TeachingResource : 上传</span><br><span class="line">    TeachingResource &quot;1&quot; --&gt; &quot;0..*&quot; AuditRecord : 审核</span><br><span class="line">    User &quot;1&quot; --&gt; &quot;0..*&quot; Post : 发布</span><br><span class="line">    Post &quot;1&quot; --&gt; &quot;0..*&quot; Comment : 包含</span><br><span class="line">    User &quot;1&quot; --&gt; &quot;0..*&quot; Comment : 发表</span><br><span class="line">    User &quot;1&quot; --&gt; &quot;0..*&quot; Complaint : 提交</span><br><span class="line">    Complaint &quot;*&quot; --&gt; &quot;1&quot; User : 被处理</span><br><span class="line">    User &quot;1&quot; --&gt; &quot;0..*&quot; Notification : 接收</span><br></pre></td></tr></table></figure>
+<h2 id="9-状态图"><a class="markdownIt-Anchor" href="#9-状态图"></a> 9. 状态图</h2>
+<h3 id="91-课程预约状态图"><a class="markdownIt-Anchor" href="#91-课程预约状态图"></a> 9.1 课程预约状态图</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">stateDiagram-v2</span><br><span class="line">    [*] --&gt; 待确认: 学生提交约课申请</span><br><span class="line">    待确认 --&gt; 已排课: 教师确认</span><br><span class="line">    待确认 --&gt; 已取消: 教师拒绝或超时</span><br><span class="line">    已排课 --&gt; 进行中: 到达上课时间</span><br><span class="line">    已排课 --&gt; 已取消: 学生或教师取消</span><br><span class="line">    进行中 --&gt; 待评价: 课程结束</span><br><span class="line">    待评价 --&gt; 已完成: 双方完成评价</span><br><span class="line">    待评价 --&gt; 申诉中: 学生或教师发起申诉</span><br><span class="line">    申诉中 --&gt; 已完成: 管理员处理完成</span><br><span class="line">    已完成 --&gt; [*]</span><br><span class="line">    已取消 --&gt; [*]</span><br></pre></td></tr></table></figure>
+<h3 id="92-教学资源审核状态图"><a class="markdownIt-Anchor" href="#92-教学资源审核状态图"></a> 9.2 教学资源审核状态图</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">stateDiagram-v2</span><br><span class="line">    [*] --&gt; 草稿: 教师创建资源</span><br><span class="line">    草稿 --&gt; 待审核: 提交审核</span><br><span class="line">    待审核 --&gt; 已上架: 管理员审核通过</span><br><span class="line">    待审核 --&gt; 已驳回: 管理员审核不通过</span><br><span class="line">    已驳回 --&gt; 草稿: 教师修改资源</span><br><span class="line">    已上架 --&gt; 已下架: 管理员下架或版权到期</span><br><span class="line">    已下架 --&gt; 待审核: 重新提交审核</span><br><span class="line">    已上架 --&gt; [*]</span><br><span class="line">    已下架 --&gt; [*]</span><br></pre></td></tr></table></figure>
+<h3 id="93-练习记录状态图"><a class="markdownIt-Anchor" href="#93-练习记录状态图"></a> 9.3 练习记录状态图</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">stateDiagram-v2</span><br><span class="line">    [*] --&gt; 待开始: 学生选择曲目</span><br><span class="line">    待开始 --&gt; 练习中: 点击开始练习</span><br><span class="line">    练习中 --&gt; 评分中: 结束演奏并提交音频</span><br><span class="line">    练习中 --&gt; 已取消: 主动退出练习</span><br><span class="line">    评分中 --&gt; 已生成报告: 评分服务返回结果</span><br><span class="line">    评分中 --&gt; 待重新评分: 评分服务异常</span><br><span class="line">    待重新评分 --&gt; 评分中: 重新提交音频</span><br><span class="line">    已生成报告 --&gt; 已归档: 保存练习记录</span><br><span class="line">    已取消 --&gt; [*]</span><br><span class="line">    已归档 --&gt; [*]</span><br></pre></td></tr></table></figure>
+<h2 id="10-外部接口需求"><a class="markdownIt-Anchor" href="#10-外部接口需求"></a> 10. 外部接口需求</h2>
+<h3 id="101-用户界面接口"><a class="markdownIt-Anchor" href="#101-用户界面接口"></a> 10.1 用户界面接口</h3>
+<ul>
+<li>学生端应提供曲库浏览、练习入口、评分报告、约课和社区入口。</li>
+<li>教师端应提供课程管理、资源上传、学生进度和评价入口。</li>
+<li>家长端应突出学习监督、练习统计和阶段报告。</li>
+<li>管理后台应提供用户管理、内容审核、投诉处理和运营统计入口。</li>
+</ul>
+<h3 id="102-硬件接口"><a class="markdownIt-Anchor" href="#102-硬件接口"></a> 10.2 硬件接口</h3>
+<ul>
+<li>系统应调用麦克风采集学生练习音频。</li>
+<li>系统可调用摄像头用于在线授课或演奏视频上传。</li>
+<li>系统可扩展支持 MIDI 键盘接入，以提高评分准确性。</li>
+</ul>
+<h3 id="103-软件接口"><a class="markdownIt-Anchor" href="#103-软件接口"></a> 10.3 软件接口</h3>
+<ul>
+<li>对象存储接口：保存乐谱、视频、音频、图片和文档文件。</li>
+<li>音视频服务接口：支持在线授课和实时互动。</li>
+<li>消息通知接口：发送约课提醒、审核结果和系统通知。</li>
+<li>评分服务接口：接收练习音频，返回音高、节奏、总分和建议。</li>
+</ul>
+<h2 id="11-需求追踪与验收标准"><a class="markdownIt-Anchor" href="#11-需求追踪与验收标准"></a> 11. 需求追踪与验收标准</h2>
+<h3 id="111-需求追踪"><a class="markdownIt-Anchor" href="#111-需求追踪"></a> 11.1 需求追踪</h3>
+<table>
+<thead>
+<tr>
+<th>需求来源</th>
+<th>对应功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>学生练习场景</td>
+<td>曲库浏览、智能陪练、评分报告、练习记录</td>
+</tr>
+<tr>
+<td>教师教学场景</td>
+<td>课程发布、约课确认、资源上传、学生进度查看</td>
+</tr>
+<tr>
+<td>家长监督场景</td>
+<td>账号关联、学习看板、阶段报告</td>
+</tr>
+<tr>
+<td>平台运营场景</td>
+<td>内容审核、投诉处理、用户权限管理</td>
+</tr>
+</tbody>
+</table>
+<h3 id="112-验收标准"><a class="markdownIt-Anchor" href="#112-验收标准"></a> 11.2 验收标准</h3>
+<ul>
+<li>系统能够支持学生完成一次从选曲到查看报告的完整练习流程。</li>
+<li>系统能够支持学生和教师完成一次完整约课流程。</li>
+<li>系统能够支持教师上传资源并由管理员完成审核。</li>
+<li>系统能够支持用户发布社区动态并进行互动或举报。</li>
+<li>系统能够支持教师或家长查看学生学习监督看板。</li>
+<li>用例图、5 个用例描述、5 个顺序图、完整类图和 3 个状态图能够与自然语言需求保持一致。</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://id-zy.github.io">zhaoyuan</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://id-zy.github.io/2026/05/21/%E8%BD%AF%E4%BB%B6%E9%9C%80%E6%B1%82%E8%A7%84%E6%A0%BC%E8%AF%B4%E6%98%8E%E4%B9%A6/">https://id-zy.github.io/2026/05/21/%E8%BD%AF%E4%BB%B6%E9%9C%80%E6%B1%82%E8%A7%84%E6%A0%BC%E8%AF%B4%E6%98%8E%E4%B9%A6/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://id-zy.github.io" target="_blank">笺札</a>！</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="https://pic1.imgdb.cn/item/6909bfe13203f7be00cf7141.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/05/23/%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8DV/" title="打家劫舍V-LeetCode"><img class="cover" src="https://pic1.imgdb.cn/item/6908b7d53203f7be00cc7a0d.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">打家劫舍V-LeetCode</div></div><div class="info-2"><div class="info-item-1"> 3840. 打家劫舍 V - House Robber V  🎯 问题描述（来源于LeetCode） 描述： 你是一个专业的小偷，计划偷窃沿街的房屋。每间房内都藏有一定的现金，每间房还有一个颜色代码。 与传统的打家劫舍不同，本题的限制为：相邻且颜色相同的房屋不能在同一晚上被偷。 即：如果两间相邻的房屋颜色不同，则可以同时偷窃；如果颜色相同，则不能同时偷窃。 给定两个数组 nums（金额）和 colors（颜色），返回不触发警报的情况下能偷窃到的最大金额。 说明：  相邻房屋之间只有颜色相同时才有额外限制。 数组长度 1 &lt;= n &lt;= 10^5。  示例：  示例 1：  123输入: nums = [1,4,3,5], colors = [1,1,2,2]输出: 9解释: 偷第1间(4)和第3间(5)，不相邻，金额=9。  示例 2：  123输入: nums = [3,1,2,4], colors = [2,3,2,2]输出: 8解释: 偷第0间(3)、第1间(1)、第3间(4)，相邻且颜色不同(3和1不同)允许，总金额=8。  💻 解题思路  思路：动态规...</div></div></div></a><a class="pagination-related" href="/2026/05/21/%E7%BB%9F%E8%AE%A1%E6%9E%84%E9%80%A0%E5%A5%BD%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%96%B9%E6%B3%95%E6%95%B0/" title="统计构造好字符串的方法数-LeetCode"><img class="cover" src="https://pic1.imgdb.cn/item/6908b7a43203f7be00cc79d1.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">统计构造好字符串的方法数-LeetCode</div></div><div class="info-2"><div class="info-item-1"> 2466. 统计构造好字符串的方法数 - Count Ways To Build Good Strings  🎯 问题描述（来源于LeetCode） 描述： 给你整数 low、high、zero 和 one。请你构造字符串，每次操作可以添加 zero 个 '0' 或添加 one 个 '1'。 求最终字符串的长度在 [low, high] 之间的不同构造方法数。答案对 10^9+7 取模。 说明：  空字符串是允许的初始状态。 每次操作必须添加恰好 zero 个 '0' 或恰好 one 个 '1'，不能部分添加。  示例：  示例 1：  123输入: low = 3, high = 3, zero = 1, one = 1输出: 8解释: 长度为3的字符串有8种（每位可以是0或1）。  示例 2：  123输入: low = 2, high = 3, zero = 1, one = 2输出: 5解释: 长度为2：00,11；长度为3：000,011,110；共5种。  💻 解题思路  思路：动态规划（爬楼梯变种）  算法步骤  定义 dp[i] 表示构造长度为 i 的字符串...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://pic1.imgdb.cn/item/6829891e58cb8da5c8fabff0.png" onerror="this.onerror=null;this.src='/img/friend_04.gif'" alt="avatar"/></div><div class="author-info-name">zhaoyuan</div><div class="author-info-description">一封封记录足迹与所悟的信集</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">485</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">37</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%99%BA%E7%90%B4%E4%BA%91%E9%92%A2%E7%90%B4%E5%AD%A6%E4%B9%A0%E5%B9%B3%E5%8F%B0%E8%BD%AF%E4%BB%B6%E9%9C%80%E6%B1%82%E8%A7%84%E6%A0%BC%E8%AF%B4%E6%98%8E%E4%B9%A6"><span class="toc-number">1.</span> <span class="toc-text"> 智琴云钢琴学习平台软件需求规格说明书</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%BC%95%E8%A8%80"><span class="toc-number">1.1.</span> <span class="toc-text"> 1. 引言</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#11-%E7%BC%96%E5%86%99%E7%9B%AE%E7%9A%84"><span class="toc-number">1.1.1.</span> <span class="toc-text"> 1.1 编写目的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#12-%E9%A1%B9%E7%9B%AE%E8%83%8C%E6%99%AF"><span class="toc-number">1.1.2.</span> <span class="toc-text"> 1.2 项目背景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#13-%E9%A1%B9%E7%9B%AE%E8%8C%83%E5%9B%B4"><span class="toc-number">1.1.3.</span> <span class="toc-text"> 1.3 项目范围</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#14-%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number">1.1.4.</span> <span class="toc-text"> 1.4 参考资料</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#15-%E6%9C%AF%E8%AF%AD%E5%92%8C%E7%BC%A9%E7%95%A5%E8%AF%AD"><span class="toc-number">1.1.5.</span> <span class="toc-text"> 1.5 术语和缩略语</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E4%BB%BB%E5%8A%A1%E6%A6%82%E8%BF%B0"><span class="toc-number">1.2.</span> <span class="toc-text"> 2. 任务概述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#21-%E7%B3%BB%E7%BB%9F%E7%9B%AE%E6%A0%87"><span class="toc-number">1.2.1.</span> <span class="toc-text"> 2.1 系统目标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#22-%E7%94%A8%E6%88%B7%E7%89%B9%E7%82%B9"><span class="toc-number">1.2.2.</span> <span class="toc-text"> 2.2 用户特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#23-%E5%81%87%E5%AE%9A%E5%92%8C%E7%BA%A6%E6%9D%9F"><span class="toc-number">1.2.3.</span> <span class="toc-text"> 2.3 假定和约束</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E9%9C%80%E6%B1%82%E8%8E%B7%E5%8F%96"><span class="toc-number">1.3.</span> <span class="toc-text"> 3. 需求获取</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#31-%E9%9C%80%E6%B1%82%E8%8E%B7%E5%8F%96%E6%96%B9%E6%B3%95"><span class="toc-number">1.3.1.</span> <span class="toc-text"> 3.1 需求获取方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#32-%E9%9C%80%E6%B1%82%E8%8E%B7%E5%8F%96%E5%AF%B9%E8%B1%A1"><span class="toc-number">1.3.2.</span> <span class="toc-text"> 3.2 需求获取对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#33-%E9%9C%80%E6%B1%82%E8%8E%B7%E5%8F%96%E7%BB%93%E8%AE%BA"><span class="toc-number">1.3.3.</span> <span class="toc-text"> 3.3 需求获取结论</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E9%9C%80%E6%B1%82%E6%8F%8F%E8%BF%B0"><span class="toc-number">1.4.</span> <span class="toc-text"> 4. 自然语言需求描述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#41-%E5%8A%9F%E8%83%BD%E6%80%A7%E9%9C%80%E6%B1%82"><span class="toc-number">1.4.1.</span> <span class="toc-text"> 4.1 功能性需求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#42-%E9%9D%9E%E5%8A%9F%E8%83%BD%E6%80%A7%E9%9C%80%E6%B1%82"><span class="toc-number">1.4.2.</span> <span class="toc-text"> 4.2 非功能性需求</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E5%8A%9F%E8%83%BD%E6%80%A7%E9%9C%80%E6%B1%82%E7%9A%84%E7%94%A8%E4%BE%8B%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.5.</span> <span class="toc-text"> 5. 功能性需求的用例模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#51-%E5%8F%82%E4%B8%8E%E8%80%85%E8%AF%B4%E6%98%8E"><span class="toc-number">1.5.1.</span> <span class="toc-text"> 5.1 参与者说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#52-%E7%94%A8%E4%BE%8B%E5%9B%BE"><span class="toc-number">1.5.2.</span> <span class="toc-text"> 5.2 用例图</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E6%A0%B8%E5%BF%83%E7%94%A8%E4%BE%8B%E6%8F%8F%E8%BF%B0"><span class="toc-number">1.6.</span> <span class="toc-text"> 6. 核心用例描述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#61-uc-03-%E6%99%BA%E8%83%BD%E9%99%AA%E7%BB%83%E4%B8%8E%E6%89%93%E5%88%86"><span class="toc-number">1.6.1.</span> <span class="toc-text"> 6.1 UC-03 智能陪练与打分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#62-uc-05-%E4%B8%80%E5%AF%B9%E4%B8%80%E7%BA%A6%E8%AF%BE"><span class="toc-number">1.6.2.</span> <span class="toc-text"> 6.2 UC-05 一对一约课</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#63-uc-07-%E4%B8%8A%E4%BC%A0%E6%95%99%E5%AD%A6%E8%B5%84%E6%BA%90"><span class="toc-number">1.6.3.</span> <span class="toc-text"> 6.3 UC-07 上传教学资源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#64-uc-09-%E5%8F%91%E5%B8%83%E7%A4%BE%E5%8C%BA%E5%8A%A8%E6%80%81"><span class="toc-number">1.6.4.</span> <span class="toc-text"> 6.4 UC-09 发布社区动态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#65-uc-11-%E6%9F%A5%E7%9C%8B%E5%AD%A6%E4%B9%A0%E7%9B%91%E7%9D%A3%E7%9C%8B%E6%9D%BF"><span class="toc-number">1.6.5.</span> <span class="toc-text"> 6.5 UC-11 查看学习监督看板</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E6%A0%B8%E5%BF%83%E9%A1%BA%E5%BA%8F%E5%9B%BE"><span class="toc-number">1.7.</span> <span class="toc-text"> 7. 核心顺序图</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#71-%E6%99%BA%E8%83%BD%E9%99%AA%E7%BB%83%E4%B8%8E%E6%89%93%E5%88%86%E9%A1%BA%E5%BA%8F%E5%9B%BE"><span class="toc-number">1.7.1.</span> <span class="toc-text"> 7.1 智能陪练与打分顺序图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#72-%E4%B8%80%E5%AF%B9%E4%B8%80%E7%BA%A6%E8%AF%BE%E9%A1%BA%E5%BA%8F%E5%9B%BE"><span class="toc-number">1.7.2.</span> <span class="toc-text"> 7.2 一对一约课顺序图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#73-%E4%B8%8A%E4%BC%A0%E6%95%99%E5%AD%A6%E8%B5%84%E6%BA%90%E9%A1%BA%E5%BA%8F%E5%9B%BE"><span class="toc-number">1.7.3.</span> <span class="toc-text"> 7.3 上传教学资源顺序图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#74-%E5%8F%91%E5%B8%83%E7%A4%BE%E5%8C%BA%E5%8A%A8%E6%80%81%E9%A1%BA%E5%BA%8F%E5%9B%BE"><span class="toc-number">1.7.4.</span> <span class="toc-text"> 7.4 发布社区动态顺序图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#75-%E6%9F%A5%E7%9C%8B%E5%AD%A6%E4%B9%A0%E7%9B%91%E7%9D%A3%E7%9C%8B%E6%9D%BF%E9%A1%BA%E5%BA%8F%E5%9B%BE"><span class="toc-number">1.7.5.</span> <span class="toc-text"> 7.5 查看学习监督看板顺序图</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-%E5%88%86%E6%9E%90%E7%B1%BB%E4%B8%8E%E5%AE%8C%E6%95%B4%E7%B3%BB%E7%BB%9F%E7%B1%BB%E5%9B%BE"><span class="toc-number">1.8.</span> <span class="toc-text"> 8. 分析类与完整系统类图</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#81-%E9%A1%BA%E5%BA%8F%E5%9B%BE%E4%B8%AD%E7%9A%84%E5%88%86%E6%9E%90%E7%B1%BB%E6%8F%90%E5%8F%96"><span class="toc-number">1.8.1.</span> <span class="toc-text"> 8.1 顺序图中的分析类提取</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#82-%E5%AE%8C%E6%95%B4%E7%B3%BB%E7%BB%9F%E7%B1%BB%E5%9B%BE"><span class="toc-number">1.8.2.</span> <span class="toc-text"> 8.2 完整系统类图</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-%E7%8A%B6%E6%80%81%E5%9B%BE"><span class="toc-number">1.9.</span> <span class="toc-text"> 9. 状态图</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#91-%E8%AF%BE%E7%A8%8B%E9%A2%84%E7%BA%A6%E7%8A%B6%E6%80%81%E5%9B%BE"><span class="toc-number">1.9.1.</span> <span class="toc-text"> 9.1 课程预约状态图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#92-%E6%95%99%E5%AD%A6%E8%B5%84%E6%BA%90%E5%AE%A1%E6%A0%B8%E7%8A%B6%E6%80%81%E5%9B%BE"><span class="toc-number">1.9.2.</span> <span class="toc-text"> 9.2 教学资源审核状态图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#93-%E7%BB%83%E4%B9%A0%E8%AE%B0%E5%BD%95%E7%8A%B6%E6%80%81%E5%9B%BE"><span class="toc-number">1.9.3.</span> <span class="toc-text"> 9.3 练习记录状态图</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-%E5%A4%96%E9%83%A8%E6%8E%A5%E5%8F%A3%E9%9C%80%E6%B1%82"><span class="toc-number">1.10.</span> <span class="toc-text"> 10. 外部接口需求</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#101-%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E6%8E%A5%E5%8F%A3"><span class="toc-number">1.10.1.</span> <span class="toc-text"> 10.1 用户界面接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#102-%E7%A1%AC%E4%BB%B6%E6%8E%A5%E5%8F%A3"><span class="toc-number">1.10.2.</span> <span class="toc-text"> 10.2 硬件接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#103-%E8%BD%AF%E4%BB%B6%E6%8E%A5%E5%8F%A3"><span class="toc-number">1.10.3.</span> <span class="toc-text"> 10.3 软件接口</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-%E9%9C%80%E6%B1%82%E8%BF%BD%E8%B8%AA%E4%B8%8E%E9%AA%8C%E6%94%B6%E6%A0%87%E5%87%86"><span class="toc-number">1.11.</span> <span class="toc-text"> 11. 需求追踪与验收标准</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#111-%E9%9C%80%E6%B1%82%E8%BF%BD%E8%B8%AA"><span class="toc-number">1.11.1.</span> <span class="toc-text"> 11.1 需求追踪</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#112-%E9%AA%8C%E6%94%B6%E6%A0%87%E5%87%86"><span class="toc-number">1.11.2.</span> <span class="toc-text"> 11.2 验收标准</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/07/10/%E5%88%A0%E9%99%A4%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E9%A1%B9/" title="删除有序数组中的重复项 -LeetCode"><img src="https://pic1.imgdb.cn/item/6909bfed3203f7be00cf7171.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="删除有序数组中的重复项 -LeetCode"/></a><div class="content"><a class="title" href="/2026/07/10/%E5%88%A0%E9%99%A4%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E9%A1%B9/" title="删除有序数组中的重复项 -LeetCode">删除有序数组中的重复项 -LeetCode</a><time datetime="2026-07-09T16:00:00.000Z" title="发表于 2026-07-10 00:00:00">2026-07-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/07/10/%E6%89%BE%E5%87%BA%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%89%80%E6%9C%89%20K%20%E8%BF%91%E9%82%BB%E4%B8%8B%E6%A0%87/" title="找出数组中的所有 K 近邻下标 -LeetCode"><img src="https://pic1.imgdb.cn/item/6909bfa63203f7be00cf70c7.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="找出数组中的所有 K 近邻下标 -LeetCode"/></a><div class="content"><a class="title" href="/2026/07/10/%E6%89%BE%E5%87%BA%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%89%80%E6%9C%89%20K%20%E8%BF%91%E9%82%BB%E4%B8%8B%E6%A0%87/" title="找出数组中的所有 K 近邻下标 -LeetCode">找出数组中的所有 K 近邻下标 -LeetCode</a><time datetime="2026-07-09T16:00:00.000Z" title="发表于 2026-07-10 00:00:00">2026-07-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/07/10/%E6%9C%89%E6%95%88%E4%B8%89%E8%A7%92%E5%BD%A2%E7%9A%84%E4%B8%AA%E6%95%B0/" title="有效三角形的个数-LeetCode"><img src="https://pic1.imgdb.cn/item/6909bfa63203f7be00cf70c6.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="有效三角形的个数-LeetCode"/></a><div class="content"><a class="title" href="/2026/07/10/%E6%9C%89%E6%95%88%E4%B8%89%E8%A7%92%E5%BD%A2%E7%9A%84%E4%B8%AA%E6%95%B0/" title="有效三角形的个数-LeetCode">有效三角形的个数-LeetCode</a><time datetime="2026-07-09T16:00:00.000Z" title="发表于 2026-07-10 00:00:00">2026-07-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/07/09/%E5%88%A0%E9%99%A4%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%A4%E7%AB%AF%E7%9B%B8%E5%90%8C%E5%AD%97%E7%AC%A6%E5%90%8E%E7%9A%84%E6%9C%80%E7%9F%AD%E9%95%BF%E5%BA%A6/" title="删除字符串两端相同字符后的最短长度-LeetCode"><img src="https://pic1.imgdb.cn/item/6909bfed3203f7be00cf7174.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="删除字符串两端相同字符后的最短长度-LeetCode"/></a><div class="content"><a class="title" href="/2026/07/09/%E5%88%A0%E9%99%A4%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%A4%E7%AB%AF%E7%9B%B8%E5%90%8C%E5%AD%97%E7%AC%A6%E5%90%8E%E7%9A%84%E6%9C%80%E7%9F%AD%E9%95%BF%E5%BA%A6/" title="删除字符串两端相同字符后的最短长度-LeetCode">删除字符串两端相同字符后的最短长度-LeetCode</a><time datetime="2026-07-08T16:00:00.000Z" title="发表于 2026-07-09 00:00:00">2026-07-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/07/09/%E5%8F%8D%E8%BD%AC%E4%B8%80%E4%B8%AA%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%87%8C%E7%9A%84%E5%AD%97%E6%AF%8D%E5%90%8E%E5%8F%8D%E8%BD%AC%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6/" title="反转一个字符串里的字母后反转特殊字符-LeetCode"><img src="https://pic1.imgdb.cn/item/6909bfa63203f7be00cf70c6.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="反转一个字符串里的字母后反转特殊字符-LeetCode"/></a><div class="content"><a class="title" href="/2026/07/09/%E5%8F%8D%E8%BD%AC%E4%B8%80%E4%B8%AA%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%87%8C%E7%9A%84%E5%AD%97%E6%AF%8D%E5%90%8E%E5%8F%8D%E8%BD%AC%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6/" title="反转一个字符串里的字母后反转特殊字符-LeetCode">反转一个字符串里的字母后反转特殊字符-LeetCode</a><time datetime="2026-07-08T16:00:00.000Z" title="发表于 2026-07-09 00:00:00">2026-07-09</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2019 - 2026 By zhaoyuan</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(async () => {
+  const showKatex = () => {
+    document.querySelectorAll('#article-container .katex').forEach(el => el.classList.add('katex-show'))
+  }
+
+  if (!window.katex_js_css) {
+    window.katex_js_css = true
+    await btf.getCSS('https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css')
+    if (false) {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js')
+    }
+  }
+
+  showKatex()
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
