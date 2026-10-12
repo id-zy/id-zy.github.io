@@ -1,10 +1,3 @@
-/* 页脚与头图透明 
-#footer {
-  background: transparent !important;
-}
-#page-header {
-  background: transparent !important;
-}*/
 /* 页脚透明 */
 #footer {
   background: transparent !important;
@@ -13,17 +6,12 @@
 #footer::before {
   background: transparent !important;
 }
-/* 头图透明 */
-#page-header {
-  background: transparent !important;
-}
-/*top-img黑色透明玻璃效果移除，不建议加，除非你执着于完全一图流或者背景图对比色明显 */
-#page-header.post-bg:before {
-  background-color: transparent !important;
-}
-#page-header:not(.not-top-img):before {
-  background-color: transparent !important;
-}
+
+/*
+  头图与遮罩由 ink.css 统一接管（墨染山水头图）
+  这里不再强制透明，避免覆盖水墨风格
+*/
+
 /*夜间模式伪类遮罩层透明*/
 [data-theme="dark"] #footer::before {
   background: transparent !important;
@@ -34,7 +22,7 @@
 
 .clock-row,
 .card-clock-time {
-  font-family: ZhuZiAYuanJWD !important;
+  font-family: "LXGW WenKai", "Kaiti SC", "STKaiti", "KaiTi", "楷体", ZhuZiAYuanJWD, serif !important;
   font-size: 14px;
   letter-spacing: -1px;
 }
@@ -58,7 +46,7 @@
 }
 
 #site-title {
-  font-family: Chalkboard_SE, ZhuZiAYuanJWD !important;
+  font-family: "Ma Shan Zheng", "LXGW WenKai", "Kaiti SC", "STKaiti", "KaiTi", "楷体", serif !important;
   font-weight: normal !important;
 }
 
@@ -70,10 +58,8 @@ hr:before,
 }
 
 .gitcalendar {
-  font-family: ZhuZiAYuanJWD;
+  font-family: "LXGW WenKai", "Kaiti SC", "STKaiti", "KaiTi", "楷体", ZhuZiAYuanJWD, serif;
   /* margin-top: 20px; */
   border-radius: 8px;
   background-color: var(--card-bg);
 }
-
- 

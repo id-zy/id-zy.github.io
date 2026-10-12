@@ -3,11 +3,11 @@
   <title>笺札</title>
   
   
-  <link href="https://id-zy.github.io/atom.xml" rel="self"/>
+  <link href="https://blog.id-zyuan.xyz/atom.xml" rel="self"/>
   
-  <link href="https://id-zy.github.io/"/>
+  <link href="https://blog.id-zyuan.xyz/"/>
   <updated>2026-07-10T12:06:19.796Z</updated>
-  <id>https://id-zy.github.io/</id>
+  <id>https://blog.id-zyuan.xyz/</id>
   
   <author>
     <name>zhaoyuan</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>删除有序数组中的重复项 -LeetCode</title>
-    <link href="https://id-zy.github.io/2026/07/10/%E5%88%A0%E9%99%A4%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E9%A1%B9/"/>
-    <id>https://id-zy.github.io/2026/07/10/%E5%88%A0%E9%99%A4%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E9%A1%B9/</id>
+    <link href="https://blog.id-zyuan.xyz/2026/07/10/%E5%88%A0%E9%99%A4%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E9%A1%B9/"/>
+    <id>https://blog.id-zyuan.xyz/2026/07/10/%E5%88%A0%E9%99%A4%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E9%A1%B9/</id>
     <published>2026-07-09T16:00:00.000Z</published>
     <updated>2026-07-10T12:06:19.796Z</updated>
     
@@ -33,17 +33,17 @@
     
     
     
-    <category term="作业练习" scheme="https://id-zy.github.io/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
+    <category term="作业练习" scheme="https://blog.id-zyuan.xyz/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="LeetCode" scheme="https://id-zy.github.io/tags/LeetCode/"/>
+    <category term="LeetCode" scheme="https://blog.id-zyuan.xyz/tags/LeetCode/"/>
     
   </entry>
   
   <entry>
     <title>找出数组中的所有 K 近邻下标 -LeetCode</title>
-    <link href="https://id-zy.github.io/2026/07/10/%E6%89%BE%E5%87%BA%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%89%80%E6%9C%89%20K%20%E8%BF%91%E9%82%BB%E4%B8%8B%E6%A0%87/"/>
-    <id>https://id-zy.github.io/2026/07/10/%E6%89%BE%E5%87%BA%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%89%80%E6%9C%89%20K%20%E8%BF%91%E9%82%BB%E4%B8%8B%E6%A0%87/</id>
+    <link href="https://blog.id-zyuan.xyz/2026/07/10/%E6%89%BE%E5%87%BA%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%89%80%E6%9C%89%20K%20%E8%BF%91%E9%82%BB%E4%B8%8B%E6%A0%87/"/>
+    <id>https://blog.id-zyuan.xyz/2026/07/10/%E6%89%BE%E5%87%BA%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%89%80%E6%9C%89%20K%20%E8%BF%91%E9%82%BB%E4%B8%8B%E6%A0%87/</id>
     <published>2026-07-09T16:00:00.000Z</published>
     <updated>2026-07-10T11:36:52.884Z</updated>
     
@@ -57,17 +57,17 @@
     
     
     
-    <category term="作业练习" scheme="https://id-zy.github.io/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
+    <category term="作业练习" scheme="https://blog.id-zyuan.xyz/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="LeetCode" scheme="https://id-zy.github.io/tags/LeetCode/"/>
+    <category term="LeetCode" scheme="https://blog.id-zyuan.xyz/tags/LeetCode/"/>
     
   </entry>
   
   <entry>
     <title>有效三角形的个数-LeetCode</title>
-    <link href="https://id-zy.github.io/2026/07/10/%E6%9C%89%E6%95%88%E4%B8%89%E8%A7%92%E5%BD%A2%E7%9A%84%E4%B8%AA%E6%95%B0/"/>
-    <id>https://id-zy.github.io/2026/07/10/%E6%9C%89%E6%95%88%E4%B8%89%E8%A7%92%E5%BD%A2%E7%9A%84%E4%B8%AA%E6%95%B0/</id>
+    <link href="https://blog.id-zyuan.xyz/2026/07/10/%E6%9C%89%E6%95%88%E4%B8%89%E8%A7%92%E5%BD%A2%E7%9A%84%E4%B8%AA%E6%95%B0/"/>
+    <id>https://blog.id-zyuan.xyz/2026/07/10/%E6%9C%89%E6%95%88%E4%B8%89%E8%A7%92%E5%BD%A2%E7%9A%84%E4%B8%AA%E6%95%B0/</id>
     <published>2026-07-09T16:00:00.000Z</published>
     <updated>2026-07-10T11:48:59.765Z</updated>
     
@@ -81,17 +81,17 @@
     
     
     
-    <category term="作业练习" scheme="https://id-zy.github.io/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
+    <category term="作业练习" scheme="https://blog.id-zyuan.xyz/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="LeetCode" scheme="https://id-zy.github.io/tags/LeetCode/"/>
+    <category term="LeetCode" scheme="https://blog.id-zyuan.xyz/tags/LeetCode/"/>
     
   </entry>
   
   <entry>
     <title>删除字符串两端相同字符后的最短长度-LeetCode</title>
-    <link href="https://id-zy.github.io/2026/07/09/%E5%88%A0%E9%99%A4%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%A4%E7%AB%AF%E7%9B%B8%E5%90%8C%E5%AD%97%E7%AC%A6%E5%90%8E%E7%9A%84%E6%9C%80%E7%9F%AD%E9%95%BF%E5%BA%A6/"/>
-    <id>https://id-zy.github.io/2026/07/09/%E5%88%A0%E9%99%A4%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%A4%E7%AB%AF%E7%9B%B8%E5%90%8C%E5%AD%97%E7%AC%A6%E5%90%8E%E7%9A%84%E6%9C%80%E7%9F%AD%E9%95%BF%E5%BA%A6/</id>
+    <link href="https://blog.id-zyuan.xyz/2026/07/09/%E5%88%A0%E9%99%A4%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%A4%E7%AB%AF%E7%9B%B8%E5%90%8C%E5%AD%97%E7%AC%A6%E5%90%8E%E7%9A%84%E6%9C%80%E7%9F%AD%E9%95%BF%E5%BA%A6/"/>
+    <id>https://blog.id-zyuan.xyz/2026/07/09/%E5%88%A0%E9%99%A4%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%A4%E7%AB%AF%E7%9B%B8%E5%90%8C%E5%AD%97%E7%AC%A6%E5%90%8E%E7%9A%84%E6%9C%80%E7%9F%AD%E9%95%BF%E5%BA%A6/</id>
     <published>2026-07-08T16:00:00.000Z</published>
     <updated>2026-07-09T12:20:08.110Z</updated>
     
@@ -105,17 +105,17 @@
     
     
     
-    <category term="作业练习" scheme="https://id-zy.github.io/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
+    <category term="作业练习" scheme="https://blog.id-zyuan.xyz/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="LeetCode" scheme="https://id-zy.github.io/tags/LeetCode/"/>
+    <category term="LeetCode" scheme="https://blog.id-zyuan.xyz/tags/LeetCode/"/>
     
   </entry>
   
   <entry>
     <title>反转一个字符串里的字母后反转特殊字符-LeetCode</title>
-    <link href="https://id-zy.github.io/2026/07/09/%E5%8F%8D%E8%BD%AC%E4%B8%80%E4%B8%AA%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%87%8C%E7%9A%84%E5%AD%97%E6%AF%8D%E5%90%8E%E5%8F%8D%E8%BD%AC%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6/"/>
-    <id>https://id-zy.github.io/2026/07/09/%E5%8F%8D%E8%BD%AC%E4%B8%80%E4%B8%AA%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%87%8C%E7%9A%84%E5%AD%97%E6%AF%8D%E5%90%8E%E5%8F%8D%E8%BD%AC%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6/</id>
+    <link href="https://blog.id-zyuan.xyz/2026/07/09/%E5%8F%8D%E8%BD%AC%E4%B8%80%E4%B8%AA%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%87%8C%E7%9A%84%E5%AD%97%E6%AF%8D%E5%90%8E%E5%8F%8D%E8%BD%AC%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6/"/>
+    <id>https://blog.id-zyuan.xyz/2026/07/09/%E5%8F%8D%E8%BD%AC%E4%B8%80%E4%B8%AA%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%87%8C%E7%9A%84%E5%AD%97%E6%AF%8D%E5%90%8E%E5%8F%8D%E8%BD%AC%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6/</id>
     <published>2026-07-08T16:00:00.000Z</published>
     <updated>2026-07-09T11:49:15.523Z</updated>
     
@@ -129,17 +129,17 @@
     
     
     
-    <category term="作业练习" scheme="https://id-zy.github.io/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
+    <category term="作业练习" scheme="https://blog.id-zyuan.xyz/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="LeetCode" scheme="https://id-zy.github.io/tags/LeetCode/"/>
+    <category term="LeetCode" scheme="https://blog.id-zyuan.xyz/tags/LeetCode/"/>
     
   </entry>
   
   <entry>
     <title>字典序最小回文串-LeetCode</title>
-    <link href="https://id-zy.github.io/2026/07/09/%E5%AD%97%E5%85%B8%E5%BA%8F%E6%9C%80%E5%B0%8F%E5%9B%9E%E6%96%87%E4%B8%B2/"/>
-    <id>https://id-zy.github.io/2026/07/09/%E5%AD%97%E5%85%B8%E5%BA%8F%E6%9C%80%E5%B0%8F%E5%9B%9E%E6%96%87%E4%B8%B2/</id>
+    <link href="https://blog.id-zyuan.xyz/2026/07/09/%E5%AD%97%E5%85%B8%E5%BA%8F%E6%9C%80%E5%B0%8F%E5%9B%9E%E6%96%87%E4%B8%B2/"/>
+    <id>https://blog.id-zyuan.xyz/2026/07/09/%E5%AD%97%E5%85%B8%E5%BA%8F%E6%9C%80%E5%B0%8F%E5%9B%9E%E6%96%87%E4%B8%B2/</id>
     <published>2026-07-08T16:00:00.000Z</published>
     <updated>2026-07-09T11:56:09.501Z</updated>
     
@@ -153,17 +153,17 @@
     
     
     
-    <category term="作业练习" scheme="https://id-zy.github.io/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
+    <category term="作业练习" scheme="https://blog.id-zyuan.xyz/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="LeetCode" scheme="https://id-zy.github.io/tags/LeetCode/"/>
+    <category term="LeetCode" scheme="https://blog.id-zyuan.xyz/tags/LeetCode/"/>
     
   </entry>
   
   <entry>
     <title>给植物浇水 II-LeetCode</title>
-    <link href="https://id-zy.github.io/2026/07/09/%E7%BB%99%E6%A4%8D%E7%89%A9%E6%B5%87%E6%B0%B4%20II/"/>
-    <id>https://id-zy.github.io/2026/07/09/%E7%BB%99%E6%A4%8D%E7%89%A9%E6%B5%87%E6%B0%B4%20II/</id>
+    <link href="https://blog.id-zyuan.xyz/2026/07/09/%E7%BB%99%E6%A4%8D%E7%89%A9%E6%B5%87%E6%B0%B4%20II/"/>
+    <id>https://blog.id-zyuan.xyz/2026/07/09/%E7%BB%99%E6%A4%8D%E7%89%A9%E6%B5%87%E6%B0%B4%20II/</id>
     <published>2026-07-08T16:00:00.000Z</published>
     <updated>2026-07-09T12:42:39.713Z</updated>
     
@@ -177,17 +177,17 @@
     
     
     
-    <category term="作业练习" scheme="https://id-zy.github.io/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
+    <category term="作业练习" scheme="https://blog.id-zyuan.xyz/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="LeetCode" scheme="https://id-zy.github.io/tags/LeetCode/"/>
+    <category term="LeetCode" scheme="https://blog.id-zyuan.xyz/tags/LeetCode/"/>
     
   </entry>
   
   <entry>
     <title>反转单词前缀-LeetCode</title>
-    <link href="https://id-zy.github.io/2026/07/07/%E5%8F%8D%E8%BD%AC%E5%8D%95%E8%AF%8D%E5%89%8D%E7%BC%80/"/>
-    <id>https://id-zy.github.io/2026/07/07/%E5%8F%8D%E8%BD%AC%E5%8D%95%E8%AF%8D%E5%89%8D%E7%BC%80/</id>
+    <link href="https://blog.id-zyuan.xyz/2026/07/07/%E5%8F%8D%E8%BD%AC%E5%8D%95%E8%AF%8D%E5%89%8D%E7%BC%80/"/>
+    <id>https://blog.id-zyuan.xyz/2026/07/07/%E5%8F%8D%E8%BD%AC%E5%8D%95%E8%AF%8D%E5%89%8D%E7%BC%80/</id>
     <published>2026-07-06T16:00:00.000Z</published>
     <updated>2026-07-07T06:14:51.951Z</updated>
     
@@ -201,17 +201,17 @@
     
     
     
-    <category term="作业练习" scheme="https://id-zy.github.io/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
+    <category term="作业练习" scheme="https://blog.id-zyuan.xyz/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="LeetCode" scheme="https://id-zy.github.io/tags/LeetCode/"/>
+    <category term="LeetCode" scheme="https://blog.id-zyuan.xyz/tags/LeetCode/"/>
     
   </entry>
   
   <entry>
     <title>反转字符串前缀 -LeetCode</title>
-    <link href="https://id-zy.github.io/2026/07/07/%E5%8F%8D%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%89%8D%E7%BC%80/"/>
-    <id>https://id-zy.github.io/2026/07/07/%E5%8F%8D%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%89%8D%E7%BC%80/</id>
+    <link href="https://blog.id-zyuan.xyz/2026/07/07/%E5%8F%8D%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%89%8D%E7%BC%80/"/>
+    <id>https://blog.id-zyuan.xyz/2026/07/07/%E5%8F%8D%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%89%8D%E7%BC%80/</id>
     <published>2026-07-06T16:00:00.000Z</published>
     <updated>2026-07-07T06:04:17.396Z</updated>
     
@@ -225,17 +225,17 @@
     
     
     
-    <category term="作业练习" scheme="https://id-zy.github.io/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
+    <category term="作业练习" scheme="https://blog.id-zyuan.xyz/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="LeetCode" scheme="https://id-zy.github.io/tags/LeetCode/"/>
+    <category term="LeetCode" scheme="https://blog.id-zyuan.xyz/tags/LeetCode/"/>
     
   </entry>
   
   <entry>
     <title>垂直翻转子矩阵-LeetCode</title>
-    <link href="https://id-zy.github.io/2026/07/07/%E5%9E%82%E7%9B%B4%E7%BF%BB%E8%BD%AC%E5%AD%90%E7%9F%A9%E9%98%B5/"/>
-    <id>https://id-zy.github.io/2026/07/07/%E5%9E%82%E7%9B%B4%E7%BF%BB%E8%BD%AC%E5%AD%90%E7%9F%A9%E9%98%B5/</id>
+    <link href="https://blog.id-zyuan.xyz/2026/07/07/%E5%9E%82%E7%9B%B4%E7%BF%BB%E8%BD%AC%E5%AD%90%E7%9F%A9%E9%98%B5/"/>
+    <id>https://blog.id-zyuan.xyz/2026/07/07/%E5%9E%82%E7%9B%B4%E7%BF%BB%E8%BD%AC%E5%AD%90%E7%9F%A9%E9%98%B5/</id>
     <published>2026-07-06T16:00:00.000Z</published>
     <updated>2026-07-07T06:35:19.745Z</updated>
     
@@ -249,17 +249,17 @@
     
     
     
-    <category term="作业练习" scheme="https://id-zy.github.io/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
+    <category term="作业练习" scheme="https://blog.id-zyuan.xyz/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="LeetCode" scheme="https://id-zy.github.io/tags/LeetCode/"/>
+    <category term="LeetCode" scheme="https://blog.id-zyuan.xyz/tags/LeetCode/"/>
     
   </entry>
   
   <entry>
     <title>翻转图像-LeetCode</title>
-    <link href="https://id-zy.github.io/2026/07/07/%E7%BF%BB%E8%BD%AC%E5%9B%BE%E5%83%8F/"/>
-    <id>https://id-zy.github.io/2026/07/07/%E7%BF%BB%E8%BD%AC%E5%9B%BE%E5%83%8F/</id>
+    <link href="https://blog.id-zyuan.xyz/2026/07/07/%E7%BF%BB%E8%BD%AC%E5%9B%BE%E5%83%8F/"/>
+    <id>https://blog.id-zyuan.xyz/2026/07/07/%E7%BF%BB%E8%BD%AC%E5%9B%BE%E5%83%8F/</id>
     <published>2026-07-06T16:00:00.000Z</published>
     <updated>2026-07-07T06:57:45.019Z</updated>
     
@@ -273,17 +273,17 @@
     
     
     
-    <category term="作业练习" scheme="https://id-zy.github.io/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
+    <category term="作业练习" scheme="https://blog.id-zyuan.xyz/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="LeetCode" scheme="https://id-zy.github.io/tags/LeetCode/"/>
+    <category term="LeetCode" scheme="https://blog.id-zyuan.xyz/tags/LeetCode/"/>
     
   </entry>
   
   <entry>
     <title>包含所有三种字符的子字符串数目-LeetCode</title>
-    <link href="https://id-zy.github.io/2026/07/06/%E5%8C%85%E5%90%AB%E6%89%80%E6%9C%89%E4%B8%89%E7%A7%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%95%B0%E7%9B%AE/"/>
-    <id>https://id-zy.github.io/2026/07/06/%E5%8C%85%E5%90%AB%E6%89%80%E6%9C%89%E4%B8%89%E7%A7%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%95%B0%E7%9B%AE/</id>
+    <link href="https://blog.id-zyuan.xyz/2026/07/06/%E5%8C%85%E5%90%AB%E6%89%80%E6%9C%89%E4%B8%89%E7%A7%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%95%B0%E7%9B%AE/"/>
+    <id>https://blog.id-zyuan.xyz/2026/07/06/%E5%8C%85%E5%90%AB%E6%89%80%E6%9C%89%E4%B8%89%E7%A7%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%95%B0%E7%9B%AE/</id>
     <published>2026-07-05T16:00:00.000Z</published>
     <updated>2026-07-06T05:08:13.019Z</updated>
     
@@ -297,17 +297,17 @@
     
     
     
-    <category term="作业练习" scheme="https://id-zy.github.io/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
+    <category term="作业练习" scheme="https://blog.id-zyuan.xyz/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="LeetCode" scheme="https://id-zy.github.io/tags/LeetCode/"/>
+    <category term="LeetCode" scheme="https://blog.id-zyuan.xyz/tags/LeetCode/"/>
     
   </entry>
   
   <entry>
     <title>和相同的二元子数组-LeetCode</title>
-    <link href="https://id-zy.github.io/2026/07/06/%E5%92%8C%E7%9B%B8%E5%90%8C%E7%9A%84%E4%BA%8C%E5%85%83%E5%AD%90%E6%95%B0%E7%BB%84/"/>
-    <id>https://id-zy.github.io/2026/07/06/%E5%92%8C%E7%9B%B8%E5%90%8C%E7%9A%84%E4%BA%8C%E5%85%83%E5%AD%90%E6%95%B0%E7%BB%84/</id>
+    <link href="https://blog.id-zyuan.xyz/2026/07/06/%E5%92%8C%E7%9B%B8%E5%90%8C%E7%9A%84%E4%BA%8C%E5%85%83%E5%AD%90%E6%95%B0%E7%BB%84/"/>
+    <id>https://blog.id-zyuan.xyz/2026/07/06/%E5%92%8C%E7%9B%B8%E5%90%8C%E7%9A%84%E4%BA%8C%E5%85%83%E5%AD%90%E6%95%B0%E7%BB%84/</id>
     <published>2026-07-05T16:00:00.000Z</published>
     <updated>2026-07-06T05:36:28.749Z</updated>
     
@@ -321,17 +321,17 @@
     
     
     
-    <category term="作业练习" scheme="https://id-zy.github.io/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
+    <category term="作业练习" scheme="https://blog.id-zyuan.xyz/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="LeetCode" scheme="https://id-zy.github.io/tags/LeetCode/"/>
+    <category term="LeetCode" scheme="https://blog.id-zyuan.xyz/tags/LeetCode/"/>
     
   </entry>
   
   <entry>
     <title>统计「优美子数组」-LeetCode</title>
-    <link href="https://id-zy.github.io/2026/07/06/%E7%BB%9F%E8%AE%A1%E3%80%8C%E4%BC%98%E7%BE%8E%E5%AD%90%E6%95%B0%E7%BB%84%E3%80%8D/"/>
-    <id>https://id-zy.github.io/2026/07/06/%E7%BB%9F%E8%AE%A1%E3%80%8C%E4%BC%98%E7%BE%8E%E5%AD%90%E6%95%B0%E7%BB%84%E3%80%8D/</id>
+    <link href="https://blog.id-zyuan.xyz/2026/07/06/%E7%BB%9F%E8%AE%A1%E3%80%8C%E4%BC%98%E7%BE%8E%E5%AD%90%E6%95%B0%E7%BB%84%E3%80%8D/"/>
+    <id>https://blog.id-zyuan.xyz/2026/07/06/%E7%BB%9F%E8%AE%A1%E3%80%8C%E4%BC%98%E7%BE%8E%E5%AD%90%E6%95%B0%E7%BB%84%E3%80%8D/</id>
     <published>2026-07-05T16:00:00.000Z</published>
     <updated>2026-07-06T05:52:42.512Z</updated>
     
@@ -345,17 +345,17 @@
     
     
     
-    <category term="作业练习" scheme="https://id-zy.github.io/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
+    <category term="作业练习" scheme="https://blog.id-zyuan.xyz/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="LeetCode" scheme="https://id-zy.github.io/tags/LeetCode/"/>
+    <category term="LeetCode" scheme="https://blog.id-zyuan.xyz/tags/LeetCode/"/>
     
   </entry>
   
   <entry>
     <title>适龄的朋友-LeetCode</title>
-    <link href="https://id-zy.github.io/2026/07/06/%E9%80%82%E9%BE%84%E7%9A%84%E6%9C%8B%E5%8F%8B/"/>
-    <id>https://id-zy.github.io/2026/07/06/%E9%80%82%E9%BE%84%E7%9A%84%E6%9C%8B%E5%8F%8B/</id>
+    <link href="https://blog.id-zyuan.xyz/2026/07/06/%E9%80%82%E9%BE%84%E7%9A%84%E6%9C%8B%E5%8F%8B/"/>
+    <id>https://blog.id-zyuan.xyz/2026/07/06/%E9%80%82%E9%BE%84%E7%9A%84%E6%9C%8B%E5%8F%8B/</id>
     <published>2026-07-05T16:00:00.000Z</published>
     <updated>2026-07-06T06:00:36.007Z</updated>
     
@@ -369,17 +369,17 @@
     
     
     
-    <category term="作业练习" scheme="https://id-zy.github.io/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
+    <category term="作业练习" scheme="https://blog.id-zyuan.xyz/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="LeetCode" scheme="https://id-zy.github.io/tags/LeetCode/"/>
+    <category term="LeetCode" scheme="https://blog.id-zyuan.xyz/tags/LeetCode/"/>
     
   </entry>
   
   <entry>
     <title>乘积小于 K 的子数组-LeetCode</title>
-    <link href="https://id-zy.github.io/2026/07/05/%E4%B9%98%E7%A7%AF%E5%B0%8F%E4%BA%8E%20K%20%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/"/>
-    <id>https://id-zy.github.io/2026/07/05/%E4%B9%98%E7%A7%AF%E5%B0%8F%E4%BA%8E%20K%20%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/</id>
+    <link href="https://blog.id-zyuan.xyz/2026/07/05/%E4%B9%98%E7%A7%AF%E5%B0%8F%E4%BA%8E%20K%20%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/"/>
+    <id>https://blog.id-zyuan.xyz/2026/07/05/%E4%B9%98%E7%A7%AF%E5%B0%8F%E4%BA%8E%20K%20%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/</id>
     <published>2026-07-04T16:00:00.000Z</published>
     <updated>2026-07-05T12:29:02.738Z</updated>
     
@@ -393,17 +393,17 @@
     
     
     
-    <category term="作业练习" scheme="https://id-zy.github.io/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
+    <category term="作业练习" scheme="https://blog.id-zyuan.xyz/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="LeetCode" scheme="https://id-zy.github.io/tags/LeetCode/"/>
+    <category term="LeetCode" scheme="https://blog.id-zyuan.xyz/tags/LeetCode/"/>
     
   </entry>
   
   <entry>
     <title>统计满足 K 约束的子字符串数量-LeetCode</title>
-    <link href="https://id-zy.github.io/2026/07/05/%E7%BB%9F%E8%AE%A1%E6%BB%A1%E8%B6%B3%20K%20%E7%BA%A6%E6%9D%9F%E7%9A%84%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%95%B0%E9%87%8F/"/>
-    <id>https://id-zy.github.io/2026/07/05/%E7%BB%9F%E8%AE%A1%E6%BB%A1%E8%B6%B3%20K%20%E7%BA%A6%E6%9D%9F%E7%9A%84%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%95%B0%E9%87%8F/</id>
+    <link href="https://blog.id-zyuan.xyz/2026/07/05/%E7%BB%9F%E8%AE%A1%E6%BB%A1%E8%B6%B3%20K%20%E7%BA%A6%E6%9D%9F%E7%9A%84%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%95%B0%E9%87%8F/"/>
+    <id>https://blog.id-zyuan.xyz/2026/07/05/%E7%BB%9F%E8%AE%A1%E6%BB%A1%E8%B6%B3%20K%20%E7%BA%A6%E6%9D%9F%E7%9A%84%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%95%B0%E9%87%8F/</id>
     <published>2026-07-04T16:00:00.000Z</published>
     <updated>2026-07-05T12:54:14.676Z</updated>
     
@@ -417,17 +417,17 @@
     
     
     
-    <category term="作业练习" scheme="https://id-zy.github.io/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
+    <category term="作业练习" scheme="https://blog.id-zyuan.xyz/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="LeetCode" scheme="https://id-zy.github.io/tags/LeetCode/"/>
+    <category term="LeetCode" scheme="https://blog.id-zyuan.xyz/tags/LeetCode/"/>
     
   </entry>
   
   <entry>
     <title>不同元素和至少为 K 的最短子数组长度-LeetCode</title>
-    <link href="https://id-zy.github.io/2026/07/04/%E4%B8%8D%E5%90%8C%E5%85%83%E7%B4%A0%E5%92%8C%E8%87%B3%E5%B0%91%E4%B8%BA%20K%20%E7%9A%84%E6%9C%80%E7%9F%AD%E5%AD%90%E6%95%B0%E7%BB%84%E9%95%BF%E5%BA%A6/"/>
-    <id>https://id-zy.github.io/2026/07/04/%E4%B8%8D%E5%90%8C%E5%85%83%E7%B4%A0%E5%92%8C%E8%87%B3%E5%B0%91%E4%B8%BA%20K%20%E7%9A%84%E6%9C%80%E7%9F%AD%E5%AD%90%E6%95%B0%E7%BB%84%E9%95%BF%E5%BA%A6/</id>
+    <link href="https://blog.id-zyuan.xyz/2026/07/04/%E4%B8%8D%E5%90%8C%E5%85%83%E7%B4%A0%E5%92%8C%E8%87%B3%E5%B0%91%E4%B8%BA%20K%20%E7%9A%84%E6%9C%80%E7%9F%AD%E5%AD%90%E6%95%B0%E7%BB%84%E9%95%BF%E5%BA%A6/"/>
+    <id>https://blog.id-zyuan.xyz/2026/07/04/%E4%B8%8D%E5%90%8C%E5%85%83%E7%B4%A0%E5%92%8C%E8%87%B3%E5%B0%91%E4%B8%BA%20K%20%E7%9A%84%E6%9C%80%E7%9F%AD%E5%AD%90%E6%95%B0%E7%BB%84%E9%95%BF%E5%BA%A6/</id>
     <published>2026-07-03T16:00:00.000Z</published>
     <updated>2026-07-04T05:17:15.701Z</updated>
     
@@ -441,17 +441,17 @@
     
     
     
-    <category term="作业练习" scheme="https://id-zy.github.io/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
+    <category term="作业练习" scheme="https://blog.id-zyuan.xyz/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="LeetCode" scheme="https://id-zy.github.io/tags/LeetCode/"/>
+    <category term="LeetCode" scheme="https://blog.id-zyuan.xyz/tags/LeetCode/"/>
     
   </entry>
   
   <entry>
     <title>长度最小的子数组-LeetCode</title>
-    <link href="https://id-zy.github.io/2026/07/04/%E9%95%BF%E5%BA%A6%E6%9C%80%E5%B0%8F%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/"/>
-    <id>https://id-zy.github.io/2026/07/04/%E9%95%BF%E5%BA%A6%E6%9C%80%E5%B0%8F%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/</id>
+    <link href="https://blog.id-zyuan.xyz/2026/07/04/%E9%95%BF%E5%BA%A6%E6%9C%80%E5%B0%8F%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/"/>
+    <id>https://blog.id-zyuan.xyz/2026/07/04/%E9%95%BF%E5%BA%A6%E6%9C%80%E5%B0%8F%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/</id>
     <published>2026-07-03T16:00:00.000Z</published>
     <updated>2026-07-04T05:05:49.755Z</updated>
     
@@ -465,21 +465,21 @@
     
     
     
-    <category term="作业练习" scheme="https://id-zy.github.io/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
+    <category term="作业练习" scheme="https://blog.id-zyuan.xyz/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="LeetCode" scheme="https://id-zy.github.io/tags/LeetCode/"/>
+    <category term="LeetCode" scheme="https://blog.id-zyuan.xyz/tags/LeetCode/"/>
     
   </entry>
   
   <entry>
-    <title>不同路径-LeetCode</title>
-    <link href="https://id-zy.github.io/2026/05/30/%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84/"/>
-    <id>https://id-zy.github.io/2026/05/30/%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84/</id>
+    <title>不同路径 II-LeetCode</title>
+    <link href="https://blog.id-zyuan.xyz/2026/05/30/%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84%20II/"/>
+    <id>https://blog.id-zyuan.xyz/2026/05/30/%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84%20II/</id>
     <published>2026-05-29T16:00:00.000Z</published>
-    <updated>2026-05-30T01:27:11.277Z</updated>
+    <updated>2026-05-30T01:41:13.604Z</updated>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="62-不同路径-unique-paths"><a class="markdownIt-Anchor" href="#62-不同路径-unique-paths"></a> 62. 不同路径 - Unique Paths</h1><h2 id="问题描述来源于leetcode"><a class="markdownIt-Anchor" href="#问题描述来源于leetcode"></a> 🎯 问题描述（来源于LeetCode）</h2><p><strong>描述</strong>：<br />一个机器人位于一个 <code>m x n</code> 网格的左上角（起点为 <code>(0,0)</code>）。机器人每次只能向下或向右移动一步。<br />问机器人到达右下角 <code>(m-1, n-1)</code> 有多少条不同的路径？</p><p><strong>说明</strong>：</p><ul><li><code>1 &lt;= m, n &lt;= 100</code>。</li><li>题目保证答案在 32 位整数范围内。</li></ul><p><strong>示例</strong>：</p><ul><li>示例 1：</li></ul><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: m = 3, n = 7</span><br><span class="line">输出: 28</span><br></pre></td></tr></table></figure><ul><li>示例 2：</li></ul><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: m = 3, n = 2</span><br><span class="line">输出: 3</span><br><span class="line">解释: 从左上角到右下角，一共 3 条路径：右→下→下，下→右→下，下→下→右。</span><br></pre></td></tr></table></figure><h2 id="解题思路"><a class="markdownIt-Anchor" href="#解题思路"></a> 💻 解题思路</h2><h3 id="思路动态规划1based-数组"><a class="markdownIt-Anchor" href="#思路动态规划1based-数组"></a> 思路：动态规划（1‑based 数组）</h3><h4 id="算法步骤"><a class="markdownIt-Anchor" href="#算法步骤"></a> 算法步骤</h4><ol><li>创建 <code>(m+1) x (n+1)</code> 的二维数组 <code>dp</code>，全部初始化为 0。</li><li>遍历 <code>i</code> 从 0 到 <code>m-1</code>，<code>j</code> 从 0 到 <code>n-1</code>：<ul><li>如果 <code>i == 0 and j == 0</code>，则 <code>dp[1][1] = 1</code>（起点）。</li><li>否则，<code>dp[i+1][j+1] = dp[i][j+1] + dp[i+1][j]</code>。</li></ul></li><li>最后返回 <code>dp[m][n]</code>。</li></ol><h4 id="代码实现"><a class="markdownIt-Anchor" href="#代码实现"></a> 代码实现</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">List</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">uniquePaths</span>(<span class="params">self, m: <span class="built_in">int</span>, n: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        dp = [[<span class="number">0</span>] * (n + <span class="number">1</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(m + <span class="number">1</span>)]</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(m):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">                <span class="keyword">if</span> i == j == <span class="number">0</span>:</span><br><span class="line">                    dp[<span class="number">1</span>][<span class="number">1</span>] = <span class="number">1</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    dp[i + <span class="number">1</span>][j + <span class="number">1</span>] = dp[i][j + <span class="number">1</span>] + dp[i + <span class="number">1</span>][j]</span><br><span class="line">        <span class="keyword">return</span> dp[m][n]</span><br></pre></td></tr></table></figure><h4 id="性能分析"><a class="markdownIt-Anchor" href="#性能分析"></a> 📊 性能分析</h4><ul><li>时间复杂度：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>m</mi><mo>×</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(m \times n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></li><li>空间复杂度：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>m</mi><mo>×</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(m \times n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>，可优化到 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>（一维数组）</li></ul><h4 id="思考"><a class="markdownIt-Anchor" href="#思考"></a> 思考</h4><p>该解法采用 1‑based 索引，避免了初始化第一行和第一列的繁琐。思路清晰，但空间占用较大。对于本题，也可使用组合数学公式直接计算 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>C</mi><mrow><mi>m</mi><mo>+</mo><mi>n</mi><mo>−</mo><mn>2</mn></mrow><mrow><mi>m</mi><mo>−</mo><mn>1</mn></mrow></msubsup></mrow><annotation encoding="application/x-tex">C_{m+n-2}^{m-1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.178878em;vertical-align:-0.324639em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.854239em;"><span style="top:-2.433692em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">m</span><span class="mbin mtight">+</span><span class="mord mathnormal mtight">n</span><span class="mbin mtight">−</span><span class="mord mtight">2</span></span></span></span><span style="top:-3.1031310000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">m</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.324639em;"><span></span></span></span></span></span></span></span></span></span>，但动态规划更通用。代码中的 <code>dp[1][1] = 1</code> 是起点，然后利用递推关系计算每个格子的路径数，最终返回 <code>dp[m][n]</code>。注意：由于数组大小多了一圈，实际有效范围是 <code>1..m, 1..n</code>，边界由外层循环保证正确性。</p>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="63-不同路径-ii-unique-paths-ii"><a class="markdownIt-Anchor" href="#63-不同路径-ii-unique-paths-ii"></a> 63. 不同路径 II - Unique Paths II</h1><h2 id="问题描述来源于leetcode"><a class="markdownIt-Anchor" href="#问题描述来源于leetcode"></a> 🎯 问题描述（来源于LeetCode）</h2><p><strong>描述</strong>：<br />一个机器人位于一个 <code>m x n</code> 网格的左上角（起点为 <code>(0,0)</code>）。机器人每次只能向下或向右移动一步。<br />网格中可能存在障碍物，用 <code>1</code> 表示有障碍物，<code>0</code> 表示空地。<br />问机器人到达右下角 <code>(m-1, n-1)</code> 有多少条不同的路径？<br />如果障碍物阻挡了路径，则返回 0。</p><p><strong>说明</strong>：</p><ul><li><code>1 &lt;= m, n &lt;= 100</code>。</li><li>障碍物和空地的数量任意。</li></ul><p><strong>示例</strong>：</p><ul><li>示例 1：</li></ul><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: obstacleGrid = [[0,0,0],[0,1,0],[0,0,0]]</span><br><span class="line">输出: 2</span><br><span class="line">解释: 从起点到终点，中间的障碍物使得只有两条路径。</span><br></pre></td></tr></table></figure><ul><li>示例 2：</li></ul><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: obstacleGrid = [[0,1],[0,0]]</span><br><span class="line">输出: 1</span><br></pre></td></tr></table></figure><h2 id="解题思路"><a class="markdownIt-Anchor" href="#解题思路"></a> 💻 解题思路</h2><h3 id="思路动态规划1based-数组-巧妙初始化"><a class="markdownIt-Anchor" href="#思路动态规划1based-数组-巧妙初始化"></a> 思路：动态规划（1‑based 数组 + 巧妙初始化）</h3><h4 id="算法步骤"><a class="markdownIt-Anchor" href="#算法步骤"></a> 算法步骤</h4><ol><li>获取网格尺寸 <code>m, n</code>，创建 <code>(m+1) x (n+1)</code> 的 DP 数组，全部初始化为 0。</li><li>设置 <code>dp[0][1] = 1</code>，这相当于把起点的路径数“预先放置”在 <code>(0,1)</code> 位置，从而在 <code>(1,1)</code> 处通过 <code>dp[0][1] + dp[1][0]</code> 自然得到 <code>1</code>。</li><li>遍历每个格子 <code>(i, j)</code>（0‑based）：<ul><li>如果当前格子不是障碍物（<code>obstacleGrid[i][j] == 0</code>），则：<br /><code>dp[i+1][j+1] = dp[i][j+1] + dp[i+1][j]</code>。</li><li>否则，保持 <code>dp[i+1][j+1] = 0</code>（因为障碍物无法通过）。</li></ul></li><li>返回 <code>dp[m][n]</code>。</li></ol><h4 id="代码实现"><a class="markdownIt-Anchor" href="#代码实现"></a> 代码实现</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">List</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">uniquePathsWithObstacles</span>(<span class="params">self, obstacleGrid: <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        m, n = <span class="built_in">len</span>(obstacleGrid), <span class="built_in">len</span>(obstacleGrid[<span class="number">0</span>])</span><br><span class="line">        dp = [[<span class="number">0</span>] * (n + <span class="number">1</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(m + <span class="number">1</span>)]</span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">1</span>] = <span class="number">1</span>  <span class="comment"># 关键初始化，使得 dp[1][1] 在第一个格子无阻碍时得到 1</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(m):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">                <span class="keyword">if</span> obstacleGrid[i][j] == <span class="number">0</span>:</span><br><span class="line">                    dp[i+<span class="number">1</span>][j+<span class="number">1</span>] = dp[i][j+<span class="number">1</span>] + dp[i+<span class="number">1</span>][j]</span><br><span class="line">        <span class="keyword">return</span> dp[m][n]</span><br></pre></td></tr></table></figure><h4 id="性能分析"><a class="markdownIt-Anchor" href="#性能分析"></a> 📊 性能分析</h4><ul><li>时间复杂度：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>m</mi><mo>×</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(m \times n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>，遍历所有格子一次。</li><li>空间复杂度：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>m</mi><mo>×</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(m \times n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>，可优化到 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>（一维滚动数组）。</li></ul><h4 id="思考"><a class="markdownIt-Anchor" href="#思考"></a> 思考</h4><p>该解法利用 1‑based 数组和 <code>dp[0][1] = 1</code> 的初始化技巧，避免了单独处理第一行和第一列的边界条件。</p><ul><li>当网格的第一个格子 <code>(0,0)</code> 无障碍时，<code>dp[1][1] = dp[0][1] + dp[1][0] = 1 + 0 = 1</code>，正确得到起点路径数。</li><li>如果起点有障碍物，则 <code>dp[1][1]</code> 会在遍历中因为 <code>obstacleGrid[0][0]==1</code> 而保持为 0，最终结果也为 0。<br />这种写法简洁优美，是处理二维 DP 边界问题的常用技巧。但要注意：<code>dp[0][1]</code> 的赋值仅适用于起点无障碍的情况？实际上，即使起点有障碍，<code>dp[1][1]</code> 也会因为不进入累加而保持 0，最终结果正确，因为起点被堵住就没有任何路径。<br />此外，可以进一步优化空间为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>，但当前代码清晰易懂，适合教学。</li></ul>]]></content>
     
     
       
@@ -489,10 +489,10 @@
     
     
     
-    <category term="作业练习" scheme="https://id-zy.github.io/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
+    <category term="作业练习" scheme="https://blog.id-zyuan.xyz/categories/%E4%BD%9C%E4%B8%9A%E7%BB%83%E4%B9%A0/"/>
     
     
-    <category term="LeetCode" scheme="https://id-zy.github.io/tags/LeetCode/"/>
+    <category term="LeetCode" scheme="https://blog.id-zyuan.xyz/tags/LeetCode/"/>
     
   </entry>
   
