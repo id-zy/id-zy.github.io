@@ -1,0 +1,226 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>漏斗题 | 笺札</title><meta name="author" content="zhaoyuan"><meta name="copyright" content="zhaoyuan"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="f4f1e8"><meta name="description" content="漏斗题  类型：自编场景题（漏斗转化）| 题号：— | 链接：— 关联：SQL原理_04（漏斗章节）· SQL分析场景模板 · 好友申请 II ：谁有最多的好友（同为列转行+聚合）   🎯 问题描述 表结构 1event_log(user_id, event_name, event_time) 事件名：view、cart、order、pay。 需求 统计从&quot;浏览 → 加购 → 下单">
+<meta property="og:type" content="article">
+<meta property="og:title" content="漏斗题">
+<meta property="og:url" content="https://blog.id-zyuan.xyz/2026/10/03/%E6%BC%8F%E6%96%97%E9%A2%98/index.html">
+<meta property="og:site_name" content="笺札">
+<meta property="og:description" content="漏斗题  类型：自编场景题（漏斗转化）| 题号：— | 链接：— 关联：SQL原理_04（漏斗章节）· SQL分析场景模板 · 好友申请 II ：谁有最多的好友（同为列转行+聚合）   🎯 问题描述 表结构 1event_log(user_id, event_name, event_time) 事件名：view、cart、order、pay。 需求 统计从&quot;浏览 → 加购 → 下单">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic1.imgdb.cn/item/6908b7e53203f7be00cc7a23.jpg">
+<meta property="article:published_time" content="2026-10-02T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-10-12T14:40:46.388Z">
+<meta property="article:author" content="zhaoyuan">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="SQL">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic1.imgdb.cn/item/6908b7e53203f7be00cc7a23.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "漏斗题",
+  "url": "https://blog.id-zyuan.xyz/2026/10/03/%E6%BC%8F%E6%96%97%E9%A2%98/",
+  "image": "https://pic1.imgdb.cn/item/6908b7e53203f7be00cc7a23.jpg",
+  "datePublished": "2026-10-02T16:00:00.000Z",
+  "dateModified": "2026-10-12T14:40:46.388Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "zhaoyuan",
+      "url": "https://blog.id-zyuan.xyz"
+    }
+  ]
+}</script><link rel="shortcut icon" href="https://pic1.imgdb.cn/item/6829891e58cb8da5c8fabff0.png"><link rel="canonical" href="https://blog.id-zyuan.xyz/2026/10/03/%E6%BC%8F%E6%96%97%E9%A2%98/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#141414')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'f4f1e8')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '漏斗题',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/ma-shan-zheng/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/zcool-xiaowei/index.css"><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/ink.css"><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="笺札" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://pic1.imgdb.cn/item/6829891e58cb8da5c8fabff0.png" onerror="this.onerror=null;this.src='/img/friend_04.gif'" alt="avatar"/ loading='lazy'></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">491</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">42</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fa fa-camera-retro faa-float animared"></i><span> 相册</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video faa-float animared"></i><span> 影视</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book  faa-float animared"></i><span> 图书</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://pic1.imgdb.cn/item/6908b7e53203f7be00cc7a23.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">笺札</span></a><a class="nav-page-title" href="/"><span class="site-name">漏斗题</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fa fa-camera-retro faa-float animared"></i><span> 相册</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video faa-float animared"></i><span> 影视</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book  faa-float animared"></i><span> 图书</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">漏斗题</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-10-02T16:00:00.000Z" title="发表于 2026-10-03 00:00:00">2026-10-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-10-12T14:40:46.388Z" title="更新于 2026-10-12 22:40:46">2026-10-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E9%A2%98%E7%9B%AE/">题目</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="漏斗题"><a class="markdownIt-Anchor" href="#漏斗题"></a> 漏斗题</h1>
+<blockquote>
+<p><strong>类型</strong>：自编场景题（漏斗转化）| <strong>题号</strong>：— | <strong>链接</strong>：—</p>
+<p>关联：SQL原理_04（漏斗章节）· SQL分析场景模板 · 好友申请 II ：谁有最多的好友（同为列转行+聚合）</p>
+</blockquote>
+<h2 id="问题描述"><a class="markdownIt-Anchor" href="#问题描述"></a> 🎯 问题描述</h2>
+<p><strong>表结构</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">event_log(user_id, event_name, event_time)</span><br></pre></td></tr></table></figure>
+<p>事件名：<code>view</code>、<code>cart</code>、<code>order</code>、<code>pay</code>。</p>
+<p><strong>需求</strong></p>
+<p>统计从&quot;浏览 → 加购 → 下单 → 支付&quot;的漏斗人数。</p>
+<p>要求每一步必须发生在第一步之后，即按时间顺序：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">view_time &lt; cart_time &lt; order_time &lt; pay_time</span><br></pre></td></tr></table></figure>
+<p>输出：<code>view_users</code>、<code>cart_users</code>、<code>order_users</code>、<code>pay_users</code>。</p>
+<p><strong>说明</strong>：每个用户可能多次触发同一事件，需按<strong>最早时间</strong>归并成一行再比较顺序。</p>
+<h2 id="解题思路"><a class="markdownIt-Anchor" href="#解题思路"></a> 💻 解题思路</h2>
+<h3 id="思路1mincase-when-归并-时间递增计数用户解法"><a class="markdownIt-Anchor" href="#思路1mincase-when-归并-时间递增计数用户解法"></a> 思路1：MIN(CASE WHEN) 归并 + 时间递增计数（用户解法）</h3>
+<h4 id="核心逻辑"><a class="markdownIt-Anchor" href="#核心逻辑"></a> 核心逻辑</h4>
+<p>① 子查询 <code>person_log</code>：按 <code>user_id</code> 分组，用 <code>MIN(CASE WHEN event_name = 'xx' THEN event_time END)</code> 把每个事件的<strong>最早时间</strong>抽成一列（列转行 → 转回列）；<br />
+② 外层按时间顺序<strong>逐级比较</strong>：走到下一步的前提是上一步时间更早，用 <code>COUNT(CASE WHEN 条件 THEN 1 END)</code> 数各步人数；<br />
+③ 缺 <code>ELSE</code> 时 <code>CASE</code> 返回 <code>NULL</code>，<code>COUNT</code> 只数非空，因此只统计&quot;真的依次走到该步&quot;的用户。</p>
+<h4 id="代码实现"><a class="markdownIt-Anchor" href="#代码实现"></a> 代码实现</h4>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">WITH</span> person_log <span class="keyword">AS</span> (</span><br><span class="line">    <span class="keyword">SELECT</span></span><br><span class="line">        user_id,</span><br><span class="line">        <span class="built_in">MIN</span>(<span class="keyword">CASE</span> <span class="keyword">WHEN</span> event_name <span class="operator">=</span> <span class="string">&#x27;view&#x27;</span>  <span class="keyword">THEN</span> event_time <span class="keyword">END</span>) <span class="keyword">AS</span> u_view,</span><br><span class="line">        <span class="built_in">MIN</span>(<span class="keyword">CASE</span> <span class="keyword">WHEN</span> event_name <span class="operator">=</span> <span class="string">&#x27;cart&#x27;</span>  <span class="keyword">THEN</span> event_time <span class="keyword">END</span>) <span class="keyword">AS</span> u_cart,</span><br><span class="line">        <span class="built_in">MIN</span>(<span class="keyword">CASE</span> <span class="keyword">WHEN</span> event_name <span class="operator">=</span> <span class="string">&#x27;order&#x27;</span> <span class="keyword">THEN</span> event_time <span class="keyword">END</span>) <span class="keyword">AS</span> u_order,</span><br><span class="line">        <span class="built_in">MIN</span>(<span class="keyword">CASE</span> <span class="keyword">WHEN</span> event_name <span class="operator">=</span> <span class="string">&#x27;pay&#x27;</span>   <span class="keyword">THEN</span> event_time <span class="keyword">END</span>) <span class="keyword">AS</span> u_pay</span><br><span class="line">    <span class="keyword">FROM</span> event_log</span><br><span class="line">    <span class="keyword">GROUP</span> <span class="keyword">BY</span> user_id</span><br><span class="line">)</span><br><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">    <span class="built_in">COUNT</span>(<span class="keyword">CASE</span> <span class="keyword">WHEN</span> u_view <span class="keyword">IS</span> <span class="keyword">NOT NULL</span> <span class="keyword">THEN</span> <span class="number">1</span> <span class="keyword">END</span>) <span class="keyword">AS</span> view_users,</span><br><span class="line">    <span class="built_in">COUNT</span>(<span class="keyword">CASE</span> <span class="keyword">WHEN</span> u_view <span class="operator">&lt;</span> u_cart <span class="keyword">THEN</span> <span class="number">1</span> <span class="keyword">END</span>) <span class="keyword">AS</span> cart_users,</span><br><span class="line">    <span class="built_in">COUNT</span>(<span class="keyword">CASE</span> <span class="keyword">WHEN</span> u_view <span class="operator">&lt;</span> u_cart <span class="keyword">AND</span> u_cart <span class="operator">&lt;</span> u_order <span class="keyword">THEN</span> <span class="number">1</span> <span class="keyword">END</span>) <span class="keyword">AS</span> order_users,</span><br><span class="line">    <span class="built_in">COUNT</span>(<span class="keyword">CASE</span> <span class="keyword">WHEN</span> u_view <span class="operator">&lt;</span> u_cart <span class="keyword">AND</span> u_cart <span class="operator">&lt;</span> u_order <span class="keyword">AND</span> u_order <span class="operator">&lt;</span> u_pay <span class="keyword">THEN</span> <span class="number">1</span> <span class="keyword">END</span>) <span class="keyword">AS</span> pay_users</span><br><span class="line"><span class="keyword">FROM</span> person_log;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>🔧 <strong>修正说明</strong>：</p>
+<ol>
+<li>原文 <code>u_cartTHEN</code> 缺空格，已改为 <code>u_cart THEN</code>。</li>
+<li>原文第一步写 <code>COUNT(CASE WHEN u_view THEN 1 END)</code> —— 直接拿时间做布尔判断，遇到 <code>'0000-00-00'</code> 这类假值会误判；应显式写 <strong><code>u_view IS NOT NULL</code></strong> 才准确。</li>
+<li>时间比较也可以用 <code>DATEDIFF(u_cart, u_view) &gt; 0</code>，语义等价。</li>
+</ol>
+</blockquote>
+<h4 id="性能分析"><a class="markdownIt-Anchor" href="#性能分析"></a> 📊 性能分析</h4>
+<ul>
+<li>时间复杂度：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>（一次分组聚合即可，无 JOIN）。</li>
+<li>空间复杂度：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span>（相对输入）。</li>
+</ul>
+<h4 id="思考"><a class="markdownIt-Anchor" href="#思考"></a> 思考</h4>
+<ul>
+<li>这是<strong>严格有序漏斗</strong>：<code>view &lt; cart &lt; order &lt; pay</code> 全部成立才算走完。若业务允许&quot;乱序转化&quot;（比如直接下单没加购），条件要相应放宽。</li>
+<li>若要算<strong>转化率</strong>，再除以 <code>view_users</code> 即可：<code>cart_users / view_users</code> 等。</li>
+<li>若同一用户同事件多天发生、且要求&quot;同一会话内&quot;，需要额外按会话/时间窗切分。</li>
+</ul>
+<h2 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 📝 总结</h2>
+<p><strong>漏斗模板</strong>：<code>MIN(CASE WHEN 事件 THEN 时间 END)</code> 把各步压成一行 → <strong>按时间先后逐级比较</strong> → <code>COUNT(CASE WHEN ... THEN 1 END)</code> 数各步人数（无 <code>ELSE</code> 即天然只数&quot;真走到&quot;的）。与 SQL原理_04 漏斗一节完全同源。</p>
+<hr />
+<blockquote>
+<p>🔗 题集索引：LeetCode题集索引 · 算法地图：学习-数据结构与算法MOC</p>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.id-zyuan.xyz">zhaoyuan</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://blog.id-zyuan.xyz/2026/10/03/%E6%BC%8F%E6%96%97%E9%A2%98/">https://blog.id-zyuan.xyz/2026/10/03/%E6%BC%8F%E6%96%97%E9%A2%98/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://blog.id-zyuan.xyz" target="_blank">笺札</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/">算法</a><a class="post-meta__tags" href="/tags/SQL/">SQL</a></div><div class="post-share"><div class="social-share" data-image="https://pic1.imgdb.cn/item/6908b7e53203f7be00cc7a23.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/10/12/%E6%9F%A5%E8%AF%A2%E8%BF%9130%E5%A4%A9%E6%B4%BB%E8%B7%83%E7%94%A8%E6%88%B7%E6%95%B0/" title="1141. 查询近30天活跃用户数"><img class="cover" src="https://pic1.imgdb.cn/item/6908b7d53203f7be00cc7a0d.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post" loading='lazy'><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">1141. 查询近30天活跃用户数</div></div><div class="info-2"><div class="info-item-1"> 1141. 查询近30天活跃用户数  难度：简单 | 题号：1141 | 链接：1141. 查询近30天活跃用户数 - 力扣（LeetCode） | 数据结构：SQL 关联：订单最多的用户（同为「按维度分组计数」）· 每月交易 I（同为日期函数 + 分组聚合）· 可对照 SQL原理_02（日期函数 / 分组聚合）。   🎯 问题描述 描述：写一条 SQL 查询，求出截至 2019-07-27（含）的近 30 天内，每天的活跃用户数。活跃用户指当天至少进行一次活动的用户，返回结果表的列名须为 day 和 active_users，且每天都可能出现重复用户（同一用户一天多次活动只算一次）。 表：Activity 1234567891011+---------------+---------+| Column Name   | Type    |+---------------+---------+| user_id       | int     || session_id    | int     || activity_date | date    || activity_t...</div></div></div></a><a class="pagination-related" href="/2026/07/10/%E6%9C%89%E6%95%88%E4%B8%89%E8%A7%92%E5%BD%A2%E7%9A%84%E4%B8%AA%E6%95%B0/" title="有效三角形的个数-LeetCode"><img class="cover" src="https://pic1.imgdb.cn/item/6909bfa63203f7be00cf70c6.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post" loading='lazy'><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">有效三角形的个数-LeetCode</div></div><div class="info-2"><div class="info-item-1"> 611. 有效三角形的个数  🎯 问题描述（来源于LeetCode） 描述： 给定一个包含非负整数的数组 nums，返回其中可以组成三角形三条边的三元组个数。 三角形的条件是：任意两边之和大于第三边，等价于较短两边之和大于最长边。 说明：  三元组 (i, j, k) 满足 i &lt; j &lt; k，且 nums[i] + nums[j] &gt; nums[k]。 数组长度 1 &lt;= n &lt;= 1000。  示例：  示例 1：  123输入: nums = [2,2,3,4]输出: 3解释: 有效组合: (2,2,3), (2,3,4), (2,3,4) 共 3 个。  示例 2：  12输入: nums = [4,2,3,4]输出: 4  💻 解题思路  思路：排序 + 双指针（固定最短边，滑动中边）  算法步骤  将数组 nums 升序排序。 外层循环 slow 从 0 到 n-3，固定最短边 num = nums[slow]。 如果 num == 0，由于三角形边长必须为正数，直接跳过。 初始化 mid = slow + 1，指向可能的次短边（中...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/11/10/%E5%8D%95%E8%B0%83%E6%A0%88/" title="单调栈"><img class="cover" src="https://pic1.imgdb.cn/item/6908b7d53203f7be00cc7a0e.jpg" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-11-10</div><div class="info-item-2">单调栈</div></div><div class="info-2"><div class="info-item-1"> 单调栈算法 123 单调栈是一种特殊的数据结构，分为单调递增栈和单调递减栈，保证元素从栈顶到栈底的单调性。单调栈常用于在O(n)O(n)O(n)的时间复杂度内寻找序列中某些元素的相邻元素，如左侧第一个更大/更小的元素等。  单调递增栈 单调递增栈的特点是从栈顶到栈底的元素是单调递增的。只有比栈顶元素小的元素才能直接进栈，否则需要先将栈中比当前元素小的元素出栈，再将当前元素入栈。这样就保证了栈中保留的都是比当前入栈元素大的值。 代码示例 1234567891011121314def monotoneIncreasingStack(nums):stack = []for num in nums:while stack and num &gt;= stack[-1]:stack.pop()stack.append(num)return stack  单调递减栈 单调递减栈的特点是从栈顶到栈底的元素是单调递减的。只有比栈顶元素大的元素才能直接进栈，否则需要先将栈中比当前元素大的元素出栈，再将当前元素入栈。这样就保证了栈中保留的都是比当前入栈元素小的值。 代码示例 12345678910...</div></div></div></a><a class="pagination-related" href="/2025/11/20/%E5%BF%AB%E9%80%9F%E5%B9%82/" title="快速幂"><img class="cover" src="https://pic1.imgdb.cn/item/6908b7d53203f7be00cc7a0d.jpg" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-11-20</div><div class="info-item-2">快速幂</div></div><div class="info-2"><div class="info-item-1"> 快速幂(参考OI Wiki)  背景 计算 𝑎 的 𝑛 次方表示将 𝑛 个 𝑎 乘在一起：𝑎𝑛 =𝑎×𝑎⋯×𝑎(𝑛 个a)𝑎^𝑛 =𝑎×𝑎⋯×𝑎(𝑛 个a)an =a×a⋯×a(n 个a)。然而当 𝑛 太大或单次乘法开销太大的时侯，这种方法就不太适用了  基本思想 将取幂的任务按照指数的 二进制表示 来分割成更小的任务。  具体实现  迭代版本 设 𝑛 的二进制表示为 (𝑛𝑡𝑛𝑡−1⋯𝑛1𝑛0)2(𝑛_𝑡𝑛_{𝑡−1}⋯𝑛_1𝑛_0)_2(nt​nt−1​⋯n1​n0​)2​，也就是说，有 𝑛=𝑛𝑡2𝑡+𝑛𝑡−12𝑡−1+⋯+𝑛121+𝑛020𝑛=𝑛_𝑡2^𝑡+𝑛_{𝑡−1}2^{𝑡−1}+⋯+𝑛_12^1+𝑛_02^0 n=nt​2t+nt−1​2t−1+⋯+n1​21+n0​20 其中，𝑛𝑖 ∈{0,1}。那么，就有 𝑎𝑛=𝑎𝑛𝑡2𝑡+𝑛𝑡−12𝑡−1+⋯+𝑛121+𝑛020𝑎^𝑛=𝑎^{𝑛_𝑡2^𝑡+𝑛_{𝑡−1}2^{𝑡−1}+⋯+...</div></div></div></a><a class="pagination-related" href="/2025/11/18/%E9%B8%BD%E5%B7%A2%E5%8E%9F%E7%90%86/" title="鸽巢原理"><img class="cover" src="https://pic1.imgdb.cn/item/6909bfed3203f7be00cf7176.jpg" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-11-18</div><div class="info-item-2">鸽巢原理</div></div><div class="info-2"><div class="info-item-1"> 鸽巢原理   如果有n+1个鸽子飞进了n个鸽巢中，那么必定有鸽巢中至少飞进了2只鸽子。   常被用于证明存在性证明，和求最坏情况下的解。   存在性证明：连最坏情况都不存在解，所以情况也就肯定不存在解。    证明 将 n+1 个苹果，放到  n个抽屉中，那么有至少一个抽屉有两个（或以上）的苹果。  这个定理看起来比较显然，证明方法考虑反证法： 假如每个抽屉有最多 1 个苹果，那么最多有 n 个苹果，而实际上有  n+1个苹果，矛盾。  </div></div></div></a><a class="pagination-related" href="/2026/10/12/%E6%9F%A5%E8%AF%A2%E8%BF%9130%E5%A4%A9%E6%B4%BB%E8%B7%83%E7%94%A8%E6%88%B7%E6%95%B0/" title="1141. 查询近30天活跃用户数"><img class="cover" src="https://pic1.imgdb.cn/item/6908b7d53203f7be00cc7a0d.jpg" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-12</div><div class="info-item-2">1141. 查询近30天活跃用户数</div></div><div class="info-2"><div class="info-item-1"> 1141. 查询近30天活跃用户数  难度：简单 | 题号：1141 | 链接：1141. 查询近30天活跃用户数 - 力扣（LeetCode） | 数据结构：SQL 关联：订单最多的用户（同为「按维度分组计数」）· 每月交易 I（同为日期函数 + 分组聚合）· 可对照 SQL原理_02（日期函数 / 分组聚合）。   🎯 问题描述 描述：写一条 SQL 查询，求出截至 2019-07-27（含）的近 30 天内，每天的活跃用户数。活跃用户指当天至少进行一次活动的用户，返回结果表的列名须为 day 和 active_users，且每天都可能出现重复用户（同一用户一天多次活动只算一次）。 表：Activity 1234567891011+---------------+---------+| Column Name   | Type    |+---------------+---------+| user_id       | int     || session_id    | int     || activity_date | date    || activity_t...</div></div></div></a><a class="pagination-related" href="/2026/10/12/%E6%AF%8F%E6%9C%88%E4%BA%A4%E6%98%93%20I/" title="1193. 每月交易 I"><img class="cover" src="https://pic1.imgdb.cn/item/6909bfa63203f7be00cf70c8.jpg" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-12</div><div class="info-item-2">1193. 每月交易 I</div></div><div class="info-2"><div class="info-item-1"> 1193. 每月交易 I  难度：中等 | 题号：1193 | 链接：1193. 每月交易 I - 力扣（LeetCode） | 数据结构：SQL 关联：查询近30天活跃用户数（同为日期函数 + 分组聚合）· 订单最多的用户（分组计数）· 可对照 SQL原理_02（日期格式化 / 条件聚合）。   🎯 问题描述 描述：写一条 SQL 查询，找出每个月、每个国家/地区的：① 交易总数；② 交易总金额；③ 已批准（state = 'approved'）的交易数；④ 已批准交易的总额。结果以任意顺序返回。 表：Transactions 123456789101112+---------------+---------+| Column Name   | Type    |+---------------+---------+| id            | int     || country       | varchar || state         | enum    || amount        | int     || trans_date    | date ...</div></div></div></a><a class="pagination-related" href="/2026/10/12/%E7%94%B5%E5%BD%B1%E8%AF%84%E5%88%86/" title="1341. 电影评分"><img class="cover" src="https://pic1.imgdb.cn/item/6909bfe13203f7be00cf7140.jpg" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-12</div><div class="info-item-2">1341. 电影评分</div></div><div class="info-2"><div class="info-item-1"> 1341. 电影评分  难度：中等 | 题号：1341 | 链接：1341. 电影评分 - 力扣（LeetCode） | 数据结构：SQL 关联：订单最多的用户（同为「分组计数取 Top-1」）· 分数排名（同为「排名 / 并列处理」）· 部门工资最高的员工（分组最值）· 可对照 SQL原理_02（多表连接 / 排序 / UNION ALL）。   🎯 问题描述 描述：写一个解决方案，同时完成两件事：  找出评论电影数量最多的用户名。若并列，返回字典序较小的用户名。 找出 2020 年 2 月里平均评分最高的电影名称。若并列，返回字典序较小的电影名称。  返回结果表的列名为 results。 表：Movies / 表：Users / 表：MovieRating 12345678910+---------------+---------+      +---------------+---------+      +---------------+---------+| Column Name   | Type    |      | Column Name   | Type ...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://pic1.imgdb.cn/item/6829891e58cb8da5c8fabff0.png" onerror="this.onerror=null;this.src='/img/friend_04.gif'" alt="avatar"/ loading='lazy'></div><div class="author-info-name">zhaoyuan</div><div class="author-info-description">一封封记录足迹与所悟的信集</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">491</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">42</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%BC%8F%E6%96%97%E9%A2%98"><span class="toc-number">1.</span> <span class="toc-text"> 漏斗题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0"><span class="toc-number">1.1.</span> <span class="toc-text"> 🎯 问题描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF"><span class="toc-number">1.2.</span> <span class="toc-text"> 💻 解题思路</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF1mincase-when-%E5%BD%92%E5%B9%B6-%E6%97%B6%E9%97%B4%E9%80%92%E5%A2%9E%E8%AE%A1%E6%95%B0%E7%94%A8%E6%88%B7%E8%A7%A3%E6%B3%95"><span class="toc-number">1.2.1.</span> <span class="toc-text"> 思路1：MIN(CASE WHEN) 归并 + 时间递增计数（用户解法）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E9%80%BB%E8%BE%91"><span class="toc-number">1.2.1.1.</span> <span class="toc-text"> 核心逻辑</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.2.1.2.</span> <span class="toc-text"> 代码实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90"><span class="toc-number">1.2.1.3.</span> <span class="toc-text"> 📊 性能分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%9D%E8%80%83"><span class="toc-number">1.2.1.4.</span> <span class="toc-text"> 思考</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.3.</span> <span class="toc-text"> 📝 总结</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/10/12/%E6%9F%A5%E8%AF%A2%E8%BF%9130%E5%A4%A9%E6%B4%BB%E8%B7%83%E7%94%A8%E6%88%B7%E6%95%B0/" title="1141. 查询近30天活跃用户数"><img src="https://pic1.imgdb.cn/item/6908b7d53203f7be00cc7a0d.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="1141. 查询近30天活跃用户数"/ loading='lazy'></a><div class="content"><a class="title" href="/2026/10/12/%E6%9F%A5%E8%AF%A2%E8%BF%9130%E5%A4%A9%E6%B4%BB%E8%B7%83%E7%94%A8%E6%88%B7%E6%95%B0/" title="1141. 查询近30天活跃用户数">1141. 查询近30天活跃用户数</a><time datetime="2026-10-11T16:00:00.000Z" title="发表于 2026-10-12 00:00:00">2026-10-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/10/12/%E6%AF%8F%E6%9C%88%E4%BA%A4%E6%98%93%20I/" title="1193. 每月交易 I"><img src="https://pic1.imgdb.cn/item/6909bfa63203f7be00cf70c8.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="1193. 每月交易 I"/ loading='lazy'></a><div class="content"><a class="title" href="/2026/10/12/%E6%AF%8F%E6%9C%88%E4%BA%A4%E6%98%93%20I/" title="1193. 每月交易 I">1193. 每月交易 I</a><time datetime="2026-10-11T16:00:00.000Z" title="发表于 2026-10-12 00:00:00">2026-10-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/10/12/%E7%94%B5%E5%BD%B1%E8%AF%84%E5%88%86/" title="1341. 电影评分"><img src="https://pic1.imgdb.cn/item/6909bfe13203f7be00cf7140.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="1341. 电影评分"/ loading='lazy'></a><div class="content"><a class="title" href="/2026/10/12/%E7%94%B5%E5%BD%B1%E8%AF%84%E5%88%86/" title="1341. 电影评分">1341. 电影评分</a><time datetime="2026-10-11T16:00:00.000Z" title="发表于 2026-10-12 00:00:00">2026-10-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/10/12/%E8%B6%85%E8%BF%87%E4%BA%94%E5%90%8D%E5%AD%A6%E7%94%9F%E7%9A%84%E8%AF%BE/" title="596. 超过5名学生的课"><img src="https://pic1.imgdb.cn/item/6909bfed3203f7be00cf7175.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="596. 超过5名学生的课"/ loading='lazy'></a><div class="content"><a class="title" href="/2026/10/12/%E8%B6%85%E8%BF%87%E4%BA%94%E5%90%8D%E5%AD%A6%E7%94%9F%E7%9A%84%E8%AF%BE/" title="596. 超过5名学生的课">596. 超过5名学生的课</a><time datetime="2026-10-11T16:00:00.000Z" title="发表于 2026-10-12 00:00:00">2026-10-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/10/12/%E8%AE%A2%E5%8D%95%E6%9C%80%E5%A4%9A%E7%9A%84%E7%94%A8%E6%88%B7/" title="586. 订单最多的用户"><img src="https://pic1.imgdb.cn/item/6909bf693203f7be00cf7039.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="586. 订单最多的用户"/ loading='lazy'></a><div class="content"><a class="title" href="/2026/10/12/%E8%AE%A2%E5%8D%95%E6%9C%80%E5%A4%9A%E7%9A%84%E7%94%A8%E6%88%B7/" title="586. 订单最多的用户">586. 订单最多的用户</a><time datetime="2026-10-11T16:00:00.000Z" title="发表于 2026-10-12 00:00:00">2026-10-12</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2019 - 2026 By zhaoyuan</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><div class="js-pjax"><script>(async () => {
+  const showKatex = () => {
+    document.querySelectorAll('#article-container .katex').forEach(el => el.classList.add('katex-show'))
+  }
+
+  if (!window.katex_js_css) {
+    window.katex_js_css = true
+    await btf.getCSS('https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css')
+    if (false) {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js')
+    }
+  }
+
+  showKatex()
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
