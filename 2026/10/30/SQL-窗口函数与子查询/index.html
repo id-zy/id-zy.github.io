@@ -1,0 +1,434 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>SQL 窗口函数：不分组也能排名，以及 CTE、子查询与 TopN 怎么配合 | 笺札</title><meta name="author" content="zhaoyuan"><meta name="copyright" content="zhaoyuan"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="f4f1e8"><meta name="description" content="窗口函数为什么不折叠行、三种排名函数在并列值上的分号差异、TopN 为什么必须套子查询、NOT IN 遇 NULL 为什么返回空集、EXISTS 与 IN 到底差在性能还是语义，以及递归 CTE 的锚点写法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQL 窗口函数：不分组也能排名，以及 CTE、子查询与 TopN 怎么配合">
+<meta property="og:url" content="https://blog.id-zyuan.xyz/2026/10/30/SQL-%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%E4%B8%8E%E5%AD%90%E6%9F%A5%E8%AF%A2/index.html">
+<meta property="og:site_name" content="笺札">
+<meta property="og:description" content="窗口函数为什么不折叠行、三种排名函数在并列值上的分号差异、TopN 为什么必须套子查询、NOT IN 遇 NULL 为什么返回空集、EXISTS 与 IN 到底差在性能还是语义，以及递归 CTE 的锚点写法。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic1.imgdb.cn/item/6909bfe13203f7be00cf7142.jpg">
+<meta property="article:published_time" content="2026-10-29T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-10-30T04:52:24.487Z">
+<meta property="article:author" content="zhaoyuan">
+<meta property="article:tag" content="SQL">
+<meta property="article:tag" content="数据库">
+<meta property="article:tag" content="窗口函数">
+<meta property="article:tag" content="子查询">
+<meta property="article:tag" content="CTE">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic1.imgdb.cn/item/6909bfe13203f7be00cf7142.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "SQL 窗口函数：不分组也能排名，以及 CTE、子查询与 TopN 怎么配合",
+  "url": "https://blog.id-zyuan.xyz/2026/10/30/SQL-%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%E4%B8%8E%E5%AD%90%E6%9F%A5%E8%AF%A2/",
+  "image": "https://pic1.imgdb.cn/item/6909bfe13203f7be00cf7142.jpg",
+  "datePublished": "2026-10-29T16:00:00.000Z",
+  "dateModified": "2026-10-30T04:52:24.487Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "zhaoyuan",
+      "url": "https://blog.id-zyuan.xyz"
+    }
+  ]
+}</script><link rel="shortcut icon" href="https://pic1.imgdb.cn/item/6829891e58cb8da5c8fabff0.png"><link rel="canonical" href="https://blog.id-zyuan.xyz/2026/10/30/SQL-%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%E4%B8%8E%E5%AD%90%E6%9F%A5%E8%AF%A2/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#141414')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'f4f1e8')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'SQL 窗口函数：不分组也能排名，以及 CTE、子查询与 TopN 怎么配合',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/ma-shan-zheng/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/zcool-xiaowei/index.css"><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/ink.css"><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="笺札" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://pic1.imgdb.cn/item/6829891e58cb8da5c8fabff0.png" onerror="this.onerror=null;this.src='/img/friend_04.gif'" alt="avatar"/ loading='lazy'></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">465</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">126</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fa fa-camera-retro faa-float animared"></i><span> 相册</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video faa-float animared"></i><span> 影视</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book  faa-float animared"></i><span> 图书</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://pic1.imgdb.cn/item/6909bfe13203f7be00cf7142.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">笺札</span></a><a class="nav-page-title" href="/"><span class="site-name">SQL 窗口函数：不分组也能排名，以及 CTE、子查询与 TopN 怎么配合</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fa fa-camera-retro faa-float animared"></i><span> 相册</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video faa-float animared"></i><span> 影视</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book  faa-float animared"></i><span> 图书</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">SQL 窗口函数：不分组也能排名，以及 CTE、子查询与 TopN 怎么配合</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-10-29T16:00:00.000Z" title="发表于 2026-10-30 00:00:00">2026-10-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-10-30T04:52:24.487Z" title="更新于 2026-10-30 12:52:24">2026-10-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%8D%9A%E5%AE%A2/">博客</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="sql-窗口函数不分组也能排名以及-cte-子查询与-topn-怎么配合"><a class="markdownIt-Anchor" href="#sql-窗口函数不分组也能排名以及-cte-子查询与-topn-怎么配合"></a> SQL 窗口函数：不分组也能排名，以及 CTE、子查询与 TopN 怎么配合</h1>
+<p>「每个部门取工资最高的 3 个人」——这句话用 <code>GROUP BY</code> 写不出来，因为它必然要把部门折叠成一行，而你需要的却是<strong>每一行的员工，外加一个部门内的名次</strong>。窗口函数就是为这种「保留原行 + 附加计算」的需求存在的。</p>
+<p>这篇把四件事串成一条线：窗口函数怎么算、TopN 为什么必须套子查询、子查询的 NULL 陷阱、CTE 怎么把长查询拆开。所有结论都在 MySQL 8.0.12 上实跑过，输出原样贴出。</p>
+<h2 id="一-窗口函数和-group-by-差在哪"><a class="markdownIt-Anchor" href="#一-窗口函数和-group-by-差在哪"></a> 一、窗口函数和 GROUP BY 差在哪</h2>
+<p><code>GROUP BY</code> 的产物是「一组一行」，组内细节被聚合函数吃掉了；窗口函数的产物是「一行还是一行」，只是每行多了一列「按某个范围算出来的值」。</p>
+<p>用 5 行员工数据看这个差别：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE TABLE</span> demo_emp (id <span class="type">INT</span> <span class="keyword">PRIMARY KEY</span>, name <span class="type">VARCHAR</span>(<span class="number">10</span>), dept <span class="type">VARCHAR</span>(<span class="number">10</span>), salary <span class="type">INT</span>);</span><br><span class="line"><span class="keyword">INSERT INTO</span> demo_emp <span class="keyword">VALUES</span></span><br><span class="line">(<span class="number">1</span>,<span class="string">&#x27;张三&#x27;</span>,<span class="string">&#x27;研发&#x27;</span>,<span class="number">20000</span>),(<span class="number">2</span>,<span class="string">&#x27;李四&#x27;</span>,<span class="string">&#x27;研发&#x27;</span>,<span class="number">20000</span>),(<span class="number">3</span>,<span class="string">&#x27;王五&#x27;</span>,<span class="string">&#x27;研发&#x27;</span>,<span class="number">15000</span>),</span><br><span class="line">(<span class="number">4</span>,<span class="string">&#x27;赵六&#x27;</span>,<span class="string">&#x27;市场&#x27;</span>,<span class="number">12000</span>),(<span class="number">5</span>,<span class="string">&#x27;孙七&#x27;</span>,<span class="string">&#x27;市场&#x27;</span>,<span class="number">9000</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> dept, name, salary,</span><br><span class="line">       <span class="built_in">SUM</span>(salary) <span class="keyword">OVER</span> (<span class="keyword">PARTITION</span> <span class="keyword">BY</span> dept) <span class="keyword">AS</span> 部门总薪,</span><br><span class="line">       salary <span class="operator">*</span> <span class="number">100</span> <span class="operator">/</span> <span class="built_in">SUM</span>(salary) <span class="keyword">OVER</span> (<span class="keyword">PARTITION</span> <span class="keyword">BY</span> dept) <span class="keyword">AS</span> 占比百分比</span><br><span class="line"><span class="keyword">FROM</span> demo_emp</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> dept <span class="keyword">DESC</span>, salary <span class="keyword">DESC</span>;</span><br></pre></td></tr></table></figure>
+<p>实测输出：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">dept	name	salary	部门总薪	占比百分比</span><br><span class="line">研发	张三	20000	55000	36.3636</span><br><span class="line">研发	李四	20000	55000	36.3636</span><br><span class="line">研发	王五	15000	55000	27.2727</span><br><span class="line">市场	赵六	12000	21000	57.1429</span><br><span class="line">市场	孙七	9000	21000	42.8571</span><br></pre></td></tr></table></figure>
+<p>5 行进去、5 行出来，每行都带上了「自己部门的总薪」和「自己在部门里的占比」。如果用 <code>GROUP BY dept</code> 求总薪，只剩 2 行，占比就无处可放——除非再 <code>JOIN</code> 回原表，那正是窗口函数替你省掉的一步。</p>
+<h2 id="二-语法三段partition-by-order-by-窗口帧"><a class="markdownIt-Anchor" href="#二-语法三段partition-by-order-by-窗口帧"></a> 二、语法三段：PARTITION BY、ORDER BY、窗口帧</h2>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">函数名() <span class="keyword">OVER</span> (</span><br><span class="line">  <span class="keyword">PARTITION</span> <span class="keyword">BY</span> 分区列   <span class="comment">-- 把行分成几组，组内各自独立计算</span></span><br><span class="line">  <span class="keyword">ORDER</span> <span class="keyword">BY</span> 排序列       <span class="comment">-- 组内排序，决定名次、累计、上一条/下一条</span></span><br><span class="line">  窗口帧                 <span class="comment">-- 当前行计算时纳入哪些行</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">部分</th>
+<th style="text-align:left">作用</th>
+<th style="text-align:left">省略时</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>PARTITION BY</code></td>
+<td style="text-align:left">分组，类似 <code>GROUP BY</code> 但不折叠行</td>
+<td style="text-align:left">整个结果集算一个分区</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>ORDER BY</code></td>
+<td style="text-align:left">组内排序，排名与累计的顺序依据</td>
+<td style="text-align:left">无顺序，<code>SUM</code> 变成整组求和</td>
+</tr>
+<tr>
+<td style="text-align:left">窗口帧</td>
+<td style="text-align:left">限定参与计算的行范围</td>
+<td style="text-align:left">有 <code>ORDER BY</code> 时默认「从分区第一行到当前行」</td>
+</tr>
+</tbody>
+</table>
+<p>第三段是最容易被忽略的一段。同样是 <code>SUM(salary) OVER (ORDER BY id)</code>，加上默认帧就是<strong>累计值</strong>；一旦写成 <code>OVER (PARTITION BY dept)</code>（没有 <code>ORDER BY</code>），就变成<strong>整组总和</strong>。这两个写法长得像，语义完全不同。</p>
+<p><code>LAST_VALUE</code> 是帧的经典坑：默认帧止于当前行，所以 <code>LAST_VALUE(col) OVER (ORDER BY x)</code> 每行返回的都是「自己」，而不是分区里最后一个值。要拿真正的末值，必须显式写 <code>ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING</code>。</p>
+<h2 id="三-三类窗口函数排名-聚合-偏移"><a class="markdownIt-Anchor" href="#三-三类窗口函数排名-聚合-偏移"></a> 三、三类窗口函数：排名、聚合、偏移</h2>
+<p>日常用得最多的是三类，记住分类比记住函数名有用。</p>
+<h3 id="1-排名三兄弟"><a class="markdownIt-Anchor" href="#1-排名三兄弟"></a> 1. 排名三兄弟</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">函数</th>
+<th style="text-align:left">并列时的行为</th>
+<th style="text-align:left">名次是否跳号</th>
+<th style="text-align:left">典型口径</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>ROW_NUMBER()</code></td>
+<td style="text-align:left">强行分出先后（1、2、3）</td>
+<td style="text-align:left">不跳号</td>
+<td style="text-align:left">要「恰好 N 条」</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>RANK()</code></td>
+<td style="text-align:left">并列同名次（1、1、3）</td>
+<td style="text-align:left"><strong>跳号</strong></td>
+<td style="text-align:left">要「不低于第 N 名」</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>DENSE_RANK()</code></td>
+<td style="text-align:left">并列同名次（1、1、2）</td>
+<td style="text-align:left">不跳号</td>
+<td style="text-align:left">要「N 个档位」</td>
+</tr>
+</tbody>
+</table>
+<p>研发部门有两个 20000 的并列值，实测能直接看出三者的分歧：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">dept	name	salary	rn	rk	drk</span><br><span class="line">研发	李四	20000	2	1	1</span><br><span class="line">研发	张三	20000	1	1	1</span><br><span class="line">研发	王五	15000	3	3	2</span><br><span class="line">市场	赵六	12000	1	1	1</span><br><span class="line">市场	孙七	9000	2	2	2</span><br></pre></td></tr></table></figure>
+<p>同一份数据：<code>ROW_NUMBER</code> 把张三、李四强行排成 1 和 2（谁在前取决于内部顺序，不稳定）；<code>RANK</code> 两人都是 1，下一个人直接跳到 3；<code>DENSE_RANK</code> 两人都是 1，下一个人是 2。</p>
+<h3 id="2-聚合窗口"><a class="markdownIt-Anchor" href="#2-聚合窗口"></a> 2. 聚合窗口</h3>
+<p><code>SUM</code> / <code>AVG</code> / <code>COUNT</code> / <code>MAX</code> / <code>MIN</code> 加上 <code>OVER</code> 就是聚合窗口。配 <code>ORDER BY</code> 得到累计值，配 <code>PARTITION BY</code> 得到组内值：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ym, revenue,</span><br><span class="line">       <span class="built_in">SUM</span>(revenue) <span class="keyword">OVER</span> (<span class="keyword">ORDER</span> <span class="keyword">BY</span> ym) <span class="keyword">AS</span> 累计,</span><br><span class="line">       <span class="built_in">LAG</span>(revenue, <span class="number">1</span>) <span class="keyword">OVER</span> (<span class="keyword">ORDER</span> <span class="keyword">BY</span> ym) <span class="keyword">AS</span> 上月,</span><br><span class="line">       revenue <span class="operator">-</span> <span class="built_in">LAG</span>(revenue, <span class="number">1</span>) <span class="keyword">OVER</span> (<span class="keyword">ORDER</span> <span class="keyword">BY</span> ym) <span class="keyword">AS</span> 环比增量</span><br><span class="line"><span class="keyword">FROM</span> demo_month <span class="keyword">ORDER</span> <span class="keyword">BY</span> ym;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ym	revenue	累计	上月	环比增量</span><br><span class="line">2026-07	100	100	NULL	NULL</span><br><span class="line">2026-08	130	230	100	30</span><br><span class="line">2026-09	120	350	130	-10</span><br><span class="line">2026-10	180	530	120	60</span><br></pre></td></tr></table></figure>
+<p>第一行 <code>上月</code> 是 <code>NULL</code>、环比自然也是 <code>NULL</code>——这是「第一个月没有环比」的正确表达，不是数据缺失。</p>
+<h3 id="3-偏移函数"><a class="markdownIt-Anchor" href="#3-偏移函数"></a> 3. 偏移函数</h3>
+<p><code>LAG(col, n, default)</code> 往回取第 n 行、<code>LEAD</code> 往后取。环比用 <code>LAG(…, 1)</code>、同比用 <code>LAG(…, 12)</code>（按月数据）。第三个参数给默认值，可以避免第一行出现 <code>NULL</code>，但对「上月」这种确实不存在的场景，保留 <code>NULL</code> 比塞 0 更诚实。</p>
+<h2 id="四-topn为什么必须套一层子查询"><a class="markdownIt-Anchor" href="#四-topn为什么必须套一层子查询"></a> 四、TopN：为什么必须套一层子查询</h2>
+<p>窗口函数有一个硬限制：<strong>不能写在 <code>WHERE</code> 里</strong>。因为 <code>WHERE</code> 的执行阶段早于窗口函数的计算阶段，此时名次列还不存在。所以 TopN 的标准形态固定为「内层算名次、外层过滤」：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> (</span><br><span class="line">  <span class="keyword">SELECT</span> dept, name, salary,</span><br><span class="line">         <span class="built_in">ROW_NUMBER</span>() <span class="keyword">OVER</span> (<span class="keyword">PARTITION</span> <span class="keyword">BY</span> dept <span class="keyword">ORDER</span> <span class="keyword">BY</span> salary <span class="keyword">DESC</span>) <span class="keyword">AS</span> rn</span><br><span class="line">  <span class="keyword">FROM</span> demo_emp</span><br><span class="line">) t <span class="keyword">WHERE</span> rn <span class="operator">&lt;=</span> <span class="number">1</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> dept <span class="keyword">DESC</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dept	name	salary	rn</span><br><span class="line">研发	张三	20000	1</span><br><span class="line">市场	赵六	12000	1</span><br></pre></td></tr></table></figure>
+<p>研发只出 1 个人。同样的需求把 <code>ROW_NUMBER</code> 换成 <code>RANK</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dept	name	salary	rk</span><br><span class="line">研发	张三	20000	1</span><br><span class="line">研发	李四	20000	1</span><br><span class="line">市场	赵六	12000	1</span><br></pre></td></tr></table></figure>
+<p>研发出了 2 个人。<strong>同一句「前 1 名」，两个函数给出两种人数</strong>——这不是谁对谁错，是业务口径问题：HR 要「每个部门提 1 个名额」就用 <code>ROW_NUMBER</code>；要「工资不低于部门第一名的都算」就用 <code>RANK</code>。</p>
+<p>四种 TopN 写法的差别：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">写法</th>
+<th style="text-align:center">组内取 N</th>
+<th style="text-align:left">并列处理</th>
+<th style="text-align:left">适用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">子查询 + <code>ROW_NUMBER</code></td>
+<td style="text-align:center">✅</td>
+<td style="text-align:left">硬性截断到 N 条</td>
+<td style="text-align:left">名额制</td>
+</tr>
+<tr>
+<td style="text-align:left">子查询 + <code>RANK</code></td>
+<td style="text-align:center">✅</td>
+<td style="text-align:left">并列一起入围，可能超 N</td>
+<td style="text-align:left">名单制</td>
+</tr>
+<tr>
+<td style="text-align:left">子查询 + <code>DENSE_RANK</code></td>
+<td style="text-align:center">✅</td>
+<td style="text-align:left">按档位算，可能超 N</td>
+<td style="text-align:left">档位制</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>ORDER BY … LIMIT n</code></td>
+<td style="text-align:center">❌</td>
+<td style="text-align:left">—</td>
+<td style="text-align:left">只能取全局 TopN，组内取不了</td>
+</tr>
+</tbody>
+</table>
+<p>第四种是最常见的误用：<code>LIMIT</code> 作用在整个结果集上，不是每个分组上。想组内取 N，只能走前三种。</p>
+<h2 id="五-子查询四型标量-in-exists-相关"><a class="markdownIt-Anchor" href="#五-子查询四型标量-in-exists-相关"></a> 五、子查询四型：标量、IN、EXISTS、相关</h2>
+<p>子查询按「返回什么」分四类，判断标准很清楚：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- ① 标量子查询：单行单列，当一个值用</span></span><br><span class="line"><span class="keyword">SELECT</span> name, salary,</span><br><span class="line">       (<span class="keyword">SELECT</span> <span class="built_in">AVG</span>(salary) <span class="keyword">FROM</span> demo_emp e2 <span class="keyword">WHERE</span> e2.dept_id <span class="operator">=</span> e1.dept_id) <span class="keyword">AS</span> 部门均值</span><br><span class="line"><span class="keyword">FROM</span> demo_emp e1;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- ② IN 子查询：一列多行，当一个集合用</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> demo_users</span><br><span class="line"><span class="keyword">WHERE</span> id <span class="keyword">IN</span> (<span class="keyword">SELECT</span> user_id <span class="keyword">FROM</span> demo_orders);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- ③ EXISTS 子查询：只判断有没有行，返回布尔</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> demo_users u</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">EXISTS</span> (<span class="keyword">SELECT</span> <span class="number">1</span> <span class="keyword">FROM</span> demo_orders o <span class="keyword">WHERE</span> o.user_id <span class="operator">=</span> u.id);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- ④ 相关子查询：引用了外层列，不能独立执行</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> demo_emp e1</span><br><span class="line"><span class="keyword">WHERE</span> salary <span class="operator">&gt;</span> (<span class="keyword">SELECT</span> <span class="built_in">AVG</span>(salary) <span class="keyword">FROM</span> demo_emp e2 <span class="keyword">WHERE</span> e2.dept <span class="operator">=</span> e1.dept);</span><br></pre></td></tr></table></figure>
+<p><code>①</code> 返回多行会直接报错；<code>③</code> 里写 <code>SELECT 1</code> 还是 <code>SELECT *</code> 没有区别，因为优化器只关心行数是否存在；<code>④</code> 的特殊之处是它必须逐行依赖外层，逻辑上执行 N 次，外层大且无索引时最慢，优化器也常把它改写成 <code>JOIN</code> 或半连接。</p>
+<h2 id="六-not-in-的-null-陷阱一行都查不出来"><a class="markdownIt-Anchor" href="#六-not-in-的-null-陷阱一行都查不出来"></a> 六、NOT IN 的 NULL 陷阱：一行都查不出来</h2>
+<p>「找出从没下过单的用户」，直觉写法是 <code>NOT IN</code>。但只要子查询结果里出现一个 <code>NULL</code>，这条 SQL 就会<strong>静默返回空集</strong>——不报错，就是没数据，最容易在生产上误判成「业务上确实没有」。</p>
+<p>构造一个只有 4 行订单、其中 1 行 <code>user_id</code> 为 <code>NULL</code> 的表：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT INTO</span> demo_orders <span class="keyword">VALUES</span> (<span class="number">101</span>,<span class="number">1</span>),(<span class="number">102</span>,<span class="number">1</span>),(<span class="number">103</span>,<span class="number">2</span>),(<span class="number">104</span>,<span class="keyword">NULL</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- ① 直觉写法：返回 0 行</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> demo_users <span class="keyword">WHERE</span> id <span class="keyword">NOT</span> <span class="keyword">IN</span> (<span class="keyword">SELECT</span> user_id <span class="keyword">FROM</span> demo_orders);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- ② 正确写法：返回 小刚、小美</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> demo_users u</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> (<span class="keyword">SELECT</span> <span class="number">1</span> <span class="keyword">FROM</span> demo_orders o <span class="keyword">WHERE</span> o.user_id <span class="operator">=</span> u.id);</span><br></pre></td></tr></table></figure>
+<p>实测输出，<code>NOT IN</code> 一行都没有：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">（空结果集）</span><br><span class="line"></span><br><span class="line">id	name</span><br><span class="line">3	小刚</span><br><span class="line">4	小美</span><br></pre></td></tr></table></figure>
+<p>原因是一行布尔代数推导：<code>id NOT IN (1, 2, NULL)</code> 展开成 <code>id &lt;&gt; 1 AND id &lt;&gt; 2 AND id &lt;&gt; NULL</code>，而任何值与 <code>NULL</code> 比较的结果是 <code>UNKNOWN</code> 而不是 <code>FALSE</code>，<code>UNKNOWN AND …</code> 永远不为真，整个条件就塌了。实测验证这一点：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1不等于NULL	结果是NULL</span><br><span class="line">NULL	1</span><br></pre></td></tr></table></figure>
+<p><code>1 &lt;&gt; NULL</code> 返回 <code>NULL</code>，<code>IS NULL</code> 判断为 1（真）。<strong>所以「找不存在」一律用 <code>NOT EXISTS</code></strong>，它按行是否存在判断，不做 <code>NULL</code> 比较，天然没有这个坑。</p>
+<p>顺带说一个容易被误用的「补救」：<code>WHERE id NOT IN (SELECT user_id FROM orders WHERE user_id IS NOT NULL)</code> 确实能跑出正确结果，但它把「数据里有脏 NULL」这件事实悄悄藏起来了——<code>NULL</code> 的 <code>user_id</code> 本身就是数据质量问题，值得单独排查，而不是在查询里抹平。</p>
+<h2 id="七-exists-和-in-到底差在哪实测推翻了exists-更快"><a class="markdownIt-Anchor" href="#七-exists-和-in-到底差在哪实测推翻了exists-更快"></a> 七、EXISTS 和 IN 到底差在哪：实测推翻了「EXISTS 更快」</h2>
+<p>面试标准答案是「EXISTS 常比 IN 快，因为找到即停、不用去重、能利用索引」。在 MySQL 8 上实测，这个说法<strong>只在语义上成立，性能上已经不成立</strong>。</p>
+<p>小表、无索引时，两者的执行计划确实不同：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">-- EXISTS：依赖子查询，外层每行执行一次</span><br><span class="line">id  select_type        table  type  key          rows  Extra</span><br><span class="line">1   PRIMARY            u      ALL   NULL         4     Using where</span><br><span class="line">2   DEPENDENT SUBQUERY o      ALL   NULL         4     Using where</span><br><span class="line"></span><br><span class="line">-- IN：先物化子查询再等值匹配</span><br><span class="line">id  select_type   table         type     key      ref                  Extra</span><br><span class="line">1   SIMPLE        &lt;subquery2&gt;   ALL      NULL     NULL</span><br><span class="line">2   MATERIALIZED  demo_orders   ALL      NULL     NULL</span><br></pre></td></tr></table></figure>
+<p>给小表加上 <code>user_id</code> 索引、数据涨到 1 万行之后，<code>IN</code> 被优化器改写成了半连接：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">id  select_type  table        type  key          rows  Extra</span><br><span class="line">1   SIMPLE       demo_users   ALL   NULL         7     NULL</span><br><span class="line">1   SIMPLE       demo_orders  ref   idx_user_id  116   Using index; FirstMatch(demo_users)</span><br></pre></td></tr></table></figure>
+<p><code>FirstMatch</code> 就是「找到第一条匹配就停」——和 <code>EXISTS</code> 的语义优化做的是同一件事。在服务端循环 200 次计时（避开客户端启动开销）：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">写法</th>
+<th style="text-align:right">200 次总耗时</th>
+<th style="text-align:right">折合单次</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>EXISTS</code></td>
+<td style="text-align:right">4658 µs</td>
+<td style="text-align:right">约 23 µs</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>IN</code></td>
+<td style="text-align:right">5185 µs</td>
+<td style="text-align:right">约 26 µs</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>NOT EXISTS</code></td>
+<td style="text-align:right">13401 µs</td>
+<td style="text-align:right">约 67 µs</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>NOT IN</code></td>
+<td style="text-align:right">13430 µs</td>
+<td style="text-align:right">约 67 µs</td>
+</tr>
+</tbody>
+</table>
+<p><code>EXISTS</code> 只快 3 µs，在 1 万行规模上基本是噪声。<strong>结论应该修正成</strong>：性能不该作为二选一的理由，选型看语义——<code>IN</code> 适合「值在集合里」，<code>EXISTS</code> 适合「存在关联行」；而涉及否定时，<code>NOT IN</code> 有 <code>NULL</code> 陷阱，必须用 <code>NOT EXISTS</code>。这条才是有实际后果的差别。</p>
+<p>（要强调的是：这个结论依赖 MySQL 8 的半连接优化。5.7 及更早、或其他数据库的优化器行为可能不同，换环境要重新看 <code>EXPLAIN</code>。）</p>
+<h2 id="八-cte-与递归-cte给中间结果起名字"><a class="markdownIt-Anchor" href="#八-cte-与递归-cte给中间结果起名字"></a> 八、CTE 与递归 CTE：给中间结果起名字</h2>
+<p>CTE 就是「临时起个名字的中间结果集」，只在当前查询存活。它比子查询多三件事：<strong>能起名字、能被多次引用、能递归</strong>。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">WITH</span> dept_total <span class="keyword">AS</span> (</span><br><span class="line">    <span class="keyword">SELECT</span> dept, <span class="built_in">SUM</span>(salary) <span class="keyword">AS</span> total <span class="keyword">FROM</span> demo_emp <span class="keyword">GROUP</span> <span class="keyword">BY</span> dept</span><br><span class="line">),</span><br><span class="line">dept_rank <span class="keyword">AS</span> (</span><br><span class="line">    <span class="keyword">SELECT</span> dept, total,</span><br><span class="line">           <span class="built_in">RANK</span>() <span class="keyword">OVER</span> (<span class="keyword">ORDER</span> <span class="keyword">BY</span> total <span class="keyword">DESC</span>) <span class="keyword">AS</span> rk</span><br><span class="line">    <span class="keyword">FROM</span> dept_total</span><br><span class="line">)</span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> dept_rank <span class="keyword">WHERE</span> rk <span class="operator">&lt;=</span> <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+<p>多个 CTE 用逗号连接，后面的可以引用前面的——这让「一个查询拆成几步」变得可读，而不是嵌套三层子查询。</p>
+<p>递归 CTE 处理层级结构，结构是固定三段：<strong>锚点成员 + <code>UNION ALL</code> + 递归成员</strong>。用组织架构表实测：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">WITH</span> <span class="keyword">RECURSIVE</span> org_tree <span class="keyword">AS</span> (</span><br><span class="line">    <span class="keyword">SELECT</span> id, name, manager_id, <span class="number">1</span> <span class="keyword">AS</span> lvl, <span class="built_in">CAST</span>(name <span class="keyword">AS</span> <span class="type">CHAR</span>(<span class="number">100</span>)) <span class="keyword">AS</span> path</span><br><span class="line">    <span class="keyword">FROM</span> demo_org <span class="keyword">WHERE</span> manager_id <span class="keyword">IS</span> <span class="keyword">NULL</span>            <span class="comment">-- 锚点：从根开始</span></span><br><span class="line">    <span class="keyword">UNION</span> <span class="keyword">ALL</span></span><br><span class="line">    <span class="keyword">SELECT</span> e.id, e.name, e.manager_id, t.lvl <span class="operator">+</span> <span class="number">1</span>, CONCAT(t.path, <span class="string">&#x27; &gt; &#x27;</span>, e.name)</span><br><span class="line">    <span class="keyword">FROM</span> demo_org e <span class="keyword">JOIN</span> org_tree t <span class="keyword">ON</span> e.manager_id <span class="operator">=</span> t.id   <span class="comment">-- 递归：挂到上一层下面</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">SELECT</span> lvl, name, path <span class="keyword">FROM</span> org_tree <span class="keyword">ORDER</span> <span class="keyword">BY</span> path;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">lvl	name	path</span><br><span class="line">1	CEO	CEO</span><br><span class="line">2	CFO	CEO &gt; CFO</span><br><span class="line">2	CTO	CEO &gt; CTO</span><br><span class="line">3	前端组长	CEO &gt; CTO &gt; 前端组长</span><br><span class="line">4	开发工程师	CEO &gt; CTO &gt; 前端组长 &gt; 开发工程师</span><br></pre></td></tr></table></figure>
+<p>每一轮递归都把「上一层的节点」当父节点去找子节点，找不到新行时自动停止。三个注意点：必须有终止条件（否则受 <code>cte_max_recursion_depth</code> 默认 1000 层限制后报错）；递归成员里不能用 <code>ORDER BY</code>、<code>GROUP BY</code> 或聚合函数；<code>CAST</code> 那一步是必要的，路径列的宽度要一开始就定够，否则 <code>CONCAT</code> 会被截断。</p>
+<h2 id="九-选型判据先问行要不要保留"><a class="markdownIt-Anchor" href="#九-选型判据先问行要不要保留"></a> 九、选型判据：先问「行要不要保留」</h2>
+<p>这四类工具容易混用，判据其实只有一条主线：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">需求</th>
+<th style="text-align:left">用什么</th>
+<th style="text-align:left">理由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">每行保留，附加组内计算</td>
+<td style="text-align:left">窗口函数</td>
+<td style="text-align:left">不折叠行</td>
+</tr>
+<tr>
+<td style="text-align:left">每组只要一行汇总</td>
+<td style="text-align:left"><code>GROUP BY</code> + 聚合</td>
+<td style="text-align:left">折叠是目的</td>
+</tr>
+<tr>
+<td style="text-align:left">组内取前 N</td>
+<td style="text-align:left">子查询 + 排名函数</td>
+<td style="text-align:left">窗口函数不能进 <code>WHERE</code></td>
+</tr>
+<tr>
+<td style="text-align:left">全局取前 N</td>
+<td style="text-align:left"><code>ORDER BY</code> + <code>LIMIT</code></td>
+<td style="text-align:left">不需要分组</td>
+</tr>
+<tr>
+<td style="text-align:left">判断「有没有关联行」</td>
+<td style="text-align:left"><code>EXISTS</code></td>
+<td style="text-align:left">存在性判断</td>
+</tr>
+<tr>
+<td style="text-align:left">判断「不在集合里」</td>
+<td style="text-align:left"><code>NOT EXISTS</code></td>
+<td style="text-align:left">避开 <code>NULL</code> 陷阱</td>
+</tr>
+<tr>
+<td style="text-align:left">同一逻辑要用两次</td>
+<td style="text-align:left">CTE</td>
+<td style="text-align:left">起名字、可复用</td>
+</tr>
+<tr>
+<td style="text-align:left">层级、树、连续序列</td>
+<td style="text-align:left">递归 CTE</td>
+<td style="text-align:left">锚点 + 递归</td>
+</tr>
+</tbody>
+</table>
+<h2 id="小结"><a class="markdownIt-Anchor" href="#小结"></a> 小结</h2>
+<ul>
+<li>窗口函数的核心是<strong>不折叠行</strong>：N 行进、N 行出，每行多一列组内计算值。</li>
+<li>语法三段里最容易错的是<strong>窗口帧</strong>：有 <code>ORDER BY</code> 时默认「到当前行」，所以 <code>SUM</code> 是累计；<code>LAST_VALUE</code> 必须显式指帧。</li>
+<li>排名三兄弟按业务口径选：要名额用 <code>ROW_NUMBER</code>，要名单用 <code>RANK</code>，要档位用 <code>DENSE_RANK</code>。</li>
+<li>TopN 必须「内层排名 + 外层过滤」，因为窗口函数不能写在 <code>WHERE</code> 里；<code>LIMIT</code> 只能取全局。</li>
+<li><code>NOT IN</code> 遇 <code>NULL</code> 返回空集是<strong>语义塌陷</strong>，不是性能问题，否定一律用 <code>NOT EXISTS</code>。</li>
+<li><code>EXISTS</code> 与 <code>IN</code> 在 MySQL 8 上执行计划已趋同（半连接 <code>FirstMatch</code>），实测差 3 µs——选型看语义，不看速度。</li>
+<li>递归 CTE 记三件套：锚点、<code>UNION ALL</code>、递归引用自身；没有终止条件会被 <code>cte_max_recursion_depth</code> 拦住。</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.id-zyuan.xyz">zhaoyuan</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://blog.id-zyuan.xyz/2026/10/30/SQL-%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%E4%B8%8E%E5%AD%90%E6%9F%A5%E8%AF%A2/">https://blog.id-zyuan.xyz/2026/10/30/SQL-%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%E4%B8%8E%E5%AD%90%E6%9F%A5%E8%AF%A2/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://blog.id-zyuan.xyz" target="_blank">笺札</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/SQL/">SQL</a><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><a class="post-meta__tags" href="/tags/%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0/">窗口函数</a><a class="post-meta__tags" href="/tags/%E5%AD%90%E6%9F%A5%E8%AF%A2/">子查询</a><a class="post-meta__tags" href="/tags/CTE/">CTE</a></div><div class="post-share"><div class="social-share" data-image="https://pic1.imgdb.cn/item/6909bfe13203f7be00cf7142.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/10/30/SQL-%E7%B4%A2%E5%BC%95/" title="SQL 索引：为什么加了索引还是慢，回表与最左前缀"><img class="cover" src="https://pic1.imgdb.cn/item/6908b7a43203f7be00cc79cf.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post" loading='lazy'><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">SQL 索引：为什么加了索引还是慢，回表与最左前缀</div></div><div class="info-2"><div class="info-item-1"> SQL 索引：为什么加了索引还是慢，回表与最左前缀 很多人给字段加了索引，查询却没变快，甚至 SELECT * 一上来就绕开索引走全表。问题往往不在「加没加索引」，而在「知不知道索引在底层长什么样」。这篇把 B+ 树、聚簇索引、回表、覆盖索引、最左前缀串成一条线，讲清它们之间的因果关系。  一、B+ 树：为什么索引的数据结构是它 数据库索引选 B+ 树，不是因为它叫「树」，而是它的几个结构特点恰好命中磁盘和范围查询的痛点：  非叶子节点只存键和指针，不存完整数据。 所有数据都在叶子节点。 叶子节点按 key 有序，并用双向链表串起来。 树很矮，通常 3～4 层就能存千万到亿级数据。  为什么这些特点重要？磁盘 IO 是数据库查询最贵的成本，而一次查询要访问的页数由「树高」决定。非叶子节点不存数据，意味着一个 16KB 的页能塞进更多 key，树就更矮，查询要翻的页就更少。 B+ 树和 B 树最核心的区别就一句：B+ 树数据全在叶子、非叶子只存 key，且叶子用链表串起来。这带来两个直接好处：① 非叶子能放更多 key，树更矮，磁盘 IO 更少；② 叶子链表让范围查询顺着扫就行，...</div></div></div></a><a class="pagination-related" href="/2026/10/30/SQL-%E5%88%86%E6%9E%90%E5%9C%BA%E6%99%AF%E5%AE%9E%E6%88%98/" title="SQL 分析实战：漏斗、留存、连续 N 天与同环比"><img class="cover" src="https://pic1.imgdb.cn/item/6908b7ef3203f7be00cc7a28.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post" loading='lazy'><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">SQL 分析实战：漏斗、留存、连续 N 天与同环比</div></div><div class="info-2"><div class="info-item-1"> SQL 分析实战：漏斗、留存、连续 N 天与同环比 业务分析的 SQL 题，八成的命中率集中在五类：漏斗、留存、连续 N 天、TopN、同环比。它们看起来各不相关，其实是两个套路的变体——想清这一点，就不用背五份答案。 这篇用 sprint_sql 里的三张真实业务表（1349 条事件、369 条登录记录、54 条月度收入）把五类场景全部跑一遍。所有输出都是真实结果，不编数据。  一、五类问题其实是两个套路 分界线是「同一实体在时间上多次出现」还是「同一指标在不同维度上对齐」：    套路 问题形态 涉及题型 核心技术     时间轴上的多事件 同一个用户在不同时间点做了多件事 漏斗、留存、连续 N 天 按用户聚合时间 + 时间差 + 排名   维度上的单指标 同一个指标要在不同期间 / 类别间比较 同环比、行列转换、TopN 窗口函数 + 条件聚合    第一类要解决的是「时间关系」：谁在什么时候做了什么，顺序对不对、间隔多少天、连续了几天。第二类要解决的是「位置关系」：当前这一行该跟哪一行比、该放到哪一列。  二、漏斗：先定口径，再算转化率 「注册 → 激活 → 首次答题 ...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2026/10/30/SQL-%E5%88%86%E6%9E%90%E5%9C%BA%E6%99%AF%E5%AE%9E%E6%88%98/" title="SQL 分析实战：漏斗、留存、连续 N 天与同环比"><img class="cover" src="https://pic1.imgdb.cn/item/6908b7ef3203f7be00cc7a28.jpg" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-30</div><div class="info-item-2">SQL 分析实战：漏斗、留存、连续 N 天与同环比</div></div><div class="info-2"><div class="info-item-1"> SQL 分析实战：漏斗、留存、连续 N 天与同环比 业务分析的 SQL 题，八成的命中率集中在五类：漏斗、留存、连续 N 天、TopN、同环比。它们看起来各不相关，其实是两个套路的变体——想清这一点，就不用背五份答案。 这篇用 sprint_sql 里的三张真实业务表（1349 条事件、369 条登录记录、54 条月度收入）把五类场景全部跑一遍。所有输出都是真实结果，不编数据。  一、五类问题其实是两个套路 分界线是「同一实体在时间上多次出现」还是「同一指标在不同维度上对齐」：    套路 问题形态 涉及题型 核心技术     时间轴上的多事件 同一个用户在不同时间点做了多件事 漏斗、留存、连续 N 天 按用户聚合时间 + 时间差 + 排名   维度上的单指标 同一个指标要在不同期间 / 类别间比较 同环比、行列转换、TopN 窗口函数 + 条件聚合    第一类要解决的是「时间关系」：谁在什么时候做了什么，顺序对不对、间隔多少天、连续了几天。第二类要解决的是「位置关系」：当前这一行该跟哪一行比、该放到哪一列。  二、漏斗：先定口径，再算转化率 「注册 → 激活 → 首次答题 ...</div></div></div></a><a class="pagination-related" href="/2026/10/30/SQL-%E7%B4%A2%E5%BC%95/" title="SQL 索引：为什么加了索引还是慢，回表与最左前缀"><img class="cover" src="https://pic1.imgdb.cn/item/6908b7a43203f7be00cc79cf.jpg" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-30</div><div class="info-item-2">SQL 索引：为什么加了索引还是慢，回表与最左前缀</div></div><div class="info-2"><div class="info-item-1"> SQL 索引：为什么加了索引还是慢，回表与最左前缀 很多人给字段加了索引，查询却没变快，甚至 SELECT * 一上来就绕开索引走全表。问题往往不在「加没加索引」，而在「知不知道索引在底层长什么样」。这篇把 B+ 树、聚簇索引、回表、覆盖索引、最左前缀串成一条线，讲清它们之间的因果关系。  一、B+ 树：为什么索引的数据结构是它 数据库索引选 B+ 树，不是因为它叫「树」，而是它的几个结构特点恰好命中磁盘和范围查询的痛点：  非叶子节点只存键和指针，不存完整数据。 所有数据都在叶子节点。 叶子节点按 key 有序，并用双向链表串起来。 树很矮，通常 3～4 层就能存千万到亿级数据。  为什么这些特点重要？磁盘 IO 是数据库查询最贵的成本，而一次查询要访问的页数由「树高」决定。非叶子节点不存数据，意味着一个 16KB 的页能塞进更多 key，树就更矮，查询要翻的页就更少。 B+ 树和 B 树最核心的区别就一句：B+ 树数据全在叶子、非叶子只存 key，且叶子用链表串起来。这带来两个直接好处：① 非叶子能放更多 key，树更矮，磁盘 IO 更少；② 叶子链表让范围查询顺着扫就行，...</div></div></div></a><a class="pagination-related" href="/2026/10/30/SQL-%E4%BA%8B%E5%8A%A1/" title="SQL 事务：ACID 各挡什么，隔离级别与 MVCC 怎么配合"><img class="cover" src="https://pic1.imgdb.cn/item/6908b7d53203f7be00cc7a0c.jpg" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-30</div><div class="info-item-2">SQL 事务：ACID 各挡什么，隔离级别与 MVCC 怎么配合</div></div><div class="info-2"><div class="info-item-1"> SQL 事务：ACID 各挡什么，隔离级别与 MVCC 怎么配合 面试问事务，常连着三样一起问：ACID 四性、隔离级别、MVCC。它们不是三个孤立的知识点，而是一条链——ACID 里的「I（隔离性）」要靠隔离级别来落地，隔离级别要靠 MVCC 和锁来实现。这篇把它们串起来，配上 MySQL 实测，讲清每个概念到底「挡」住了什么。  一、ACID 四性：一致性是目标，其余三者是手段 ACID 四性不是并列关系。先记住一句：一致性是目标，原子性、隔离性、持久性是手段。    特性 含义 常见实现     A 原子性 事务内操作不可分割，失败全部回滚 undo log   C 一致性 事务前后数据满足约束、业务规则 由 A/I/D + 业务约束共同保证   I 隔离性 并发事务互不干扰 锁 + MVCC   D 持久性 提交后数据永久保存 redo log + WAL    所以问「一致性靠什么保证」，不能只答一句，要答「由原子性 / 隔离性 / 持久性共同保证，再加业务约束」。这一节里，「隔离性」正是后面要展开的主角。  二、并发会出什么问题：脏读、不可重复读、幻读 多个事务并发...</div></div></div></a><a class="pagination-related" href="/2026/10/30/SQL-%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F%E4%B8%8EJOIN/" title="SQL 的执行顺序：FROM 先走，WHERE 在 GROUP BY 之前"><img class="cover" src="https://pic1.imgdb.cn/item/69171fdd3203f7be0003e730.png" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-30</div><div class="info-item-2">SQL 的执行顺序：FROM 先走，WHERE 在 GROUP BY 之前</div></div><div class="info-2"><div class="info-item-1"> SQL 的执行顺序：FROM 先走，WHERE 在 GROUP BY 之前 写 SQL 时按 SELECT … FROM … WHERE … 的顺序敲键盘，于是很容易以为数据库也按这个顺序执行。实际上恰恰相反：FROM 是最先跑的，SELECT 反而是靠后的——这条顺序差，能解释掉一大半「为什么这么写会报错」。 这篇用一个顺序串起四件事：为什么某些语法位置看似不合理、五种 JOIN 到底谁的行被保留、ON 与 WHERE 在左连接里的致命区别、聚合与 UNION 的代价，最后收在两个条件表达式的 NULL 陷阱上。所有数字和报错原文都在 MySQL 8.0.12 上实测。  一、逻辑执行顺序：十个步骤 1FROM → ON → JOIN → WHERE → GROUP BY → HAVING → SELECT → DISTINCT → ORDER BY → LIMIT    步骤 此刻手里有什么 常见误会     FROM 确定基表，形成初始行集 —   ON 按连接条件匹配两边的行 以为 ON 能过滤   JOIN 生成连接后的行集 以为表顺序决定结果   WHERE 对行逐...</div></div></div></a><a class="pagination-related" href="/2026/10/22/%E4%B9%B0%E4%B8%8B%E6%89%80%E6%9C%89%E4%BA%A7%E5%93%81%E7%9A%84%E5%AE%A2%E6%88%B7/" title="1045. 买下所有产品的客户-LeetCode"><img class="cover" src="https://pic1.imgdb.cn/item/6909bff93203f7be00cf718f.jpg" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-22</div><div class="info-item-2">1045. 买下所有产品的客户-LeetCode</div></div><div class="info-2"><div class="info-item-1"> 1045. 买下所有产品的客户  难度：中等 | 题号：1045 | 链接：1045. 买下所有产品的客户 - 力扣（LeetCode） | 数据结构：SQL 关联：从不订购的用户（同用 Customer / Product 两张表，一文求&quot;一个都没买&quot;，本文求&quot;全都买了&quot;）· 订单最多的用户（同为「分组计数 + HAVING」）· 超过五名学生的课（HAVING 过滤分组）· 学生们参加各科测试的次数（同样要&quot;补齐维度&quot;才不漏行）。   🎯 问题描述 描述：编写解决方案，报告 Customer 表中购买了 Product 表中所有产品的客户的 customer_id。 表：Customer 123456789+-------------+---------+| Column Name | Type    |+-------------+---------+| customer_id | int     || product_key | int     |+-------------+---------+该表可能包含...</div></div></div></a><a class="pagination-related" href="/2026/10/22/%E5%AD%A6%E7%94%9F%E4%BB%AC%E5%8F%82%E5%8A%A0%E5%90%84%E7%A7%91%E6%B5%8B%E8%AF%95%E7%9A%84%E6%AC%A1%E6%95%B0/" title="1280. 学生们参加各科测试的次数-LeetCode"><img class="cover" src="https://pic1.imgdb.cn/item/6909bfa63203f7be00cf70c6.jpg" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-22</div><div class="info-item-2">1280. 学生们参加各科测试的次数-LeetCode</div></div><div class="info-2"><div class="info-item-1"> 1280. 学生们参加各科测试的次数  难度：简单 | 题号：1280 | 链接：1280. 学生们参加各科测试的次数 - 力扣（LeetCode） | 数据结构：SQL 关联：买下所有产品的客户（同为「分组计数」，但本文要补出计数为 0 的行）· 超过五名学生的课（HAVING 过滤）· 部门工资最高的员工（多表联查）· 从不订购的用户（LEFT JOIN ... IS NULL 与本文 LEFT JOIN 保留右表空行是同一机制的两面）。 📌 本篇首次记录于 2025-12-07，2026-10-22 重做后补全（题号 / 难度 / 示例 / 提示 / 思路 / 总结）。原提交结果保留在「性能分析」中。   🎯 问题描述 描述：查询出每个学生参加每一门科目测试的次数，结果按 student_id 和 subject_name 排序。 关键约束：学生表里的一个学生修读科目表里的每一门科目 —— 所以哪怕某学生某科一次都没考，也要输出一行 0，不能因为 Examinations 里没记录就整行消失。 表：Students 12345678+---------------+-...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://pic1.imgdb.cn/item/6829891e58cb8da5c8fabff0.png" onerror="this.onerror=null;this.src='/img/friend_04.gif'" alt="avatar"/ loading='lazy'></div><div class="author-info-name">zhaoyuan</div><div class="author-info-description">一封封记录足迹与所悟的信集</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">465</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">126</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#sql-%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%E4%B8%8D%E5%88%86%E7%BB%84%E4%B9%9F%E8%83%BD%E6%8E%92%E5%90%8D%E4%BB%A5%E5%8F%8A-cte-%E5%AD%90%E6%9F%A5%E8%AF%A2%E4%B8%8E-topn-%E6%80%8E%E4%B9%88%E9%85%8D%E5%90%88"><span class="toc-number">1.</span> <span class="toc-text"> SQL 窗口函数：不分组也能排名，以及 CTE、子查询与 TopN 怎么配合</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80-%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%E5%92%8C-group-by-%E5%B7%AE%E5%9C%A8%E5%93%AA"><span class="toc-number">1.1.</span> <span class="toc-text"> 一、窗口函数和 GROUP BY 差在哪</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C-%E8%AF%AD%E6%B3%95%E4%B8%89%E6%AE%B5partition-by-order-by-%E7%AA%97%E5%8F%A3%E5%B8%A7"><span class="toc-number">1.2.</span> <span class="toc-text"> 二、语法三段：PARTITION BY、ORDER BY、窗口帧</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89-%E4%B8%89%E7%B1%BB%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%E6%8E%92%E5%90%8D-%E8%81%9A%E5%90%88-%E5%81%8F%E7%A7%BB"><span class="toc-number">1.3.</span> <span class="toc-text"> 三、三类窗口函数：排名、聚合、偏移</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%8E%92%E5%90%8D%E4%B8%89%E5%85%84%E5%BC%9F"><span class="toc-number">1.3.1.</span> <span class="toc-text"> 1. 排名三兄弟</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%81%9A%E5%90%88%E7%AA%97%E5%8F%A3"><span class="toc-number">1.3.2.</span> <span class="toc-text"> 2. 聚合窗口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%81%8F%E7%A7%BB%E5%87%BD%E6%95%B0"><span class="toc-number">1.3.3.</span> <span class="toc-text"> 3. 偏移函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B-topn%E4%B8%BA%E4%BB%80%E4%B9%88%E5%BF%85%E9%A1%BB%E5%A5%97%E4%B8%80%E5%B1%82%E5%AD%90%E6%9F%A5%E8%AF%A2"><span class="toc-number">1.4.</span> <span class="toc-text"> 四、TopN：为什么必须套一层子查询</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94-%E5%AD%90%E6%9F%A5%E8%AF%A2%E5%9B%9B%E5%9E%8B%E6%A0%87%E9%87%8F-in-exists-%E7%9B%B8%E5%85%B3"><span class="toc-number">1.5.</span> <span class="toc-text"> 五、子查询四型：标量、IN、EXISTS、相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD-not-in-%E7%9A%84-null-%E9%99%B7%E9%98%B1%E4%B8%80%E8%A1%8C%E9%83%BD%E6%9F%A5%E4%B8%8D%E5%87%BA%E6%9D%A5"><span class="toc-number">1.6.</span> <span class="toc-text"> 六、NOT IN 的 NULL 陷阱：一行都查不出来</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83-exists-%E5%92%8C-in-%E5%88%B0%E5%BA%95%E5%B7%AE%E5%9C%A8%E5%93%AA%E5%AE%9E%E6%B5%8B%E6%8E%A8%E7%BF%BB%E4%BA%86exists-%E6%9B%B4%E5%BF%AB"><span class="toc-number">1.7.</span> <span class="toc-text"> 七、EXISTS 和 IN 到底差在哪：实测推翻了「EXISTS 更快」</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AB-cte-%E4%B8%8E%E9%80%92%E5%BD%92-cte%E7%BB%99%E4%B8%AD%E9%97%B4%E7%BB%93%E6%9E%9C%E8%B5%B7%E5%90%8D%E5%AD%97"><span class="toc-number">1.8.</span> <span class="toc-text"> 八、CTE 与递归 CTE：给中间结果起名字</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%9D-%E9%80%89%E5%9E%8B%E5%88%A4%E6%8D%AE%E5%85%88%E9%97%AE%E8%A1%8C%E8%A6%81%E4%B8%8D%E8%A6%81%E4%BF%9D%E7%95%99"><span class="toc-number">1.9.</span> <span class="toc-text"> 九、选型判据：先问「行要不要保留」</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-number">1.10.</span> <span class="toc-text"> 小结</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/10/30/BI-%E6%8C%87%E6%A0%87%E4%BD%93%E7%B3%BB%E4%B8%8E%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95/" title="BI 入门：指标体系、分析方法与 Tableau 落地"><img src="https://pic1.imgdb.cn/item/6909bfe13203f7be00cf7140.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="BI 入门：指标体系、分析方法与 Tableau 落地"/ loading='lazy'></a><div class="content"><a class="title" href="/2026/10/30/BI-%E6%8C%87%E6%A0%87%E4%BD%93%E7%B3%BB%E4%B8%8E%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95/" title="BI 入门：指标体系、分析方法与 Tableau 落地">BI 入门：指标体系、分析方法与 Tableau 落地</a><time datetime="2026-10-29T16:00:00.000Z" title="发表于 2026-10-30 00:00:00">2026-10-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/10/30/SQL-%E5%88%86%E6%9E%90%E5%9C%BA%E6%99%AF%E5%AE%9E%E6%88%98/" title="SQL 分析实战：漏斗、留存、连续 N 天与同环比"><img src="https://pic1.imgdb.cn/item/6908b7ef3203f7be00cc7a28.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SQL 分析实战：漏斗、留存、连续 N 天与同环比"/ loading='lazy'></a><div class="content"><a class="title" href="/2026/10/30/SQL-%E5%88%86%E6%9E%90%E5%9C%BA%E6%99%AF%E5%AE%9E%E6%88%98/" title="SQL 分析实战：漏斗、留存、连续 N 天与同环比">SQL 分析实战：漏斗、留存、连续 N 天与同环比</a><time datetime="2026-10-29T16:00:00.000Z" title="发表于 2026-10-30 00:00:00">2026-10-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/10/30/SQL-%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%E4%B8%8E%E5%AD%90%E6%9F%A5%E8%AF%A2/" title="SQL 窗口函数：不分组也能排名，以及 CTE、子查询与 TopN 怎么配合"><img src="https://pic1.imgdb.cn/item/6909bfe13203f7be00cf7142.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SQL 窗口函数：不分组也能排名，以及 CTE、子查询与 TopN 怎么配合"/ loading='lazy'></a><div class="content"><a class="title" href="/2026/10/30/SQL-%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%E4%B8%8E%E5%AD%90%E6%9F%A5%E8%AF%A2/" title="SQL 窗口函数：不分组也能排名，以及 CTE、子查询与 TopN 怎么配合">SQL 窗口函数：不分组也能排名，以及 CTE、子查询与 TopN 怎么配合</a><time datetime="2026-10-29T16:00:00.000Z" title="发表于 2026-10-30 00:00:00">2026-10-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/10/30/SQL-%E7%B4%A2%E5%BC%95/" title="SQL 索引：为什么加了索引还是慢，回表与最左前缀"><img src="https://pic1.imgdb.cn/item/6908b7a43203f7be00cc79cf.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SQL 索引：为什么加了索引还是慢，回表与最左前缀"/ loading='lazy'></a><div class="content"><a class="title" href="/2026/10/30/SQL-%E7%B4%A2%E5%BC%95/" title="SQL 索引：为什么加了索引还是慢，回表与最左前缀">SQL 索引：为什么加了索引还是慢，回表与最左前缀</a><time datetime="2026-10-29T16:00:00.000Z" title="发表于 2026-10-30 00:00:00">2026-10-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/10/30/SQL-%E4%BA%8B%E5%8A%A1/" title="SQL 事务：ACID 各挡什么，隔离级别与 MVCC 怎么配合"><img src="https://pic1.imgdb.cn/item/6908b7d53203f7be00cc7a0c.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SQL 事务：ACID 各挡什么，隔离级别与 MVCC 怎么配合"/ loading='lazy'></a><div class="content"><a class="title" href="/2026/10/30/SQL-%E4%BA%8B%E5%8A%A1/" title="SQL 事务：ACID 各挡什么，隔离级别与 MVCC 怎么配合">SQL 事务：ACID 各挡什么，隔离级别与 MVCC 怎么配合</a><time datetime="2026-10-29T16:00:00.000Z" title="发表于 2026-10-30 00:00:00">2026-10-30</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2019 - 2026 By zhaoyuan</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><div class="js-pjax"><script>(async () => {
+  const showKatex = () => {
+    document.querySelectorAll('#article-container .katex').forEach(el => el.classList.add('katex-show'))
+  }
+
+  if (!window.katex_js_css) {
+    window.katex_js_css = true
+    await btf.getCSS('https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css')
+    if (false) {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js')
+    }
+  }
+
+  showKatex()
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

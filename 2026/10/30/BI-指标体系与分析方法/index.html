@@ -1,0 +1,714 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>BI 入门：指标体系、分析方法与 Tableau 落地 | 笺札</title><meta name="author" content="zhaoyuan"><meta name="copyright" content="zhaoyuan"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="f4f1e8"><meta name="description" content="北极星指标怎么用 OMA 原则选、AARRR 五段转化率如何用真实数据算出、指标分层与四维拆解怎么下钻、四种分析方法如何串成一条归因链、反直觉数字为什么要先查口径，以及 Tableau 的维度度量、LOD 与常见图表坑。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BI 入门：指标体系、分析方法与 Tableau 落地">
+<meta property="og:url" content="https://blog.id-zyuan.xyz/2026/10/30/BI-%E6%8C%87%E6%A0%87%E4%BD%93%E7%B3%BB%E4%B8%8E%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95/index.html">
+<meta property="og:site_name" content="笺札">
+<meta property="og:description" content="北极星指标怎么用 OMA 原则选、AARRR 五段转化率如何用真实数据算出、指标分层与四维拆解怎么下钻、四种分析方法如何串成一条归因链、反直觉数字为什么要先查口径，以及 Tableau 的维度度量、LOD 与常见图表坑。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic1.imgdb.cn/item/6909bfe13203f7be00cf7140.jpg">
+<meta property="article:published_time" content="2026-10-29T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-10-30T04:52:24.477Z">
+<meta property="article:author" content="zhaoyuan">
+<meta property="article:tag" content="BI">
+<meta property="article:tag" content="数据分析">
+<meta property="article:tag" content="指标体系">
+<meta property="article:tag" content="Tableau">
+<meta property="article:tag" content="北极星指标">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic1.imgdb.cn/item/6909bfe13203f7be00cf7140.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "BI 入门：指标体系、分析方法与 Tableau 落地",
+  "url": "https://blog.id-zyuan.xyz/2026/10/30/BI-%E6%8C%87%E6%A0%87%E4%BD%93%E7%B3%BB%E4%B8%8E%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95/",
+  "image": "https://pic1.imgdb.cn/item/6909bfe13203f7be00cf7140.jpg",
+  "datePublished": "2026-10-29T16:00:00.000Z",
+  "dateModified": "2026-10-30T04:52:24.477Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "zhaoyuan",
+      "url": "https://blog.id-zyuan.xyz"
+    }
+  ]
+}</script><link rel="shortcut icon" href="https://pic1.imgdb.cn/item/6829891e58cb8da5c8fabff0.png"><link rel="canonical" href="https://blog.id-zyuan.xyz/2026/10/30/BI-%E6%8C%87%E6%A0%87%E4%BD%93%E7%B3%BB%E4%B8%8E%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#141414')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'f4f1e8')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'BI 入门：指标体系、分析方法与 Tableau 落地',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/ma-shan-zheng/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/zcool-xiaowei/index.css"><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/ink.css"><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="笺札" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://pic1.imgdb.cn/item/6829891e58cb8da5c8fabff0.png" onerror="this.onerror=null;this.src='/img/friend_04.gif'" alt="avatar"/ loading='lazy'></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">465</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">126</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fa fa-camera-retro faa-float animared"></i><span> 相册</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video faa-float animared"></i><span> 影视</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book  faa-float animared"></i><span> 图书</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://pic1.imgdb.cn/item/6909bfe13203f7be00cf7140.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">笺札</span></a><a class="nav-page-title" href="/"><span class="site-name">BI 入门：指标体系、分析方法与 Tableau 落地</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fa fa-camera-retro faa-float animared"></i><span> 相册</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video faa-float animared"></i><span> 影视</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book  faa-float animared"></i><span> 图书</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">BI 入门：指标体系、分析方法与 Tableau 落地</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-10-29T16:00:00.000Z" title="发表于 2026-10-30 00:00:00">2026-10-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-10-30T04:52:24.477Z" title="更新于 2026-10-30 12:52:24">2026-10-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%8D%9A%E5%AE%A2/">博客</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="bi-入门指标体系-分析方法与-tableau-落地"><a class="markdownIt-Anchor" href="#bi-入门指标体系-分析方法与-tableau-落地"></a> BI 入门：指标体系、分析方法与 Tableau 落地</h1>
+<p>「帮我搭一套指标体系」「这个指标跌了怎么办」——这两句话几乎覆盖了数据岗面试的一半。它们看起来是两个问题，其实是同一条链路上的两个环节：<strong>先有指标口径，才能谈异动分析</strong>。</p>
+<p>这篇把三件事串起来：指标体系（定什么、怎么拆）、分析方法（跌了怎么查）、Tableau（怎么摆到看板上）。文中的指标数字都是用 <code>sprint_sql</code> 的真实表算出来的，不是举例。</p>
+<h2 id="一-bi-的三层链路"><a class="markdownIt-Anchor" href="#一-bi-的三层链路"></a> 一、BI 的三层链路</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">指标定义  →  分析方法  →  工具落地</span><br><span class="line">（定什么）    （怎么查）    （怎么给人看）</span><br></pre></td></tr></table></figure>
+<p>三段是接力关系，缺一段就断：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">环节</th>
+<th style="text-align:left">产出</th>
+<th style="text-align:left">缺了会怎样</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">指标定义</td>
+<td style="text-align:left">口径清晰的指标树</td>
+<td style="text-align:left">数字一堆，但没人说得清「正确率」的分子分母是什么</td>
+</tr>
+<tr>
+<td style="text-align:left">分析方法</td>
+<td style="text-align:left">从异动到原因的路径</td>
+<td style="text-align:left">看到指标跌了，只会说「跌了」，说不清为什么</td>
+</tr>
+<tr>
+<td style="text-align:left">工具落地</td>
+<td style="text-align:left">可下钻的仪表板</td>
+<td style="text-align:left">分析结论停在文档里，业务看不到、用不上</td>
+</tr>
+</tbody>
+</table>
+<p>三者的分工可以一句话概括：<strong>指标体系负责「说同一门语言」，分析方法负责「顺着语言找原因」，Tableau 负责「把语言画出来」</strong>。</p>
+<h2 id="二-北极星指标一个数字锚住方向"><a class="markdownIt-Anchor" href="#二-北极星指标一个数字锚住方向"></a> 二、北极星指标：一个数字锚住方向</h2>
+<p>北极星指标（North Star Metric）是<strong>能最准确反映产品核心价值、并驱动长期增长的那一个数字</strong>。注意它不是一个加总，也不是「注册用户数」这类只涨不跌的数字。</p>
+<h3 id="五个特征"><a class="markdownIt-Anchor" href="#五个特征"></a> 五个特征</h3>
+<ul>
+<li><strong>唯一性</strong>：全公司围绕一个，不是并列三个。</li>
+<li><strong>可量化</strong>：能持续追踪。</li>
+<li><strong>用户价值导向</strong>：反映用户真的获得了什么，而不是虚荣指标。</li>
+<li><strong>驱动长期增长</strong>：提升它能带动收入与留存。</li>
+<li><strong>可拆解</strong>：能分到部门、分到环节，否则无法组织协同。</li>
+</ul>
+<h3 id="oma-原则怎么选"><a class="markdownIt-Anchor" href="#oma-原则怎么选"></a> OMA 原则：怎么选</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">字母</th>
+<th style="text-align:left">含义</th>
+<th style="text-align:left">判断问法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>O</strong>utcome</td>
+<td style="text-align:left">体现核心价值</td>
+<td style="text-align:left">这个数字涨了，用户是更受益了，还是只是我们更热闹了？</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>M</strong>easurable &amp; Actionable</td>
+<td style="text-align:left">团队可控</td>
+<td style="text-align:left">产品和运营的动作能影响它吗？</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>A</strong>head of revenue</td>
+<td style="text-align:left">收入先导</td>
+<td style="text-align:left">它是收入的<strong>领先</strong>指标吗（而不是收入本身）？</td>
+</tr>
+</tbody>
+</table>
+<p>经典例子：Airbnb 看<strong>预订间夜数</strong>（不是注册数）、Spotify 看<strong>听歌总时长</strong>、滴滴看<strong>完成订单数</strong>。放到做题平台上，北极星应该是<strong>有效答题数</strong>或<strong>完课率</strong>，而不是 DAU 或累计注册量——后者涨了不代表用户学到了东西。</p>
+<h2 id="三-aarrr把用户旅程拆成五段"><a class="markdownIt-Anchor" href="#三-aarrr把用户旅程拆成五段"></a> 三、AARRR：把用户旅程拆成五段</h2>
+<p>AARRR 是<strong>获取 → 激活 → 留存 → 收益 → 传播</strong>，每段回答一个不同的问题。</p>
+<p>用 <code>funnel_event</code>（500 个用户、1349 条事件）实算一遍：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">WITH</span> s <span class="keyword">AS</span> (</span><br><span class="line">  <span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="keyword">DISTINCT</span> <span class="keyword">CASE</span> <span class="keyword">WHEN</span> event_name<span class="operator">=</span><span class="string">&#x27;register&#x27;</span>        <span class="keyword">THEN</span> user_id <span class="keyword">END</span>) <span class="keyword">AS</span> 获取,</span><br><span class="line">         <span class="built_in">COUNT</span>(<span class="keyword">DISTINCT</span> <span class="keyword">CASE</span> <span class="keyword">WHEN</span> event_name<span class="operator">=</span><span class="string">&#x27;activate&#x27;</span>        <span class="keyword">THEN</span> user_id <span class="keyword">END</span>) <span class="keyword">AS</span> 激活,</span><br><span class="line">         <span class="built_in">COUNT</span>(<span class="keyword">DISTINCT</span> <span class="keyword">CASE</span> <span class="keyword">WHEN</span> event_name<span class="operator">=</span><span class="string">&#x27;first_answer&#x27;</span>    <span class="keyword">THEN</span> user_id <span class="keyword">END</span>) <span class="keyword">AS</span> 首次答题,</span><br><span class="line">         <span class="built_in">COUNT</span>(<span class="keyword">DISTINCT</span> <span class="keyword">CASE</span> <span class="keyword">WHEN</span> event_name<span class="operator">=</span><span class="string">&#x27;submit_homework&#x27;</span> <span class="keyword">THEN</span> user_id <span class="keyword">END</span>) <span class="keyword">AS</span> 提交作业,</span><br><span class="line">         <span class="built_in">COUNT</span>(<span class="keyword">DISTINCT</span> <span class="keyword">CASE</span> <span class="keyword">WHEN</span> event_name<span class="operator">=</span><span class="string">&#x27;pay&#x27;</span>             <span class="keyword">THEN</span> user_id <span class="keyword">END</span>) <span class="keyword">AS</span> 付费</span><br><span class="line">  <span class="keyword">FROM</span> funnel_event</span><br><span class="line">)</span><br><span class="line"><span class="keyword">SELECT</span> <span class="string">&#x27;获取&#x27;</span> <span class="keyword">AS</span> 阶段, 获取 <span class="keyword">AS</span> 人数 <span class="keyword">FROM</span> s</span><br><span class="line"><span class="keyword">UNION</span> <span class="keyword">ALL</span> <span class="keyword">SELECT</span> <span class="string">&#x27;激活&#x27;</span>,     激活     <span class="keyword">FROM</span> s</span><br><span class="line"><span class="keyword">UNION</span> <span class="keyword">ALL</span> <span class="keyword">SELECT</span> <span class="string">&#x27;首次答题&#x27;</span>, 首次答题 <span class="keyword">FROM</span> s</span><br><span class="line"><span class="keyword">UNION</span> <span class="keyword">ALL</span> <span class="keyword">SELECT</span> <span class="string">&#x27;提交作业&#x27;</span>, 提交作业 <span class="keyword">FROM</span> s</span><br><span class="line"><span class="keyword">UNION</span> <span class="keyword">ALL</span> <span class="keyword">SELECT</span> <span class="string">&#x27;收益&#x27;</span>,     付费     <span class="keyword">FROM</span> s;</span><br></pre></td></tr></table></figure>
+<p>实测结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">阶段	人数	相对上一步</span><br><span class="line">获取(Acquisition) 注册用户	500	—</span><br><span class="line">激活(Activation) 激活用户	356	71.2%</span><br><span class="line">首次答题（关键行为）	262	73.6%</span><br><span class="line">提交作业（深度使用）	152	58.0%</span><br><span class="line">收益(Revenue) 付费用户	79	52.0%</span><br></pre></td></tr></table></figure>
+<p>这张表已经能直接回答产品会议上的三个问题：<strong>漏斗哪一段最「漏」</strong>（提交作业这一段只留下 58%）、<strong>整体转化是多少</strong>（500 → 79，15.8%）、<strong>哪一段的绝对流失人数最多</strong>（首次答题到提交作业，掉了 110 人）。</p>
+<p>各阶段的典型指标：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">阶段</th>
+<th style="text-align:left">一句话锚点</th>
+<th style="text-align:left">关键指标</th>
+<th style="text-align:left">本库能否算</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">获取</td>
+<td style="text-align:left">人从哪来</td>
+<td style="text-align:left">DNU（日新增用户）</td>
+<td style="text-align:left">✅ 500</td>
+</tr>
+<tr>
+<td style="text-align:left">激活</td>
+<td style="text-align:left">来了用没用</td>
+<td style="text-align:left">DAU / WAU / MAU、DAU÷MAU（粘性）、日均时长</td>
+<td style="text-align:left">✅ 356</td>
+</tr>
+<tr>
+<td style="text-align:left">留存</td>
+<td style="text-align:left">还回不回来</td>
+<td style="text-align:left">N 日留存率、N 级流失率</td>
+<td style="text-align:left">✅ 有 <code>daily_login</code></td>
+</tr>
+<tr>
+<td style="text-align:left">收益</td>
+<td style="text-align:left">赚不赚钱</td>
+<td style="text-align:left">付费率 → ARPU → ARPPU → LTV</td>
+<td style="text-align:left">⚠️ 有付费人无金额</td>
+</tr>
+<tr>
+<td style="text-align:left">传播</td>
+<td style="text-align:left">带不带新</td>
+<td style="text-align:left">K 因子 = 人均邀请数 × 邀请转化率</td>
+<td style="text-align:left">❌ 无邀请数据</td>
+</tr>
+</tbody>
+</table>
+<p>最后两行要特别注意：<strong>「算不出来」和「算出来是 0」是两件事</strong>。没有金额字段就写「当前口径无法计算」，不能填 0——那会让人以为真的没人付费。这种诚实是数据岗的基本素养。</p>
+<p>两个指标的用法也要说清：</p>
+<ul>
+<li><strong>DAU/MAU（粘性）</strong> 越高说明用户越「天天回来」，但这个值低<strong>不能直接断定产品失败</strong>——定期理财、求职、买房租房类产品天然低频，得结合产品属性、工作日 / 假期、版本节奏一起看。</li>
+<li><strong>K 因子</strong>大于 1 才是自增长（每个用户带来超过 1 个新用户），小于 1 意味着增长停下来就得靠投放续命。</li>
+</ul>
+<h2 id="四-指标分层与四维拆解"><a class="markdownIt-Anchor" href="#四-指标分层与四维拆解"></a> 四、指标分层与四维拆解</h2>
+<p>指标体系不是一堆指标的列表，而是<strong>一棵可下钻的树</strong>。</p>
+<h3 id="三个层次"><a class="markdownIt-Anchor" href="#三个层次"></a> 三个层次</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">层次</th>
+<th style="text-align:left">回答什么</th>
+<th style="text-align:left">做题平台示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">一级（结果指标）</td>
+<td style="text-align:left">业务目标达成没有</td>
+<td style="text-align:left">有效答题数、完课率</td>
+</tr>
+<tr>
+<td style="text-align:left">二级（过程指标）</td>
+<td style="text-align:left">目标由哪些环节构成</td>
+<td style="text-align:left">活跃学员数 × 人均答题量</td>
+</tr>
+<tr>
+<td style="text-align:left">三级（诊断指标）</td>
+<td style="text-align:left">环节为什么波动</td>
+<td style="text-align:left">各渠道新增、各学科答题量、正确率分布、7 日留存</td>
+</tr>
+</tbody>
+</table>
+<p>从 <code>v_answer_detail</code>（800 条答题记录、40 名学生、30 天）算一级指标：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="keyword">AS</span> 答题量,</span><br><span class="line">       <span class="built_in">COUNT</span>(<span class="keyword">DISTINCT</span> student_id) <span class="keyword">AS</span> 活跃学员,</span><br><span class="line">       ROUND(<span class="built_in">SUM</span>(is_correct) <span class="operator">/</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="operator">*</span> <span class="number">100</span>, <span class="number">1</span>) <span class="keyword">AS</span> 平均正确率,</span><br><span class="line">       <span class="built_in">COUNT</span>(<span class="keyword">DISTINCT</span> dt) <span class="keyword">AS</span> 有数据天数</span><br><span class="line"><span class="keyword">FROM</span> v_answer_detail;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">答题量	活跃学员	平均正确率	有数据天数</span><br><span class="line">800	40	68.8	30</span><br></pre></td></tr></table></figure>
+<p>按学科下钻（这是三级指标的位置）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">学科	答题量	正确率</span><br><span class="line">计算机网络	132	72.0</span><br><span class="line">数据结构	119	71.4</span><br><span class="line">数据库系统	145	68.3</span><br><span class="line">数据挖掘	152	67.8</span><br><span class="line">操作系统	127	66.9</span><br><span class="line">算法设计与分析	125	66.4</span><br></pre></td></tr></table></figure>
+<p>六个学科的正确率在 66.4% ~ 72.0% 之间，极差只有 5.6 个百分点——这说明<strong>从学科维度看不出明显问题</strong>，继续拆下去也挖不到什么。这时候正确的动作是换维度（按班级、按难度、按时间），而不是硬解释这 5 个点的差距。</p>
+<h3 id="四种拆解维度"><a class="markdownIt-Anchor" href="#四种拆解维度"></a> 四种拆解维度</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">维度</th>
+<th style="text-align:left">用来回答</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">时间</td>
+<td style="text-align:left">日 / 周 / 月、同比 / 环比、工作日 vs 周末</td>
+</tr>
+<tr>
+<td style="text-align:left">地域</td>
+<td style="text-align:left">省市、城市等级</td>
+</tr>
+<tr>
+<td style="text-align:left">渠道</td>
+<td style="text-align:left">自然流量 / 投放 / 推荐、iOS vs Android</td>
+</tr>
+<tr>
+<td style="text-align:left">用户分层</td>
+<td style="text-align:left">新老用户、RFM、付费 vs 免费</td>
+</tr>
+</tbody>
+</table>
+<p>面试时的标准答法：<strong>「指标跌了」→ 先按时间定位异常区间 → 再按渠道 / 地域 / 用户分层下钻 → 锁定到具体环节</strong>。这就是下一节要讲的归因套路。</p>
+<h3 id="一个反直觉的例子"><a class="markdownIt-Anchor" href="#一个反直觉的例子"></a> 一个反直觉的例子</h3>
+<p>按难度拆，得出的结果和我预期相反：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">难度	答题量	正确率</span><br><span class="line">简单	369	68.8</span><br><span class="line">中等	222	67.6</span><br><span class="line">困难	209	69.9</span><br></pre></td></tr></table></figure>
+<p><strong>困难题的正确率（69.9%）反而高于中等题（67.6%）。</strong> 这个结果不能当结论用，它是数据质量的信号——这份练习数据是模拟生成的，答题对错近似随机分配，所以三个难度的正确率都贴近 68.8% 的总体均值。</p>
+<p>实战里遇到这类反直觉数字，正确顺序是先<strong>核对口径与数据来源</strong>（分子分母对不对、时间范围是否一致、数据是不是模拟的），再决定要不要往下解释。跳过这一步直接写「困难题学生掌握得更好」，就是典型的错误结论。</p>
+<h2 id="五-heart-与好指标四标准"><a class="markdownIt-Anchor" href="#五-heart-与好指标四标准"></a> 五、HEART 与好指标四标准</h2>
+<h3 id="heart补上体验维度"><a class="markdownIt-Anchor" href="#heart补上体验维度"></a> HEART：补上体验维度</h3>
+<p>AARRR 偏增长链路，衡量的是「业务跑得快不快」；HEART 偏体验质量，衡量的是「用户用得爽不爽」。两者互补。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">字母</th>
+<th style="text-align:left">维度</th>
+<th style="text-align:left">关注什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">H</td>
+<td style="text-align:left">Happiness 愉悦度</td>
+<td style="text-align:left">满意度、NPS、易用性评分</td>
+</tr>
+<tr>
+<td style="text-align:left">E</td>
+<td style="text-align:left">Engagement 参与度</td>
+<td style="text-align:left">使用频率、深度、时长</td>
+</tr>
+<tr>
+<td style="text-align:left">A</td>
+<td style="text-align:left">Adoption 采用度</td>
+<td style="text-align:left">新功能 / 新用户的接受与使用率</td>
+</tr>
+<tr>
+<td style="text-align:left">R</td>
+<td style="text-align:left">Retention 留存度</td>
+<td style="text-align:left">一段时间后是否还在用</td>
+</tr>
+<tr>
+<td style="text-align:left">T</td>
+<td style="text-align:left">Task success 任务完成度</td>
+<td style="text-align:left">核心任务的成功率、耗时、出错率</td>
+</tr>
+</tbody>
+</table>
+<h3 id="好指标四标准"><a class="markdownIt-Anchor" href="#好指标四标准"></a> 好指标四标准</h3>
+<ol>
+<li><strong>战略对齐</strong>：能回答关键业务问题，和北极星、OKR 强相关。</li>
+<li><strong>可量化</strong>：口径清晰、公式明确、数据源稳定。</li>
+<li><strong>可拆解</strong>：能按维度下钻，也能拆成驱动因子。</li>
+<li><strong>可行动</strong>：指标变化能触发具体动作，团队能影响它。</li>
+</ol>
+<p>还有一条不写在教材里但更重要的：<strong>不易被操纵</strong>。Goodhart 定律说「一旦某个指标成为目标，它就不再是好指标」。</p>
+<p>两个经典坏指标：</p>
+<ul>
+<li><strong>页面停留时长</strong>：挂机、误触、找不到入口都会把它拉长。这个数越高，未必体验越好。</li>
+<li><strong>累计下载量 / 累计注册数</strong>：只涨不跌，永远不会「变差」，也就永远不会推动任何决策。</li>
+</ul>
+<p>判断坏指标有个简单问法：<strong>这个数字有没有可能变差？</strong> 如果它只会涨，它就是虚荣指标。</p>
+<h2 id="六-四种分析方法一条完整链路"><a class="markdownIt-Anchor" href="#六-四种分析方法一条完整链路"></a> 六、四种分析方法：一条完整链路</h2>
+<p>四个方法不是并列选项，而是<strong>接力顺序</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">对比（发现异动） → 拆解（定位环节） → 归因（量化贡献） → 分群（落到&quot;对谁做什么&quot;）</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">方法</th>
+<th style="text-align:left">一句话</th>
+<th style="text-align:left">核心问题</th>
+<th style="text-align:left">关键原则</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">对比</td>
+<td style="text-align:left">建立参照系</td>
+<td style="text-align:left">好不好？和谁比？差多少</td>
+<td style="text-align:left">口径必须一致</td>
+</tr>
+<tr>
+<td style="text-align:left">拆解</td>
+<td style="text-align:left">把大指标拆成可行动的小指标</td>
+<td style="text-align:left">问题出在哪</td>
+<td style="text-align:left">MECE、可行动、不过度拆</td>
+</tr>
+<tr>
+<td style="text-align:left">归因</td>
+<td style="text-align:left">变化由哪些因素驱动，各贡献多少</td>
+<td style="text-align:left">为什么变</td>
+<td style="text-align:left">相关 ≠ 因果，防辛普森悖论</td>
+</tr>
+<tr>
+<td style="text-align:left">分群</td>
+<td style="text-align:left">不同群体规律不同</td>
+<td style="text-align:left">谁不一样</td>
+<td style="text-align:left">组间差异大、组内相似、可触达</td>
+</tr>
+</tbody>
+</table>
+<h3 id="对比单个数字没有意义"><a class="markdownIt-Anchor" href="#对比单个数字没有意义"></a> 对比：单个数字没有意义</h3>
+<p>「今天卖了 100 万」是好是坏？必须放进参照系。五种常用参照：时间（同比 / 环比）、空间（地区 / 渠道）、目标（KPI 达成率）、竞争（行业大盘）、实验（A/B）。</p>
+<p>三个易错点：<strong>口径必须一致</strong>（分母、时间范围、统计人群不同就不可比）；<strong>绝对差异和相对差异都要看</strong>（10 万跌到 9 万是 -10%，1 万跌到 0 是 -100%）；<strong>判断显著性</strong>（样本太小时差异可能只是噪音）。</p>
+<h3 id="拆解拆到能对应一个动作为止"><a class="markdownIt-Anchor" href="#拆解拆到能对应一个动作为止"></a> 拆解：拆到「能对应一个动作」为止</h3>
+<p>三种拆法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">① 公式拆解：GMV = 流量 × 转化率 × 客单价</span><br><span class="line">             转化率 = 加购率 × 下单率 × 支付率</span><br><span class="line">② 维度拆解：按地区 / 渠道 / 品类 / 新老客下钻</span><br><span class="line">③ 流程拆解：曝光 → 点击 → 加购 → 下单 → 支付，看哪一步流失率异常</span><br></pre></td></tr></table></figure>
+<p>三条原则：<strong>MECE</strong>（不重不漏）、<strong>可行动</strong>（拆到能采取措施的粒度）、<strong>避免过度拆解</strong>（拆太细样本不足，噪音盖过信号）。</p>
+<h3 id="归因别把相关当因果"><a class="markdownIt-Anchor" href="#归因别把相关当因果"></a> 归因：别把相关当因果</h3>
+<p>核心公式是贡献度拆解：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">贡献度 = 某子项变化量 / 总体变化量 × 100%</span><br></pre></td></tr></table></figure>
+<p>拆法有加法归因（总体 = A + B + C）、乘法归因（GMV = 流量 × 转化率 × 客单价）、漏斗归因（定位到具体步骤）。要做「因果」而不只是「相关」，得上 A/B 实验、DID、PSM。</p>
+<p><strong>辛普森悖论</strong>是最该警惕的陷阱：整体趋势和每个分群的趋势可能完全相反。经典场景是「A 方案整体转化率更高，但在每个渠道里都更低」——因为 A 方案的流量集中在转化率天然高的渠道。<strong>只看整体平均，就会选错方案。</strong></p>
+<h3 id="分群落到对谁做什么"><a class="markdownIt-Anchor" href="#分群落到对谁做什么"></a> 分群：落到「对谁做什么」</h3>
+<p>常见维度：用户（RFM、生命周期、价值分层）、商品（ABC 分类、毛利）、渠道（ROI、转化质量）、地区（城市等级）。</p>
+<p>四条判据：<strong>组间差异大、组内相似、规模足够、可识别可触达</strong>。最后一条最容易被忽略——分出一个「沉默的潜在高价值用户」群体却没有触达渠道，那这个分群只是好看。</p>
+<h3 id="串起来看"><a class="markdownIt-Anchor" href="#串起来看"></a> 串起来看</h3>
+<p>一个完整的例子：</p>
+<ol>
+<li><strong>对比</strong>：GMV 环比下降 10%</li>
+<li><strong>拆解</strong>：按渠道、新老客、品类下钻，发现抖音新客下降最明显</li>
+<li><strong>归因</strong>：量化贡献——抖音新客转化率下降贡献了 -7%</li>
+<li><strong>分群</strong>：进一步看，抖音新客里「低活价格敏感人群」流失最大</li>
+<li><strong>策略</strong>：针对该人群做定向券、内容优化、落地页承接</li>
+</ol>
+<p>这条链路能讲满 2 分钟，就是及格的面试回答。</p>
+<h2 id="七-tableau不是什么画图软件"><a class="markdownIt-Anchor" href="#七-tableau不是什么画图软件"></a> 七、Tableau：不是什么画图软件</h2>
+<p>Tableau 的定位是<strong>拖拽式的可视化查询引擎</strong>——每拖一个字段，背后就是一条聚合查询。所以学会了 SQL 的聚合逻辑，Tableau 的操作其实是「用鼠标写 SQL」。</p>
+<h3 id="维度-vs-度量唯一必须先分清的一对概念"><a class="markdownIt-Anchor" href="#维度-vs-度量唯一必须先分清的一对概念"></a> 维度 vs 度量：唯一必须先分清的一对概念</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">概念</th>
+<th style="text-align:left">定义</th>
+<th style="text-align:left">对应 SQL</th>
+<th style="text-align:left">例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>维度</strong></td>
+<td style="text-align:left">定性的、用来分组切分的字段</td>
+<td style="text-align:left"><code>GROUP BY</code> 的列</td>
+<td style="text-align:left">学科、难度、日期、班级</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>度量</strong></td>
+<td style="text-align:left">定量的、用来算的字段</td>
+<td style="text-align:left"><code>SUM</code> / <code>AVG</code> 的对象</td>
+<td style="text-align:left">答题量、正确率、分数</td>
+</tr>
+</tbody>
+</table>
+<p>口诀就是：<strong>能拿来 <code>GROUP BY</code> 的是维度，能拿来 <code>SUM</code>/<code>AVG</code> 的是度量。</strong></p>
+<h3 id="蓝药丸与绿药丸"><a class="markdownIt-Anchor" href="#蓝药丸与绿药丸"></a> 蓝药丸与绿药丸</h3>
+<p>拖到行 / 列上的字段会呈蓝色或绿色，这是 Tableau 最大的初学坎：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">药丸</th>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">效果</th>
+<th style="text-align:left">例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">蓝</td>
+<td style="text-align:left">离散</td>
+<td style="text-align:left">生成表头 / 标签，每个值一格</td>
+<td style="text-align:left">离散的「天」、学科名</td>
+</tr>
+<tr>
+<td style="text-align:left">绿</td>
+<td style="text-align:left">连续</td>
+<td style="text-align:left">生成连续坐标轴</td>
+<td style="text-align:left">连续日期、度量值</td>
+</tr>
+</tbody>
+</table>
+<p>关键点：<strong>同一个字段可以既是蓝的又是绿的</strong>。<code>日期</code> 拖成蓝色是「每天一根柱子」，拖成绿色是一条连续时间轴。做趋势图时日期一般用<strong>离散「天」</strong>，否则坐标轴会按跨度自动跳档、出现断档。</p>
+<h3 id="一个工作表-一条查询"><a class="markdownIt-Anchor" href="#一个工作表-一条查询"></a> 一个工作表 ≈ 一条查询</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Tableau 位置</th>
+<th style="text-align:left">对应 SQL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">行 / 列 上的维度</td>
+<td style="text-align:left"><code>GROUP BY</code></td>
+</tr>
+<tr>
+<td style="text-align:left">标记卡上的聚合</td>
+<td style="text-align:left"><code>SELECT SUM(...)</code> / <code>AVG(...)</code></td>
+</tr>
+<tr>
+<td style="text-align:left">筛选器</td>
+<td style="text-align:left"><code>WHERE</code></td>
+</tr>
+<tr>
+<td style="text-align:left">计算字段</td>
+<td style="text-align:left"><code>SELECT</code> 里的表达式</td>
+</tr>
+</tbody>
+</table>
+<p>这个对应关系想通了，Tableau 就没有「玄学」了——出图不对，就是那条隐含的 SQL 写错了。</p>
+<h2 id="八-计算字段与-lod和窗口函数是同一件事"><a class="markdownIt-Anchor" href="#八-计算字段与-lod和窗口函数是同一件事"></a> 八、计算字段与 LOD：和窗口函数是同一件事</h2>
+<h3 id="行级别-vs-聚合级别"><a class="markdownIt-Anchor" href="#行级别-vs-聚合级别"></a> 行级别 vs 聚合级别</h3>
+<ul>
+<li><strong>行级别计算</strong>：逐行算，结果还能再被聚合。例如 <code>[单价] * [数量]</code>，外面再套 <code>SUM</code>。</li>
+<li><strong>聚合级别计算</strong>：直接给出聚合值。例如 <code>SUM([销售额]) / SUM([数量])</code>（加权平均单价）。</li>
+</ul>
+<p>对照 SQL：行级别 ≈ 在 <code>SELECT</code> 里对列做运算；聚合级别 ≈ 对整列做 <code>SUM</code>/<code>AVG</code>。<strong>最常犯的错是用「比率的平均值」代替「总和的比」</strong>——两者在样本量不等时完全不同。</p>
+<h3 id="lod指定粒度算聚合"><a class="markdownIt-Anchor" href="#lod指定粒度算聚合"></a> LOD：指定粒度算聚合</h3>
+<p>LOD（Level of Detail）表达式用来在<strong>指定粒度</strong>上算聚合，这是和 SQL 窗口函数最像的部分：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">LOD</th>
+<th style="text-align:left">含义</th>
+<th style="text-align:left">等价 SQL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>&#123;FIXED [维度] : 聚合&#125;</code></td>
+<td style="text-align:left">固定按该维度算，不受视图维度影响</td>
+<td style="text-align:left"><code>SUM(...) OVER (PARTITION BY [维度])</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>&#123;INCLUDE [维度] : 聚合&#125;</code></td>
+<td style="text-align:left">在当前视图粒度上再加一个维度</td>
+<td style="text-align:left">在 <code>PARTITION BY</code> 里追加</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>&#123;EXCLUDE [维度] : 聚合&#125;</code></td>
+<td style="text-align:left">在当前视图粒度上去掉一个维度</td>
+<td style="text-align:left">从 <code>PARTITION BY</code> 里剔除</td>
+</tr>
+</tbody>
+</table>
+<p>典型场景：算「各学科答题量占全平台的比例」。分母要用 <code>&#123;FIXED : SUM([答题量])&#125;</code>，否则分母会跟着视图里的学科一起变，算出来永远是 100%。</p>
+<p>这正好对应 SQL 里那个经典坑——<strong>忘写 <code>PARTITION BY</code> 会让数据串行</strong>（在讲同环比那篇实测过）。两者的错误形态一模一样：分母 / 窗口范围没固定住。</p>
+<h3 id="表计算在结果层再算一层"><a class="markdownIt-Anchor" href="#表计算在结果层再算一层"></a> 表计算：在结果层再算一层</h3>
+<p>表计算（占比、同比、环比、移动平均、排名）是在<strong>视图已经算出的结果</strong>上再算，特点是<strong>依赖视图里的维度顺序</strong>。</p>
+<p>一句话区分：<strong>LOD 在数据层算（相当于进 SQL），表计算在结果层算（出图之后）。</strong></p>
+<h2 id="九-图表选型-仪表板结构与常踩的坑"><a class="markdownIt-Anchor" href="#九-图表选型-仪表板结构与常踩的坑"></a> 九、图表选型、仪表板结构与常踩的坑</h2>
+<h3 id="选型速查"><a class="markdownIt-Anchor" href="#选型速查"></a> 选型速查</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">要表达</th>
+<th style="text-align:left">用什么</th>
+<th style="text-align:left">别用什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">比大小</td>
+<td style="text-align:left">条形图（横排，便于读数）</td>
+<td style="text-align:left">饼图、雷达图</td>
+</tr>
+<tr>
+<td style="text-align:left">看趋势</td>
+<td style="text-align:left">折线图、面积图</td>
+<td style="text-align:left">堆太多系列的柱状图</td>
+</tr>
+<tr>
+<td style="text-align:left">看构成</td>
+<td style="text-align:left">堆叠条形图、树状图</td>
+<td style="text-align:left">饼图（超过 3 类就别用）</td>
+</tr>
+<tr>
+<td style="text-align:left">看分布</td>
+<td style="text-align:left">直方图、箱线图</td>
+<td style="text-align:left">只给平均值（掩盖分布）</td>
+</tr>
+<tr>
+<td style="text-align:left">看相关</td>
+<td style="text-align:left">散点图</td>
+<td style="text-align:left">双轴折线</td>
+</tr>
+<tr>
+<td style="text-align:left">看地理</td>
+<td style="text-align:left">地图 + 颜色深浅</td>
+<td style="text-align:left">3D 地图</td>
+</tr>
+</tbody>
+</table>
+<h3 id="仪表板的标准结构"><a class="markdownIt-Anchor" href="#仪表板的标准结构"></a> 仪表板的标准结构</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">┌──────┬──────┬──────┬──────┐</span><br><span class="line">│指标卡1│指标卡2│指标卡3│指标卡4│   ← 顶部：核心指标</span><br><span class="line">├──────┴──────┴──────┴──────┤</span><br><span class="line">│        趋势（时间对比）      │   ← 中部：看走势与异动</span><br><span class="line">├─────────────┬─────────────┤</span><br><span class="line">│ 分群（维度下钻）│  明细 / TopN │   ← 底部：定位「谁不一样」</span><br><span class="line">└─────────────┴─────────────┘</span><br></pre></td></tr></table></figure>
+<p>这个结构不是审美选择，它<strong>正好对应前面的方法论</strong>：指标卡 = 指标体系的一级指标，趋势 = 对比分析，下钻 = 拆解与分群。看板的版式和分析的链路是同构的。</p>
+<h3 id="六个常踩的坑"><a class="markdownIt-Anchor" href="#六个常踩的坑"></a> 六个常踩的坑</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">坑</th>
+<th style="text-align:left">解法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">日期轴出现断档</td>
+<td style="text-align:left">日期用离散「天」，不要连续</td>
+</tr>
+<tr>
+<td style="text-align:left">双轴数字对不上</td>
+<td style="text-align:left">量纲不同就别勾「同步轴」</td>
+</tr>
+<tr>
+<td style="text-align:left">显示 0.688 而不是 68.8%</td>
+<td style="text-align:left">轴 / 标签右键 → 格式 → 数字 → 百分比</td>
+</tr>
+<tr>
+<td style="text-align:left">TopN 全是 100%</td>
+<td style="text-align:left">小样本虚高：加「样本量 ≥ N」门槛</td>
+</tr>
+<tr>
+<td style="text-align:left">连 MySQL 报驱动错误</td>
+<td style="text-align:left">装 <strong>64 位</strong> MySQL Connector/ODBC</td>
+</tr>
+<tr>
+<td style="text-align:left">多表 JOIN 后数字被放大</td>
+<td style="text-align:left">先做成宽表视图再连 Tableau，避免笛卡尔积</td>
+</tr>
+</tbody>
+</table>
+<p>第四个坑值得用真实数据看。把上面那张答题明细按「学科 × 难度」拆成 18 组，按正确率降序排：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">学科	难度	答题量	正确率</span><br><span class="line">计算机网络	困难	27	85.2</span><br><span class="line">数据结构	困难	24	75.0</span><br><span class="line">操作系统	简单	39	71.8</span><br><span class="line">算法设计与分析	中等	77	71.4</span><br><span class="line">数据结构	中等	41	70.7</span><br><span class="line">数据结构	简单	54	70.4</span><br></pre></td></tr></table></figure>
+<p>排第一的「计算机网络 - 困难」只有 <strong>27 条</strong>样本，正确率 85.2%，而该学科整体正确率是 72.0%。这时候把它当「最难的知识点学生反而掌握最好」是错的——<strong>27 条样本的正确率波动极大，一个小样本组天然容易冲到榜首</strong>。</p>
+<p>（这份数据拆到 18 组后最小样本是 24 条，还没到「2 条样本 100%」的极端程度，所以这个坑在本库只是轻微显现。但在真实业务里，按渠道 × 城市 × 新老客层层下钻，很容易拆出几条样本的格子，那一栏必然是 0% 或 100%。）</p>
+<p>根子上，这不是「图画错了」，而是<strong>指标口径没定义好</strong>——比率类指标必须同时说明样本量门槛。这才是数据分析师真正的价值点。</p>
+<h2 id="小结"><a class="markdownIt-Anchor" href="#小结"></a> 小结</h2>
+<ul>
+<li>BI 的三段是接力：<strong>指标定义 → 分析方法 → 工具落地</strong>，缺一段链路就断。</li>
+<li>北极星指标按 <strong>OMA 原则</strong>选：体现核心价值、团队可控、收入先导。做题平台该看「有效答题数」，不是 DAU。</li>
+<li>AARRR 五段能用真实数据算出：本库实测 500 → 356 → 262 → 152 → 79，整体转化 15.8%，最「漏」的一段是首次答题到提交作业（只留 58%）。</li>
+<li>指标是<strong>一棵可下钻的树</strong>（一级结果 / 二级过程 / 三级诊断），配合时间、地域、渠道、用户分层四个维度拆解。学科维度实测极差只有 5.6 个点，说明该换维度而不是硬解释。</li>
+<li>遇到反直觉数字（如困难题正确率反而最高）<strong>先质疑口径与数据来源</strong>，别急着下结论。</li>
+<li>好指标四标准 + 一条隐藏标准：<strong>不易被操纵</strong>。判断坏指标的问法是「这个数有没有可能变差」。</li>
+<li>四种分析方法是一条链：<strong>对比找差异 → 拆解找位置 → 归因找原因 → 分群找策略</strong>；归因要防「相关当因果」和辛普森悖论。</li>
+<li>Tableau 的核心就一对概念：<strong>维度（<code>GROUP BY</code>）vs 度量（<code>SUM</code>/<code>AVG</code>）</strong>；LOD ≈ 窗口函数的 <code>PARTITION BY</code>，表计算是结果层再算一层。</li>
+<li>看板版式与分析方法同构：指标卡 → 趋势 → 下钻，正好对应一级指标 → 对比 → 拆解。</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.id-zyuan.xyz">zhaoyuan</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://blog.id-zyuan.xyz/2026/10/30/BI-%E6%8C%87%E6%A0%87%E4%BD%93%E7%B3%BB%E4%B8%8E%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95/">https://blog.id-zyuan.xyz/2026/10/30/BI-%E6%8C%87%E6%A0%87%E4%BD%93%E7%B3%BB%E4%B8%8E%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://blog.id-zyuan.xyz" target="_blank">笺札</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/BI/">BI</a><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">数据分析</a><a class="post-meta__tags" href="/tags/%E6%8C%87%E6%A0%87%E4%BD%93%E7%B3%BB/">指标体系</a><a class="post-meta__tags" href="/tags/Tableau/">Tableau</a><a class="post-meta__tags" href="/tags/%E5%8C%97%E6%9E%81%E6%98%9F%E6%8C%87%E6%A0%87/">北极星指标</a></div><div class="post-share"><div class="social-share" data-image="https://pic1.imgdb.cn/item/6909bfe13203f7be00cf7140.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/10/30/SQL-%E5%88%86%E6%9E%90%E5%9C%BA%E6%99%AF%E5%AE%9E%E6%88%98/" title="SQL 分析实战：漏斗、留存、连续 N 天与同环比"><img class="cover" src="https://pic1.imgdb.cn/item/6908b7ef3203f7be00cc7a28.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post" loading='lazy'><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">SQL 分析实战：漏斗、留存、连续 N 天与同环比</div></div><div class="info-2"><div class="info-item-1"> SQL 分析实战：漏斗、留存、连续 N 天与同环比 业务分析的 SQL 题，八成的命中率集中在五类：漏斗、留存、连续 N 天、TopN、同环比。它们看起来各不相关，其实是两个套路的变体——想清这一点，就不用背五份答案。 这篇用 sprint_sql 里的三张真实业务表（1349 条事件、369 条登录记录、54 条月度收入）把五类场景全部跑一遍。所有输出都是真实结果，不编数据。  一、五类问题其实是两个套路 分界线是「同一实体在时间上多次出现」还是「同一指标在不同维度上对齐」：    套路 问题形态 涉及题型 核心技术     时间轴上的多事件 同一个用户在不同时间点做了多件事 漏斗、留存、连续 N 天 按用户聚合时间 + 时间差 + 排名   维度上的单指标 同一个指标要在不同期间 / 类别间比较 同环比、行列转换、TopN 窗口函数 + 条件聚合    第一类要解决的是「时间关系」：谁在什么时候做了什么，顺序对不对、间隔多少天、连续了几天。第二类要解决的是「位置关系」：当前这一行该跟哪一行比、该放到哪一列。  二、漏斗：先定口径，再算转化率 「注册 → 激活 → 首次答题 ...</div></div></div></a><a class="pagination-related" href="/2026/10/29/%E6%8D%A2%E5%BA%A7%E4%BD%8D/" title="换座位-LeetCode"><img class="cover" src="https://pic1.imgdb.cn/item/6908b7e53203f7be00cc7a25.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post" loading='lazy'><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">换座位-LeetCode</div></div><div class="info-2"><div class="info-item-1"> 换座位  难度：中等 | 题号：626 | 链接：626. 换座位 | 数据结构：sql   🎯 问题描述 描述： 表 Seat 存了学生的座位号 id（连续递增）和学生姓名 student。要求相邻的两个学生互换座位：1↔2、3↔4、5↔6…… 如果学生总数是奇数，最后一个学生的座位保持不变。 返回结果按 id 升序排列。 表结构： 1Seat: id (int, 主键), student (varchar) 示例 1： 123456789101112131415161718192021输入：+----+---------+| id | student |+----+---------+| 1  | Abbot   || 2  | Doris   || 3  | Emerson || 4  | Green   || 5  | Jeames  |+----+---------+输出：+----+---------+| id | student |+----+---------+| 1  | Doris   || 2  | Abbot   || 3  | Green   || ...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2026/10/30/SQL-%E5%88%86%E6%9E%90%E5%9C%BA%E6%99%AF%E5%AE%9E%E6%88%98/" title="SQL 分析实战：漏斗、留存、连续 N 天与同环比"><img class="cover" src="https://pic1.imgdb.cn/item/6908b7ef3203f7be00cc7a28.jpg" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-30</div><div class="info-item-2">SQL 分析实战：漏斗、留存、连续 N 天与同环比</div></div><div class="info-2"><div class="info-item-1"> SQL 分析实战：漏斗、留存、连续 N 天与同环比 业务分析的 SQL 题，八成的命中率集中在五类：漏斗、留存、连续 N 天、TopN、同环比。它们看起来各不相关，其实是两个套路的变体——想清这一点，就不用背五份答案。 这篇用 sprint_sql 里的三张真实业务表（1349 条事件、369 条登录记录、54 条月度收入）把五类场景全部跑一遍。所有输出都是真实结果，不编数据。  一、五类问题其实是两个套路 分界线是「同一实体在时间上多次出现」还是「同一指标在不同维度上对齐」：    套路 问题形态 涉及题型 核心技术     时间轴上的多事件 同一个用户在不同时间点做了多件事 漏斗、留存、连续 N 天 按用户聚合时间 + 时间差 + 排名   维度上的单指标 同一个指标要在不同期间 / 类别间比较 同环比、行列转换、TopN 窗口函数 + 条件聚合    第一类要解决的是「时间关系」：谁在什么时候做了什么，顺序对不对、间隔多少天、连续了几天。第二类要解决的是「位置关系」：当前这一行该跟哪一行比、该放到哪一列。  二、漏斗：先定口径，再算转化率 「注册 → 激活 → 首次答题 ...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://pic1.imgdb.cn/item/6829891e58cb8da5c8fabff0.png" onerror="this.onerror=null;this.src='/img/friend_04.gif'" alt="avatar"/ loading='lazy'></div><div class="author-info-name">zhaoyuan</div><div class="author-info-description">一封封记录足迹与所悟的信集</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">465</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">126</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#bi-%E5%85%A5%E9%97%A8%E6%8C%87%E6%A0%87%E4%BD%93%E7%B3%BB-%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95%E4%B8%8E-tableau-%E8%90%BD%E5%9C%B0"><span class="toc-number">1.</span> <span class="toc-text"> BI 入门：指标体系、分析方法与 Tableau 落地</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80-bi-%E7%9A%84%E4%B8%89%E5%B1%82%E9%93%BE%E8%B7%AF"><span class="toc-number">1.1.</span> <span class="toc-text"> 一、BI 的三层链路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C-%E5%8C%97%E6%9E%81%E6%98%9F%E6%8C%87%E6%A0%87%E4%B8%80%E4%B8%AA%E6%95%B0%E5%AD%97%E9%94%9A%E4%BD%8F%E6%96%B9%E5%90%91"><span class="toc-number">1.2.</span> <span class="toc-text"> 二、北极星指标：一个数字锚住方向</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%94%E4%B8%AA%E7%89%B9%E5%BE%81"><span class="toc-number">1.2.1.</span> <span class="toc-text"> 五个特征</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#oma-%E5%8E%9F%E5%88%99%E6%80%8E%E4%B9%88%E9%80%89"><span class="toc-number">1.2.2.</span> <span class="toc-text"> OMA 原则：怎么选</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89-aarrr%E6%8A%8A%E7%94%A8%E6%88%B7%E6%97%85%E7%A8%8B%E6%8B%86%E6%88%90%E4%BA%94%E6%AE%B5"><span class="toc-number">1.3.</span> <span class="toc-text"> 三、AARRR：把用户旅程拆成五段</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B-%E6%8C%87%E6%A0%87%E5%88%86%E5%B1%82%E4%B8%8E%E5%9B%9B%E7%BB%B4%E6%8B%86%E8%A7%A3"><span class="toc-number">1.4.</span> <span class="toc-text"> 四、指标分层与四维拆解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E4%B8%AA%E5%B1%82%E6%AC%A1"><span class="toc-number">1.4.1.</span> <span class="toc-text"> 三个层次</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E7%A7%8D%E6%8B%86%E8%A7%A3%E7%BB%B4%E5%BA%A6"><span class="toc-number">1.4.2.</span> <span class="toc-text"> 四种拆解维度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E4%B8%AA%E5%8F%8D%E7%9B%B4%E8%A7%89%E7%9A%84%E4%BE%8B%E5%AD%90"><span class="toc-number">1.4.3.</span> <span class="toc-text"> 一个反直觉的例子</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94-heart-%E4%B8%8E%E5%A5%BD%E6%8C%87%E6%A0%87%E5%9B%9B%E6%A0%87%E5%87%86"><span class="toc-number">1.5.</span> <span class="toc-text"> 五、HEART 与好指标四标准</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#heart%E8%A1%A5%E4%B8%8A%E4%BD%93%E9%AA%8C%E7%BB%B4%E5%BA%A6"><span class="toc-number">1.5.1.</span> <span class="toc-text"> HEART：补上体验维度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A5%BD%E6%8C%87%E6%A0%87%E5%9B%9B%E6%A0%87%E5%87%86"><span class="toc-number">1.5.2.</span> <span class="toc-text"> 好指标四标准</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD-%E5%9B%9B%E7%A7%8D%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95%E4%B8%80%E6%9D%A1%E5%AE%8C%E6%95%B4%E9%93%BE%E8%B7%AF"><span class="toc-number">1.6.</span> <span class="toc-text"> 六、四种分析方法：一条完整链路</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E6%AF%94%E5%8D%95%E4%B8%AA%E6%95%B0%E5%AD%97%E6%B2%A1%E6%9C%89%E6%84%8F%E4%B9%89"><span class="toc-number">1.6.1.</span> <span class="toc-text"> 对比：单个数字没有意义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8B%86%E8%A7%A3%E6%8B%86%E5%88%B0%E8%83%BD%E5%AF%B9%E5%BA%94%E4%B8%80%E4%B8%AA%E5%8A%A8%E4%BD%9C%E4%B8%BA%E6%AD%A2"><span class="toc-number">1.6.2.</span> <span class="toc-text"> 拆解：拆到「能对应一个动作」为止</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BD%92%E5%9B%A0%E5%88%AB%E6%8A%8A%E7%9B%B8%E5%85%B3%E5%BD%93%E5%9B%A0%E6%9E%9C"><span class="toc-number">1.6.3.</span> <span class="toc-text"> 归因：别把相关当因果</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E7%BE%A4%E8%90%BD%E5%88%B0%E5%AF%B9%E8%B0%81%E5%81%9A%E4%BB%80%E4%B9%88"><span class="toc-number">1.6.4.</span> <span class="toc-text"> 分群：落到「对谁做什么」</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%B2%E8%B5%B7%E6%9D%A5%E7%9C%8B"><span class="toc-number">1.6.5.</span> <span class="toc-text"> 串起来看</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83-tableau%E4%B8%8D%E6%98%AF%E4%BB%80%E4%B9%88%E7%94%BB%E5%9B%BE%E8%BD%AF%E4%BB%B6"><span class="toc-number">1.7.</span> <span class="toc-text"> 七、Tableau：不是什么画图软件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%B4%E5%BA%A6-vs-%E5%BA%A6%E9%87%8F%E5%94%AF%E4%B8%80%E5%BF%85%E9%A1%BB%E5%85%88%E5%88%86%E6%B8%85%E7%9A%84%E4%B8%80%E5%AF%B9%E6%A6%82%E5%BF%B5"><span class="toc-number">1.7.1.</span> <span class="toc-text"> 维度 vs 度量：唯一必须先分清的一对概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%93%9D%E8%8D%AF%E4%B8%B8%E4%B8%8E%E7%BB%BF%E8%8D%AF%E4%B8%B8"><span class="toc-number">1.7.2.</span> <span class="toc-text"> 蓝药丸与绿药丸</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E4%B8%AA%E5%B7%A5%E4%BD%9C%E8%A1%A8-%E4%B8%80%E6%9D%A1%E6%9F%A5%E8%AF%A2"><span class="toc-number">1.7.3.</span> <span class="toc-text"> 一个工作表 ≈ 一条查询</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AB-%E8%AE%A1%E7%AE%97%E5%AD%97%E6%AE%B5%E4%B8%8E-lod%E5%92%8C%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%E6%98%AF%E5%90%8C%E4%B8%80%E4%BB%B6%E4%BA%8B"><span class="toc-number">1.8.</span> <span class="toc-text"> 八、计算字段与 LOD：和窗口函数是同一件事</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%8C%E7%BA%A7%E5%88%AB-vs-%E8%81%9A%E5%90%88%E7%BA%A7%E5%88%AB"><span class="toc-number">1.8.1.</span> <span class="toc-text"> 行级别 vs 聚合级别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lod%E6%8C%87%E5%AE%9A%E7%B2%92%E5%BA%A6%E7%AE%97%E8%81%9A%E5%90%88"><span class="toc-number">1.8.2.</span> <span class="toc-text"> LOD：指定粒度算聚合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A8%E8%AE%A1%E7%AE%97%E5%9C%A8%E7%BB%93%E6%9E%9C%E5%B1%82%E5%86%8D%E7%AE%97%E4%B8%80%E5%B1%82"><span class="toc-number">1.8.3.</span> <span class="toc-text"> 表计算：在结果层再算一层</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%9D-%E5%9B%BE%E8%A1%A8%E9%80%89%E5%9E%8B-%E4%BB%AA%E8%A1%A8%E6%9D%BF%E7%BB%93%E6%9E%84%E4%B8%8E%E5%B8%B8%E8%B8%A9%E7%9A%84%E5%9D%91"><span class="toc-number">1.9.</span> <span class="toc-text"> 九、图表选型、仪表板结构与常踩的坑</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%89%E5%9E%8B%E9%80%9F%E6%9F%A5"><span class="toc-number">1.9.1.</span> <span class="toc-text"> 选型速查</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%AA%E8%A1%A8%E6%9D%BF%E7%9A%84%E6%A0%87%E5%87%86%E7%BB%93%E6%9E%84"><span class="toc-number">1.9.2.</span> <span class="toc-text"> 仪表板的标准结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AD%E4%B8%AA%E5%B8%B8%E8%B8%A9%E7%9A%84%E5%9D%91"><span class="toc-number">1.9.3.</span> <span class="toc-text"> 六个常踩的坑</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-number">1.10.</span> <span class="toc-text"> 小结</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/10/30/BI-%E6%8C%87%E6%A0%87%E4%BD%93%E7%B3%BB%E4%B8%8E%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95/" title="BI 入门：指标体系、分析方法与 Tableau 落地"><img src="https://pic1.imgdb.cn/item/6909bfe13203f7be00cf7140.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="BI 入门：指标体系、分析方法与 Tableau 落地"/ loading='lazy'></a><div class="content"><a class="title" href="/2026/10/30/BI-%E6%8C%87%E6%A0%87%E4%BD%93%E7%B3%BB%E4%B8%8E%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95/" title="BI 入门：指标体系、分析方法与 Tableau 落地">BI 入门：指标体系、分析方法与 Tableau 落地</a><time datetime="2026-10-29T16:00:00.000Z" title="发表于 2026-10-30 00:00:00">2026-10-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/10/30/SQL-%E5%88%86%E6%9E%90%E5%9C%BA%E6%99%AF%E5%AE%9E%E6%88%98/" title="SQL 分析实战：漏斗、留存、连续 N 天与同环比"><img src="https://pic1.imgdb.cn/item/6908b7ef3203f7be00cc7a28.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SQL 分析实战：漏斗、留存、连续 N 天与同环比"/ loading='lazy'></a><div class="content"><a class="title" href="/2026/10/30/SQL-%E5%88%86%E6%9E%90%E5%9C%BA%E6%99%AF%E5%AE%9E%E6%88%98/" title="SQL 分析实战：漏斗、留存、连续 N 天与同环比">SQL 分析实战：漏斗、留存、连续 N 天与同环比</a><time datetime="2026-10-29T16:00:00.000Z" title="发表于 2026-10-30 00:00:00">2026-10-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/10/30/SQL-%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%E4%B8%8E%E5%AD%90%E6%9F%A5%E8%AF%A2/" title="SQL 窗口函数：不分组也能排名，以及 CTE、子查询与 TopN 怎么配合"><img src="https://pic1.imgdb.cn/item/6909bfe13203f7be00cf7142.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SQL 窗口函数：不分组也能排名，以及 CTE、子查询与 TopN 怎么配合"/ loading='lazy'></a><div class="content"><a class="title" href="/2026/10/30/SQL-%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%E4%B8%8E%E5%AD%90%E6%9F%A5%E8%AF%A2/" title="SQL 窗口函数：不分组也能排名，以及 CTE、子查询与 TopN 怎么配合">SQL 窗口函数：不分组也能排名，以及 CTE、子查询与 TopN 怎么配合</a><time datetime="2026-10-29T16:00:00.000Z" title="发表于 2026-10-30 00:00:00">2026-10-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/10/30/SQL-%E7%B4%A2%E5%BC%95/" title="SQL 索引：为什么加了索引还是慢，回表与最左前缀"><img src="https://pic1.imgdb.cn/item/6908b7a43203f7be00cc79cf.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SQL 索引：为什么加了索引还是慢，回表与最左前缀"/ loading='lazy'></a><div class="content"><a class="title" href="/2026/10/30/SQL-%E7%B4%A2%E5%BC%95/" title="SQL 索引：为什么加了索引还是慢，回表与最左前缀">SQL 索引：为什么加了索引还是慢，回表与最左前缀</a><time datetime="2026-10-29T16:00:00.000Z" title="发表于 2026-10-30 00:00:00">2026-10-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/10/30/SQL-%E4%BA%8B%E5%8A%A1/" title="SQL 事务：ACID 各挡什么，隔离级别与 MVCC 怎么配合"><img src="https://pic1.imgdb.cn/item/6908b7d53203f7be00cc7a0c.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SQL 事务：ACID 各挡什么，隔离级别与 MVCC 怎么配合"/ loading='lazy'></a><div class="content"><a class="title" href="/2026/10/30/SQL-%E4%BA%8B%E5%8A%A1/" title="SQL 事务：ACID 各挡什么，隔离级别与 MVCC 怎么配合">SQL 事务：ACID 各挡什么，隔离级别与 MVCC 怎么配合</a><time datetime="2026-10-29T16:00:00.000Z" title="发表于 2026-10-30 00:00:00">2026-10-30</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2019 - 2026 By zhaoyuan</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><div class="js-pjax"><script>(async () => {
+  const showKatex = () => {
+    document.querySelectorAll('#article-container .katex').forEach(el => el.classList.add('katex-show'))
+  }
+
+  if (!window.katex_js_css) {
+    window.katex_js_css = true
+    await btf.getCSS('https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css')
+    if (false) {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js')
+    }
+  }
+
+  showKatex()
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

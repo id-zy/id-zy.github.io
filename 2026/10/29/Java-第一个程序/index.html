@@ -1,0 +1,448 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Java 第一个程序：文件名、main、格式化输出与 Scanner | 笺札</title><meta name="author" content="zhaoyuan"><meta name="copyright" content="zhaoyuan"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="f4f1e8"><meta name="description" content="文件名为什么必须逐字等于 public 类名、main 各修饰符去掉会报什么错、哪种注释能被 javadoc 抽出来、printf 占位符怎么用、nextInt 后接 nextLine 为什么读到空串、Random 边界为什么左闭右开、命名与包结构里哪条是编译器强制的。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java 第一个程序：文件名、main、格式化输出与 Scanner">
+<meta property="og:url" content="https://blog.id-zyuan.xyz/2026/10/29/Java-%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%A8%8B%E5%BA%8F/index.html">
+<meta property="og:site_name" content="笺札">
+<meta property="og:description" content="文件名为什么必须逐字等于 public 类名、main 各修饰符去掉会报什么错、哪种注释能被 javadoc 抽出来、printf 占位符怎么用、nextInt 后接 nextLine 为什么读到空串、Random 边界为什么左闭右开、命名与包结构里哪条是编译器强制的。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic1.imgdb.cn/item/6908b7d53203f7be00cc7a0f.jpg">
+<meta property="article:published_time" content="2026-10-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-10-30T02:53:00.543Z">
+<meta property="article:author" content="zhaoyuan">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="基础">
+<meta property="article:tag" content="输入输出">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic1.imgdb.cn/item/6908b7d53203f7be00cc7a0f.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Java 第一个程序：文件名、main、格式化输出与 Scanner",
+  "url": "https://blog.id-zyuan.xyz/2026/10/29/Java-%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%A8%8B%E5%BA%8F/",
+  "image": "https://pic1.imgdb.cn/item/6908b7d53203f7be00cc7a0f.jpg",
+  "datePublished": "2026-10-28T16:00:00.000Z",
+  "dateModified": "2026-10-30T02:53:00.543Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "zhaoyuan",
+      "url": "https://blog.id-zyuan.xyz"
+    }
+  ]
+}</script><link rel="shortcut icon" href="https://pic1.imgdb.cn/item/6829891e58cb8da5c8fabff0.png"><link rel="canonical" href="https://blog.id-zyuan.xyz/2026/10/29/Java-%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%A8%8B%E5%BA%8F/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#141414')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'f4f1e8')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Java 第一个程序：文件名、main、格式化输出与 Scanner',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/ma-shan-zheng/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/zcool-xiaowei/index.css"><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/ink.css"><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="笺札" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://pic1.imgdb.cn/item/6829891e58cb8da5c8fabff0.png" onerror="this.onerror=null;this.src='/img/friend_04.gif'" alt="avatar"/ loading='lazy'></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">465</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">126</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fa fa-camera-retro faa-float animared"></i><span> 相册</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video faa-float animared"></i><span> 影视</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book  faa-float animared"></i><span> 图书</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://pic1.imgdb.cn/item/6908b7d53203f7be00cc7a0f.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">笺札</span></a><a class="nav-page-title" href="/"><span class="site-name">Java 第一个程序：文件名、main、格式化输出与 Scanner</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fa fa-camera-retro faa-float animared"></i><span> 相册</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video faa-float animared"></i><span> 影视</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book  faa-float animared"></i><span> 图书</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Java 第一个程序：文件名、main、格式化输出与 Scanner</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-10-28T16:00:00.000Z" title="发表于 2026-10-29 00:00:00">2026-10-29</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-10-30T02:53:00.543Z" title="更新于 2026-10-30 10:53:00">2026-10-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%8D%9A%E5%AE%A2/">博客</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="java-第一个程序文件名-main-格式化输出与-scanner"><a class="markdownIt-Anchor" href="#java-第一个程序文件名-main-格式化输出与-scanner"></a> Java 第一个程序：文件名、main、格式化输出与 Scanner</h1>
+<p>从「能跑起来」到「写得像样」，中间隔着一批小规矩。它们单拎出来都不难，但每一条都对应一个新手卡半天的问题：文件名不匹配的报错看不懂、<code>main</code> 少个 <code>static</code> 报「找不到主方法」、<code>Scanner</code> 连着用第二次读到空串、中文输入法打了个全角分号。</p>
+<p>这篇把它们按「从编译到运行、从输出到输入」的顺序串一遍。</p>
+<h2 id="一-文件名必须等于-public-类名"><a class="markdownIt-Anchor" href="#一-文件名必须等于-public-类名"></a> 一、文件名必须等于 public 类名</h2>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">error: class Wrong is public, should be declared in a file named Wrong.java</span><br></pre></td></tr></table></figure>
+<p>规则完整版：一个 <code>.java</code> 文件<strong>可以有多个类，但最多一个 <code>public</code> 类</strong>，文件名必须逐字符等于它（含大小写）。没有 <code>public</code> 类时文件名可以随便起，但不建议。</p>
+<p>为什么？因为 JVM 靠「类名 → 文件名」这条映射去 classpath 找 <code>.class</code>。允许乱起就要额外维护一张映射表，编译器干脆把这个自由度收掉。</p>
+<p>最坑的场景在大小写：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Windows：hello.java 里写 public class Hello</span><br><span class="line">javac hello.java     → 能过（文件系统不区分大小写）</span><br><span class="line">Linux：同一条命令    → 编译失败</span><br></pre></td></tr></table></figure>
+<p><strong>永远让文件名和类名逐字符一致。</strong> 本地能过不代表 CI 能过，而这类错误在提交之后才炸。</p>
+<h2 id="二-main-的四个修饰各管一件事"><a class="markdownIt-Anchor" href="#二-main-的四个修饰各管一件事"></a> 二、<code>main</code> 的四个修饰，各管一件事</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span></span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">修饰</th>
+<th style="text-align:left">作用</th>
+<th style="text-align:left">去掉会怎样</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>public</code></td>
+<td style="text-align:left">JVM 要能从外部调用</td>
+<td style="text-align:left">「主方法不是 public」</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>static</code></td>
+<td style="text-align:left">不创建对象也能执行</td>
+<td style="text-align:left">「找不到主方法」</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>void</code></td>
+<td style="text-align:left">无返回值</td>
+<td style="text-align:left">签名不匹配</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>String[] args</code></td>
+<td style="text-align:left">接命令行参数</td>
+<td style="text-align:left">签名不匹配</td>
+</tr>
+</tbody>
+</table>
+<p><code>static</code> 去掉后的报错长这样：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Error: Main method not found in class Hello, please define the main method as:</span><br><span class="line">   public static void main(String[] args)</span><br></pre></td></tr></table></figure>
+<p>注意它说的是「找不到主方法」，而不是「static 缺失」——这个措辞很容易让人以为方法名写错了。</p>
+<p><code>static</code> 是必须的原因：JVM 启动时还没有任何对象，只能调用静态方法。<code>main</code> 本身也只是个普通静态方法，别的类可以 <code>Hello.main(new String[0])</code> 直接调它——知道这点后，「入口」这个概念的边界就清楚了。</p>
+<p><code>args</code> 永远不是 <code>null</code>，没传参时长度是 0。所以判空用 <code>args.length == 0</code> 就够。</p>
+<p><code>String args[]</code>（C 风格）和 <code>String... args</code>（可变参数）都能编译，但标准写法是 <code>String[] args</code>。</p>
+<h2 id="三-三种注释只有一种能生成文档"><a class="markdownIt-Anchor" href="#三-三种注释只有一种能生成文档"></a> 三、三种注释，只有一种能生成文档</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">写法</th>
+<th style="text-align:left">名称</th>
+<th style="text-align:left">用途</th>
+<th style="text-align:left">能被 <code>javadoc</code> 抽取</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>// ...</code></td>
+<td style="text-align:left">单行注释</td>
+<td style="text-align:left">行尾说明，最常用</td>
+<td style="text-align:left">否</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>/* ... */</code></td>
+<td style="text-align:left">多行注释</td>
+<td style="text-align:left">成段说明 / 临时注释掉一块</td>
+<td style="text-align:left">否</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>/** ... */</code></td>
+<td style="text-align:left">文档注释</td>
+<td style="text-align:left">写在类、方法、字段上方</td>
+<td style="text-align:left"><strong>是</strong></td>
+</tr>
+</tbody>
+</table>
+<p>第三种就是 JDK 官方 API 文档的来源：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">javadoc -d doc -author -version Sum.java</span><br></pre></td></tr></table></figure>
+<p>参数顺序有讲究：<code>-d</code> 紧跟输出目录、开关在前、<strong>源文件放最后</strong>。顺序错了就是「找不到文件」。</p>
+<p>两个细节：</p>
+<ul>
+<li><strong>多行注释不能嵌套</strong>。<code>/* /* */ */</code> 在第一个 <code>*/</code> 就结束，后面的 <code>*/</code> 变成语法错误。调试时整块注释代码很快，但要知道这条。</li>
+<li><strong>文档注释必须紧贴</strong>被说明的成员，中间隔一个空行就不属于它了。</li>
+</ul>
+<p>写什么也有讲究。<code>// 这里加 1</code> 等于没写；有用的注释解释<strong>为什么</strong>——「这里必须强转，因为接口只接受 short」，看的人才知道不能改。</p>
+<h2 id="四-输出三兄弟"><a class="markdownIt-Anchor" href="#四-输出三兄弟"></a> 四、输出三兄弟</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">方法</th>
+<th style="text-align:left">结尾</th>
+<th style="text-align:left">用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>System.out.print(x)</code></td>
+<td style="text-align:left">不换行</td>
+<td style="text-align:left">拼一行内的连续输出</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>System.out.println(x)</code></td>
+<td style="text-align:left">自动换行</td>
+<td style="text-align:left">日常调试、逐行输出</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>System.out.printf(格式, 参数…)</code></td>
+<td style="text-align:left">不换行（换行写 <code>%n</code>）</td>
+<td style="text-align:left">对齐、补零、保留小数位</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">System.out.print(<span class="string">&quot;a&quot;</span>);</span><br><span class="line">System.out.print(<span class="string">&quot;b&quot;</span>);</span><br><span class="line">System.out.println(<span class="string">&quot;c&quot;</span>);          <span class="comment">// 输出 abc 后换行</span></span><br></pre></td></tr></table></figure>
+<p><code>printf</code> 才是排版的主力，常用占位符：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">占位符</th>
+<th style="text-align:left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>%d</code></td>
+<td style="text-align:left">整数</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>%5d</code></td>
+<td style="text-align:left">右对齐，宽 5</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>%-5d</code></td>
+<td style="text-align:left">左对齐，宽 5</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>%05d</code></td>
+<td style="text-align:left">补零到 5 位</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>%.2f</code></td>
+<td style="text-align:left">保留两位小数</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>%s</code> / <code>%.3s</code></td>
+<td style="text-align:left">字符串 / 截前三字符</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>%c</code> / <code>%b</code></td>
+<td style="text-align:left">字符 / 布尔</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>%,d</code></td>
+<td style="text-align:left">千分位</td>
+</tr>
+</tbody>
+</table>
+<p>实测：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">System.out.printf(<span class="string">&quot;%d|%5d|%-5d|%05d%n&quot;</span>, <span class="number">42</span>, <span class="number">42</span>, <span class="number">42</span>, <span class="number">42</span>);</span><br><span class="line">System.out.printf(<span class="string">&quot;%.2f|%s|%c|%b%n&quot;</span>, <span class="number">3.14159</span>, <span class="string">&quot;hi&quot;</span>, <span class="string">&#x27;A&#x27;</span>, <span class="literal">true</span>);</span><br><span class="line">System.out.printf(<span class="string">&quot;%,d%n&quot;</span>, <span class="number">1234567</span>);</span><br><span class="line">System.out.printf(<span class="string">&quot;%.3s%n&quot;</span>, <span class="string">&quot;abcdef&quot;</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">42|   42|42   |00042</span><br><span class="line">3.14|hi|A|true</span><br><span class="line">1,234,567</span><br><span class="line">abc</span><br></pre></td></tr></table></figure>
+<p>换行用 <code>%n</code> 而不是 <code>\n</code>：<code>%n</code> 会跟随平台（Windows 是 <code>\r\n</code>，Unix 是 <code>\n</code>），<code>\n</code> 是写死的。</p>
+<p>转义字符是反斜杠的两副面孔：</p>
+<ul>
+<li><strong>普通变特殊</strong>：<code>\n</code> 换行、<code>\t</code> 制表。</li>
+<li><strong>特殊变普通</strong>：<code>\&quot;</code>、<code>\'</code>、<code>\\</code>。</li>
+</ul>
+<p>Windows 路径里每个 <code>\</code> 都要写成 <code>\\</code>，<code>D:\note</code> 会变成 <code>D:</code> + 换行 + <code>ote</code>。</p>
+<p>还有一个中文环境专属的坑：输入法下打出全角分号 <code>；</code>，编译报</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">illegal character: &#x27;\uff1b&#x27;</span><br></pre></td></tr></table></figure>
+<p><code>\uff1b</code> 就是全角分号的码点。看着吓人，实际只是标点错了。全角括号、全角逗号同理。</p>
+<h2 id="五-scanner-三步走与那个换行符"><a class="markdownIt-Anchor" href="#五-scanner-三步走与那个换行符"></a> 五、<code>Scanner</code> 三步走与那个换行符</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;                  <span class="comment">// ① 导包</span></span><br><span class="line"><span class="type">Scanner</span> <span class="variable">sc</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);       <span class="comment">// ② 创建</span></span><br><span class="line"><span class="type">int</span> <span class="variable">num</span> <span class="operator">=</span> sc.nextInt();                    <span class="comment">// ③ 调方法</span></span><br><span class="line">sc.close();                                <span class="comment">// 用完关掉</span></span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">方法</th>
+<th style="text-align:left">读什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>nextInt()</code> / <code>nextDouble()</code></td>
+<td style="text-align:left">一个数字，跳过前导空白</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>next()</code></td>
+<td style="text-align:left">一个 token，以空白为界（<strong>读不到空格</strong>）</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>nextLine()</code></td>
+<td style="text-align:left"><strong>整行</strong>（不含换行符）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>连用坑</strong>：<code>nextInt()</code> 只吃掉数字，行尾的换行符留在缓冲区；接着调 <code>nextLine()</code>，它一上来就遇到这个换行符，立刻返回空串。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">age</span> <span class="operator">=</span> sc.nextInt();      <span class="comment">// 输入 22 回车</span></span><br><span class="line">sc.nextLine();               <span class="comment">// 吃掉残留换行（关键一行）</span></span><br><span class="line"><span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> sc.nextLine(); <span class="comment">// 这才读到姓名</span></span><br></pre></td></tr></table></figure>
+<p>实测（输入 <code>22\n张三</code>）：加那一行 <code>nextLine()</code> 后，<code>age</code> 是 22、<code>name</code> 是「张三」；不加的话 <code>name</code> 是空串，而且程序不会报错，只是后续逻辑莫名其妙。</p>
+<p>根因：<code>Scanner</code> 按分隔符切 token，<code>nextXxx()</code> 读到分隔符就停且<strong>不消费</strong>它，<code>nextLine()</code> 则消费到换行为止。混用就得自己清理。</p>
+<p>另一个坑：类型不匹配抛 <code>InputMismatchException</code>，程序直接崩，不会返回默认值。线上受理输入必须自己校验，不能指望 <code>Scanner</code>。</p>
+<h2 id="六-random-的边界是左闭右开"><a class="markdownIt-Anchor" href="#六-random-的边界是左闭右开"></a> 六、<code>Random</code> 的边界是左闭右开</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Random</span> <span class="variable">r</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Random</span>();</span><br><span class="line"><span class="type">int</span> <span class="variable">dice</span> <span class="operator">=</span> r.nextInt(<span class="number">6</span>) + <span class="number">1</span>;      <span class="comment">// 1~6</span></span><br><span class="line"><span class="type">int</span> <span class="variable">percent</span> <span class="operator">=</span> r.nextInt(<span class="number">100</span>) + <span class="number">1</span>; <span class="comment">// 1~100</span></span><br></pre></td></tr></table></figure>
+<p><code>nextInt(n)</code> 返回 <code>[0, n)</code>。所以「1 到 100」写 <code>nextInt(100) + 1</code>，写成 <code>nextInt(101)</code> 会多出一个 0——概率只差 1%，肉眼几乎发现不了，压测时才会有人质疑。</p>
+<p><code>new Random(42)</code> 指定种子，序列可复现，做随机测试和复现 bug 很方便。实测两次 <code>new Random(42).nextInt(100) + 1</code> 都得到 <code>31</code>。</p>
+<p>需要「不可预测」时（令牌、验证码）用 <code>SecureRandom</code>，<code>Random</code> 是可预测的线性同余生成器。</p>
+<h2 id="七-命名与包结构哪条是强制的"><a class="markdownIt-Anchor" href="#七-命名与包结构哪条是强制的"></a> 七、命名与包结构：哪条是强制的</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">对象</th>
+<th style="text-align:left">规则</th>
+<th style="text-align:left">例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">类 / 接口</td>
+<td style="text-align:left">大驼峰</td>
+<td style="text-align:left"><code>MorseCodeDecoder</code></td>
+</tr>
+<tr>
+<td style="text-align:left">方法</td>
+<td style="text-align:left">小驼峰，动词开头</td>
+<td style="text-align:left"><code>decode</code>、<code>getStudentName</code></td>
+</tr>
+<tr>
+<td style="text-align:left">变量</td>
+<td style="text-align:left">小驼峰</td>
+<td style="text-align:left"><code>morseCode</code>、<code>studentList</code></td>
+</tr>
+<tr>
+<td style="text-align:left">常量</td>
+<td style="text-align:left">全大写 + 下划线</td>
+<td style="text-align:left"><code>MAX_SIZE</code></td>
+</tr>
+<tr>
+<td style="text-align:left">包</td>
+<td style="text-align:left">全小写，域名倒序</td>
+<td style="text-align:left"><code>com.example.demo</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>这些都不是编译器强制的</strong>（只有「文件名 = public 类名」那条是）。但框架全依赖它们：Spring 按 <code>setXxx</code> 找注入点，Jackson 按 <code>getXxx</code> 序列化 JSON，JPA 按类名映射表名。命名错了程序不一定报错，<strong>行为会莫名其妙</strong>。</p>
+<p>几个具体建议：</p>
+<ul>
+<li><code>i</code> / <code>j</code> / <code>k</code> 只留给循环变量。</li>
+<li>布尔值用 <code>is</code> / <code>has</code> / <code>can</code> 开头，<code>isValid</code> 比 <code>valid</code> 清楚一个量级。</li>
+<li>类名首字母小写不会报错，但反射 / 序列化时容易出现「字段名对不上」的怪问题。</li>
+</ul>
+<p>包与目录是<strong>一一对应</strong>的：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">package com.example.demo;   →   src/com/example/demo/Xxx.java</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>package</code> 必须是文件第一行（注释除外）。写在 <code>import</code> 之后报 <code>class, interface, or enum expected</code>。</li>
+<li><strong>没写 <code>package</code> 的类属于「默认包」</strong>，默认包里的类不能被其他包引用——这是「明明在同一个项目里却 import 不到」最常见的原因。</li>
+<li><code>import java.util.*</code> 不会真的导入什么，只是省了写全限定名，只影响编译期，不影响运行时。</li>
+</ul>
+<p>文件内的顺序也建议固定：包声明 → 导包 → 类注释 → 类声明 → 常量 → 字段 → 构造器 → 方法。看代码的人不用找。</p>
+<h2 id="小结"><a class="markdownIt-Anchor" href="#小结"></a> 小结</h2>
+<ul>
+<li><strong>文件名必须逐字符等于 <code>public</code> 类名</strong>；Windows 不区分大小写能过，Linux 会失败。</li>
+<li><code>main</code> 的 <code>public</code> / <code>static</code> / <code>void</code> / <code>String[]</code> 各管一件事，缺 <code>static</code> 的报错是「找不到主方法」。</li>
+<li>注释三种，只有 <code>/** */</code> 能被 <code>javadoc</code> 抽取；多行注释不能嵌套；注释解释<strong>为什么</strong>。</li>
+<li><code>printf</code> 管排版（<code>%5d</code> / <code>%-5d</code> / <code>%05d</code> / <code>%.2f</code> / <code>%,d</code>），换行用 <code>%n</code> 不用 <code>\n</code>；全角标点报 <code>illegal character: '\uff1b'</code>。</li>
+<li><code>Scanner</code> 三步走；<code>nextInt()</code> 后面接 <code>nextLine()</code> 必须先吃掉换行符，否则读到空串；类型不匹配抛 <code>InputMismatchException</code>。</li>
+<li><code>Random.nextInt(n)</code> 是 <code>[0, n)</code>，要「1 到 n」写 <code>nextInt(n) + 1</code>；可复现用种子，要安全用 <code>SecureRandom</code>。</li>
+<li>命名规则是约定（框架依赖它），只有「文件名 = 类名」是编译器强制；包名与目录一一对应，默认包不能被引用。</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.id-zyuan.xyz">zhaoyuan</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://blog.id-zyuan.xyz/2026/10/29/Java-%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%A8%8B%E5%BA%8F/">https://blog.id-zyuan.xyz/2026/10/29/Java-%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%A8%8B%E5%BA%8F/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://blog.id-zyuan.xyz" target="_blank">笺札</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Java/">Java</a><a class="post-meta__tags" href="/tags/%E5%9F%BA%E7%A1%80/">基础</a><a class="post-meta__tags" href="/tags/%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/">输入输出</a></div><div class="post-share"><div class="social-share" data-image="https://pic1.imgdb.cn/item/6908b7d53203f7be00cc7a0f.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/10/29/Java-%E7%BB%A7%E6%89%BF%E4%B8%8E%E5%A4%9A%E6%80%81/" title="Java 继承与多态：字段为什么不参与多态"><img class="cover" src="https://pic1.imgdb.cn/item/6909bfa63203f7be00cf70c6.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post" loading='lazy'><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Java 继承与多态：字段为什么不参与多态</div></div><div class="info-2"><div class="info-item-1"> Java 继承与多态：字段为什么不参与多态 继承是面向对象里最容易被教坏的一课。教材上讲「子类继承父类，可以复用代码」，听起来只有好处；实际项目里，继承是最强的编译期耦合，用错地方的代价远大于省下的几行代码。 这篇把继承、重写、重载、多态、抽象类与接口放在一条线上讲，因为它们本来就互为因果：继承提供层次，重写提供替换，多态是替换在运行期的兑现方式。  一、extends 与 super 123456789101112class Animal &#123;    String name = &quot;animal&quot;;    void breathe() &#123; System.out.println(&quot;Animal.breathe&quot;); &#125;&#125;class Cat extends Animal &#123;    @Override    void breathe() &#123;        super.breathe();                  // 先跑父类的        System.out.printl...</div></div></div></a><a class="pagination-related" href="/2026/10/29/Java-%E6%96%B9%E6%B3%95/" title="Java 方法：四种形态、值传递与重载决议"><img class="cover" src="https://pic1.imgdb.cn/item/6909bf6b3203f7be00cf703e.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post" loading='lazy'><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Java 方法：四种形态、值传递与重载决议</div></div><div class="info-2"><div class="info-item-1"> Java 方法：四种形态、值传递与重载决议 方法大概是 Java 里最不需要解释的语法：写个名字、加个括号、里面塞几行。但真正会出问题的地方都在细节上——void 和「不写返回类型」是不是一回事？为什么 swap(a, b) 什么也没换？k(1) 明明有 k(Integer) 重载，为什么走的是 k(long)？ 这篇按「怎么写 → 参数怎么传 → 同名怎么挑 → 工程里怎么分层」的顺序讲。  一、方法是五个部分拼起来的 123public static int sum(int a, int b) &#123;    return a + b;&#125;    组成 含义     修饰符 public（外部可调）+ static（属于类，不用 new）   返回值类型 交回的结果类型；没有返回值写 void，不是不写   方法名 小驼峰、动词开头   参数列表 数据类型 变量名，逗号分隔，可以为空   return 交回结果；void 方法里可以写 return; 提前结束    两个容易混的点：  void 是「有返回值类型，只是这个类型叫 void」；完全省略返回类型编译...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2026/10/29/Java-Stream/" title="Java Stream：惰性求值、一次性，以及能翻译 SQL 的 groupingBy"><img class="cover" src="https://pic1.imgdb.cn/item/6908b7233203f7be00cc7958.jpg" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-29</div><div class="info-item-2">Java Stream：惰性求值、一次性，以及能翻译 SQL 的 groupingBy</div></div><div class="info-2"><div class="info-item-1"> Java Stream：惰性求值、一次性，以及能翻译 SQL 的 groupingBy 第一次用 Stream 的人常有两个困惑：一是「我写完了，怎么什么都没发生」，二是「第二次用同一个流怎么报错了」。这两个困惑指向同一条设计：Stream 不是集合，是管道。 管道有三个性质：不存数据、不推不动、走一次就废。理解这三点，后面所有操作都顺。  一、三条铁律    铁律 含义 违反的后果     不存数据 只是对数据源的视图 修改 Stream 不影响源集合   惰性求值 没有终端操作就什么都不做 「写了没效果」   只能消费一次 走完就关闭 IllegalStateException    1数据源 → 中间操作链（惰性，可无） → 终端操作（触发执行） 一个常被追问的点：stream() 对集合是零拷贝的视图，list.stream() 不会复制元素；但流本身持有对源的引用，所以遍历过程中修改源集合（尤其是 add / remove）会抛 ConcurrentModificationException。  二、惰性：用 peek 亲眼看一下 12345678List&lt;St...</div></div></div></a><a class="pagination-related" href="/2026/10/29/Java-%E5%AD%97%E7%AC%A6%E4%B8%B2/" title="Java 字符串：为什么它是 final，为什么双等号有时是 true"><img class="cover" src="https://pic1.imgdb.cn/item/6908b7e53203f7be00cc7a24.jpg" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-29</div><div class="info-item-2">Java 字符串：为什么它是 final，为什么双等号有时是 true</div></div><div class="info-2"><div class="info-item-1"> Java 字符串：为什么它是 final，为什么双等号有时是 true 字符串是 Java 里唯一「用起来像基本类型、实际上是对象」的东西。它有无需 new 的字面量语法，有 + 拼接的语法糖，还有一套缓存机制——这三点加起来，让  == 在字符串上表现得像是有时对、有时错。 这篇从「为什么不可变」开始，把常量池、 == 与 equals、常用方法、拼接性能串成一条线。  一、不可变：String 是 final 类 两个 final：  String 类本身声明为 final，不能被继承。 内部存字符的数组也是 final，不能被重新赋值。  于是所有看起来像「修改」的方法——concat、substring、replace、toUpperCase——实际都返回新对象： 123String s = &quot;abc&quot;;String t = s.concat(&quot;d&quot;);System.out.println(s + &quot; / &quot; + t);    // abc / abcd s 仍然是 abc，长度还是 3。t 是一个全新的 St...</div></div></div></a><a class="pagination-related" href="/2026/10/29/Java-%E4%BB%8E%E6%BA%90%E7%A0%81%E5%88%B0%E8%BF%90%E8%A1%8C/" title="Java 从 .java 到运行：JDK、JRE、字节码与 JIT 的一条完整链路"><img class="cover" src="https://pic1.imgdb.cn/item/6909bfa63203f7be00cf70c9.jpg" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-29</div><div class="info-item-2">Java 从 .java 到运行：JDK、JRE、字节码与 JIT 的一条完整链路</div></div><div class="info-2"><div class="info-item-1"> Java 从 .java 到运行：JDK、JRE、字节码与 JIT 的一条完整链路 装 Java 的第一步通常是「下载 JDK」，但很少有人能立刻说清：为什么不是装 JRE？java -version 和 javac -version 为什么输出不一样？JDK 9 之后安装目录里那个 jre/ 文件夹怎么不见了？以及——「Java 是解释型语言」这句话到底错在哪？ 这四个问题其实指向同一条链路：源码 → 字节码 → 类加载 → 解释执行 → JIT 编译 → 机器码。把这条链走一遍，环境问题、启动速度、版本报错基本都能自己诊断。  一、先理清包含关系：JDK ⊃ JRE ⊃ JVM 这三者是包含关系，不是并列关系。 12345678910JDK（Java Development Kit，开发工具包） ├── JRE（Java Runtime Environment，运行环境） │    ├── JVM（Java Virtual Machine） │    └── 核心类库（String、集合、IO、网络…） └── 开发工具      ├── javac   编译：.java ...</div></div></div></a><a class="pagination-related" href="/2026/10/29/Java-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="Java 数据类型：8 种基本类型、(byte) 200 与 Integer 的缓存"><img class="cover" src="https://pic1.imgdb.cn/item/6908b7e53203f7be00cc7a25.jpg" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-29</div><div class="info-item-2">Java 数据类型：8 种基本类型、(byte) 200 与 Integer 的缓存</div></div><div class="info-2"><div class="info-item-1"> Java 数据类型：8 种基本类型、(byte) 200 与 Integer 的缓存 Java 是强类型语言，但「强」的具体表现常常被低估：字面量有默认类型，赋值有宽窄之分，装箱有缓存，强转会静默丢数据。每一条都能让一段看起来正确的代码输出一个意外的数字。 这篇从类型出发，把「存什么、转什么、比什么」三件事一次讲完。  一、8 种基本类型，其余都是引用 1234567基本类型（8 种）├── 整型：byte(1B) short(2B) int(4B) long(8B)├── 浮点：float(4B) double(8B)├── 字符：char(2B，Unicode)└── 布尔：boolean（规范不保证 1 字节）引用类型：类 · 数组 · 接口 · 枚举 · 注解 · record 范围记两个就够用：    类型 字节 范围 备注     byte 1 -128 ~ 127 文件流、网络包常用   short 2 -32768 ~ 32767 少见   int 4 ±21 亿 默认整型   long 8 很大 字面量加 L   float 4 约 7 位有效数字 字面量加 ...</div></div></div></a><a class="pagination-related" href="/2026/10/29/Java-%E6%95%B0%E7%BB%84/" title="Java 数组：定长、越界，以及手写一趟冒泡"><img class="cover" src="https://pic1.imgdb.cn/item/6908b7ef3203f7be00cc7a29.jpg" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-29</div><div class="info-item-2">Java 数组：定长、越界，以及手写一趟冒泡</div></div><div class="info-2"><div class="info-item-1"> Java 数组：定长、越界，以及手写一趟冒泡 数组是学 Java 时第一个「不像变量」的东西：它不接受 a = b 这种复制直觉，长度改不了，打印出来是一串 [I@506e1b77。很多人第一次运行时异常也是从它开始的——ArrayIndexOutOfBoundsException。 这篇把数组的七个面向串一遍：它是什么、什么会炸、怎么复制、二维是什么、工具类能省多少事、手写排序在练什么、以及为什么它是 .length 而字符串是 .length()。  一、三个硬约束：定长、同类型、内存连续 123int[] a = new int[5];                    // 只定长度，元素取默认值int[] b = &#123;1, 2, 3&#125;;                     // 声明即初始化，只能在声明行用String[] c = new String[]&#123;&quot;x&quot;, &quot;y&quot;&#125;;     // 完整写法，任何位置都能用 三种写法里最容易踩的是第二种：&#123;1, 2, 3&#125...</div></div></div></a><a class="pagination-related" href="/2026/10/29/Java-%E6%96%B9%E6%B3%95/" title="Java 方法：四种形态、值传递与重载决议"><img class="cover" src="https://pic1.imgdb.cn/item/6909bf6b3203f7be00cf703e.png" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-29</div><div class="info-item-2">Java 方法：四种形态、值传递与重载决议</div></div><div class="info-2"><div class="info-item-1"> Java 方法：四种形态、值传递与重载决议 方法大概是 Java 里最不需要解释的语法：写个名字、加个括号、里面塞几行。但真正会出问题的地方都在细节上——void 和「不写返回类型」是不是一回事？为什么 swap(a, b) 什么也没换？k(1) 明明有 k(Integer) 重载，为什么走的是 k(long)？ 这篇按「怎么写 → 参数怎么传 → 同名怎么挑 → 工程里怎么分层」的顺序讲。  一、方法是五个部分拼起来的 123public static int sum(int a, int b) &#123;    return a + b;&#125;    组成 含义     修饰符 public（外部可调）+ static（属于类，不用 new）   返回值类型 交回的结果类型；没有返回值写 void，不是不写   方法名 小驼峰、动词开头   参数列表 数据类型 变量名，逗号分隔，可以为空   return 交回结果；void 方法里可以写 return; 提前结束    两个容易混的点：  void 是「有返回值类型，只是这个类型叫 void」；完全省略返回类型编译...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://pic1.imgdb.cn/item/6829891e58cb8da5c8fabff0.png" onerror="this.onerror=null;this.src='/img/friend_04.gif'" alt="avatar"/ loading='lazy'></div><div class="author-info-name">zhaoyuan</div><div class="author-info-description">一封封记录足迹与所悟的信集</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">465</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">126</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#java-%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%A8%8B%E5%BA%8F%E6%96%87%E4%BB%B6%E5%90%8D-main-%E6%A0%BC%E5%BC%8F%E5%8C%96%E8%BE%93%E5%87%BA%E4%B8%8E-scanner"><span class="toc-number">1.</span> <span class="toc-text"> Java 第一个程序：文件名、main、格式化输出与 Scanner</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80-%E6%96%87%E4%BB%B6%E5%90%8D%E5%BF%85%E9%A1%BB%E7%AD%89%E4%BA%8E-public-%E7%B1%BB%E5%90%8D"><span class="toc-number">1.1.</span> <span class="toc-text"> 一、文件名必须等于 public 类名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C-main-%E7%9A%84%E5%9B%9B%E4%B8%AA%E4%BF%AE%E9%A5%B0%E5%90%84%E7%AE%A1%E4%B8%80%E4%BB%B6%E4%BA%8B"><span class="toc-number">1.2.</span> <span class="toc-text"> 二、main 的四个修饰，各管一件事</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89-%E4%B8%89%E7%A7%8D%E6%B3%A8%E9%87%8A%E5%8F%AA%E6%9C%89%E4%B8%80%E7%A7%8D%E8%83%BD%E7%94%9F%E6%88%90%E6%96%87%E6%A1%A3"><span class="toc-number">1.3.</span> <span class="toc-text"> 三、三种注释，只有一种能生成文档</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B-%E8%BE%93%E5%87%BA%E4%B8%89%E5%85%84%E5%BC%9F"><span class="toc-number">1.4.</span> <span class="toc-text"> 四、输出三兄弟</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94-scanner-%E4%B8%89%E6%AD%A5%E8%B5%B0%E4%B8%8E%E9%82%A3%E4%B8%AA%E6%8D%A2%E8%A1%8C%E7%AC%A6"><span class="toc-number">1.5.</span> <span class="toc-text"> 五、Scanner 三步走与那个换行符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD-random-%E7%9A%84%E8%BE%B9%E7%95%8C%E6%98%AF%E5%B7%A6%E9%97%AD%E5%8F%B3%E5%BC%80"><span class="toc-number">1.6.</span> <span class="toc-text"> 六、Random 的边界是左闭右开</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83-%E5%91%BD%E5%90%8D%E4%B8%8E%E5%8C%85%E7%BB%93%E6%9E%84%E5%93%AA%E6%9D%A1%E6%98%AF%E5%BC%BA%E5%88%B6%E7%9A%84"><span class="toc-number">1.7.</span> <span class="toc-text"> 七、命名与包结构：哪条是强制的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-number">1.8.</span> <span class="toc-text"> 小结</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/10/30/BI-%E6%8C%87%E6%A0%87%E4%BD%93%E7%B3%BB%E4%B8%8E%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95/" title="BI 入门：指标体系、分析方法与 Tableau 落地"><img src="https://pic1.imgdb.cn/item/6909bfe13203f7be00cf7140.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="BI 入门：指标体系、分析方法与 Tableau 落地"/ loading='lazy'></a><div class="content"><a class="title" href="/2026/10/30/BI-%E6%8C%87%E6%A0%87%E4%BD%93%E7%B3%BB%E4%B8%8E%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95/" title="BI 入门：指标体系、分析方法与 Tableau 落地">BI 入门：指标体系、分析方法与 Tableau 落地</a><time datetime="2026-10-29T16:00:00.000Z" title="发表于 2026-10-30 00:00:00">2026-10-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/10/30/SQL-%E5%88%86%E6%9E%90%E5%9C%BA%E6%99%AF%E5%AE%9E%E6%88%98/" title="SQL 分析实战：漏斗、留存、连续 N 天与同环比"><img src="https://pic1.imgdb.cn/item/6908b7ef3203f7be00cc7a28.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SQL 分析实战：漏斗、留存、连续 N 天与同环比"/ loading='lazy'></a><div class="content"><a class="title" href="/2026/10/30/SQL-%E5%88%86%E6%9E%90%E5%9C%BA%E6%99%AF%E5%AE%9E%E6%88%98/" title="SQL 分析实战：漏斗、留存、连续 N 天与同环比">SQL 分析实战：漏斗、留存、连续 N 天与同环比</a><time datetime="2026-10-29T16:00:00.000Z" title="发表于 2026-10-30 00:00:00">2026-10-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/10/30/SQL-%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%E4%B8%8E%E5%AD%90%E6%9F%A5%E8%AF%A2/" title="SQL 窗口函数：不分组也能排名，以及 CTE、子查询与 TopN 怎么配合"><img src="https://pic1.imgdb.cn/item/6909bfe13203f7be00cf7142.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SQL 窗口函数：不分组也能排名，以及 CTE、子查询与 TopN 怎么配合"/ loading='lazy'></a><div class="content"><a class="title" href="/2026/10/30/SQL-%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%E4%B8%8E%E5%AD%90%E6%9F%A5%E8%AF%A2/" title="SQL 窗口函数：不分组也能排名，以及 CTE、子查询与 TopN 怎么配合">SQL 窗口函数：不分组也能排名，以及 CTE、子查询与 TopN 怎么配合</a><time datetime="2026-10-29T16:00:00.000Z" title="发表于 2026-10-30 00:00:00">2026-10-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/10/30/SQL-%E7%B4%A2%E5%BC%95/" title="SQL 索引：为什么加了索引还是慢，回表与最左前缀"><img src="https://pic1.imgdb.cn/item/6908b7a43203f7be00cc79cf.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SQL 索引：为什么加了索引还是慢，回表与最左前缀"/ loading='lazy'></a><div class="content"><a class="title" href="/2026/10/30/SQL-%E7%B4%A2%E5%BC%95/" title="SQL 索引：为什么加了索引还是慢，回表与最左前缀">SQL 索引：为什么加了索引还是慢，回表与最左前缀</a><time datetime="2026-10-29T16:00:00.000Z" title="发表于 2026-10-30 00:00:00">2026-10-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/10/30/SQL-%E4%BA%8B%E5%8A%A1/" title="SQL 事务：ACID 各挡什么，隔离级别与 MVCC 怎么配合"><img src="https://pic1.imgdb.cn/item/6908b7d53203f7be00cc7a0c.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SQL 事务：ACID 各挡什么，隔离级别与 MVCC 怎么配合"/ loading='lazy'></a><div class="content"><a class="title" href="/2026/10/30/SQL-%E4%BA%8B%E5%8A%A1/" title="SQL 事务：ACID 各挡什么，隔离级别与 MVCC 怎么配合">SQL 事务：ACID 各挡什么，隔离级别与 MVCC 怎么配合</a><time datetime="2026-10-29T16:00:00.000Z" title="发表于 2026-10-30 00:00:00">2026-10-30</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2019 - 2026 By zhaoyuan</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><div class="js-pjax"><script>(async () => {
+  const showKatex = () => {
+    document.querySelectorAll('#article-container .katex').forEach(el => el.classList.add('katex-show'))
+  }
+
+  if (!window.katex_js_css) {
+    window.katex_js_css = true
+    await btf.getCSS('https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css')
+    if (false) {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js')
+    }
+  }
+
+  showKatex()
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

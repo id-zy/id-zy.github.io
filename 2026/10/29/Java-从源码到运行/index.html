@@ -1,0 +1,363 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Java 从 .java 到运行：JDK、JRE、字节码与 JIT 的一条完整链路 | 笺札</title><meta name="author" content="zhaoyuan"><meta name="copyright" content="zhaoyuan"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="f4f1e8"><meta name="description" content="把 JDK &#x2F; JRE &#x2F; JVM 的包含关系、跨平台到底跨的是什么、javac 做了什么、JVM 怎么用解释器加 JIT 分层编译把热点代码变成机器码、类加载为何懒、三个「找不到类」的报错怎么分，串成一条从写下 .java 到程序跑起来的完整链路，末尾附环境变量与三步排查。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java 从 .java 到运行：JDK、JRE、字节码与 JIT 的一条完整链路">
+<meta property="og:url" content="https://blog.id-zyuan.xyz/2026/10/29/Java-%E4%BB%8E%E6%BA%90%E7%A0%81%E5%88%B0%E8%BF%90%E8%A1%8C/index.html">
+<meta property="og:site_name" content="笺札">
+<meta property="og:description" content="把 JDK &#x2F; JRE &#x2F; JVM 的包含关系、跨平台到底跨的是什么、javac 做了什么、JVM 怎么用解释器加 JIT 分层编译把热点代码变成机器码、类加载为何懒、三个「找不到类」的报错怎么分，串成一条从写下 .java 到程序跑起来的完整链路，末尾附环境变量与三步排查。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic1.imgdb.cn/item/6909bfa63203f7be00cf70c9.jpg">
+<meta property="article:published_time" content="2026-10-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-10-29T14:02:12.929Z">
+<meta property="article:author" content="zhaoyuan">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="JVM">
+<meta property="article:tag" content="编译原理">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic1.imgdb.cn/item/6909bfa63203f7be00cf70c9.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Java 从 .java 到运行：JDK、JRE、字节码与 JIT 的一条完整链路",
+  "url": "https://blog.id-zyuan.xyz/2026/10/29/Java-%E4%BB%8E%E6%BA%90%E7%A0%81%E5%88%B0%E8%BF%90%E8%A1%8C/",
+  "image": "https://pic1.imgdb.cn/item/6909bfa63203f7be00cf70c9.jpg",
+  "datePublished": "2026-10-28T16:00:00.000Z",
+  "dateModified": "2026-10-29T14:02:12.929Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "zhaoyuan",
+      "url": "https://blog.id-zyuan.xyz"
+    }
+  ]
+}</script><link rel="shortcut icon" href="https://pic1.imgdb.cn/item/6829891e58cb8da5c8fabff0.png"><link rel="canonical" href="https://blog.id-zyuan.xyz/2026/10/29/Java-%E4%BB%8E%E6%BA%90%E7%A0%81%E5%88%B0%E8%BF%90%E8%A1%8C/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#141414')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'f4f1e8')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Java 从 .java 到运行：JDK、JRE、字节码与 JIT 的一条完整链路',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/ma-shan-zheng/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/zcool-xiaowei/index.css"><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/ink.css"><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="笺札" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://pic1.imgdb.cn/item/6829891e58cb8da5c8fabff0.png" onerror="this.onerror=null;this.src='/img/friend_04.gif'" alt="avatar"/ loading='lazy'></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">465</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">126</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fa fa-camera-retro faa-float animared"></i><span> 相册</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video faa-float animared"></i><span> 影视</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book  faa-float animared"></i><span> 图书</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://pic1.imgdb.cn/item/6909bfa63203f7be00cf70c9.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">笺札</span></a><a class="nav-page-title" href="/"><span class="site-name">Java 从 .java 到运行：JDK、JRE、字节码与 JIT 的一条完整链路</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fa fa-camera-retro faa-float animared"></i><span> 相册</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video faa-float animared"></i><span> 影视</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book  faa-float animared"></i><span> 图书</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Java 从 .java 到运行：JDK、JRE、字节码与 JIT 的一条完整链路</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-10-28T16:00:00.000Z" title="发表于 2026-10-29 00:00:00">2026-10-29</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-10-29T14:02:12.929Z" title="更新于 2026-10-29 22:02:12">2026-10-29</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%8D%9A%E5%AE%A2/">博客</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="java-从-java-到运行jdk-jre-字节码与-jit-的一条完整链路"><a class="markdownIt-Anchor" href="#java-从-java-到运行jdk-jre-字节码与-jit-的一条完整链路"></a> Java 从 .java 到运行：JDK、JRE、字节码与 JIT 的一条完整链路</h1>
+<p>装 Java 的第一步通常是「下载 JDK」，但很少有人能立刻说清：为什么不是装 JRE？<code>java -version</code> 和 <code>javac -version</code> 为什么输出不一样？JDK 9 之后安装目录里那个 <code>jre/</code> 文件夹怎么不见了？以及——「Java 是解释型语言」这句话到底错在哪？</p>
+<p>这四个问题其实指向同一条链路：<strong>源码 → 字节码 → 类加载 → 解释执行 → JIT 编译 → 机器码</strong>。把这条链走一遍，环境问题、启动速度、版本报错基本都能自己诊断。</p>
+<h2 id="一-先理清包含关系jdk-jre-jvm"><a class="markdownIt-Anchor" href="#一-先理清包含关系jdk-jre-jvm"></a> 一、先理清包含关系：JDK ⊃ JRE ⊃ JVM</h2>
+<p>这三者是包含关系，不是并列关系。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">JDK（Java Development Kit，开发工具包）</span><br><span class="line"> ├── JRE（Java Runtime Environment，运行环境）</span><br><span class="line"> │    ├── JVM（Java Virtual Machine）</span><br><span class="line"> │    └── 核心类库（String、集合、IO、网络…）</span><br><span class="line"> └── 开发工具</span><br><span class="line">      ├── javac   编译：.java → .class</span><br><span class="line">      ├── java    运行：启动 JVM 加载 .class</span><br><span class="line">      ├── javadoc 生成 API 文档</span><br><span class="line">      ├── jar     打包</span><br><span class="line">      └── jdb     调试</span><br></pre></td></tr></table></figure>
+<p>一句话：<strong>JDK = JRE + 开发工具，JRE = JVM + 核心类库</strong>。</p>
+<ul>
+<li>只装 JRE：能跑别人的程序，<strong>不能编译</strong>自己的代码——没有 <code>javac</code>。</li>
+<li>装 JDK：既能编译又能运行，开发环境必须装它。</li>
+</ul>
+<p>顺带一个历史遗留：<code>jhat</code>（堆分析工具）在 <strong>JDK 9 时被移除</strong>，现在做堆分析用 <code>jmap</code> 导出 dump 再交给 MAT 或 <code>jhsdb</code>。老教程还在教 <code>jhat</code>，照做会提示命令不存在。</p>
+<h2 id="二-跨平台的是字节码不是-jvm"><a class="markdownIt-Anchor" href="#二-跨平台的是字节码不是-jvm"></a> 二、跨平台的是字节码，不是 JVM</h2>
+<p>「一次编写，到处运行」常被误解成「JVM 是跨平台的」。恰恰相反：<strong>JVM 本身是平台相关的</strong>，Windows 版、Linux 版、macOS 版是三套不同的程序。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Hello.java ──javac──&gt; Hello.class（平台无关的字节码）</span><br><span class="line">                          │</span><br><span class="line">              ┌───────────┼───────────┐</span><br><span class="line">        Windows JVM   Linux JVM    macOS JVM</span><br><span class="line">              │           │           │</span><br><span class="line">           Windows      Linux        macOS</span><br></pre></td></tr></table></figure>
+<p>每个平台上都装了一个「懂字节码」的 JVM，同一份 <code>.class</code> 才能在哪儿都跑起来。跨的是字节码这一层。</p>
+<p>这也顺手解释了第一个性能疑问：C 的程序是操作系统直接执行的机器码，Java 要先起一个 JVM 进程，再由它解释字节码。<strong>启动慢，是因为多了一整层。</strong></p>
+<h2 id="三-javac-到底做了什么"><a class="markdownIt-Anchor" href="#三-javac-到底做了什么"></a> 三、javac 到底做了什么</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">javac Hello.java     <span class="comment"># 产出 Hello.class</span></span><br><span class="line">java Hello           <span class="comment"># 注意：不带 .class，带的是类名</span></span><br></pre></td></tr></table></figure>
+<p><code>javac</code> 不是简单地把文本翻成二进制，它做四件事：</p>
+<ol>
+<li><strong>词法 / 语法分析</strong>——检查是不是合法 Java（漏分号、括号不匹配在这里报错）。</li>
+<li><strong>语义分析</strong>——类型检查、变量是否初始化、方法是否存在（<code>cannot find symbol</code> 在这里报）。</li>
+<li><strong>生成字节码</strong>——输出 <code>.class</code>，里面是 JVM 指令（<code>aload_0</code>、<code>invokevirtual</code>、<code>ireturn</code>…）。</li>
+<li><strong>常量池与符号引用</strong>——类和方法引用先以「符号」形式存着，运行时才解析成内存地址。</li>
+</ol>
+<p><code>.class</code> 是一个真正的「中间语言」文件：不依赖任何 CPU 指令集，只依赖 JVM 规范。这就是它能跨平台的全部原因。</p>
+<p>两个高频命令坑，都是真实报错：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ java Hello.class</span><br><span class="line">Error: Could not find or load main class Hello.class</span><br><span class="line">Caused by: java.lang.ClassNotFoundException: Hello.class</span><br></pre></td></tr></table></figure>
+<p><strong>第二个命令要的是类名，不是文件名。</strong> 另一条更隐蔽：<code>javac</code> 只检查语法和类型，<strong>不做优化</strong>——内联、逃逸分析、循环展开全在运行期的 JIT 里。这是 Java 与 C 的一个根本差别，也是后面「跑久了变快」的伏笔。</p>
+<h2 id="四-jvm-怎么跑字节码解释器-jit-分层编译"><a class="markdownIt-Anchor" href="#四-jvm-怎么跑字节码解释器-jit-分层编译"></a> 四、JVM 怎么跑字节码：解释器 + JIT 分层编译</h2>
+<p>JVM 启动时是<strong>纯解释执行</strong>：逐条读字节码，翻译成机器指令再执行。慢，但启动快。</p>
+<p>同时它在后台统计每个方法的调用次数（以及循环回边次数）。某个方法「热」到阈值，就把它<strong>编译成本地机器码</strong>缓存下来，下次直接跑机器码。这就是 JIT（Just-In-Time）。</p>
+<p>HotSpot 采用<strong>分层编译（Tiered Compilation）</strong>，五个层级可以简化成三层理解：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">层级</th>
+<th style="text-align:left">编译器</th>
+<th style="text-align:left">特点</th>
+<th style="text-align:left">适用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">0</td>
+<td style="text-align:left">解释器</td>
+<td style="text-align:left">不优化，启动最快</td>
+<td style="text-align:left">只跑一两次的代码</td>
+</tr>
+<tr>
+<td style="text-align:left">1–3</td>
+<td style="text-align:left">C1（Client）</td>
+<td style="text-align:left">快速编译，轻度优化，带 profiling</td>
+<td style="text-align:left">温热代码</td>
+</tr>
+<tr>
+<td style="text-align:left">4</td>
+<td style="text-align:left">C2（Server）</td>
+<td style="text-align:left">慢速编译，激进优化（内联、逃逸分析、向量化）</td>
+<td style="text-align:left">真热点</td>
+</tr>
+</tbody>
+</table>
+<p>所以一个方法可能先被解释、再被 C1 编译、最后被 C2 重编译。<strong>「跑一会儿变快」不是错觉，是编译层级在往上爬。</strong></p>
+<p>几个能直接改变行为的参数：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">java -Xint  Hello     <span class="comment"># 纯解释，禁用 JIT（调试用，慢十几倍）</span></span><br><span class="line">java -Xcomp Hello     <span class="comment"># 尽量全编译（启动慢，测峰值性能用）</span></span><br><span class="line">java -XX:TieredStopAtLevel=1 Hello   <span class="comment"># 只到 C1，缩短预热（适合短命进程/CLI 工具）</span></span><br></pre></td></tr></table></figure>
+<p>最后一条在实践里很有用：跑几秒就退出的命令行工具，等 C2 编译完程序早结束了，限制在 C1 反而总耗时更短。</p>
+<h3 id="jit-的一个副作用它能让错的代码看起来对"><a class="markdownIt-Anchor" href="#jit-的一个副作用它能让错的代码看起来对"></a> JIT 的一个副作用：它能让「错的代码」看起来对</h3>
+<p>JIT 假设单线程语义成立。如果多线程共享变量没加 <code>volatile</code> / <code>synchronized</code>，JIT 可能把它缓存进寄存器，于是另一个线程改了它、本线程永远看不到——这是<strong>可见性问题</strong>。<code>-Xint</code> 下跑得好好的程序，开了 JIT 就挂，八成栽在这。</p>
+<h2 id="五-类加载字节码怎么进内存"><a class="markdownIt-Anchor" href="#五-类加载字节码怎么进内存"></a> 五、类加载：字节码怎么进内存</h2>
+<p><code>.class</code> 不会一次性全加载。JVM 是<strong>懒加载</strong>：第一次用到某个类才去加载，走「加载 → 验证 → 准备 → 解析 → 初始化」五步。</p>
+<p>这个机制带来三个现实后果：</p>
+<ul>
+<li><strong>启动快</strong>：只加载用到的类。</li>
+<li><strong><code>ClassNotFoundException</code> 常出现在运行时</strong>：编译时类在 classpath 上，运行时不在（打 jar 漏依赖、<code>-cp</code> 写错）。</li>
+<li><strong>静态代码块在「第一次主动使用」时才执行</strong>，不是程序启动时。</li>
+</ul>
+<h2 id="六-三个找不到类的报错别搞混"><a class="markdownIt-Anchor" href="#六-三个找不到类的报错别搞混"></a> 六、三个「找不到类」的报错，别搞混</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">报错</th>
+<th style="text-align:left">什么阶段</th>
+<th style="text-align:left">真正原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>ClassNotFoundException</code></td>
+<td style="text-align:left">运行期，<strong>显式加载</strong>时</td>
+<td style="text-align:left"><code>Class.forName(&quot;...&quot;)</code> 或类加载器找不到指定类，通常是 classpath 缺 jar</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>NoClassDefFoundError</code></td>
+<td style="text-align:left">运行期，<strong>隐式加载</strong>时</td>
+<td style="text-align:left">编译时存在、运行时找不到；或该类的静态初始化块抛了异常（首次加载失败后，后续都报这个）</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>UnsupportedClassVersionError</code></td>
+<td style="text-align:left">运行期，加载字节码时</td>
+<td style="text-align:left">编译用的 JDK 比运行时的 JRE 新（<code>class file version 66.0</code> = Java 22）</td>
+</tr>
+</tbody>
+</table>
+<p>第二个最容易误判：<code>NoClassDefFoundError</code> 往往不是「真的没有这个类」，而是<strong>这个类的静态初始化挂了</strong>。看 <code>Caused by</code> 那行才找得到真凶。</p>
+<p>第三个的版本号换算值得背：字节码是向下兼容的，新 JVM 能跑旧字节码，反过来不行。所以老服务器上跑新编译的包，就会撞上这条。</p>
+<h2 id="七-java-version-的三行输出与消失的-jre-目录"><a class="markdownIt-Anchor" href="#七-java-version-的三行输出与消失的-jre-目录"></a> 七、<code>java -version</code> 的三行输出与消失的 <code>jre/</code> 目录</h2>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">java version &quot;22&quot; 2024-03-19</span><br><span class="line">Java(TM) SE Runtime Environment (build 22+36-2370)</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM (build 22+36-2370, mixed mode, sharing)</span><br></pre></td></tr></table></figure>
+<p>三行分别是：语言版本、<strong>运行时环境</strong>（JRE）版本、<strong>虚拟机</strong>（HotSpot）版本。第二三行分开报——这正是「JRE 和 JVM 是两个东西」的直接体现。</p>
+<p><code>mixed mode</code> 表示解释执行与 JIT 混合（默认），<code>sharing</code> 表示开启了 CDS 类数据共享（加快启动）。哪天看到 <code>interpreted mode</code>，说明被 <code>-Xint</code> 强制成纯解释了，性能会掉一个量级。</p>
+<p>再说 JDK 9 那个消失的目录。JDK 8 及之前，安装目录下并排放着 <code>jdk/</code> 和 <code>jre/</code>，等于同一套类库装了两遍，白占几百 MB。JDK 9 引入**模块化（JPMS，Jigsaw 项目）**后换了思路：</p>
+<ul>
+<li>运行环境不再全量打包——东西越多，占空间越大、启动越慢。</li>
+<li>开发者可以用 <code>jlink</code> <strong>按应用实际用到的模块裁出最小运行时</strong>。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 只打包 java.base 模块，产出一个几十 MB 的独立运行时</span></span><br><span class="line">jlink --add-modules java.base --output myjre</span><br></pre></td></tr></table></figure>
+<p>所以 <code>jre/</code> 目录消失了，但「JRE」这个概念还在——它变成了「由模块拼出来的运行时镜像」。<strong>「JDK 包含 JRE」在 JDK 9 之后依然成立，只是物理形态从目录变成了模块集合。</strong></p>
+<p>实践上的变化：以前可以「把 JRE 拷到目标机器就能跑」，现在更常见的是 <code>jlink</code> 或 <code>jpackage</code> 打一个自带运行时的镜像。容器镜像能做小，也是这条路线的直接收益。</p>
+<h2 id="八-环境变量java_home-与-path-分工不同"><a class="markdownIt-Anchor" href="#八-环境变量java_home-与-path-分工不同"></a> 八、环境变量：<code>JAVA_HOME</code> 与 <code>PATH</code> 分工不同</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">变量</th>
+<th style="text-align:left">作用</th>
+<th style="text-align:left">典型值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>JAVA_HOME</code></td>
+<td style="text-align:left">告诉<strong>其他工具</strong>（Maven、Gradle、Tomcat、IDEA）JDK 装在哪</td>
+<td style="text-align:left"><code>C:\Program Files\Java\jdk-22</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>PATH</code></td>
+<td style="text-align:left">告诉<strong>命令行</strong>去哪找 <code>java</code> / <code>javac</code> 可执行文件</td>
+<td style="text-align:left"><code>%JAVA_HOME%\bin</code></td>
+</tr>
+</tbody>
+</table>
+<p>只配 <code>JAVA_HOME</code> 不配 <code>PATH</code>，命令行敲 <code>java</code> 会说「不是内部或外部命令」；只配 <code>PATH</code> 不配 <code>JAVA_HOME</code>，命令行能跑但 Maven 报 <code>JAVA_HOME not found</code>。两个都要配，且 <code>PATH</code> 应该引用 <code>JAVA_HOME</code> 而不是写死路径——换版本时只改一处。</p>
+<p>排查按这个顺序走，能定位九成问题：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">java -version      <span class="comment"># 有输出 → JVM/JRE 在，能看到具体版本</span></span><br><span class="line">javac -version     <span class="comment"># 报「不是内部命令」→ 只装了 JRE，或 PATH 没配 bin</span></span><br><span class="line"><span class="built_in">echo</span> %JAVA_HOME%   <span class="comment"># 为空或指向不存在的目录 → 其他工具会连锁报错</span></span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">现象</th>
+<th style="text-align:left">原因</th>
+<th style="text-align:left">修法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>java</code> 能用，<code>javac</code> 不能用</td>
+<td style="text-align:left">装的是 JRE 不是 JDK</td>
+<td style="text-align:left">装 JDK，或把 JDK 的 <code>bin</code> 加进 <code>PATH</code></td>
+</tr>
+<tr>
+<td style="text-align:left">版本号和刚装的不一致</td>
+<td style="text-align:left"><code>PATH</code> 里有多个 Java（常见于 Oracle 的 <code>javapath</code> 转发目录）</td>
+<td style="text-align:left">把新 JDK 的 <code>bin</code> 提到 <code>PATH</code> 最前面</td>
+</tr>
+<tr>
+<td style="text-align:left">Maven / IDEA 报找不到 JDK</td>
+<td style="text-align:left">只配了 <code>PATH</code>，没配 <code>JAVA_HOME</code></td>
+<td style="text-align:left">补 <code>JAVA_HOME</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>UnsupportedClassVersionError</code></td>
+<td style="text-align:left">编译用的 JDK 版本高于运行时的 JRE</td>
+<td style="text-align:left">用同一版本，或编译时加 <code>--release 17</code> 降级</td>
+</tr>
+</tbody>
+</table>
+<h2 id="小结"><a class="markdownIt-Anchor" href="#小结"></a> 小结</h2>
+<ul>
+<li><strong>JVM 运行字节码，JRE = JVM + 类库，JDK = JRE + 工具</strong>，三层是包含关系，不是并列。</li>
+<li>跨平台的是<strong>字节码</strong>，JVM 本身平台相关——每个平台一个 JVM，才是「一次编写到处运行」的全部秘密。</li>
+<li>执行模型分三段：<code>javac</code> 编译成字节码 → JVM 解释 → 热点代码被 JIT 编译成机器码。启动慢和峰值不慢，是同一件事的两面。</li>
+<li>分层编译让「第一次慢、后面快」成为常态；<code>javac</code> 不做优化，优化全在运行期。</li>
+<li>三个「找不到类」的报错分属不同阶段：<code>NoClassDefFoundError</code> 常常是静态初始化失败，务必看 <code>Caused by</code>。</li>
+<li>JDK 9 用模块化替掉了 <code>jre/</code> 目录，<code>jlink</code> 可按需裁最小运行时；<code>JAVA_HOME</code> 给工具看，<code>PATH</code> 给命令行看。</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.id-zyuan.xyz">zhaoyuan</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://blog.id-zyuan.xyz/2026/10/29/Java-%E4%BB%8E%E6%BA%90%E7%A0%81%E5%88%B0%E8%BF%90%E8%A1%8C/">https://blog.id-zyuan.xyz/2026/10/29/Java-%E4%BB%8E%E6%BA%90%E7%A0%81%E5%88%B0%E8%BF%90%E8%A1%8C/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://blog.id-zyuan.xyz" target="_blank">笺札</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Java/">Java</a><a class="post-meta__tags" href="/tags/JVM/">JVM</a><a class="post-meta__tags" href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/">编译原理</a></div><div class="post-share"><div class="social-share" data-image="https://pic1.imgdb.cn/item/6909bfa63203f7be00cf70c9.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/10/29/Java-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="Java 数据类型：8 种基本类型、(byte) 200 与 Integer 的缓存"><img class="cover" src="https://pic1.imgdb.cn/item/6908b7e53203f7be00cc7a25.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post" loading='lazy'><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Java 数据类型：8 种基本类型、(byte) 200 与 Integer 的缓存</div></div><div class="info-2"><div class="info-item-1"> Java 数据类型：8 种基本类型、(byte) 200 与 Integer 的缓存 Java 是强类型语言，但「强」的具体表现常常被低估：字面量有默认类型，赋值有宽窄之分，装箱有缓存，强转会静默丢数据。每一条都能让一段看起来正确的代码输出一个意外的数字。 这篇从类型出发，把「存什么、转什么、比什么」三件事一次讲完。  一、8 种基本类型，其余都是引用 1234567基本类型（8 种）├── 整型：byte(1B) short(2B) int(4B) long(8B)├── 浮点：float(4B) double(8B)├── 字符：char(2B，Unicode)└── 布尔：boolean（规范不保证 1 字节）引用类型：类 · 数组 · 接口 · 枚举 · 注解 · record 范围记两个就够用：    类型 字节 范围 备注     byte 1 -128 ~ 127 文件流、网络包常用   short 2 -32768 ~ 32767 少见   int 4 ±21 亿 默认整型   long 8 很大 字面量加 L   float 4 约 7 位有效数字 字面量加 ...</div></div></div></a><a class="pagination-related" href="/2026/10/29/Java-%E5%AD%97%E7%AC%A6%E4%B8%B2/" title="Java 字符串：为什么它是 final，为什么双等号有时是 true"><img class="cover" src="https://pic1.imgdb.cn/item/6908b7e53203f7be00cc7a24.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post" loading='lazy'><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Java 字符串：为什么它是 final，为什么双等号有时是 true</div></div><div class="info-2"><div class="info-item-1"> Java 字符串：为什么它是 final，为什么双等号有时是 true 字符串是 Java 里唯一「用起来像基本类型、实际上是对象」的东西。它有无需 new 的字面量语法，有 + 拼接的语法糖，还有一套缓存机制——这三点加起来，让  == 在字符串上表现得像是有时对、有时错。 这篇从「为什么不可变」开始，把常量池、 == 与 equals、常用方法、拼接性能串成一条线。  一、不可变：String 是 final 类 两个 final：  String 类本身声明为 final，不能被继承。 内部存字符的数组也是 final，不能被重新赋值。  于是所有看起来像「修改」的方法——concat、substring、replace、toUpperCase——实际都返回新对象： 123String s = &quot;abc&quot;;String t = s.concat(&quot;d&quot;);System.out.println(s + &quot; / &quot; + t);    // abc / abcd s 仍然是 abc，长度还是 3。t 是一个全新的 St...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2026/10/29/Java-%E8%BF%90%E8%A1%8C%E6%97%B6%E6%9C%BA%E5%88%B6/" title="Java 运行时：类加载、JAVA_HOME 与 JIT 分层编译"><img class="cover" src="https://pic1.imgdb.cn/item/6909bfa63203f7be00cf70c7.jpg" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-29</div><div class="info-item-2">Java 运行时：类加载、JAVA_HOME 与 JIT 分层编译</div></div><div class="info-2"><div class="info-item-1"> Java 运行时：类加载、JAVA_HOME 与 JIT 分层编译 前面几篇讲的是「代码怎么写」，这篇讲「代码怎么跑起来」。三个话题看着分散，其实都在回答同一个问题：从 .class 文件到机器跑出结果，中间发生了什么。  类加载：.class 什么时候进内存。 环境变量：java 命令和 Maven 这类工具怎么找到 JDK。 JIT：字节码怎么变成机器码、为什么「跑一会儿会变快」。   一、类加载是懒的，静态代码块不是启动就执行 .class 不会在程序启动时全部加载。JVM 在第一次主动使用某个类时才加载它，加载过程分五步： 1加载 → 验证 → 准备 → 解析 → 初始化  加载：找到 .class 文件，读进内存，生成 Class 对象。 验证：检查字节码格式、语义合法性（防止手写坏字节码搞崩 JVM）。 准备：给静态变量分配内存并赋零值（int 是 0，引用是 null），不是代码里写的初始值。 解析：把常量池里的符号引用替换成直接引用（可以延迟到首次使用时）。 初始化：执行静态变量赋值和静态代码块——这一步才跑你写的 static &#123; &#125;。  ...</div></div></div></a><a class="pagination-related" href="/2026/10/29/Java-Stream/" title="Java Stream：惰性求值、一次性，以及能翻译 SQL 的 groupingBy"><img class="cover" src="https://pic1.imgdb.cn/item/6908b7233203f7be00cc7958.jpg" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-29</div><div class="info-item-2">Java Stream：惰性求值、一次性，以及能翻译 SQL 的 groupingBy</div></div><div class="info-2"><div class="info-item-1"> Java Stream：惰性求值、一次性，以及能翻译 SQL 的 groupingBy 第一次用 Stream 的人常有两个困惑：一是「我写完了，怎么什么都没发生」，二是「第二次用同一个流怎么报错了」。这两个困惑指向同一条设计：Stream 不是集合，是管道。 管道有三个性质：不存数据、不推不动、走一次就废。理解这三点，后面所有操作都顺。  一、三条铁律    铁律 含义 违反的后果     不存数据 只是对数据源的视图 修改 Stream 不影响源集合   惰性求值 没有终端操作就什么都不做 「写了没效果」   只能消费一次 走完就关闭 IllegalStateException    1数据源 → 中间操作链（惰性，可无） → 终端操作（触发执行） 一个常被追问的点：stream() 对集合是零拷贝的视图，list.stream() 不会复制元素；但流本身持有对源的引用，所以遍历过程中修改源集合（尤其是 add / remove）会抛 ConcurrentModificationException。  二、惰性：用 peek 亲眼看一下 12345678List&lt;St...</div></div></div></a><a class="pagination-related" href="/2026/10/29/Java-%E5%AD%97%E7%AC%A6%E4%B8%B2/" title="Java 字符串：为什么它是 final，为什么双等号有时是 true"><img class="cover" src="https://pic1.imgdb.cn/item/6908b7e53203f7be00cc7a24.jpg" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-29</div><div class="info-item-2">Java 字符串：为什么它是 final，为什么双等号有时是 true</div></div><div class="info-2"><div class="info-item-1"> Java 字符串：为什么它是 final，为什么双等号有时是 true 字符串是 Java 里唯一「用起来像基本类型、实际上是对象」的东西。它有无需 new 的字面量语法，有 + 拼接的语法糖，还有一套缓存机制——这三点加起来，让  == 在字符串上表现得像是有时对、有时错。 这篇从「为什么不可变」开始，把常量池、 == 与 equals、常用方法、拼接性能串成一条线。  一、不可变：String 是 final 类 两个 final：  String 类本身声明为 final，不能被继承。 内部存字符的数组也是 final，不能被重新赋值。  于是所有看起来像「修改」的方法——concat、substring、replace、toUpperCase——实际都返回新对象： 123String s = &quot;abc&quot;;String t = s.concat(&quot;d&quot;);System.out.println(s + &quot; / &quot; + t);    // abc / abcd s 仍然是 abc，长度还是 3。t 是一个全新的 St...</div></div></div></a><a class="pagination-related" href="/2026/10/29/Java-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="Java 数据类型：8 种基本类型、(byte) 200 与 Integer 的缓存"><img class="cover" src="https://pic1.imgdb.cn/item/6908b7e53203f7be00cc7a25.jpg" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-29</div><div class="info-item-2">Java 数据类型：8 种基本类型、(byte) 200 与 Integer 的缓存</div></div><div class="info-2"><div class="info-item-1"> Java 数据类型：8 种基本类型、(byte) 200 与 Integer 的缓存 Java 是强类型语言，但「强」的具体表现常常被低估：字面量有默认类型，赋值有宽窄之分，装箱有缓存，强转会静默丢数据。每一条都能让一段看起来正确的代码输出一个意外的数字。 这篇从类型出发，把「存什么、转什么、比什么」三件事一次讲完。  一、8 种基本类型，其余都是引用 1234567基本类型（8 种）├── 整型：byte(1B) short(2B) int(4B) long(8B)├── 浮点：float(4B) double(8B)├── 字符：char(2B，Unicode)└── 布尔：boolean（规范不保证 1 字节）引用类型：类 · 数组 · 接口 · 枚举 · 注解 · record 范围记两个就够用：    类型 字节 范围 备注     byte 1 -128 ~ 127 文件流、网络包常用   short 2 -32768 ~ 32767 少见   int 4 ±21 亿 默认整型   long 8 很大 字面量加 L   float 4 约 7 位有效数字 字面量加 ...</div></div></div></a><a class="pagination-related" href="/2026/10/29/Java-%E6%95%B0%E7%BB%84/" title="Java 数组：定长、越界，以及手写一趟冒泡"><img class="cover" src="https://pic1.imgdb.cn/item/6908b7ef3203f7be00cc7a29.jpg" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-29</div><div class="info-item-2">Java 数组：定长、越界，以及手写一趟冒泡</div></div><div class="info-2"><div class="info-item-1"> Java 数组：定长、越界，以及手写一趟冒泡 数组是学 Java 时第一个「不像变量」的东西：它不接受 a = b 这种复制直觉，长度改不了，打印出来是一串 [I@506e1b77。很多人第一次运行时异常也是从它开始的——ArrayIndexOutOfBoundsException。 这篇把数组的七个面向串一遍：它是什么、什么会炸、怎么复制、二维是什么、工具类能省多少事、手写排序在练什么、以及为什么它是 .length 而字符串是 .length()。  一、三个硬约束：定长、同类型、内存连续 123int[] a = new int[5];                    // 只定长度，元素取默认值int[] b = &#123;1, 2, 3&#125;;                     // 声明即初始化，只能在声明行用String[] c = new String[]&#123;&quot;x&quot;, &quot;y&quot;&#125;;     // 完整写法，任何位置都能用 三种写法里最容易踩的是第二种：&#123;1, 2, 3&#125...</div></div></div></a><a class="pagination-related" href="/2026/10/29/Java-%E6%96%B9%E6%B3%95/" title="Java 方法：四种形态、值传递与重载决议"><img class="cover" src="https://pic1.imgdb.cn/item/6909bf6b3203f7be00cf703e.png" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-29</div><div class="info-item-2">Java 方法：四种形态、值传递与重载决议</div></div><div class="info-2"><div class="info-item-1"> Java 方法：四种形态、值传递与重载决议 方法大概是 Java 里最不需要解释的语法：写个名字、加个括号、里面塞几行。但真正会出问题的地方都在细节上——void 和「不写返回类型」是不是一回事？为什么 swap(a, b) 什么也没换？k(1) 明明有 k(Integer) 重载，为什么走的是 k(long)？ 这篇按「怎么写 → 参数怎么传 → 同名怎么挑 → 工程里怎么分层」的顺序讲。  一、方法是五个部分拼起来的 123public static int sum(int a, int b) &#123;    return a + b;&#125;    组成 含义     修饰符 public（外部可调）+ static（属于类，不用 new）   返回值类型 交回的结果类型；没有返回值写 void，不是不写   方法名 小驼峰、动词开头   参数列表 数据类型 变量名，逗号分隔，可以为空   return 交回结果；void 方法里可以写 return; 提前结束    两个容易混的点：  void 是「有返回值类型，只是这个类型叫 void」；完全省略返回类型编译...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://pic1.imgdb.cn/item/6829891e58cb8da5c8fabff0.png" onerror="this.onerror=null;this.src='/img/friend_04.gif'" alt="avatar"/ loading='lazy'></div><div class="author-info-name">zhaoyuan</div><div class="author-info-description">一封封记录足迹与所悟的信集</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">465</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">126</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#java-%E4%BB%8E-java-%E5%88%B0%E8%BF%90%E8%A1%8Cjdk-jre-%E5%AD%97%E8%8A%82%E7%A0%81%E4%B8%8E-jit-%E7%9A%84%E4%B8%80%E6%9D%A1%E5%AE%8C%E6%95%B4%E9%93%BE%E8%B7%AF"><span class="toc-number">1.</span> <span class="toc-text"> Java 从 .java 到运行：JDK、JRE、字节码与 JIT 的一条完整链路</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80-%E5%85%88%E7%90%86%E6%B8%85%E5%8C%85%E5%90%AB%E5%85%B3%E7%B3%BBjdk-jre-jvm"><span class="toc-number">1.1.</span> <span class="toc-text"> 一、先理清包含关系：JDK ⊃ JRE ⊃ JVM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C-%E8%B7%A8%E5%B9%B3%E5%8F%B0%E7%9A%84%E6%98%AF%E5%AD%97%E8%8A%82%E7%A0%81%E4%B8%8D%E6%98%AF-jvm"><span class="toc-number">1.2.</span> <span class="toc-text"> 二、跨平台的是字节码，不是 JVM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89-javac-%E5%88%B0%E5%BA%95%E5%81%9A%E4%BA%86%E4%BB%80%E4%B9%88"><span class="toc-number">1.3.</span> <span class="toc-text"> 三、javac 到底做了什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B-jvm-%E6%80%8E%E4%B9%88%E8%B7%91%E5%AD%97%E8%8A%82%E7%A0%81%E8%A7%A3%E9%87%8A%E5%99%A8-jit-%E5%88%86%E5%B1%82%E7%BC%96%E8%AF%91"><span class="toc-number">1.4.</span> <span class="toc-text"> 四、JVM 怎么跑字节码：解释器 + JIT 分层编译</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#jit-%E7%9A%84%E4%B8%80%E4%B8%AA%E5%89%AF%E4%BD%9C%E7%94%A8%E5%AE%83%E8%83%BD%E8%AE%A9%E9%94%99%E7%9A%84%E4%BB%A3%E7%A0%81%E7%9C%8B%E8%B5%B7%E6%9D%A5%E5%AF%B9"><span class="toc-number">1.4.1.</span> <span class="toc-text"> JIT 的一个副作用：它能让「错的代码」看起来对</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94-%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%AD%97%E8%8A%82%E7%A0%81%E6%80%8E%E4%B9%88%E8%BF%9B%E5%86%85%E5%AD%98"><span class="toc-number">1.5.</span> <span class="toc-text"> 五、类加载：字节码怎么进内存</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD-%E4%B8%89%E4%B8%AA%E6%89%BE%E4%B8%8D%E5%88%B0%E7%B1%BB%E7%9A%84%E6%8A%A5%E9%94%99%E5%88%AB%E6%90%9E%E6%B7%B7"><span class="toc-number">1.6.</span> <span class="toc-text"> 六、三个「找不到类」的报错，别搞混</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83-java-version-%E7%9A%84%E4%B8%89%E8%A1%8C%E8%BE%93%E5%87%BA%E4%B8%8E%E6%B6%88%E5%A4%B1%E7%9A%84-jre-%E7%9B%AE%E5%BD%95"><span class="toc-number">1.7.</span> <span class="toc-text"> 七、java -version 的三行输出与消失的 jre&#x2F; 目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AB-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8Fjava_home-%E4%B8%8E-path-%E5%88%86%E5%B7%A5%E4%B8%8D%E5%90%8C"><span class="toc-number">1.8.</span> <span class="toc-text"> 八、环境变量：JAVA_HOME 与 PATH 分工不同</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-number">1.9.</span> <span class="toc-text"> 小结</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/10/30/BI-%E6%8C%87%E6%A0%87%E4%BD%93%E7%B3%BB%E4%B8%8E%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95/" title="BI 入门：指标体系、分析方法与 Tableau 落地"><img src="https://pic1.imgdb.cn/item/6909bfe13203f7be00cf7140.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="BI 入门：指标体系、分析方法与 Tableau 落地"/ loading='lazy'></a><div class="content"><a class="title" href="/2026/10/30/BI-%E6%8C%87%E6%A0%87%E4%BD%93%E7%B3%BB%E4%B8%8E%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95/" title="BI 入门：指标体系、分析方法与 Tableau 落地">BI 入门：指标体系、分析方法与 Tableau 落地</a><time datetime="2026-10-29T16:00:00.000Z" title="发表于 2026-10-30 00:00:00">2026-10-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/10/30/SQL-%E5%88%86%E6%9E%90%E5%9C%BA%E6%99%AF%E5%AE%9E%E6%88%98/" title="SQL 分析实战：漏斗、留存、连续 N 天与同环比"><img src="https://pic1.imgdb.cn/item/6908b7ef3203f7be00cc7a28.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SQL 分析实战：漏斗、留存、连续 N 天与同环比"/ loading='lazy'></a><div class="content"><a class="title" href="/2026/10/30/SQL-%E5%88%86%E6%9E%90%E5%9C%BA%E6%99%AF%E5%AE%9E%E6%88%98/" title="SQL 分析实战：漏斗、留存、连续 N 天与同环比">SQL 分析实战：漏斗、留存、连续 N 天与同环比</a><time datetime="2026-10-29T16:00:00.000Z" title="发表于 2026-10-30 00:00:00">2026-10-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/10/30/SQL-%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%E4%B8%8E%E5%AD%90%E6%9F%A5%E8%AF%A2/" title="SQL 窗口函数：不分组也能排名，以及 CTE、子查询与 TopN 怎么配合"><img src="https://pic1.imgdb.cn/item/6909bfe13203f7be00cf7142.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SQL 窗口函数：不分组也能排名，以及 CTE、子查询与 TopN 怎么配合"/ loading='lazy'></a><div class="content"><a class="title" href="/2026/10/30/SQL-%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%E4%B8%8E%E5%AD%90%E6%9F%A5%E8%AF%A2/" title="SQL 窗口函数：不分组也能排名，以及 CTE、子查询与 TopN 怎么配合">SQL 窗口函数：不分组也能排名，以及 CTE、子查询与 TopN 怎么配合</a><time datetime="2026-10-29T16:00:00.000Z" title="发表于 2026-10-30 00:00:00">2026-10-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/10/30/SQL-%E7%B4%A2%E5%BC%95/" title="SQL 索引：为什么加了索引还是慢，回表与最左前缀"><img src="https://pic1.imgdb.cn/item/6908b7a43203f7be00cc79cf.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SQL 索引：为什么加了索引还是慢，回表与最左前缀"/ loading='lazy'></a><div class="content"><a class="title" href="/2026/10/30/SQL-%E7%B4%A2%E5%BC%95/" title="SQL 索引：为什么加了索引还是慢，回表与最左前缀">SQL 索引：为什么加了索引还是慢，回表与最左前缀</a><time datetime="2026-10-29T16:00:00.000Z" title="发表于 2026-10-30 00:00:00">2026-10-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/10/30/SQL-%E4%BA%8B%E5%8A%A1/" title="SQL 事务：ACID 各挡什么，隔离级别与 MVCC 怎么配合"><img src="https://pic1.imgdb.cn/item/6908b7d53203f7be00cc7a0c.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SQL 事务：ACID 各挡什么，隔离级别与 MVCC 怎么配合"/ loading='lazy'></a><div class="content"><a class="title" href="/2026/10/30/SQL-%E4%BA%8B%E5%8A%A1/" title="SQL 事务：ACID 各挡什么，隔离级别与 MVCC 怎么配合">SQL 事务：ACID 各挡什么，隔离级别与 MVCC 怎么配合</a><time datetime="2026-10-29T16:00:00.000Z" title="发表于 2026-10-30 00:00:00">2026-10-30</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2019 - 2026 By zhaoyuan</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><div class="js-pjax"><script>(async () => {
+  const showKatex = () => {
+    document.querySelectorAll('#article-container .katex').forEach(el => el.classList.add('katex-show'))
+  }
+
+  if (!window.katex_js_css) {
+    window.katex_js_css = true
+    await btf.getCSS('https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css')
+    if (false) {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js')
+    }
+  }
+
+  showKatex()
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

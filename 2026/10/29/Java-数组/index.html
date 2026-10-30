@@ -1,0 +1,337 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Java 数组：定长、越界，以及手写一趟冒泡 | 笺札</title><meta name="author" content="zhaoyuan"><meta name="copyright" content="zhaoyuan"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="f4f1e8"><meta name="description" content="数组为什么定长、默认值为什么是 null、两个越界异常分别指向哪类错误、为什么 int[] ref &#x3D; src 不是复制、二维数组为什么是锯齿状、Arrays 能替你做什么、手写反转与冒泡的两处边界，以及 .length 与 .length() 的来历。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java 数组：定长、越界，以及手写一趟冒泡">
+<meta property="og:url" content="https://blog.id-zyuan.xyz/2026/10/29/Java-%E6%95%B0%E7%BB%84/index.html">
+<meta property="og:site_name" content="笺札">
+<meta property="og:description" content="数组为什么定长、默认值为什么是 null、两个越界异常分别指向哪类错误、为什么 int[] ref &#x3D; src 不是复制、二维数组为什么是锯齿状、Arrays 能替你做什么、手写反转与冒泡的两处边界，以及 .length 与 .length() 的来历。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic1.imgdb.cn/item/6908b7ef3203f7be00cc7a29.jpg">
+<meta property="article:published_time" content="2026-10-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-10-30T02:53:00.521Z">
+<meta property="article:author" content="zhaoyuan">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="数组">
+<meta property="article:tag" content="排序">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic1.imgdb.cn/item/6908b7ef3203f7be00cc7a29.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Java 数组：定长、越界，以及手写一趟冒泡",
+  "url": "https://blog.id-zyuan.xyz/2026/10/29/Java-%E6%95%B0%E7%BB%84/",
+  "image": "https://pic1.imgdb.cn/item/6908b7ef3203f7be00cc7a29.jpg",
+  "datePublished": "2026-10-28T16:00:00.000Z",
+  "dateModified": "2026-10-30T02:53:00.521Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "zhaoyuan",
+      "url": "https://blog.id-zyuan.xyz"
+    }
+  ]
+}</script><link rel="shortcut icon" href="https://pic1.imgdb.cn/item/6829891e58cb8da5c8fabff0.png"><link rel="canonical" href="https://blog.id-zyuan.xyz/2026/10/29/Java-%E6%95%B0%E7%BB%84/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#141414')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'f4f1e8')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Java 数组：定长、越界，以及手写一趟冒泡',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/ma-shan-zheng/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/zcool-xiaowei/index.css"><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/ink.css"><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="笺札" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://pic1.imgdb.cn/item/6829891e58cb8da5c8fabff0.png" onerror="this.onerror=null;this.src='/img/friend_04.gif'" alt="avatar"/ loading='lazy'></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">465</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">126</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fa fa-camera-retro faa-float animared"></i><span> 相册</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video faa-float animared"></i><span> 影视</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book  faa-float animared"></i><span> 图书</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://pic1.imgdb.cn/item/6908b7ef3203f7be00cc7a29.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">笺札</span></a><a class="nav-page-title" href="/"><span class="site-name">Java 数组：定长、越界，以及手写一趟冒泡</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fa fa-camera-retro faa-float animared"></i><span> 相册</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video faa-float animared"></i><span> 影视</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book  faa-float animared"></i><span> 图书</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Java 数组：定长、越界，以及手写一趟冒泡</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-10-28T16:00:00.000Z" title="发表于 2026-10-29 00:00:00">2026-10-29</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-10-30T02:53:00.521Z" title="更新于 2026-10-30 10:53:00">2026-10-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%8D%9A%E5%AE%A2/">博客</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="java-数组定长-越界以及手写一趟冒泡"><a class="markdownIt-Anchor" href="#java-数组定长-越界以及手写一趟冒泡"></a> Java 数组：定长、越界，以及手写一趟冒泡</h1>
+<p>数组是学 Java 时第一个「不像变量」的东西：它不接受 <code>a = b</code> 这种复制直觉，长度改不了，打印出来是一串 <code>[I@506e1b77</code>。很多人第一次运行时异常也是从它开始的——<code>ArrayIndexOutOfBoundsException</code>。</p>
+<p>这篇把数组的七个面向串一遍：<strong>它是什么、什么会炸、怎么复制、二维是什么、工具类能省多少事、手写排序在练什么、以及为什么它是 <code>.length</code> 而字符串是 <code>.length()</code></strong>。</p>
+<h2 id="一-三个硬约束定长-同类型-内存连续"><a class="markdownIt-Anchor" href="#一-三个硬约束定长-同类型-内存连续"></a> 一、三个硬约束：定长、同类型、内存连续</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[] a = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">5</span>];                    <span class="comment">// 只定长度，元素取默认值</span></span><br><span class="line"><span class="type">int</span>[] b = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;;                     <span class="comment">// 声明即初始化，只能在声明行用</span></span><br><span class="line">String[] c = <span class="keyword">new</span> <span class="title class_">String</span>[]&#123;<span class="string">&quot;x&quot;</span>, <span class="string">&quot;y&quot;</span>&#125;;     <span class="comment">// 完整写法，任何位置都能用</span></span><br></pre></td></tr></table></figure>
+<p>三种写法里最容易踩的是第二种：<code>&#123;1, 2, 3&#125;</code> 这种简写<strong>只能出现在声明行</strong>，想先声明后赋值就得写 <code>new int[]&#123;...&#125;</code>。</p>
+<p>它的约束来自内存布局：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">特性</th>
+<th style="text-align:left">含义</th>
+<th style="text-align:left">后果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">长度固定</td>
+<td style="text-align:left"><code>length</code> 是 <code>final</code> 字段</td>
+<td style="text-align:left">没有 <code>add</code>，扩容只能新建再搬</td>
+</tr>
+<tr>
+<td style="text-align:left">元素同类型</td>
+<td style="text-align:left">数组是「T 的数组」</td>
+<td style="text-align:left">下标访问不需要类型判断，O(1)</td>
+</tr>
+<tr>
+<td style="text-align:left">内存连续</td>
+<td style="text-align:left">元素挨着排</td>
+<td style="text-align:left">能按下标算出地址，但插入删除要挪</td>
+</tr>
+<tr>
+<td style="text-align:left">本身是对象</td>
+<td style="text-align:left">变量只是引用</td>
+<td style="text-align:left">传参传的是引用的副本</td>
+</tr>
+</tbody>
+</table>
+<p><strong>默认值是最容易翻车的一条</strong>。JDK 22 实测：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int[]     [0, 0, 0]</span><br><span class="line">double[]  [0.0, 0.0]</span><br><span class="line">boolean[] [false, false]</span><br><span class="line">String[]  [null, null]</span><br></pre></td></tr></table></figure>
+<p>引用类型的默认值是 <code>null</code>，不是空串。<code>String[] ans = new String[n]</code> 之后直接 <code>ans[0].length()</code>，拿到的就是空指针，而不是 0。</p>
+<p>顺带一句命名：<code>int b[]</code> 能编译（C 风格），但 Java 推荐 <code>int[] b</code>——把方括号贴在类型上更准确，因为「b 的类型是 int 数组」，不是「b 是 int，且是数组」。</p>
+<h2 id="二-两种异常指向两个完全不同的方向"><a class="markdownIt-Anchor" href="#二-两种异常指向两个完全不同的方向"></a> 二、两种异常指向两个完全不同的方向</h2>
+<p>同样是运行时挂掉，两条报错要把人引向完全不同的地方：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Exception in thread &quot;main&quot; java.lang.ArrayIndexOutOfBoundsException:</span><br><span class="line">    Index 3 out of bounds for length 3</span><br></pre></td></tr></table></figure>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Exception in thread &quot;main&quot; java.lang.NullPointerException:</span><br><span class="line">    Cannot read the array length because &quot;&lt;local1&gt;&quot; is null</span><br></pre></td></tr></table></figure>
+<ul>
+<li>出现 <code>Index 3 out of bounds for length 3</code> → <strong>下标算错了</strong>，去查循环边界。</li>
+<li>出现 <code>Cannot read the array length</code> → <strong>数组本身还是 null</strong>，去查有没有 <code>new</code>。</li>
+</ul>
+<p>还有一个更隐蔽的变体，二维数组常见：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java.lang.NullPointerException: Cannot load from int array because &quot;&lt;local1&gt;[0]&quot; is null</span><br></pre></td></tr></table></figure>
+<p>这条是 <code>int[][] g = new int[3][];</code> 之后直接读 <code>g[0][0]</code>——行数定了，每行还是 <code>null</code>。</p>
+<p>越界的头号写法永远是边界多一个等号：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt;= a.length; i++)   <span class="comment">// i 走到 length 时必然越界</span></span><br></pre></td></tr></table></figure>
+<p>一个记法：<strong>报错里带 <code>length</code> 这个词的，是「读长度」这个动作本身失败了（NPE）；带 <code>Index ... for length</code> 的，是下标越界。</strong></p>
+<h2 id="三-int-ref-src-不是复制是别名"><a class="markdownIt-Anchor" href="#三-int-ref-src-不是复制是别名"></a> 三、<code>int[] ref = src</code> 不是复制，是别名</h2>
+<p>这是数组最容易误解的一点。看两段代码的差别：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[] src = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span>[] copy = Arrays.copyOf(src, src.length);</span><br><span class="line">copy[<span class="number">0</span>] = <span class="number">9</span>;</span><br><span class="line"><span class="comment">// src = [1, 2, 3]   copy = [9, 2, 3]</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span>[] ref = src;</span><br><span class="line">ref[<span class="number">0</span>] = <span class="number">7</span>;</span><br><span class="line"><span class="comment">// src = [7, 2, 3]</span></span><br></pre></td></tr></table></figure>
+<p><code>int[] ref = src</code> 只复制了地址，两个引用指向堆上同一个数组对象，改哪个都是改同一个。真副本只有三条路：<code>Arrays.copyOf</code>、<code>src.clone()</code>、<code>System.arraycopy</code>。</p>
+<p>扩容同理，本质是「新建一个更大的 + 搬过去」：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[] src = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;;</span><br><span class="line"><span class="type">int</span>[] bigger = Arrays.copyOf(src, src.length * <span class="number">2</span>);</span><br><span class="line"><span class="comment">// [1, 2, 3, 0, 0, 0]   —— 多出来的位置补默认值</span></span><br></pre></td></tr></table></figure>
+<p><code>System.arraycopy</code> 是 <code>native</code> 方法，比手写循环快，<code>ArrayList</code> 内部就用它；<code>Arrays.copyOf</code> 是它的一层封装，多了「新建数组」这一步。这也解释了 <code>ArrayList</code> 的扩容策略：默认容量 10，满了按 1.5 倍新建再复制——知道规模时直接 <code>new ArrayList&lt;&gt;(1000000)</code>，能省掉全部扩容动作。</p>
+<p>刷题时的致命版本：回溯、DP 把数组塞进结果集却不复制，最后所有结果都指向同一个数组，被最后一次修改全部覆盖。<code>result.add(new ArrayList&lt;&gt;(path))</code> 里那个 <code>new</code>，干的就是这件事。</p>
+<h2 id="四-二维数组不是矩阵是数组的数组"><a class="markdownIt-Anchor" href="#四-二维数组不是矩阵是数组的数组"></a> 四、二维数组不是矩阵，是「数组的数组」</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[][] m = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">3</span>][<span class="number">4</span>];          <span class="comment">// 3 行 4 列</span></span><br><span class="line"><span class="type">int</span>[][] g = &#123;&#123;<span class="number">1</span>, <span class="number">2</span>&#125;, &#123;<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;&#125;;    <span class="comment">// 每行长度可以不同</span></span><br><span class="line"></span><br><span class="line">m.length      <span class="comment">// 3   行数</span></span><br><span class="line">m[<span class="number">0</span>].length   <span class="comment">// 4   第 0 行的列数</span></span><br></pre></td></tr></table></figure>
+<p>内存上是「引用数组」，每个元素指向一个独立的一维数组：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">m ──&gt; [ ref0 ][ ref1 ][ ref2 ]</span><br><span class="line">          │       │       │</span><br><span class="line">          ▼       ▼       ▼</span><br><span class="line">      [0,0,0,0] [0,0,0,0] [0,0,0,0]</span><br></pre></td></tr></table></figure>
+<p>三个直接后果：</p>
+<ul>
+<li><code>new int[3][]</code> 合法（只定行数），但每行是 <code>null</code>，<code>g[0]</code> 打印出来就是 <code>null</code>。</li>
+<li>锯齿数组能存在，正因为「行」是独立对象，长度互不相干——实测 <code>&#123;&#123;1,2&#125;,&#123;3,4,5&#125;&#125;</code> 的 <code>m[0].length</code> 是 2、<code>m[1].length</code> 是 3。</li>
+<li>遍历内层必须用 <code>m[i].length</code>，写成 <code>m.length</code> 就是越界。</li>
+</ul>
+<p>矩阵题里把 <code>grid[i].length</code> 与 <code>grid.length</code> 写反是高频错误，而且报错长得很像外层出错。记一句：<strong>外层看行数，内层看列数。</strong></p>
+<h2 id="五-arrays-能替你做的事"><a class="markdownIt-Anchor" href="#五-arrays-能替你做的事"></a> 五、<code>Arrays</code> 能替你做的事</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[] a = &#123;<span class="number">3</span>, <span class="number">1</span>, <span class="number">2</span>&#125;;</span><br><span class="line">Arrays.sort(a);                          <span class="comment">// 原地排序 O(n log n)</span></span><br><span class="line">Arrays.toString(a);                      <span class="comment">// [1, 2, 3]</span></span><br><span class="line">Arrays.binarySearch(a, <span class="number">2</span>);               <span class="comment">// 1（必须先排序）</span></span><br><span class="line">Arrays.equals(a, <span class="keyword">new</span> <span class="title class_">int</span>[]&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;);    <span class="comment">// true</span></span><br><span class="line">Arrays.fill(<span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">3</span>], <span class="number">7</span>);              <span class="comment">// [7, 7, 7]</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong><code>sort</code> 是原地修改</strong>，不返回新数组；返回 <code>void</code>，所以 <code>int[] b = Arrays.sort(a)</code> 编译不过。</li>
+<li><strong><code>binarySearch</code> 的前提是已排序</strong>，否则不报错、返回一个无意义的值——这才是坑。</li>
+<li><strong><code>binarySearch</code> 返回的是下标</strong>，找不到时返回负值（<code>-(插入点) - 1</code>），不是 -1 一刀切。</li>
+<li><strong><code>equals</code> 是逐元素比较</strong>，<code>a.equals(b)</code> 走的是 <code>Object</code> 的地址比较，永远 <code>false</code>。</li>
+</ul>
+<p>而直接 <code>println(数组)</code> 打出的是：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[I@506e1b77</span><br></pre></td></tr></table></figure>
+<p><code>[</code> 表示数组，<code>I</code> 表示 <code>int</code>，后面是 hashCode 的十六进制。原因是数组没有重写 <code>toString()</code>，<code>println</code> 走到的是 <code>Object.toString()</code>。二维数组要用 <code>Arrays.deepToString()</code>，否则打印的是内层数组的地址。</p>
+<h2 id="六-手写反转和冒泡练的是边界"><a class="markdownIt-Anchor" href="#六-手写反转和冒泡练的是边界"></a> 六、手写反转和冒泡，练的是边界</h2>
+<p><strong>反转用双指针从两头夹：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[] arr = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>&#125;;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">min</span> <span class="operator">=</span> <span class="number">0</span>, max = arr.length - <span class="number">1</span>; min &lt; max; min++, max--) &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">temp</span> <span class="operator">=</span> arr[min];</span><br><span class="line">    arr[min] = arr[max];</span><br><span class="line">    arr[max] = temp;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// [7, 6, 5, 4, 3, 2, 1]</span></span><br></pre></td></tr></table></figure>
+<p>三个细节：<code>for</code> 的初始化块可以声明<strong>同类型</strong>的两个变量；循环条件是 <code>min &lt; max</code> 而不是 <code>&lt;=</code>——奇数长度时中间那个元素原地不动，写 <code>&lt;=</code> 只是多换一次自己；交换必须借第三个变量，<code>a = b; b = a;</code> 会把两个都变成 <code>b</code>。</p>
+<p><strong>冒泡是两层循环，每趟少比一个：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[] b = &#123;<span class="number">5</span>, <span class="number">2</span>, <span class="number">9</span>, <span class="number">1</span>, <span class="number">3</span>&#125;;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; b.length - <span class="number">1</span>; j++) &#123;            <span class="comment">// 趟数最多 n-1</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; b.length - <span class="number">1</span> - j; i++) &#123;    <span class="comment">// 每趟少比一个</span></span><br><span class="line">        <span class="keyword">if</span> (b[i] &gt; b[i + <span class="number">1</span>]) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">t</span> <span class="operator">=</span> b[i]; b[i] = b[i + <span class="number">1</span>]; b[i + <span class="number">1</span>] = t;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// [1, 2, 3, 5, 9]</span></span><br></pre></td></tr></table></figure>
+<p>两个边界写错就崩，而且错法不一样：</p>
+<ul>
+<li>内层 <code>i &lt; b.length</code> → 最后一次读 <code>b[b.length]</code>，<strong>运行时</strong> <code>ArrayIndexOutOfBoundsException</code>。</li>
+<li>外层写成 <code>j &lt; length</code>（漏了 <code>b.</code>）→ <code>length</code> 不是变量，<strong>编译期</strong> <code>cannot find symbol</code>。</li>
+</ul>
+<p><code>Arrays.sort()</code> 一行就够，手写的价值只在「自己算一次边界」。写过之后再看 <code>i &lt; n - 1 - j</code>，才不是背下来的。</p>
+<h2 id="七-length-与-length那一对括号的来历"><a class="markdownIt-Anchor" href="#七-length-与-length那一对括号的来历"></a> 七、<code>.length</code> 与 <code>.length()</code>：那一对括号的来历</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">取长度</th>
+<th style="text-align:left">是什么</th>
+<th style="text-align:left">括号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">数组</td>
+<td style="text-align:left"><code>a.length</code></td>
+<td style="text-align:left"><code>public final</code> 字段</td>
+<td style="text-align:left">无</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>String</code></td>
+<td style="text-align:left"><code>s.length()</code></td>
+<td style="text-align:left">方法</td>
+<td style="text-align:left">有</td>
+</tr>
+<tr>
+<td style="text-align:left">集合 <code>List</code> / <code>Set</code> / <code>Map</code></td>
+<td style="text-align:left"><code>c.size()</code></td>
+<td style="text-align:left">接口方法</td>
+<td style="text-align:left">有</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>StringBuilder</code></td>
+<td style="text-align:left"><code>sb.length()</code></td>
+<td style="text-align:left">方法</td>
+<td style="text-align:left">有</td>
+</tr>
+<tr>
+<td style="text-align:left">二维数组第 i 行</td>
+<td style="text-align:left"><code>m[i].length</code></td>
+<td style="text-align:left">字段</td>
+<td style="text-align:left">无</td>
+</tr>
+</tbody>
+</table>
+<p>为什么不一样？三个理由，各不相同：</p>
+<ul>
+<li><strong>数组是语言级容器</strong>，JVM 直接支持，长度在创建时写进对象头（JLS §10.7 规定为 <code>public final</code>），读它只是一次内存访问。</li>
+<li><strong><code>String</code> 底层是私有数组</strong>，长度只能靠方法读。而且它的内部表示变过一次：Java 8 是 <code>char[]</code>，Java 9 之后改成 <code>byte[]</code> + <code>coder</code>（Compact Strings，纯拉丁字符省一半内存）。如果 <code>length</code> 是公开字段，这次改动就是破坏性变更；正因为是方法，外部代码一行都不用改。</li>
+<li><strong>集合是接口</strong>，接口只能声明方法，不能声明字段。</li>
+</ul>
+<p>两个坑：<code>length</code> 是 <code>final</code>，但<strong>元素不是</strong>——<code>a[0] = 1</code> 合法，<code>a = new int[10]</code> 也合法（改的是引用）。另一个是 <code>String.length()</code> 返回的是 <strong>UTF-16 code unit 数</strong>，不是人眼字符数：<code>&quot;😀&quot;.length()</code> 是 2，<code>codePointCount</code> 才是 1，按 UTF-8 字节算是 4。</p>
+<h2 id="小结"><a class="markdownIt-Anchor" href="#小结"></a> 小结</h2>
+<ul>
+<li>数组是<strong>定长、同类型、连续内存的对象</strong>，<code>&#123;...&#125;</code> 只能在声明行用；引用元素默认 <code>null</code>，不是空串。</li>
+<li><code>Index ... out of bounds</code> 查边界，<code>Cannot read the array length</code> 查初始化——两条报错方向相反。</li>
+<li><code>int[] ref = src</code> 是别名不是复制；真副本用 <code>Arrays.copyOf</code> / <code>clone</code> / <code>System.arraycopy</code>，扩容一律「新建 + 搬」。</li>
+<li>二维数组是「数组的数组」，行数看 <code>m.length</code>、列数看 <code>m[i].length</code>，<code>new int[3][]</code> 之后每行是 <code>null</code>。</li>
+<li>打印数组要 <code>Arrays.toString</code>（二维 <code>deepToString</code>），否则只会看到 <code>[I@506e1b77</code>。</li>
+<li>手写反转与冒泡的意义是<strong>把边界算一遍</strong>：<code>min &lt; max</code>、<code>i &lt; n - 1 - j</code>，两个都靠 <code>.length</code> 推算，不写死数字。</li>
+<li><code>.length</code> 是字段、<code>.length()</code> 是方法，差别来自「能不能改内部表示」——这正是封装的价值。</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.id-zyuan.xyz">zhaoyuan</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://blog.id-zyuan.xyz/2026/10/29/Java-%E6%95%B0%E7%BB%84/">https://blog.id-zyuan.xyz/2026/10/29/Java-%E6%95%B0%E7%BB%84/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://blog.id-zyuan.xyz" target="_blank">笺札</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Java/">Java</a><a class="post-meta__tags" href="/tags/%E6%95%B0%E7%BB%84/">数组</a><a class="post-meta__tags" href="/tags/%E6%8E%92%E5%BA%8F/">排序</a></div><div class="post-share"><div class="social-share" data-image="https://pic1.imgdb.cn/item/6908b7ef3203f7be00cc7a29.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/10/29/Java-%E6%96%B9%E6%B3%95/" title="Java 方法：四种形态、值传递与重载决议"><img class="cover" src="https://pic1.imgdb.cn/item/6909bf6b3203f7be00cf703e.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post" loading='lazy'><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Java 方法：四种形态、值传递与重载决议</div></div><div class="info-2"><div class="info-item-1"> Java 方法：四种形态、值传递与重载决议 方法大概是 Java 里最不需要解释的语法：写个名字、加个括号、里面塞几行。但真正会出问题的地方都在细节上——void 和「不写返回类型」是不是一回事？为什么 swap(a, b) 什么也没换？k(1) 明明有 k(Integer) 重载，为什么走的是 k(long)？ 这篇按「怎么写 → 参数怎么传 → 同名怎么挑 → 工程里怎么分层」的顺序讲。  一、方法是五个部分拼起来的 123public static int sum(int a, int b) &#123;    return a + b;&#125;    组成 含义     修饰符 public（外部可调）+ static（属于类，不用 new）   返回值类型 交回的结果类型；没有返回值写 void，不是不写   方法名 小驼峰、动词开头   参数列表 数据类型 变量名，逗号分隔，可以为空   return 交回结果；void 方法里可以写 return; 提前结束    两个容易混的点：  void 是「有返回值类型，只是这个类型叫 void」；完全省略返回类型编译...</div></div></div></a><a class="pagination-related" href="/2026/10/29/Java-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="Java 数据类型：8 种基本类型、(byte) 200 与 Integer 的缓存"><img class="cover" src="https://pic1.imgdb.cn/item/6908b7e53203f7be00cc7a25.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post" loading='lazy'><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Java 数据类型：8 种基本类型、(byte) 200 与 Integer 的缓存</div></div><div class="info-2"><div class="info-item-1"> Java 数据类型：8 种基本类型、(byte) 200 与 Integer 的缓存 Java 是强类型语言，但「强」的具体表现常常被低估：字面量有默认类型，赋值有宽窄之分，装箱有缓存，强转会静默丢数据。每一条都能让一段看起来正确的代码输出一个意外的数字。 这篇从类型出发，把「存什么、转什么、比什么」三件事一次讲完。  一、8 种基本类型，其余都是引用 1234567基本类型（8 种）├── 整型：byte(1B) short(2B) int(4B) long(8B)├── 浮点：float(4B) double(8B)├── 字符：char(2B，Unicode)└── 布尔：boolean（规范不保证 1 字节）引用类型：类 · 数组 · 接口 · 枚举 · 注解 · record 范围记两个就够用：    类型 字节 范围 备注     byte 1 -128 ~ 127 文件流、网络包常用   short 2 -32768 ~ 32767 少见   int 4 ±21 亿 默认整型   long 8 很大 字面量加 L   float 4 约 7 位有效数字 字面量加 ...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2026/10/29/Java-Stream/" title="Java Stream：惰性求值、一次性，以及能翻译 SQL 的 groupingBy"><img class="cover" src="https://pic1.imgdb.cn/item/6908b7233203f7be00cc7958.jpg" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-29</div><div class="info-item-2">Java Stream：惰性求值、一次性，以及能翻译 SQL 的 groupingBy</div></div><div class="info-2"><div class="info-item-1"> Java Stream：惰性求值、一次性，以及能翻译 SQL 的 groupingBy 第一次用 Stream 的人常有两个困惑：一是「我写完了，怎么什么都没发生」，二是「第二次用同一个流怎么报错了」。这两个困惑指向同一条设计：Stream 不是集合，是管道。 管道有三个性质：不存数据、不推不动、走一次就废。理解这三点，后面所有操作都顺。  一、三条铁律    铁律 含义 违反的后果     不存数据 只是对数据源的视图 修改 Stream 不影响源集合   惰性求值 没有终端操作就什么都不做 「写了没效果」   只能消费一次 走完就关闭 IllegalStateException    1数据源 → 中间操作链（惰性，可无） → 终端操作（触发执行） 一个常被追问的点：stream() 对集合是零拷贝的视图，list.stream() 不会复制元素；但流本身持有对源的引用，所以遍历过程中修改源集合（尤其是 add / remove）会抛 ConcurrentModificationException。  二、惰性：用 peek 亲眼看一下 12345678List&lt;St...</div></div></div></a><a class="pagination-related" href="/2026/10/29/Java-%E5%AD%97%E7%AC%A6%E4%B8%B2/" title="Java 字符串：为什么它是 final，为什么双等号有时是 true"><img class="cover" src="https://pic1.imgdb.cn/item/6908b7e53203f7be00cc7a24.jpg" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-29</div><div class="info-item-2">Java 字符串：为什么它是 final，为什么双等号有时是 true</div></div><div class="info-2"><div class="info-item-1"> Java 字符串：为什么它是 final，为什么双等号有时是 true 字符串是 Java 里唯一「用起来像基本类型、实际上是对象」的东西。它有无需 new 的字面量语法，有 + 拼接的语法糖，还有一套缓存机制——这三点加起来，让  == 在字符串上表现得像是有时对、有时错。 这篇从「为什么不可变」开始，把常量池、 == 与 equals、常用方法、拼接性能串成一条线。  一、不可变：String 是 final 类 两个 final：  String 类本身声明为 final，不能被继承。 内部存字符的数组也是 final，不能被重新赋值。  于是所有看起来像「修改」的方法——concat、substring、replace、toUpperCase——实际都返回新对象： 123String s = &quot;abc&quot;;String t = s.concat(&quot;d&quot;);System.out.println(s + &quot; / &quot; + t);    // abc / abcd s 仍然是 abc，长度还是 3。t 是一个全新的 St...</div></div></div></a><a class="pagination-related" href="/2026/10/29/Java-%E4%BB%8E%E6%BA%90%E7%A0%81%E5%88%B0%E8%BF%90%E8%A1%8C/" title="Java 从 .java 到运行：JDK、JRE、字节码与 JIT 的一条完整链路"><img class="cover" src="https://pic1.imgdb.cn/item/6909bfa63203f7be00cf70c9.jpg" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-29</div><div class="info-item-2">Java 从 .java 到运行：JDK、JRE、字节码与 JIT 的一条完整链路</div></div><div class="info-2"><div class="info-item-1"> Java 从 .java 到运行：JDK、JRE、字节码与 JIT 的一条完整链路 装 Java 的第一步通常是「下载 JDK」，但很少有人能立刻说清：为什么不是装 JRE？java -version 和 javac -version 为什么输出不一样？JDK 9 之后安装目录里那个 jre/ 文件夹怎么不见了？以及——「Java 是解释型语言」这句话到底错在哪？ 这四个问题其实指向同一条链路：源码 → 字节码 → 类加载 → 解释执行 → JIT 编译 → 机器码。把这条链走一遍，环境问题、启动速度、版本报错基本都能自己诊断。  一、先理清包含关系：JDK ⊃ JRE ⊃ JVM 这三者是包含关系，不是并列关系。 12345678910JDK（Java Development Kit，开发工具包） ├── JRE（Java Runtime Environment，运行环境） │    ├── JVM（Java Virtual Machine） │    └── 核心类库（String、集合、IO、网络…） └── 开发工具      ├── javac   编译：.java ...</div></div></div></a><a class="pagination-related" href="/2026/10/29/Java-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="Java 数据类型：8 种基本类型、(byte) 200 与 Integer 的缓存"><img class="cover" src="https://pic1.imgdb.cn/item/6908b7e53203f7be00cc7a25.jpg" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-29</div><div class="info-item-2">Java 数据类型：8 种基本类型、(byte) 200 与 Integer 的缓存</div></div><div class="info-2"><div class="info-item-1"> Java 数据类型：8 种基本类型、(byte) 200 与 Integer 的缓存 Java 是强类型语言，但「强」的具体表现常常被低估：字面量有默认类型，赋值有宽窄之分，装箱有缓存，强转会静默丢数据。每一条都能让一段看起来正确的代码输出一个意外的数字。 这篇从类型出发，把「存什么、转什么、比什么」三件事一次讲完。  一、8 种基本类型，其余都是引用 1234567基本类型（8 种）├── 整型：byte(1B) short(2B) int(4B) long(8B)├── 浮点：float(4B) double(8B)├── 字符：char(2B，Unicode)└── 布尔：boolean（规范不保证 1 字节）引用类型：类 · 数组 · 接口 · 枚举 · 注解 · record 范围记两个就够用：    类型 字节 范围 备注     byte 1 -128 ~ 127 文件流、网络包常用   short 2 -32768 ~ 32767 少见   int 4 ±21 亿 默认整型   long 8 很大 字面量加 L   float 4 约 7 位有效数字 字面量加 ...</div></div></div></a><a class="pagination-related" href="/2026/10/29/Java-%E6%96%B9%E6%B3%95/" title="Java 方法：四种形态、值传递与重载决议"><img class="cover" src="https://pic1.imgdb.cn/item/6909bf6b3203f7be00cf703e.png" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-29</div><div class="info-item-2">Java 方法：四种形态、值传递与重载决议</div></div><div class="info-2"><div class="info-item-1"> Java 方法：四种形态、值传递与重载决议 方法大概是 Java 里最不需要解释的语法：写个名字、加个括号、里面塞几行。但真正会出问题的地方都在细节上——void 和「不写返回类型」是不是一回事？为什么 swap(a, b) 什么也没换？k(1) 明明有 k(Integer) 重载，为什么走的是 k(long)？ 这篇按「怎么写 → 参数怎么传 → 同名怎么挑 → 工程里怎么分层」的顺序讲。  一、方法是五个部分拼起来的 123public static int sum(int a, int b) &#123;    return a + b;&#125;    组成 含义     修饰符 public（外部可调）+ static（属于类，不用 new）   返回值类型 交回的结果类型；没有返回值写 void，不是不写   方法名 小驼峰、动词开头   参数列表 数据类型 变量名，逗号分隔，可以为空   return 交回结果；void 方法里可以写 return; 提前结束    两个容易混的点：  void 是「有返回值类型，只是这个类型叫 void」；完全省略返回类型编译...</div></div></div></a><a class="pagination-related" href="/2026/10/29/Java-%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%A8%8B%E5%BA%8F/" title="Java 第一个程序：文件名、main、格式化输出与 Scanner"><img class="cover" src="https://pic1.imgdb.cn/item/6908b7d53203f7be00cc7a0f.jpg" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-29</div><div class="info-item-2">Java 第一个程序：文件名、main、格式化输出与 Scanner</div></div><div class="info-2"><div class="info-item-1"> Java 第一个程序：文件名、main、格式化输出与 Scanner 从「能跑起来」到「写得像样」，中间隔着一批小规矩。它们单拎出来都不难，但每一条都对应一个新手卡半天的问题：文件名不匹配的报错看不懂、main 少个 static 报「找不到主方法」、Scanner 连着用第二次读到空串、中文输入法打了个全角分号。 这篇把它们按「从编译到运行、从输出到输入」的顺序串一遍。  一、文件名必须等于 public 类名 1error: class Wrong is public, should be declared in a file named Wrong.java 规则完整版：一个 .java 文件可以有多个类，但最多一个 public 类，文件名必须逐字符等于它（含大小写）。没有 public 类时文件名可以随便起，但不建议。 为什么？因为 JVM 靠「类名 → 文件名」这条映射去 classpath 找 .class。允许乱起就要额外维护一张映射表，编译器干脆把这个自由度收掉。 最坑的场景在大小写： 123Windows：hello.java 里写 public class...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://pic1.imgdb.cn/item/6829891e58cb8da5c8fabff0.png" onerror="this.onerror=null;this.src='/img/friend_04.gif'" alt="avatar"/ loading='lazy'></div><div class="author-info-name">zhaoyuan</div><div class="author-info-description">一封封记录足迹与所悟的信集</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">465</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">126</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#java-%E6%95%B0%E7%BB%84%E5%AE%9A%E9%95%BF-%E8%B6%8A%E7%95%8C%E4%BB%A5%E5%8F%8A%E6%89%8B%E5%86%99%E4%B8%80%E8%B6%9F%E5%86%92%E6%B3%A1"><span class="toc-number">1.</span> <span class="toc-text"> Java 数组：定长、越界，以及手写一趟冒泡</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80-%E4%B8%89%E4%B8%AA%E7%A1%AC%E7%BA%A6%E6%9D%9F%E5%AE%9A%E9%95%BF-%E5%90%8C%E7%B1%BB%E5%9E%8B-%E5%86%85%E5%AD%98%E8%BF%9E%E7%BB%AD"><span class="toc-number">1.1.</span> <span class="toc-text"> 一、三个硬约束：定长、同类型、内存连续</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C-%E4%B8%A4%E7%A7%8D%E5%BC%82%E5%B8%B8%E6%8C%87%E5%90%91%E4%B8%A4%E4%B8%AA%E5%AE%8C%E5%85%A8%E4%B8%8D%E5%90%8C%E7%9A%84%E6%96%B9%E5%90%91"><span class="toc-number">1.2.</span> <span class="toc-text"> 二、两种异常指向两个完全不同的方向</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89-int-ref-src-%E4%B8%8D%E6%98%AF%E5%A4%8D%E5%88%B6%E6%98%AF%E5%88%AB%E5%90%8D"><span class="toc-number">1.3.</span> <span class="toc-text"> 三、int[] ref &#x3D; src 不是复制，是别名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B-%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E4%B8%8D%E6%98%AF%E7%9F%A9%E9%98%B5%E6%98%AF%E6%95%B0%E7%BB%84%E7%9A%84%E6%95%B0%E7%BB%84"><span class="toc-number">1.4.</span> <span class="toc-text"> 四、二维数组不是矩阵，是「数组的数组」</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94-arrays-%E8%83%BD%E6%9B%BF%E4%BD%A0%E5%81%9A%E7%9A%84%E4%BA%8B"><span class="toc-number">1.5.</span> <span class="toc-text"> 五、Arrays 能替你做的事</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD-%E6%89%8B%E5%86%99%E5%8F%8D%E8%BD%AC%E5%92%8C%E5%86%92%E6%B3%A1%E7%BB%83%E7%9A%84%E6%98%AF%E8%BE%B9%E7%95%8C"><span class="toc-number">1.6.</span> <span class="toc-text"> 六、手写反转和冒泡，练的是边界</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83-length-%E4%B8%8E-length%E9%82%A3%E4%B8%80%E5%AF%B9%E6%8B%AC%E5%8F%B7%E7%9A%84%E6%9D%A5%E5%8E%86"><span class="toc-number">1.7.</span> <span class="toc-text"> 七、.length 与 .length()：那一对括号的来历</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-number">1.8.</span> <span class="toc-text"> 小结</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/10/30/BI-%E6%8C%87%E6%A0%87%E4%BD%93%E7%B3%BB%E4%B8%8E%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95/" title="BI 入门：指标体系、分析方法与 Tableau 落地"><img src="https://pic1.imgdb.cn/item/6909bfe13203f7be00cf7140.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="BI 入门：指标体系、分析方法与 Tableau 落地"/ loading='lazy'></a><div class="content"><a class="title" href="/2026/10/30/BI-%E6%8C%87%E6%A0%87%E4%BD%93%E7%B3%BB%E4%B8%8E%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95/" title="BI 入门：指标体系、分析方法与 Tableau 落地">BI 入门：指标体系、分析方法与 Tableau 落地</a><time datetime="2026-10-29T16:00:00.000Z" title="发表于 2026-10-30 00:00:00">2026-10-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/10/30/SQL-%E5%88%86%E6%9E%90%E5%9C%BA%E6%99%AF%E5%AE%9E%E6%88%98/" title="SQL 分析实战：漏斗、留存、连续 N 天与同环比"><img src="https://pic1.imgdb.cn/item/6908b7ef3203f7be00cc7a28.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SQL 分析实战：漏斗、留存、连续 N 天与同环比"/ loading='lazy'></a><div class="content"><a class="title" href="/2026/10/30/SQL-%E5%88%86%E6%9E%90%E5%9C%BA%E6%99%AF%E5%AE%9E%E6%88%98/" title="SQL 分析实战：漏斗、留存、连续 N 天与同环比">SQL 分析实战：漏斗、留存、连续 N 天与同环比</a><time datetime="2026-10-29T16:00:00.000Z" title="发表于 2026-10-30 00:00:00">2026-10-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/10/30/SQL-%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%E4%B8%8E%E5%AD%90%E6%9F%A5%E8%AF%A2/" title="SQL 窗口函数：不分组也能排名，以及 CTE、子查询与 TopN 怎么配合"><img src="https://pic1.imgdb.cn/item/6909bfe13203f7be00cf7142.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SQL 窗口函数：不分组也能排名，以及 CTE、子查询与 TopN 怎么配合"/ loading='lazy'></a><div class="content"><a class="title" href="/2026/10/30/SQL-%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%E4%B8%8E%E5%AD%90%E6%9F%A5%E8%AF%A2/" title="SQL 窗口函数：不分组也能排名，以及 CTE、子查询与 TopN 怎么配合">SQL 窗口函数：不分组也能排名，以及 CTE、子查询与 TopN 怎么配合</a><time datetime="2026-10-29T16:00:00.000Z" title="发表于 2026-10-30 00:00:00">2026-10-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/10/30/SQL-%E7%B4%A2%E5%BC%95/" title="SQL 索引：为什么加了索引还是慢，回表与最左前缀"><img src="https://pic1.imgdb.cn/item/6908b7a43203f7be00cc79cf.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SQL 索引：为什么加了索引还是慢，回表与最左前缀"/ loading='lazy'></a><div class="content"><a class="title" href="/2026/10/30/SQL-%E7%B4%A2%E5%BC%95/" title="SQL 索引：为什么加了索引还是慢，回表与最左前缀">SQL 索引：为什么加了索引还是慢，回表与最左前缀</a><time datetime="2026-10-29T16:00:00.000Z" title="发表于 2026-10-30 00:00:00">2026-10-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/10/30/SQL-%E4%BA%8B%E5%8A%A1/" title="SQL 事务：ACID 各挡什么，隔离级别与 MVCC 怎么配合"><img src="https://pic1.imgdb.cn/item/6908b7d53203f7be00cc7a0c.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SQL 事务：ACID 各挡什么，隔离级别与 MVCC 怎么配合"/ loading='lazy'></a><div class="content"><a class="title" href="/2026/10/30/SQL-%E4%BA%8B%E5%8A%A1/" title="SQL 事务：ACID 各挡什么，隔离级别与 MVCC 怎么配合">SQL 事务：ACID 各挡什么，隔离级别与 MVCC 怎么配合</a><time datetime="2026-10-29T16:00:00.000Z" title="发表于 2026-10-30 00:00:00">2026-10-30</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2019 - 2026 By zhaoyuan</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><div class="js-pjax"><script>(async () => {
+  const showKatex = () => {
+    document.querySelectorAll('#article-container .katex').forEach(el => el.classList.add('katex-show'))
+  }
+
+  if (!window.katex_js_css) {
+    window.katex_js_css = true
+    await btf.getCSS('https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css')
+    if (false) {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js')
+    }
+  }
+
+  showKatex()
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

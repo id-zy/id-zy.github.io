@@ -1,0 +1,330 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Java 流程控制：if 的 boolean 门槛、switch 的穿透，与三种循环 | 笺札</title><meta name="author" content="zhaoyuan"><meta name="copyright" content="zhaoyuan"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="f4f1e8"><meta name="description" content="if (1) 为什么编译不过、switch 漏 break 会打出两行、箭头 switch 怎么替代 break、三种循环的判据不是风格而是执行次数、while 里 continue 为什么会死循环，以及标签 break 什么时候比 found 标志位干净。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java 流程控制：if 的 boolean 门槛、switch 的穿透，与三种循环">
+<meta property="og:url" content="https://blog.id-zyuan.xyz/2026/10/29/Java-%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/index.html">
+<meta property="og:site_name" content="笺札">
+<meta property="og:description" content="if (1) 为什么编译不过、switch 漏 break 会打出两行、箭头 switch 怎么替代 break、三种循环的判据不是风格而是执行次数、while 里 continue 为什么会死循环，以及标签 break 什么时候比 found 标志位干净。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic1.imgdb.cn/item/6909bfa63203f7be00cf70c9.jpg">
+<meta property="article:published_time" content="2026-10-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-10-30T02:53:00.531Z">
+<meta property="article:author" content="zhaoyuan">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="流程控制">
+<meta property="article:tag" content="循环">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic1.imgdb.cn/item/6909bfa63203f7be00cf70c9.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Java 流程控制：if 的 boolean 门槛、switch 的穿透，与三种循环",
+  "url": "https://blog.id-zyuan.xyz/2026/10/29/Java-%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/",
+  "image": "https://pic1.imgdb.cn/item/6909bfa63203f7be00cf70c9.jpg",
+  "datePublished": "2026-10-28T16:00:00.000Z",
+  "dateModified": "2026-10-30T02:53:00.531Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "zhaoyuan",
+      "url": "https://blog.id-zyuan.xyz"
+    }
+  ]
+}</script><link rel="shortcut icon" href="https://pic1.imgdb.cn/item/6829891e58cb8da5c8fabff0.png"><link rel="canonical" href="https://blog.id-zyuan.xyz/2026/10/29/Java-%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#141414')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'f4f1e8')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Java 流程控制：if 的 boolean 门槛、switch 的穿透，与三种循环',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/ma-shan-zheng/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/zcool-xiaowei/index.css"><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/ink.css"><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="笺札" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://pic1.imgdb.cn/item/6829891e58cb8da5c8fabff0.png" onerror="this.onerror=null;this.src='/img/friend_04.gif'" alt="avatar"/ loading='lazy'></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">465</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">126</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fa fa-camera-retro faa-float animared"></i><span> 相册</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video faa-float animared"></i><span> 影视</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book  faa-float animared"></i><span> 图书</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://pic1.imgdb.cn/item/6909bfa63203f7be00cf70c9.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">笺札</span></a><a class="nav-page-title" href="/"><span class="site-name">Java 流程控制：if 的 boolean 门槛、switch 的穿透，与三种循环</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fa fa-camera-retro faa-float animared"></i><span> 相册</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video faa-float animared"></i><span> 影视</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book  faa-float animared"></i><span> 图书</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Java 流程控制：if 的 boolean 门槛、switch 的穿透，与三种循环</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-10-28T16:00:00.000Z" title="发表于 2026-10-29 00:00:00">2026-10-29</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-10-30T02:53:00.531Z" title="更新于 2026-10-30 10:53:00">2026-10-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%8D%9A%E5%AE%A2/">博客</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="java-流程控制if-的-boolean-门槛-switch-的穿透与三种循环"><a class="markdownIt-Anchor" href="#java-流程控制if-的-boolean-门槛-switch-的穿透与三种循环"></a> Java 流程控制：if 的 boolean 门槛、switch 的穿透，与三种循环</h1>
+<p>分支和循环是最先学会、也最容易写错的两块。写错的方式还特别隐蔽——代码能编译、能运行，只是结果不对，或者转不出来。</p>
+<p>这篇把四件事讲清楚：<code>if</code> 的条件为什么必须是 <code>boolean</code>、<code>switch</code> 的 <code>break</code> 到底在防什么、三种循环怎么选、以及 <code>continue</code> 为什么能写出死循环。</p>
+<h2 id="一-if-的三条硬规则"><a class="markdownIt-Anchor" href="#一-if-的三条硬规则"></a> 一、<code>if</code> 的三条硬规则</h2>
+<p><strong>第一条：条件必须是 <code>boolean</code>。</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="number">1</span>) &#123; &#125;        <span class="comment">// 编译错误：int cannot be converted to boolean</span></span><br><span class="line"><span class="keyword">if</span> (x = <span class="number">1</span>) &#123; &#125;    <span class="comment">// 编译错误：同样的原因</span></span><br></pre></td></tr></table></figure>
+<p>Java 不像 C 那样「非零为真」，这条限制顺手挡住了一类经典手误：把 <code> ==</code> 写成 <code> =</code>。在 C 里 <code>if (x = 1)</code> 恒为真，在 Java 里直接编译不过——一个语言设计上的防呆。</p>
+<p><strong>第二条：顺序即逻辑。</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (score &gt;= <span class="number">60</span>) &#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;及格&quot;</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (score &gt;= <span class="number">90</span>) &#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;优秀&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>95</code> 会命中第一个分支，打印「及格」，「优秀」永远到不了。区间判断必须<strong>从严到宽</strong>或者<strong>从宽到严</strong>统一排列，不能混。这类错误编译器一句话都不会说。</p>
+<p><strong>第三条：单条语句能省 <code>&#123;&#125;</code>，但建议永不省。</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (ok)</span><br><span class="line">    doA();</span><br><span class="line">    doB();       <span class="comment">// 这行不在 if 里，但缩进让人以为在</span></span><br></pre></td></tr></table></figure>
+<p>省掉花括号之后，第二行看起来还在条件里，实际已经脱离。加上后来有人在中间插入一行，bug 就长出来了。</p>
+<p>嵌套超过三层，基本说明该拆方法了——或者该换 <code>switch</code>。</p>
+<h2 id="二-switch-的类型限制与穿透"><a class="markdownIt-Anchor" href="#二-switch-的类型限制与穿透"></a> 二、<code>switch</code> 的类型限制与穿透</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">要点</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">表达式类型</td>
+<td style="text-align:left"><code>byte</code> / <code>short</code> / <code>char</code> / <code>int</code> / <code>String</code> / 枚举</td>
+</tr>
+<tr>
+<td style="text-align:left">不支持</td>
+<td style="text-align:left"><code>long</code> / <code>float</code> / <code>double</code> / <code>boolean</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>case</code> 后</td>
+<td style="text-align:left">必须是<strong>常量</strong>，不能是变量</td>
+</tr>
+<tr>
+<td style="text-align:left">漏 <code>break</code></td>
+<td style="text-align:left">会一直往下执行，直到遇到下一个 <code>break</code></td>
+</tr>
+</tbody>
+</table>
+<p>漏 <code>break</code> 的效果值得亲眼看一次。实测：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">day</span> <span class="operator">=</span> <span class="number">3</span>;</span><br><span class="line"><span class="keyword">switch</span> (day) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">1</span>: <span class="keyword">case</span> <span class="number">2</span>: <span class="keyword">case</span> <span class="number">3</span>: System.out.println(<span class="string">&quot;上旬&quot;</span>);</span><br><span class="line">    <span class="keyword">case</span> <span class="number">4</span>: System.out.println(<span class="string">&quot;四号也执行了&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出两行：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">上旬</span><br><span class="line">四号也执行了</span><br></pre></td></tr></table></figure>
+<p><code>day = 3</code> 命中 <code>case 3</code>，打印「上旬」之后没有 <code>break</code>，于是继续执行 <code>case 4</code> 的代码。<strong>穿透不是跳到下一个 <code>case</code> 判断，而是直接执行下面的语句</strong>——所以 <code>case 4</code> 的条件根本没被检查。</p>
+<p>穿透有一个正当用法：多个值走同一段逻辑时，连续写几个空 <code>case</code>，只在最后一个写代码。上面 <code>case 1: case 2: case 3:</code> 就是这个模式。</p>
+<p><code>String</code> 能做 <code>switch</code> 是 Java 7 加的，编译器实际是拿 <code>hashCode</code> + <code>equals</code> 实现，所以 <code>case</code> 里写 <code>null</code> 会抛 NPE——<code>switch</code> 的表达式本身为 <code>null</code> 时也会。</p>
+<h2 id="三-箭头-switch不穿透-能赋值"><a class="markdownIt-Anchor" href="#三-箭头-switch不穿透-能赋值"></a> 三、箭头 switch：不穿透、能赋值</h2>
+<p>Java 14 之后有了箭头形式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">level</span> <span class="operator">=</span> <span class="keyword">switch</span> (day) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span> -&gt; <span class="string">&quot;上旬&quot;</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">4</span>, <span class="number">5</span> -&gt; <span class="string">&quot;中旬&quot;</span>;</span><br><span class="line">    <span class="keyword">default</span> -&gt; &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">rest</span> <span class="operator">=</span> day % <span class="number">3</span>;</span><br><span class="line">        <span class="keyword">yield</span> <span class="string">&quot;下旬&quot;</span> + rest;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>三个变化：</p>
+<ul>
+<li><strong>不穿透</strong>，每个分支自带隐式 <code>break</code>，不用再写。</li>
+<li><strong>可以直接当表达式赋值</strong>，<code>switch</code> 产出一个值。</li>
+<li>多行逻辑用代码块包起来，末尾用 <code>yield</code> 返回值（<code>return</code> 在这里不行）。</li>
+</ul>
+<p><code>day = 3</code> 实测输出「上旬」。旧写法要写四行 <code>case</code> 加 <code>break</code>，新写法一行。新代码没有理由再用旧形式——除非项目还在 Java 8。</p>
+<h2 id="四-三种循环的判据是执行次数"><a class="markdownIt-Anchor" href="#四-三种循环的判据是执行次数"></a> 四、三种循环的判据是执行次数</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">循环</th>
+<th style="text-align:left">判据</th>
+<th style="text-align:left">最少执行次数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>for</code></td>
+<td style="text-align:left">次数已知</td>
+<td style="text-align:left">0</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>while</code></td>
+<td style="text-align:left">次数未知，只知道终止条件</td>
+<td style="text-align:left">0</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>do while</code></td>
+<td style="text-align:left">先做一次再决定</td>
+<td style="text-align:left"><strong>1</strong></td>
+</tr>
+</tbody>
+</table>
+<p>选哪个不是风格问题，是语义问题。看实测：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> <span class="number">10</span>;</span><br><span class="line"><span class="keyword">while</span> (n &lt; <span class="number">5</span>) &#123; System.out.println(<span class="string">&quot;while 执行了&quot;</span>); &#125;        <span class="comment">// 一次都不执行</span></span><br><span class="line"><span class="keyword">do</span> &#123; System.out.println(<span class="string">&quot;do-while 执行一次, n=&quot;</span> + n); &#125; <span class="keyword">while</span> (n &lt; <span class="number">5</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">do-while 执行一次, n=10</span><br></pre></td></tr></table></figure>
+<p>条件一开始就是假的，<code>while</code> 直接跳过，<code>do while</code> 仍然跑一次。这就是「菜单至少显示一次」用 <code>do while</code>、「读到文件结尾」用 <code>while</code> 的原因。</p>
+<p><strong><code>for</code> 的三段式</strong>：初始化 / 条件 / 更新。循环变量作用域只在循环体内，出了循环就 <code>cannot find symbol</code>。</p>
+<p><strong>增强 for</strong> 只适合只读遍历：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (String s : list) &#123; ... &#125;</span><br></pre></td></tr></table></figure>
+<p>三个限制：拿不到索引、不能改集合结构（<code>remove</code> 会抛 <code>ConcurrentModificationException</code>）、遍历时改元素对基本类型无效。要索引用普通 <code>for</code>，要删元素用 <code>Iterator</code>。</p>
+<p><code>do while</code> 末尾的分号最常漏，报错还指向下一行：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x27;;&#x27; expected</span><br></pre></td></tr></table></figure>
+<p>看到这个报错先回头看上一行的 <code>while (...)</code> 后面有没有分号。</p>
+<h2 id="五-continue-为什么能写出死循环"><a class="markdownIt-Anchor" href="#五-continue-为什么能写出死循环"></a> 五、<code>continue</code> 为什么能写出死循环</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span> (i &lt; n) &#123;</span><br><span class="line">    <span class="keyword">if</span> (skip(i)) <span class="keyword">continue</span>;   <span class="comment">// 跳过 i++</span></span><br><span class="line">    i++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>continue</code> 跳过<strong>本次剩余的循环体</strong>，而 <code>i++</code> 正好在剩余部分里。一旦 <code>skip(i)</code> 为真，<code>i</code> 永远不前进，条件永远成立——死循环。</p>
+<p><code>for</code> 没有这个问题，因为更新语句写在循环头里，不受 <code>continue</code> 影响：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (skip(i)) <span class="keyword">continue</span>;   <span class="comment">// i++ 照常执行</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这就是「<code>for</code> 比 <code>while</code> 更安全」的具体含义：<strong>能被 <code>continue</code> 跳过的更新语句，迟早会被跳过</strong>。</p>
+<p>另外两个边界习惯：</p>
+<ul>
+<li>数组遍历统一写 <code>i &lt; a.length</code>。写成 <code>i &lt;= a.length</code> 多一个等号，<code>i</code> 走到 <code>length</code> 时必然 <code>ArrayIndexOutOfBoundsException</code>。</li>
+<li>循环里读输入、做 IO 的，注意异常路径也会跳过更新——<code>try</code> 包住循环体的写法尤其危险。</li>
+</ul>
+<h2 id="六-break-只跳一层标签才能跳多层"><a class="markdownIt-Anchor" href="#六-break-只跳一层标签才能跳多层"></a> 六、<code>break</code> 只跳一层，标签才能跳多层</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">关键字</th>
+<th style="text-align:left">作用</th>
+<th style="text-align:left">典型场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>break</code></td>
+<td style="text-align:left">跳出<strong>当前这层</strong>循环或 <code>switch</code></td>
+<td style="text-align:left">找到答案就收工</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>continue</code></td>
+<td style="text-align:left">跳过本次剩余，进入下一次判断</td>
+<td style="text-align:left">过滤不满足条件的元素</td>
+</tr>
+<tr>
+<td style="text-align:left">标签 + <code>break</code></td>
+<td style="text-align:left">跳出多层循环</td>
+<td style="text-align:left">双重循环找到就整体退出</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">k</span> <span class="operator">=</span> <span class="number">0</span>; k &lt; <span class="number">10</span>; k++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (k == <span class="number">3</span>) <span class="keyword">continue</span>;</span><br><span class="line">    <span class="keyword">if</span> (k == <span class="number">7</span>) <span class="keyword">break</span>;</span><br><span class="line">    System.out.print(k + <span class="string">&quot; &quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实测输出：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 1 2 4 5 6</span><br></pre></td></tr></table></figure>
+<p><code>3</code> 被 <code>continue</code> 跳过，到 <code>7</code> 直接终止。这两个语义差别很大：一个是「这次不算」，一个是「不干了」。</p>
+<p>嵌套循环里 <code>break</code> 只跳内层：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">outer:</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">p</span> <span class="operator">=</span> <span class="number">0</span>; p &lt; <span class="number">3</span>; p++)</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">q</span> <span class="operator">=</span> <span class="number">0</span>; q &lt; <span class="number">3</span>; q++)</span><br><span class="line">        <span class="keyword">if</span> (p * q == <span class="number">2</span>) &#123; System.out.println(<span class="string">&quot;break outer at &quot;</span> + p + <span class="string">&quot;,&quot;</span> + q); <span class="keyword">break</span> outer; &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">break outer at 1,2</span><br></pre></td></tr></table></figure>
+<p><code>break outer</code> 一次跳出两层。标签是「合法的 goto」，能不用就不用——多数场景把内层循环抽成方法 + <code>return</code> 更清楚。但矩阵搜索这类「找到目标立刻整体返回」的场景，标签比设一个 <code>found</code> 标志位再层层判断要干净。</p>
+<h2 id="小结"><a class="markdownIt-Anchor" href="#小结"></a> 小结</h2>
+<ul>
+<li><code>if</code> 的条件必须是 <code>boolean</code>（<code>if (1)</code> 编译不过，顺带挡住 <code> =</code> 手误）；<strong>顺序即逻辑</strong>，区间判断不能混排；花括号永不省。</li>
+<li><code>switch</code> 只接受 <code>byte</code> / <code>short</code> / <code>char</code> / <code>int</code> / <code>String</code> / 枚举，<code>case</code> 后必须是常量；<strong>漏 <code>break</code> 会穿透</strong>，<code>case 4</code> 的条件不会被检查。</li>
+<li>连续空 <code>case</code> 是穿透的正当用法；Java 14+ 的箭头 <code>switch</code> 不穿透、可赋值，多行用 <code>yield</code>。</li>
+<li><code>for</code> 次数已知、<code>while</code> 只有终止条件、<code>do while</code> 至少执行一次——判据是<strong>执行次数</strong>，不是风格。</li>
+<li><code>while</code> 里 <code>if (...) continue;</code> 跳过 <code>i++</code> 就是死循环；<code>for</code> 的更新语句不受 <code>continue</code> 影响。</li>
+<li><code>break</code> 只跳一层，<code>break 标签</code> 才跳多层；标签能不用就不用，抽方法 + <code>return</code> 通常更清楚。</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.id-zyuan.xyz">zhaoyuan</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://blog.id-zyuan.xyz/2026/10/29/Java-%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/">https://blog.id-zyuan.xyz/2026/10/29/Java-%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://blog.id-zyuan.xyz" target="_blank">笺札</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Java/">Java</a><a class="post-meta__tags" href="/tags/%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/">流程控制</a><a class="post-meta__tags" href="/tags/%E5%BE%AA%E7%8E%AF/">循环</a></div><div class="post-share"><div class="social-share" data-image="https://pic1.imgdb.cn/item/6909bfa63203f7be00cf70c9.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/10/29/Java-%E8%BF%90%E7%AE%97%E7%AC%A6%E4%B8%8E%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="Java 运算符：整数除法、短路，以及那个 -1"><img class="cover" src="https://pic1.imgdb.cn/item/6908b7e53203f7be00cc7a23.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post" loading='lazy'><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Java 运算符：整数除法、短路，以及那个 -1</div></div><div class="info-2"><div class="info-item-1"> Java 运算符：整数除法、短路，以及那个 -1 运算符是编程里最不设防的一块：语法一眼就懂，所以出错时第一反应总是「逻辑写错了」，而不是「这个符号本身的行为和我想的不一样」。 但真正在项目里造成事故的，往往就是这些符号的默认行为。整数除法把 0.5 悄悄吃掉，% 在负数上返回负值，浮点数比不出相等，位运算和比较混写直接编译不过。这些都不是 bug，是语言规定，只是没人提前告诉你。 这篇按「最容易误解」的顺序过一遍：算术、赋值、逻辑、位运算、优先级、浮点、三元。  一、整数除法截断，取余跟着被除数走 1234System.out.println(7 / 2);      // 3System.out.println(7.0 / 2);    // 3.5System.out.println(-7 % 2);     // -1System.out.println(7 % -2);     // 1 四个结果，两条规律：  两个整数相除，结果还是整数，小数部分直接截断（不是四舍五入）。想要小数，至少一边得是浮点：7 / 2.0。 % 的结果符号跟被除数走，不跟除数。所以 -7 %...</div></div></div></a><a class="pagination-related" href="/2026/10/29/Java-%E7%BB%A7%E6%89%BF%E4%B8%8E%E5%A4%9A%E6%80%81/" title="Java 继承与多态：字段为什么不参与多态"><img class="cover" src="https://pic1.imgdb.cn/item/6909bfa63203f7be00cf70c6.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post" loading='lazy'><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Java 继承与多态：字段为什么不参与多态</div></div><div class="info-2"><div class="info-item-1"> Java 继承与多态：字段为什么不参与多态 继承是面向对象里最容易被教坏的一课。教材上讲「子类继承父类，可以复用代码」，听起来只有好处；实际项目里，继承是最强的编译期耦合，用错地方的代价远大于省下的几行代码。 这篇把继承、重写、重载、多态、抽象类与接口放在一条线上讲，因为它们本来就互为因果：继承提供层次，重写提供替换，多态是替换在运行期的兑现方式。  一、extends 与 super 123456789101112class Animal &#123;    String name = &quot;animal&quot;;    void breathe() &#123; System.out.println(&quot;Animal.breathe&quot;); &#125;&#125;class Cat extends Animal &#123;    @Override    void breathe() &#123;        super.breathe();                  // 先跑父类的        System.out.printl...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2026/10/29/Java-Stream/" title="Java Stream：惰性求值、一次性，以及能翻译 SQL 的 groupingBy"><img class="cover" src="https://pic1.imgdb.cn/item/6908b7233203f7be00cc7958.jpg" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-29</div><div class="info-item-2">Java Stream：惰性求值、一次性，以及能翻译 SQL 的 groupingBy</div></div><div class="info-2"><div class="info-item-1"> Java Stream：惰性求值、一次性，以及能翻译 SQL 的 groupingBy 第一次用 Stream 的人常有两个困惑：一是「我写完了，怎么什么都没发生」，二是「第二次用同一个流怎么报错了」。这两个困惑指向同一条设计：Stream 不是集合，是管道。 管道有三个性质：不存数据、不推不动、走一次就废。理解这三点，后面所有操作都顺。  一、三条铁律    铁律 含义 违反的后果     不存数据 只是对数据源的视图 修改 Stream 不影响源集合   惰性求值 没有终端操作就什么都不做 「写了没效果」   只能消费一次 走完就关闭 IllegalStateException    1数据源 → 中间操作链（惰性，可无） → 终端操作（触发执行） 一个常被追问的点：stream() 对集合是零拷贝的视图，list.stream() 不会复制元素；但流本身持有对源的引用，所以遍历过程中修改源集合（尤其是 add / remove）会抛 ConcurrentModificationException。  二、惰性：用 peek 亲眼看一下 12345678List&lt;St...</div></div></div></a><a class="pagination-related" href="/2026/10/29/Java-%E5%AD%97%E7%AC%A6%E4%B8%B2/" title="Java 字符串：为什么它是 final，为什么双等号有时是 true"><img class="cover" src="https://pic1.imgdb.cn/item/6908b7e53203f7be00cc7a24.jpg" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-29</div><div class="info-item-2">Java 字符串：为什么它是 final，为什么双等号有时是 true</div></div><div class="info-2"><div class="info-item-1"> Java 字符串：为什么它是 final，为什么双等号有时是 true 字符串是 Java 里唯一「用起来像基本类型、实际上是对象」的东西。它有无需 new 的字面量语法，有 + 拼接的语法糖，还有一套缓存机制——这三点加起来，让  == 在字符串上表现得像是有时对、有时错。 这篇从「为什么不可变」开始，把常量池、 == 与 equals、常用方法、拼接性能串成一条线。  一、不可变：String 是 final 类 两个 final：  String 类本身声明为 final，不能被继承。 内部存字符的数组也是 final，不能被重新赋值。  于是所有看起来像「修改」的方法——concat、substring、replace、toUpperCase——实际都返回新对象： 123String s = &quot;abc&quot;;String t = s.concat(&quot;d&quot;);System.out.println(s + &quot; / &quot; + t);    // abc / abcd s 仍然是 abc，长度还是 3。t 是一个全新的 St...</div></div></div></a><a class="pagination-related" href="/2026/10/29/Java-%E4%BB%8E%E6%BA%90%E7%A0%81%E5%88%B0%E8%BF%90%E8%A1%8C/" title="Java 从 .java 到运行：JDK、JRE、字节码与 JIT 的一条完整链路"><img class="cover" src="https://pic1.imgdb.cn/item/6909bfa63203f7be00cf70c9.jpg" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-29</div><div class="info-item-2">Java 从 .java 到运行：JDK、JRE、字节码与 JIT 的一条完整链路</div></div><div class="info-2"><div class="info-item-1"> Java 从 .java 到运行：JDK、JRE、字节码与 JIT 的一条完整链路 装 Java 的第一步通常是「下载 JDK」，但很少有人能立刻说清：为什么不是装 JRE？java -version 和 javac -version 为什么输出不一样？JDK 9 之后安装目录里那个 jre/ 文件夹怎么不见了？以及——「Java 是解释型语言」这句话到底错在哪？ 这四个问题其实指向同一条链路：源码 → 字节码 → 类加载 → 解释执行 → JIT 编译 → 机器码。把这条链走一遍，环境问题、启动速度、版本报错基本都能自己诊断。  一、先理清包含关系：JDK ⊃ JRE ⊃ JVM 这三者是包含关系，不是并列关系。 12345678910JDK（Java Development Kit，开发工具包） ├── JRE（Java Runtime Environment，运行环境） │    ├── JVM（Java Virtual Machine） │    └── 核心类库（String、集合、IO、网络…） └── 开发工具      ├── javac   编译：.java ...</div></div></div></a><a class="pagination-related" href="/2026/10/29/Java-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="Java 数据类型：8 种基本类型、(byte) 200 与 Integer 的缓存"><img class="cover" src="https://pic1.imgdb.cn/item/6908b7e53203f7be00cc7a25.jpg" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-29</div><div class="info-item-2">Java 数据类型：8 种基本类型、(byte) 200 与 Integer 的缓存</div></div><div class="info-2"><div class="info-item-1"> Java 数据类型：8 种基本类型、(byte) 200 与 Integer 的缓存 Java 是强类型语言，但「强」的具体表现常常被低估：字面量有默认类型，赋值有宽窄之分，装箱有缓存，强转会静默丢数据。每一条都能让一段看起来正确的代码输出一个意外的数字。 这篇从类型出发，把「存什么、转什么、比什么」三件事一次讲完。  一、8 种基本类型，其余都是引用 1234567基本类型（8 种）├── 整型：byte(1B) short(2B) int(4B) long(8B)├── 浮点：float(4B) double(8B)├── 字符：char(2B，Unicode)└── 布尔：boolean（规范不保证 1 字节）引用类型：类 · 数组 · 接口 · 枚举 · 注解 · record 范围记两个就够用：    类型 字节 范围 备注     byte 1 -128 ~ 127 文件流、网络包常用   short 2 -32768 ~ 32767 少见   int 4 ±21 亿 默认整型   long 8 很大 字面量加 L   float 4 约 7 位有效数字 字面量加 ...</div></div></div></a><a class="pagination-related" href="/2026/10/29/Java-%E6%95%B0%E7%BB%84/" title="Java 数组：定长、越界，以及手写一趟冒泡"><img class="cover" src="https://pic1.imgdb.cn/item/6908b7ef3203f7be00cc7a29.jpg" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-29</div><div class="info-item-2">Java 数组：定长、越界，以及手写一趟冒泡</div></div><div class="info-2"><div class="info-item-1"> Java 数组：定长、越界，以及手写一趟冒泡 数组是学 Java 时第一个「不像变量」的东西：它不接受 a = b 这种复制直觉，长度改不了，打印出来是一串 [I@506e1b77。很多人第一次运行时异常也是从它开始的——ArrayIndexOutOfBoundsException。 这篇把数组的七个面向串一遍：它是什么、什么会炸、怎么复制、二维是什么、工具类能省多少事、手写排序在练什么、以及为什么它是 .length 而字符串是 .length()。  一、三个硬约束：定长、同类型、内存连续 123int[] a = new int[5];                    // 只定长度，元素取默认值int[] b = &#123;1, 2, 3&#125;;                     // 声明即初始化，只能在声明行用String[] c = new String[]&#123;&quot;x&quot;, &quot;y&quot;&#125;;     // 完整写法，任何位置都能用 三种写法里最容易踩的是第二种：&#123;1, 2, 3&#125...</div></div></div></a><a class="pagination-related" href="/2026/10/29/Java-%E6%96%B9%E6%B3%95/" title="Java 方法：四种形态、值传递与重载决议"><img class="cover" src="https://pic1.imgdb.cn/item/6909bf6b3203f7be00cf703e.png" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-29</div><div class="info-item-2">Java 方法：四种形态、值传递与重载决议</div></div><div class="info-2"><div class="info-item-1"> Java 方法：四种形态、值传递与重载决议 方法大概是 Java 里最不需要解释的语法：写个名字、加个括号、里面塞几行。但真正会出问题的地方都在细节上——void 和「不写返回类型」是不是一回事？为什么 swap(a, b) 什么也没换？k(1) 明明有 k(Integer) 重载，为什么走的是 k(long)？ 这篇按「怎么写 → 参数怎么传 → 同名怎么挑 → 工程里怎么分层」的顺序讲。  一、方法是五个部分拼起来的 123public static int sum(int a, int b) &#123;    return a + b;&#125;    组成 含义     修饰符 public（外部可调）+ static（属于类，不用 new）   返回值类型 交回的结果类型；没有返回值写 void，不是不写   方法名 小驼峰、动词开头   参数列表 数据类型 变量名，逗号分隔，可以为空   return 交回结果；void 方法里可以写 return; 提前结束    两个容易混的点：  void 是「有返回值类型，只是这个类型叫 void」；完全省略返回类型编译...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://pic1.imgdb.cn/item/6829891e58cb8da5c8fabff0.png" onerror="this.onerror=null;this.src='/img/friend_04.gif'" alt="avatar"/ loading='lazy'></div><div class="author-info-name">zhaoyuan</div><div class="author-info-description">一封封记录足迹与所悟的信集</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">465</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">126</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#java-%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6if-%E7%9A%84-boolean-%E9%97%A8%E6%A7%9B-switch-%E7%9A%84%E7%A9%BF%E9%80%8F%E4%B8%8E%E4%B8%89%E7%A7%8D%E5%BE%AA%E7%8E%AF"><span class="toc-number">1.</span> <span class="toc-text"> Java 流程控制：if 的 boolean 门槛、switch 的穿透，与三种循环</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80-if-%E7%9A%84%E4%B8%89%E6%9D%A1%E7%A1%AC%E8%A7%84%E5%88%99"><span class="toc-number">1.1.</span> <span class="toc-text"> 一、if 的三条硬规则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C-switch-%E7%9A%84%E7%B1%BB%E5%9E%8B%E9%99%90%E5%88%B6%E4%B8%8E%E7%A9%BF%E9%80%8F"><span class="toc-number">1.2.</span> <span class="toc-text"> 二、switch 的类型限制与穿透</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89-%E7%AE%AD%E5%A4%B4-switch%E4%B8%8D%E7%A9%BF%E9%80%8F-%E8%83%BD%E8%B5%8B%E5%80%BC"><span class="toc-number">1.3.</span> <span class="toc-text"> 三、箭头 switch：不穿透、能赋值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B-%E4%B8%89%E7%A7%8D%E5%BE%AA%E7%8E%AF%E7%9A%84%E5%88%A4%E6%8D%AE%E6%98%AF%E6%89%A7%E8%A1%8C%E6%AC%A1%E6%95%B0"><span class="toc-number">1.4.</span> <span class="toc-text"> 四、三种循环的判据是执行次数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94-continue-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%83%BD%E5%86%99%E5%87%BA%E6%AD%BB%E5%BE%AA%E7%8E%AF"><span class="toc-number">1.5.</span> <span class="toc-text"> 五、continue 为什么能写出死循环</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD-break-%E5%8F%AA%E8%B7%B3%E4%B8%80%E5%B1%82%E6%A0%87%E7%AD%BE%E6%89%8D%E8%83%BD%E8%B7%B3%E5%A4%9A%E5%B1%82"><span class="toc-number">1.6.</span> <span class="toc-text"> 六、break 只跳一层，标签才能跳多层</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-number">1.7.</span> <span class="toc-text"> 小结</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/10/30/BI-%E6%8C%87%E6%A0%87%E4%BD%93%E7%B3%BB%E4%B8%8E%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95/" title="BI 入门：指标体系、分析方法与 Tableau 落地"><img src="https://pic1.imgdb.cn/item/6909bfe13203f7be00cf7140.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="BI 入门：指标体系、分析方法与 Tableau 落地"/ loading='lazy'></a><div class="content"><a class="title" href="/2026/10/30/BI-%E6%8C%87%E6%A0%87%E4%BD%93%E7%B3%BB%E4%B8%8E%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95/" title="BI 入门：指标体系、分析方法与 Tableau 落地">BI 入门：指标体系、分析方法与 Tableau 落地</a><time datetime="2026-10-29T16:00:00.000Z" title="发表于 2026-10-30 00:00:00">2026-10-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/10/30/SQL-%E5%88%86%E6%9E%90%E5%9C%BA%E6%99%AF%E5%AE%9E%E6%88%98/" title="SQL 分析实战：漏斗、留存、连续 N 天与同环比"><img src="https://pic1.imgdb.cn/item/6908b7ef3203f7be00cc7a28.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SQL 分析实战：漏斗、留存、连续 N 天与同环比"/ loading='lazy'></a><div class="content"><a class="title" href="/2026/10/30/SQL-%E5%88%86%E6%9E%90%E5%9C%BA%E6%99%AF%E5%AE%9E%E6%88%98/" title="SQL 分析实战：漏斗、留存、连续 N 天与同环比">SQL 分析实战：漏斗、留存、连续 N 天与同环比</a><time datetime="2026-10-29T16:00:00.000Z" title="发表于 2026-10-30 00:00:00">2026-10-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/10/30/SQL-%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%E4%B8%8E%E5%AD%90%E6%9F%A5%E8%AF%A2/" title="SQL 窗口函数：不分组也能排名，以及 CTE、子查询与 TopN 怎么配合"><img src="https://pic1.imgdb.cn/item/6909bfe13203f7be00cf7142.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SQL 窗口函数：不分组也能排名，以及 CTE、子查询与 TopN 怎么配合"/ loading='lazy'></a><div class="content"><a class="title" href="/2026/10/30/SQL-%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%E4%B8%8E%E5%AD%90%E6%9F%A5%E8%AF%A2/" title="SQL 窗口函数：不分组也能排名，以及 CTE、子查询与 TopN 怎么配合">SQL 窗口函数：不分组也能排名，以及 CTE、子查询与 TopN 怎么配合</a><time datetime="2026-10-29T16:00:00.000Z" title="发表于 2026-10-30 00:00:00">2026-10-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/10/30/SQL-%E7%B4%A2%E5%BC%95/" title="SQL 索引：为什么加了索引还是慢，回表与最左前缀"><img src="https://pic1.imgdb.cn/item/6908b7a43203f7be00cc79cf.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SQL 索引：为什么加了索引还是慢，回表与最左前缀"/ loading='lazy'></a><div class="content"><a class="title" href="/2026/10/30/SQL-%E7%B4%A2%E5%BC%95/" title="SQL 索引：为什么加了索引还是慢，回表与最左前缀">SQL 索引：为什么加了索引还是慢，回表与最左前缀</a><time datetime="2026-10-29T16:00:00.000Z" title="发表于 2026-10-30 00:00:00">2026-10-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/10/30/SQL-%E4%BA%8B%E5%8A%A1/" title="SQL 事务：ACID 各挡什么，隔离级别与 MVCC 怎么配合"><img src="https://pic1.imgdb.cn/item/6908b7d53203f7be00cc7a0c.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SQL 事务：ACID 各挡什么，隔离级别与 MVCC 怎么配合"/ loading='lazy'></a><div class="content"><a class="title" href="/2026/10/30/SQL-%E4%BA%8B%E5%8A%A1/" title="SQL 事务：ACID 各挡什么，隔离级别与 MVCC 怎么配合">SQL 事务：ACID 各挡什么，隔离级别与 MVCC 怎么配合</a><time datetime="2026-10-29T16:00:00.000Z" title="发表于 2026-10-30 00:00:00">2026-10-30</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2019 - 2026 By zhaoyuan</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><div class="js-pjax"><script>(async () => {
+  const showKatex = () => {
+    document.querySelectorAll('#article-container .katex').forEach(el => el.classList.add('katex-show'))
+  }
+
+  if (!window.katex_js_css) {
+    window.katex_js_css = true
+    await btf.getCSS('https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css')
+    if (false) {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js')
+    }
+  }
+
+  showKatex()
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

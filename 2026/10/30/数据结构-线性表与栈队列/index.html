@@ -1,0 +1,456 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>线性表、栈与队列：顺序存储和链式存储到底怎么选 | 笺札</title><meta name="author" content="zhaoyuan"><meta name="copyright" content="zhaoyuan"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="f4f1e8"><meta name="description" content="数组和顺序表为什么不是一回事、插入删除的 O(n) 到底 n 在哪、头插比尾插慢 117 倍意味着什么、链表如何用改指针换掉搬元素、顺序队列的假溢出与循环队列解法，以及单调栈如何在 O(n) 内找右边第一个更大值。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="线性表、栈与队列：顺序存储和链式存储到底怎么选">
+<meta property="og:url" content="https://blog.id-zyuan.xyz/2026/10/30/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E7%BA%BF%E6%80%A7%E8%A1%A8%E4%B8%8E%E6%A0%88%E9%98%9F%E5%88%97/index.html">
+<meta property="og:site_name" content="笺札">
+<meta property="og:description" content="数组和顺序表为什么不是一回事、插入删除的 O(n) 到底 n 在哪、头插比尾插慢 117 倍意味着什么、链表如何用改指针换掉搬元素、顺序队列的假溢出与循环队列解法，以及单调栈如何在 O(n) 内找右边第一个更大值。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic1.imgdb.cn/item/6908b7e53203f7be00cc7a23.jpg">
+<meta property="article:published_time" content="2026-10-29T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-10-30T04:52:24.509Z">
+<meta property="article:author" content="zhaoyuan">
+<meta property="article:tag" content="数据结构">
+<meta property="article:tag" content="线性表">
+<meta property="article:tag" content="链表">
+<meta property="article:tag" content="栈">
+<meta property="article:tag" content="队列">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic1.imgdb.cn/item/6908b7e53203f7be00cc7a23.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "线性表、栈与队列：顺序存储和链式存储到底怎么选",
+  "url": "https://blog.id-zyuan.xyz/2026/10/30/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E7%BA%BF%E6%80%A7%E8%A1%A8%E4%B8%8E%E6%A0%88%E9%98%9F%E5%88%97/",
+  "image": "https://pic1.imgdb.cn/item/6908b7e53203f7be00cc7a23.jpg",
+  "datePublished": "2026-10-29T16:00:00.000Z",
+  "dateModified": "2026-10-30T04:52:24.509Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "zhaoyuan",
+      "url": "https://blog.id-zyuan.xyz"
+    }
+  ]
+}</script><link rel="shortcut icon" href="https://pic1.imgdb.cn/item/6829891e58cb8da5c8fabff0.png"><link rel="canonical" href="https://blog.id-zyuan.xyz/2026/10/30/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E7%BA%BF%E6%80%A7%E8%A1%A8%E4%B8%8E%E6%A0%88%E9%98%9F%E5%88%97/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#141414')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'f4f1e8')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '线性表、栈与队列：顺序存储和链式存储到底怎么选',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/ma-shan-zheng/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/zcool-xiaowei/index.css"><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/ink.css"><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="笺札" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://pic1.imgdb.cn/item/6829891e58cb8da5c8fabff0.png" onerror="this.onerror=null;this.src='/img/friend_04.gif'" alt="avatar"/ loading='lazy'></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">465</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">126</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fa fa-camera-retro faa-float animared"></i><span> 相册</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video faa-float animared"></i><span> 影视</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book  faa-float animared"></i><span> 图书</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://pic1.imgdb.cn/item/6908b7e53203f7be00cc7a23.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">笺札</span></a><a class="nav-page-title" href="/"><span class="site-name">线性表、栈与队列：顺序存储和链式存储到底怎么选</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fa fa-camera-retro faa-float animared"></i><span> 相册</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video faa-float animared"></i><span> 影视</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book  faa-float animared"></i><span> 图书</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">线性表、栈与队列：顺序存储和链式存储到底怎么选</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-10-29T16:00:00.000Z" title="发表于 2026-10-30 00:00:00">2026-10-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-10-30T04:52:24.509Z" title="更新于 2026-10-30 12:52:24">2026-10-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%8D%9A%E5%AE%A2/">博客</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="线性表-栈与队列顺序存储和链式存储到底怎么选"><a class="markdownIt-Anchor" href="#线性表-栈与队列顺序存储和链式存储到底怎么选"></a> 线性表、栈与队列：顺序存储和链式存储到底怎么选</h1>
+<p>学数据结构时最容易混的一件事：<strong>「线性表」是逻辑结构，「数组」和「链表」是存储方式</strong>。前者说的是「元素排成一条线、有前驱后继」，后者说的是「这条线在内存里怎么摆」。</p>
+<p>这句话听起来像背诵题，但它决定了后面所有的复杂度结论。这篇从「逻辑 vs 存储」这个分界出发，把顺序表、链表、栈、队列讲成一条线，代码统一用 Python（能实跑，输出都是真实结果）。</p>
+<h2 id="一-先分清逻辑结构和存储结构"><a class="markdownIt-Anchor" href="#一-先分清逻辑结构和存储结构"></a> 一、先分清逻辑结构和存储结构</h2>
+<p>任何一个数据结构都可以从三个角度描述：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">要素</th>
+<th style="text-align:left">问什么</th>
+<th style="text-align:left">线性表的答案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>逻辑结构</strong></td>
+<td style="text-align:left">元素之间什么关系</td>
+<td style="text-align:left">线性：除首尾外，每个元素有唯一前驱和唯一后继</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>存储结构</strong></td>
+<td style="text-align:left">在内存里怎么放</td>
+<td style="text-align:left">顺序存储（连续）或链式存储（分散 + 指针）</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>数据的运算</strong></td>
+<td style="text-align:left">能对它做什么</td>
+<td style="text-align:left">增删查改，各自的代价由存储结构决定</td>
+</tr>
+</tbody>
+</table>
+<p>关键点：<strong>逻辑结构和存储结构是独立的两层</strong>。所以「线性表」不是一个具体的数据结构，而是一类；顺序表和链表是它的两种实现。</p>
+<p>这也解释了为什么栈和队列要单独讲：它们的<strong>逻辑结构仍是线性</strong>（元素还是一条线），只是<strong>运算被限制了</strong>——栈只允许在一端进出，队列只允许一端进另一端出。所以「栈」和「队列」限制的是操作，不是存储，两者都可以用顺序或链式实现。</p>
+<h2 id="二-数组不是顺序表"><a class="markdownIt-Anchor" href="#二-数组不是顺序表"></a> 二、数组不是顺序表</h2>
+<p>这两个词经常被混用，但它们不在同一层：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:left">数组</th>
+<th style="text-align:left">顺序表</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">是什么</td>
+<td style="text-align:left">一种<strong>存储方式</strong>（连续内存 + 下标访问）</td>
+<td style="text-align:left">一种<strong>数据结构</strong>（线性表 + 顺序存储 + 一组运算）</td>
+</tr>
+<tr>
+<td style="text-align:left">关注点</td>
+<td style="text-align:left">内存布局与寻址</td>
+<td style="text-align:left">增删查改的完整操作集</td>
+</tr>
+<tr>
+<td style="text-align:left">谁包含谁</td>
+<td style="text-align:left">数组是顺序表的<strong>底层实现手段</strong></td>
+<td style="text-align:left">顺序表用数组来实现</td>
+</tr>
+</tbody>
+</table>
+<p>一句话：<strong>数组偏「怎么存」，顺序表偏「能怎么用」</strong>。教材说「顺序表是用一组地址连续的存储单元依次存储线性表的数据元素」，这句话把两者绑在了一起——顺序表一定是数组实现的，但数组本身不一定是顺序表（比如二维数组、稀疏矩阵的压缩存储）。</p>
+<p>数组的寻址公式值得记住，它是「随机访问 O(1)」的全部依据：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">第 i 个元素的地址 = 首地址 + i × 单个元素占用的字节数</span><br></pre></td></tr></table></figure>
+<p>因为元素等长且连续，算地址是一次乘法加法，与 <code>i</code> 无关——这就是 O(1) 的来源。</p>
+<h2 id="三-顺序表on-的-n-到底在哪"><a class="markdownIt-Anchor" href="#三-顺序表on-的-n-到底在哪"></a> 三、顺序表：O(n) 的 n 到底在哪</h2>
+<p>顺序表的插入和删除是 O(n)，但很多人说不清「n 是什么」。它不是表的长度，而是<strong>需要搬动的元素个数</strong>。</p>
+<p>插入时，插入位置之后的元素全都要右移一格；删除时，删除位置之后的元素全都要左移一格：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">insert_count</span>(<span class="params">n, pos</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;在长度 n 的表、下标 pos 处插入，返回需要搬动的元素个数&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">return</span> n - pos                  <span class="comment"># pos 之后的元素都要右移</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">delete_count</span>(<span class="params">n, pos</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;删除下标 pos 的元素，返回需要搬动的元素个数&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">return</span> n - pos - <span class="number">1</span>              <span class="comment"># pos 之后的元素都要左移</span></span><br></pre></td></tr></table></figure>
+<p>长度 10 的表，实测每个位置的搬动次数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">在下标  0 插入: 搬动 10 个</span><br><span class="line">在下标  1 插入: 搬动 9 个</span><br><span class="line">...</span><br><span class="line">在下标  9 插入: 搬动 1 个</span><br><span class="line">在下标 10 插入: 搬动 0 个</span><br><span class="line"></span><br><span class="line">11 个插入位置共搬动 55 个元素，平均 5.0 个 -&gt; 期望值 n/2 = 5</span><br></pre></td></tr></table></figure>
+<p>最后一行是关键：<strong>11 个插入位置共搬 55 个元素，平均正好 n/2</strong>。这就是教材里「平均移动 n/2 个元素」的来历——不是估计，是等差求和的结果。表尾插入搬 0 个（O(1)），表头插入搬 n 个（O(n)），平均下来 O(n)。</p>
+<h3 id="这个-on-在真实代码里有多疼"><a class="markdownIt-Anchor" href="#这个-on-在真实代码里有多疼"></a> 这个 O(n) 在真实代码里有多疼</h3>
+<p>理论说 O(n)，实感要靠计时。同样插入 5 万次，一次从尾部插、一次从头部插：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line">N = <span class="number">50000</span></span><br><span class="line">a = []</span><br><span class="line">t0 = time.perf_counter()</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(N):</span><br><span class="line">    a.append(i)              <span class="comment"># 尾插</span></span><br><span class="line">t_append = time.perf_counter() - t0</span><br><span class="line"></span><br><span class="line">b = []</span><br><span class="line">t0 = time.perf_counter()</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(N):</span><br><span class="line">    b.insert(<span class="number">0</span>, i)           <span class="comment"># 头插</span></span><br><span class="line">t_insert = time.perf_counter() - t0</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">尾插 50000 次: 1.7 ms</span><br><span class="line">头插 50000 次: 203.5 ms</span><br><span class="line">倍率: 117x</span><br></pre></td></tr></table></figure>
+<p><strong>117 倍</strong>。Python 的 <code>list.insert(0, x)</code> 底层是内存搬移（memmove，已经非常快），但搬 5 万次累计就是 12.5 亿次元素移动，这个量级跑不掉。</p>
+<p>这解释了一个工程直觉：<strong>能用 <code>append</code> 就别用 <code>insert(0)</code></strong>。需要「先进先出」时用 <code>collections.deque</code>，它在两端插入都是 O(1)——本质上是用双向链表补上了顺序表的短板。</p>
+<h2 id="四-链表把搬元素换成改指针"><a class="markdownIt-Anchor" href="#四-链表把搬元素换成改指针"></a> 四、链表：把「搬元素」换成「改指针」</h2>
+<p>链表的思路是彻底放弃连续性：元素散落在内存各处，每个节点额外存一个指针指向下一个节点。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">头指针 head</span><br><span class="line">    ↓</span><br><span class="line">+------+------+     +------+------+     +------+------+</span><br><span class="line">| data | next | --&gt; | data | next | --&gt; | data | next | --&gt; NULL</span><br><span class="line">+------+------+     +------+------+     +------+------+</span><br><span class="line"> 地址任意             地址任意             地址任意</span><br></pre></td></tr></table></figure>
+<p>于是插入变成三次指针赋值，与表长无关：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">ListNode</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, val=<span class="number">0</span>, <span class="built_in">next</span>=<span class="literal">None</span></span>):</span><br><span class="line">        <span class="variable language_">self</span>.val = val</span><br><span class="line">        <span class="variable language_">self</span>.<span class="built_in">next</span> = <span class="built_in">next</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">insert_after</span>(<span class="params">node, val</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;在 node 之后插入一个新节点，O(1)&quot;&quot;&quot;</span></span><br><span class="line">    new = ListNode(val)</span><br><span class="line">    new.<span class="built_in">next</span> = node.<span class="built_in">next</span></span><br><span class="line">    node.<span class="built_in">next</span> = new</span><br><span class="line">    <span class="keyword">return</span> new</span><br></pre></td></tr></table></figure>
+<p>代价是<strong>失去了随机访问</strong>：想找第 k 个元素，只能从头一个个走，O(n)。</p>
+<p>所以两种存储是彻底的交换关系：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">操作</th>
+<th style="text-align:left">顺序表</th>
+<th style="text-align:left">链表</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">按位置访问 <code>get(k)</code></td>
+<td style="text-align:left"><strong>O(1)</strong></td>
+<td style="text-align:left">O(n)</td>
+</tr>
+<tr>
+<td style="text-align:left">在已知位置后插入</td>
+<td style="text-align:left">O(n)（要搬）</td>
+<td style="text-align:left"><strong>O(1)</strong>（改指针）</td>
+</tr>
+<tr>
+<td style="text-align:left">在已知位置删除</td>
+<td style="text-align:left">O(n)</td>
+<td style="text-align:left"><strong>O(1)</strong></td>
+</tr>
+<tr>
+<td style="text-align:left">按值查找</td>
+<td style="text-align:left">O(n)</td>
+<td style="text-align:left">O(n)</td>
+</tr>
+<tr>
+<td style="text-align:left">内存占用</td>
+<td style="text-align:left">紧凑，只有数据</td>
+<td style="text-align:left">每个节点多一个指针</td>
+</tr>
+<tr>
+<td style="text-align:left">扩容</td>
+<td style="text-align:left">要重新申请 + 复制</td>
+<td style="text-align:left">天然可增长</td>
+</tr>
+</tbody>
+</table>
+<h3 id="头结点那个多余的节点有什么用"><a class="markdownIt-Anchor" href="#头结点那个多余的节点有什么用"></a> 头结点那个「多余」的节点有什么用</h3>
+<p>教材里的链表常带一个<strong>不存数据的头结点</strong>（dummy head）。它的价值是<strong>消除边界特判</strong>：</p>
+<ul>
+<li>没有头结点时，在表头插入/删除要单独写一套代码（要改头指针本身）。</li>
+<li>有头结点时，表头和其他位置的操作完全一样（都是「改前一个节点的 next」）。</li>
+</ul>
+<p>这是一个典型的「用一点空间换代码简洁」的设计。写链表题时加一个 dummy 头，能省掉大量 <code>if head is None</code> 的判断。</p>
+<h3 id="一个常被写错的地方"><a class="markdownIt-Anchor" href="#一个常被写错的地方"></a> 一个常被写错的地方</h3>
+<p>链表操作有两个高频 bug：</p>
+<ol>
+<li><strong>丢失后继</strong>：<code>node.next = new</code> 写在 <code>new.next = node.next</code> 之前，原来的后继就找不回来了。必须先连新节点的 next，再改前驱的 next。</li>
+<li><strong>删除时没释放</strong>：在 C 里忘记 <code>free</code> 是内存泄漏；在 Python 里没有这个问题，但<strong>逻辑上仍要先把节点摘下来</strong>（<code>prev.next = node.next</code>），不能只改值。</li>
+</ol>
+<h2 id="五-栈只在一端进出"><a class="markdownIt-Anchor" href="#五-栈只在一端进出"></a> 五、栈：只在一端进出</h2>
+<p>栈的限制是<strong>只在栈顶操作</strong>，先进后出（LIFO）。它的逻辑结构还是线性，只是运算被砍掉了一半。</p>
+<p>「栈」在编程里到处都在，只是你没意识到：</p>
+<ul>
+<li>函数调用栈（递归的本质）</li>
+<li>括号匹配、表达式求值</li>
+<li>浏览器后退、编辑器的撤销</li>
+<li>DFS 的非递归实现</li>
+</ul>
+<p>两种实现：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:left">顺序栈</th>
+<th style="text-align:left">链栈</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">底层</td>
+<td style="text-align:left">数组 + 栈顶指针 <code>top</code></td>
+<td style="text-align:left">链表 + 头指针</td>
+</tr>
+<tr>
+<td style="text-align:left">入栈/出栈</td>
+<td style="text-align:left">O(1)</td>
+<td style="text-align:left">O(1)</td>
+</tr>
+<tr>
+<td style="text-align:left">判满</td>
+<td style="text-align:left">需要（容量固定）</td>
+<td style="text-align:left">不需要（除非内存耗尽）</td>
+</tr>
+<tr>
+<td style="text-align:left">空间</td>
+<td style="text-align:left">预分配，可能浪费</td>
+<td style="text-align:left">按需分配，但每节点多一个指针</td>
+</tr>
+</tbody>
+</table>
+<p>顺序栈的判空最容易写错：<code>top</code> 初始化为 <code>-1</code> 表示空栈，判空条件必须是 <code>top == -1</code>。写成 <code>top == 1</code> 或 <code>top == 0</code> 都不会报错，但逻辑全错——<strong>这类 bug 编译器不管，只在运行时表现成「栈永远非空」或「第一个元素丢失」</strong>。</p>
+<p>Python 里栈直接用 <code>list</code>：<code>append</code> 入栈、<code>pop</code> 出栈，两端操作都是 O(1)。这也是为什么「用 list 当栈」是对的，而「用 list 当队列」是错的——<code>pop(0)</code> 是 O(n)。</p>
+<h2 id="六-队列假溢出与循环队列"><a class="markdownIt-Anchor" href="#六-队列假溢出与循环队列"></a> 六、队列：假溢出与循环队列</h2>
+<p>队列是先进先出（FIFO），一端进（队尾 <code>rear</code>）、一端出（队头 <code>front</code>）。</p>
+<p>用顺序存储实现队列时，会遇到一个非常经典的问题：<strong>假溢出</strong>。看这段代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">NaiveQueue</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, cap</span>):</span><br><span class="line">        <span class="variable language_">self</span>.data = [<span class="literal">None</span>] * cap</span><br><span class="line">        <span class="variable language_">self</span>.cap = cap</span><br><span class="line">        <span class="variable language_">self</span>.front = <span class="number">0</span></span><br><span class="line">        <span class="variable language_">self</span>.rear = <span class="number">0</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">enqueue</span>(<span class="params">self, x</span>):</span><br><span class="line">        <span class="keyword">if</span> <span class="variable language_">self</span>.rear == <span class="variable language_">self</span>.cap:      <span class="comment"># 只看 rear 有没有撞墙</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        <span class="variable language_">self</span>.data[<span class="variable language_">self</span>.rear] = x</span><br><span class="line">        <span class="variable language_">self</span>.rear += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">dequeue</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">if</span> <span class="variable language_">self</span>.front == <span class="variable language_">self</span>.rear:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">        v = <span class="variable language_">self</span>.data[<span class="variable language_">self</span>.front]</span><br><span class="line">        <span class="variable language_">self</span>.front += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> v</span><br></pre></td></tr></table></figure>
+<p>容量 5，进 5 个、出 3 个，此时表里其实只剩 2 个元素，但再进一个就失败了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">普通队列容量 5：已出队 3 个，实际剩 2 个，但 enqueue 还能成功吗？-&gt; False</span><br><span class="line">  rear=5 已撞到 cap=5，前面空着 3 格却插不进去 = 假溢出</span><br></pre></td></tr></table></figure>
+<p>原因很直白：<code>front</code> 往前走之后，前面的格子<strong>空着但再也用不到</strong>，而 <code>rear</code> 已经撞到数组末尾。空间没满，队列却进不去了。</p>
+<p>解法是<strong>循环队列</strong>：让 <code>rear</code> 和 <code>front</code> 走到末尾时绕回开头（取模）。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">CircularQueue</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, cap</span>):</span><br><span class="line">        <span class="variable language_">self</span>.data = [<span class="literal">None</span>] * (cap + <span class="number">1</span>)   <span class="comment"># 多开一格，用来区分「空」和「满」</span></span><br><span class="line">        <span class="variable language_">self</span>.cap = cap + <span class="number">1</span></span><br><span class="line">        <span class="variable language_">self</span>.front = <span class="number">0</span></span><br><span class="line">        <span class="variable language_">self</span>.rear = <span class="number">0</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">enqueue</span>(<span class="params">self, x</span>):</span><br><span class="line">        <span class="keyword">if</span> (<span class="variable language_">self</span>.rear + <span class="number">1</span>) % <span class="variable language_">self</span>.cap == <span class="variable language_">self</span>.front:   <span class="comment"># 判满</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        <span class="variable language_">self</span>.data[<span class="variable language_">self</span>.rear] = x</span><br><span class="line">        <span class="variable language_">self</span>.rear = (<span class="variable language_">self</span>.rear + <span class="number">1</span>) % <span class="variable language_">self</span>.cap</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">dequeue</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">if</span> <span class="variable language_">self</span>.front == <span class="variable language_">self</span>.rear:                    <span class="comment"># 判空</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">        v = <span class="variable language_">self</span>.data[<span class="variable language_">self</span>.front]</span><br><span class="line">        <span class="variable language_">self</span>.front = (<span class="variable language_">self</span>.front + <span class="number">1</span>) % <span class="variable language_">self</span>.cap</span><br><span class="line">        <span class="keyword">return</span> v</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">size</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> (<span class="variable language_">self</span>.rear - <span class="variable language_">self</span>.front + <span class="variable language_">self</span>.cap) % <span class="variable language_">self</span>.cap</span><br></pre></td></tr></table></figure>
+<p>同样的 5 格容量，出队 3 个之后还能继续进：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">循环队列同样容量 5：出队 3 个后还能进吗？-&gt; True 当前长度=3</span><br><span class="line">再进 3 个: [True, True, False]</span><br><span class="line">最后：front=3 rear=2 size=5（牺牲 1 格判满）</span><br></pre></td></tr></table></figure>
+<p>注意 <code>size=5</code> 而容量标称 5：<strong>循环队列牺牲了一个格子</strong>用来区分「队空」和「队满」。</p>
+<p>为什么必须牺牲一格？因为如果用 <code>front == rear</code> 表示空，那「满」的时候 <code>rear</code> 绕一圈也会等于 <code>front</code>，两种状态没法区分。所以要么牺牲一格（<code>(rear+1) % cap == front</code> 判满），要么额外维护一个 <code>size</code> 变量。教材用前者，工程代码常用后者（Python 的 <code>deque</code> 就不需要）。</p>
+<h2 id="七-单调栈把-on2-压成-on"><a class="markdownIt-Anchor" href="#七-单调栈把-on2-压成-on"></a> 七、单调栈：把 O(n²) 压成 O(n)</h2>
+<p>单调栈是栈的一种特殊用法：<strong>栈内元素保持单调</strong>，用来在 O(n) 内找「某个元素左边/右边第一个更大（或更小）的元素」。</p>
+<p>以「右边第一个更大的数」为例。核心动作是：新元素进栈前，先把栈顶那些「比它小的」全部弹掉——因为对这些被弹掉的元素来说，新元素就是它们右边第一个更大的数。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">next_greater</span>(<span class="params">nums</span>):</span><br><span class="line">    res = [-<span class="number">1</span>] * <span class="built_in">len</span>(nums)</span><br><span class="line">    stack = []                          <span class="comment"># 存下标；栈内对应的值从栈底到栈顶递减</span></span><br><span class="line">    <span class="keyword">for</span> i, x <span class="keyword">in</span> <span class="built_in">enumerate</span>(nums):</span><br><span class="line">        <span class="keyword">while</span> stack <span class="keyword">and</span> x &gt; nums[stack[-<span class="number">1</span>]]:</span><br><span class="line">            j = stack.pop()</span><br><span class="line">            res[j] = x                  <span class="comment"># x 就是 j 右边第一个比它大的</span></span><br><span class="line">        stack.append(i)</span><br><span class="line">    <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+<p>实测（同时用暴力解对照，确认没写错）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">原数组: [2, 1, 2, 4, 3, 1]</span><br><span class="line">下一个更大: [4, 2, 4, -1, -1, -1]</span><br><span class="line"></span><br><span class="line">暴力对照: [4, 2, 4, -1, -1, -1]</span><br><span class="line">两者一致: True</span><br></pre></td></tr></table></figure>
+<p>逐个验证：下标 0 的 <code>2</code>，右边第一个更大的是 <code>4</code>；下标 1 的 <code>1</code>，是 <code>2</code>；下标 3 的 <code>4</code> 右边没有更大的，所以是 <code>-1</code>。</p>
+<h3 id="为什么内层有-while-还是-on"><a class="markdownIt-Anchor" href="#为什么内层有-while-还是-on"></a> 为什么内层有 while 还是 O(n)</h3>
+<p>这是单调栈最容易被质疑的点。答案：<strong>每个下标最多进栈一次、出栈一次</strong>。<code>while</code> 循环的总执行次数受「入栈次数」约束，所以整体是 O(n)，而不是 O(n²)。</p>
+<p>实测规模上去以后耗时基本线性：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">n=    10  单调栈耗时 0.002 ms</span><br><span class="line">n=  1000  单调栈耗时 0.089 ms</span><br><span class="line">n=100000  单调栈耗时 8.964 ms</span><br></pre></td></tr></table></figure>
+<p>数据量涨 1 万倍（10 → 100000），耗时涨约 4500 倍，接近线性但略优于线性（小规模时有固定开销）。</p>
+<h3 id="递增栈还是递减栈"><a class="markdownIt-Anchor" href="#递增栈还是递减栈"></a> 递增栈还是递减栈</h3>
+<p>这里最容易混。判据是**「栈里留下的是还没找到答案的元素」**：</p>
+<ul>
+<li>求「右边第一个<strong>更大</strong>」→ 栈内从栈底到栈顶<strong>递减</strong>（遇到更大的就把小的弹掉）</li>
+<li>求「右边第一个<strong>更小</strong>」→ 栈内<strong>递增</strong></li>
+</ul>
+<p>换个说法：<strong>你要找什么，就让栈保持相反的单调性</strong>。因为栈里留下的都是「还在等答案」的元素，一旦来了满足条件的，就把它们结算掉。</p>
+<h2 id="八-选型对照先看哪种操作最多"><a class="markdownIt-Anchor" href="#八-选型对照先看哪种操作最多"></a> 八、选型对照：先看「哪种操作最多」</h2>
+<p>把四种结构放在一起看：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">结构</th>
+<th style="text-align:left">逻辑</th>
+<th style="text-align:left">存储</th>
+<th style="text-align:left">优势操作</th>
+<th style="text-align:left">典型用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">顺序表（数组）</td>
+<td style="text-align:left">线性</td>
+<td style="text-align:left">连续</td>
+<td style="text-align:left">随机访问 O(1)</td>
+<td style="text-align:left">下标访问、批量遍历、缓存友好</td>
+</tr>
+<tr>
+<td style="text-align:left">链表</td>
+<td style="text-align:left">线性</td>
+<td style="text-align:left">分散 + 指针</td>
+<td style="text-align:left">已知位置增删 O(1)</td>
+<td style="text-align:left">频繁插删、长度不定</td>
+</tr>
+<tr>
+<td style="text-align:left">栈</td>
+<td style="text-align:left">线性（受限）</td>
+<td style="text-align:left">两者皆可</td>
+<td style="text-align:left">栈顶增删 O(1)</td>
+<td style="text-align:left">括号匹配、递归、撤销、单调栈</td>
+</tr>
+<tr>
+<td style="text-align:left">队列</td>
+<td style="text-align:left">线性（受限）</td>
+<td style="text-align:left">顺序需循环、链式天然</td>
+<td style="text-align:left">队尾进队头出 O(1)</td>
+<td style="text-align:left">BFS、任务调度、缓冲</td>
+</tr>
+</tbody>
+</table>
+<p>选型的实际判据不是「哪个高级」，而是<strong>统计各操作的调用频次</strong>：</p>
+<ul>
+<li>读多写少、以遍历和下标访问为主 → <strong>顺序表</strong>（还有缓存友好的隐性优势）。</li>
+<li>频繁在中间插删、长度变化大 → <strong>链表</strong>。</li>
+<li>只在一端进出 → <strong>栈</strong>；两端各进出一端 → <strong>队列</strong>（顺序实现记得循环，链式实现天然合适）。</li>
+<li>需要「找最近的一个更大/更小」→ <strong>单调栈</strong>，别写双重循环。</li>
+</ul>
+<p>一个工程提醒：<strong>Python 的 <code>list</code> 是顺序表</strong>，<code>collections.deque</code> 是双向链表。所以「用 list 当栈」对（尾操作 O(1)），「用 list 当队列」错（<code>pop(0)</code> 是 O(n)）。</p>
+<h2 id="小结"><a class="markdownIt-Anchor" href="#小结"></a> 小结</h2>
+<ul>
+<li><strong>逻辑结构和存储结构是两层</strong>：「线性表」讲逻辑，「顺序/链式」讲存储。栈和队列是<strong>运算受限的线性表</strong>，不是新的逻辑结构。</li>
+<li><strong>数组 ≠ 顺序表</strong>：数组是存储手段，顺序表是「数组 + 一组运算」的完整数据结构。</li>
+<li>顺序表插入删除 O(n)，那个 n 是<strong>要搬动的元素个数</strong>：表头搬 n 个、表尾搬 0 个、平均 n/2（实测 11 个位置共 55 个，平均正好 5.0）。</li>
+<li>实操感受：5 万次头插比尾插慢 <strong>117 倍</strong>（203.5 ms vs 1.7 ms）。需要 FIFO 就用 <code>deque</code>，别用 <code>list.pop(0)</code>。</li>
+<li>链表用<strong>改指针</strong>换掉搬元素：已知位置的增删 O(1)，但失去随机访问（O(n)）。加 dummy 头结点可以消掉表头的边界特判。</li>
+<li>顺序队列的<strong>假溢出</strong>是「rear 撞墙但前面有空位」；循环队列用取模复用空间，代价是<strong>牺牲一格</strong>来区分空和满（或额外维护 <code>size</code>）。</li>
+<li>单调栈在 O(n) 内找「右边第一个更大/更小」：<strong>每个下标只进栈出栈各一次</strong>，所以内层 while 不影响总复杂度。判据是「要求更大就让栈递减」，因为栈里留的都是还在等答案的元素。</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.id-zyuan.xyz">zhaoyuan</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://blog.id-zyuan.xyz/2026/10/30/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E7%BA%BF%E6%80%A7%E8%A1%A8%E4%B8%8E%E6%A0%88%E9%98%9F%E5%88%97/">https://blog.id-zyuan.xyz/2026/10/30/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E7%BA%BF%E6%80%A7%E8%A1%A8%E4%B8%8E%E6%A0%88%E9%98%9F%E5%88%97/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://blog.id-zyuan.xyz" target="_blank">笺札</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a><a class="post-meta__tags" href="/tags/%E7%BA%BF%E6%80%A7%E8%A1%A8/">线性表</a><a class="post-meta__tags" href="/tags/%E9%93%BE%E8%A1%A8/">链表</a><a class="post-meta__tags" href="/tags/%E6%A0%88/">栈</a><a class="post-meta__tags" href="/tags/%E9%98%9F%E5%88%97/">队列</a></div><div class="post-share"><div class="social-share" data-image="https://pic1.imgdb.cn/item/6908b7e53203f7be00cc7a23.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/10/30/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E7%AE%97%E6%B3%95%E5%B7%A5%E5%85%B7%E7%AE%B1/" title="算法工具箱：六种把重复计算变成预处理的技巧"><img class="cover" src="https://pic1.imgdb.cn/item/6909bfa63203f7be00cf70c8.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post" loading='lazy'><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">算法工具箱：六种把重复计算变成预处理的技巧</div></div><div class="info-2"><div class="info-item-1"> 算法工具箱：六种把重复计算变成预处理的技巧 前面几篇讲的都是「一个主题讲透」：排序、字符串匹配、树、图。这一篇不一样，它收的是一批不属于任何单一主题、但每个都要会的技巧。 把它们放在一起不是凑数。这六个东西有一个共同的形状：先花一次代价建好某个结构，之后每次查询都变便宜。二分是「有序」这个结构让每次查询变便宜；埃氏筛是提前建表让每次判素数变便宜；字典树是把公共前缀只存一遍；滚动哈希是让相邻窗口的指纹只差一步。 反过来看，它们的边界也惊人地一致：预处理只有在查询次数足够多时才划算。这句话听起来像废话，但下面每一个工具都能给出一个具体的「在哪一点上不划算」的数字。  一、这一组工具的共同点 先看全景。左边是「一次性代价」，右边是「每次省下什么」：    工具 一次性代价 每次省下什么 什么时候不划算     二分查找 排序 O(n log n) 查找 O(log n) 而非 O(n) 只查一次   快速幂 无（本身就是算法） n 次乘法压成 log n 次 指数很小   埃氏筛 建表 O(n log log n) 判素数 O(1) 而非 O(√n) 只判几个数   字典树 插入 O...</div></div></div></a><a class="pagination-related" href="/2026/10/30/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E5%9B%BE%E7%9A%84%E5%AD%98%E5%82%A8%E4%B8%8E%E6%90%9C%E7%B4%A2/" title="图的存储与搜索：从邻接表到拓扑排序"><img class="cover" src="https://pic1.imgdb.cn/item/6908b7a43203f7be00cc79d1.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post" loading='lazy'><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">图的存储与搜索：从邻接表到拓扑排序</div></div><div class="info-2"><div class="info-item-1"> 图的存储与搜索：从邻接表到拓扑排序 图和树最大的区别不是「有没有环」，而是边数不再受顶点数约束。一棵 n 个结点的树恰好 n−1 条边，而一张 n 个顶点的图可以有 0 到 n(n−1)/2 条边，跨越四个数量级。 这一点直接决定了图为什么没有「唯一正确」的存法：同样是存一张图，稠密图和稀疏图的最优选择差了 45 倍。选错存法，后面所有算法的常数都会跟着走样。 这篇文章按「先存、再走、最后组合成算法」的顺序展开，并且把每一步的代价都用实测量化——因为图算法里「理论复杂度」和「实测快多少」的偏差，比前面几篇都大。  一、图的两个存法，决定了后面所有算法的形状 先把复杂度账摆出来（V 是顶点数，E 是边数）：    存储结构 空间 添加边 删除边 判断 u 与 v 相邻 遍历 v 的邻居     邻接矩阵 O(V²) O(1) O(1) O(1) O(V)   邻接表 O(V + E) O(1) O(E) O(degree) O(degree)    四个格子对得上，但陷阱在最后两列：邻接矩阵判邻接是 O(1)，代价是遍历邻居要 O(V)；邻接表正好反过来。所以「哪个更好」完全取决...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2026/10/30/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E5%93%88%E5%B8%8C%E6%98%A0%E5%B0%84%E4%B8%8E%E5%86%B2%E7%AA%81%E8%A7%A3%E5%86%B3/" title="哈希表：O(1) 不是免费的，它用装填因子和哈希质量来换"><img class="cover" src="https://pic1.imgdb.cn/item/6909bfa63203f7be00cf70c5.jpg" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-30</div><div class="info-item-2">哈希表：O(1) 不是免费的，它用装填因子和哈希质量来换</div></div><div class="info-2"><div class="info-item-1"> 哈希表：O(1) 不是免费的，它用装填因子和哈希质量来换 「哈希表查找 O(1)」这句结论几乎人人会背，但它藏了三个前提：哈希函数足够均匀、装填因子足够低、key 在存进去之后不再变。缺了任何一条，O(1) 就退化——最坏情况是 O(n)，和遍历一遍没区别。 这篇从「为什么需要哈希」讲到「工程里怎么用」，代码统一 Python，所有数字都是本机实跑的输出。  一、起点：key 不是下标 数组的 O(1) 靠的是「地址 = 首地址 + i × 元素大小」，前提是下标从 0 到 n−1 连续。 但真实场景里的 key 不长这样：  学号 2023001234 用户名 &quot;chen&quot;（字符串，不是数字） 身份证号（19 位，远超任何数组长度）  这些 key 没法直接当下标用。要么把「key → 下标」这个换算固化下来存下来（这就是哈希表干的事），要么每次都遍历一遍找（O(n)）。 哈希表做的就是加一层映射： 1key --哈希函数--&gt; 整数 --取模--&gt; 桶下标 --&gt; 数组位置 这把「按 key 查找」变成了「按算出来的下标访问数组」，于是...</div></div></div></a><a class="pagination-related" href="/2026/10/30/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E5%A0%86%E4%B8%8E%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/" title="堆与优先队列：只保父子有序，为什么就够用了"><img class="cover" src="https://pic1.imgdb.cn/item/6908b7233203f7be00cc7955.jpg" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-30</div><div class="info-item-2">堆与优先队列：只保父子有序，为什么就够用了</div></div><div class="info-2"><div class="info-item-1"> 堆与优先队列：只保父子有序，为什么就够用了 普通队列按「先进先出」出队，优先队列按「优先级高者先出」出队——听起来只是换个出队规则，但要把它实现得又快又能动态插入，反而没有一种平凡结构能同时满足。 有序数组插入 O(n)、无序数组取出 O(n)、有序链表插入 O(n)——每种朴素结构总有一头是 O(n)。堆的价值就在于把两头都压到 O(log n)，代价是放弃全局有序，只维护「父子有序」。 这个取舍换来了什么？看实测：50 万次插入 + 50 万次弹出的吞吐，堆比「每次 insort 的有序数组」快 50 倍。  一、优先队列：出队顺序由优先级定     普通队列 优先队列     出队规则 先进先出 优先级高者先出，与入队顺序无关   典型操作 enqueue / dequeue / front push / pop / peek   现实类比 排队买票 医院急诊分诊（危重先看）    关键在「与入队顺序无关」。所以优先队列不能用简单的「两头指针」实现——你必须随时知道「现在谁最大」。  二、三种实现，各有一头是 O(n)    实现 入队 出队（取最大） 问题在哪     ...</div></div></div></a><a class="pagination-related" href="/2026/10/30/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E6%A0%91%E4%B8%8E%E4%BA%8C%E5%8F%89%E6%A0%91/" title="树与二叉树：五条性质不是背的，是推的"><img class="cover" src="https://pic1.imgdb.cn/item/6909bfa63203f7be00cf70c6.jpg" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-30</div><div class="info-item-2">树与二叉树：五条性质不是背的，是推的</div></div><div class="info-2"><div class="info-item-1"> 树与二叉树：五条性质不是背的，是推的 数组和链表都是「一对一对」的关系：每个元素有一个前驱、一个后继。一旦数据变成一对多——目录里放文件、文件里放段落、段落里放字符——线性结构就装不下了。 树就是为「一对多 + 有层次」准备的。这篇从术语和存储讲到五条核心性质，再落到二叉搜索树和「用遍历序列还原一棵树」。所有性质都给了推导，代码都实跑验证过。  一、树：把一对多关系装进内存 递归定义：  树是 n（n ≥ 0）个结点的有限集合。n = 0 时是空树；n &gt; 0 时，有且仅有一个根，其余结点可分成 m（m &gt; 0）个互不相交的有限集，每个集合本身又是一棵树，称为根的子树。  两个词要盯住：  有且仅有一个根——不能有两个，否则不是树 互不相交——一个结点不能同时属于两棵子树，否则就成图了  「互不相交」这条排除了什么？排除了「一个孩子有两个父亲」。这也是树和图的根本区别：树 = 连通且无回路的图，n 个结点的树恰好有 n−1 条边。  二、术语不是背诵题，是后面所有公式的单位    术语 定义 后面用在哪     结点的度 该结点的子树个数 性质 3（n₀ = n₂ ...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://pic1.imgdb.cn/item/6829891e58cb8da5c8fabff0.png" onerror="this.onerror=null;this.src='/img/friend_04.gif'" alt="avatar"/ loading='lazy'></div><div class="author-info-name">zhaoyuan</div><div class="author-info-description">一封封记录足迹与所悟的信集</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">465</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">126</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E8%A1%A8-%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97%E9%A1%BA%E5%BA%8F%E5%AD%98%E5%82%A8%E5%92%8C%E9%93%BE%E5%BC%8F%E5%AD%98%E5%82%A8%E5%88%B0%E5%BA%95%E6%80%8E%E4%B9%88%E9%80%89"><span class="toc-number">1.</span> <span class="toc-text"> 线性表、栈与队列：顺序存储和链式存储到底怎么选</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80-%E5%85%88%E5%88%86%E6%B8%85%E9%80%BB%E8%BE%91%E7%BB%93%E6%9E%84%E5%92%8C%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84"><span class="toc-number">1.1.</span> <span class="toc-text"> 一、先分清逻辑结构和存储结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C-%E6%95%B0%E7%BB%84%E4%B8%8D%E6%98%AF%E9%A1%BA%E5%BA%8F%E8%A1%A8"><span class="toc-number">1.2.</span> <span class="toc-text"> 二、数组不是顺序表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89-%E9%A1%BA%E5%BA%8F%E8%A1%A8on-%E7%9A%84-n-%E5%88%B0%E5%BA%95%E5%9C%A8%E5%93%AA"><span class="toc-number">1.3.</span> <span class="toc-text"> 三、顺序表：O(n) 的 n 到底在哪</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%99%E4%B8%AA-on-%E5%9C%A8%E7%9C%9F%E5%AE%9E%E4%BB%A3%E7%A0%81%E9%87%8C%E6%9C%89%E5%A4%9A%E7%96%BC"><span class="toc-number">1.3.1.</span> <span class="toc-text"> 这个 O(n) 在真实代码里有多疼</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B-%E9%93%BE%E8%A1%A8%E6%8A%8A%E6%90%AC%E5%85%83%E7%B4%A0%E6%8D%A2%E6%88%90%E6%94%B9%E6%8C%87%E9%92%88"><span class="toc-number">1.4.</span> <span class="toc-text"> 四、链表：把「搬元素」换成「改指针」</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%B4%E7%BB%93%E7%82%B9%E9%82%A3%E4%B8%AA%E5%A4%9A%E4%BD%99%E7%9A%84%E8%8A%82%E7%82%B9%E6%9C%89%E4%BB%80%E4%B9%88%E7%94%A8"><span class="toc-number">1.4.1.</span> <span class="toc-text"> 头结点那个「多余」的节点有什么用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E4%B8%AA%E5%B8%B8%E8%A2%AB%E5%86%99%E9%94%99%E7%9A%84%E5%9C%B0%E6%96%B9"><span class="toc-number">1.4.2.</span> <span class="toc-text"> 一个常被写错的地方</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94-%E6%A0%88%E5%8F%AA%E5%9C%A8%E4%B8%80%E7%AB%AF%E8%BF%9B%E5%87%BA"><span class="toc-number">1.5.</span> <span class="toc-text"> 五、栈：只在一端进出</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD-%E9%98%9F%E5%88%97%E5%81%87%E6%BA%A2%E5%87%BA%E4%B8%8E%E5%BE%AA%E7%8E%AF%E9%98%9F%E5%88%97"><span class="toc-number">1.6.</span> <span class="toc-text"> 六、队列：假溢出与循环队列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83-%E5%8D%95%E8%B0%83%E6%A0%88%E6%8A%8A-on2-%E5%8E%8B%E6%88%90-on"><span class="toc-number">1.7.</span> <span class="toc-text"> 七、单调栈：把 O(n²) 压成 O(n)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%86%85%E5%B1%82%E6%9C%89-while-%E8%BF%98%E6%98%AF-on"><span class="toc-number">1.7.1.</span> <span class="toc-text"> 为什么内层有 while 还是 O(n)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%92%E5%A2%9E%E6%A0%88%E8%BF%98%E6%98%AF%E9%80%92%E5%87%8F%E6%A0%88"><span class="toc-number">1.7.2.</span> <span class="toc-text"> 递增栈还是递减栈</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AB-%E9%80%89%E5%9E%8B%E5%AF%B9%E7%85%A7%E5%85%88%E7%9C%8B%E5%93%AA%E7%A7%8D%E6%93%8D%E4%BD%9C%E6%9C%80%E5%A4%9A"><span class="toc-number">1.8.</span> <span class="toc-text"> 八、选型对照：先看「哪种操作最多」</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-number">1.9.</span> <span class="toc-text"> 小结</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/10/30/BI-%E6%8C%87%E6%A0%87%E4%BD%93%E7%B3%BB%E4%B8%8E%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95/" title="BI 入门：指标体系、分析方法与 Tableau 落地"><img src="https://pic1.imgdb.cn/item/6909bfe13203f7be00cf7140.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="BI 入门：指标体系、分析方法与 Tableau 落地"/ loading='lazy'></a><div class="content"><a class="title" href="/2026/10/30/BI-%E6%8C%87%E6%A0%87%E4%BD%93%E7%B3%BB%E4%B8%8E%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95/" title="BI 入门：指标体系、分析方法与 Tableau 落地">BI 入门：指标体系、分析方法与 Tableau 落地</a><time datetime="2026-10-29T16:00:00.000Z" title="发表于 2026-10-30 00:00:00">2026-10-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/10/30/SQL-%E5%88%86%E6%9E%90%E5%9C%BA%E6%99%AF%E5%AE%9E%E6%88%98/" title="SQL 分析实战：漏斗、留存、连续 N 天与同环比"><img src="https://pic1.imgdb.cn/item/6908b7ef3203f7be00cc7a28.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SQL 分析实战：漏斗、留存、连续 N 天与同环比"/ loading='lazy'></a><div class="content"><a class="title" href="/2026/10/30/SQL-%E5%88%86%E6%9E%90%E5%9C%BA%E6%99%AF%E5%AE%9E%E6%88%98/" title="SQL 分析实战：漏斗、留存、连续 N 天与同环比">SQL 分析实战：漏斗、留存、连续 N 天与同环比</a><time datetime="2026-10-29T16:00:00.000Z" title="发表于 2026-10-30 00:00:00">2026-10-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/10/30/SQL-%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%E4%B8%8E%E5%AD%90%E6%9F%A5%E8%AF%A2/" title="SQL 窗口函数：不分组也能排名，以及 CTE、子查询与 TopN 怎么配合"><img src="https://pic1.imgdb.cn/item/6909bfe13203f7be00cf7142.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SQL 窗口函数：不分组也能排名，以及 CTE、子查询与 TopN 怎么配合"/ loading='lazy'></a><div class="content"><a class="title" href="/2026/10/30/SQL-%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%E4%B8%8E%E5%AD%90%E6%9F%A5%E8%AF%A2/" title="SQL 窗口函数：不分组也能排名，以及 CTE、子查询与 TopN 怎么配合">SQL 窗口函数：不分组也能排名，以及 CTE、子查询与 TopN 怎么配合</a><time datetime="2026-10-29T16:00:00.000Z" title="发表于 2026-10-30 00:00:00">2026-10-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/10/30/SQL-%E7%B4%A2%E5%BC%95/" title="SQL 索引：为什么加了索引还是慢，回表与最左前缀"><img src="https://pic1.imgdb.cn/item/6908b7a43203f7be00cc79cf.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SQL 索引：为什么加了索引还是慢，回表与最左前缀"/ loading='lazy'></a><div class="content"><a class="title" href="/2026/10/30/SQL-%E7%B4%A2%E5%BC%95/" title="SQL 索引：为什么加了索引还是慢，回表与最左前缀">SQL 索引：为什么加了索引还是慢，回表与最左前缀</a><time datetime="2026-10-29T16:00:00.000Z" title="发表于 2026-10-30 00:00:00">2026-10-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/10/30/SQL-%E4%BA%8B%E5%8A%A1/" title="SQL 事务：ACID 各挡什么，隔离级别与 MVCC 怎么配合"><img src="https://pic1.imgdb.cn/item/6908b7d53203f7be00cc7a0c.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SQL 事务：ACID 各挡什么，隔离级别与 MVCC 怎么配合"/ loading='lazy'></a><div class="content"><a class="title" href="/2026/10/30/SQL-%E4%BA%8B%E5%8A%A1/" title="SQL 事务：ACID 各挡什么，隔离级别与 MVCC 怎么配合">SQL 事务：ACID 各挡什么，隔离级别与 MVCC 怎么配合</a><time datetime="2026-10-29T16:00:00.000Z" title="发表于 2026-10-30 00:00:00">2026-10-30</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2019 - 2026 By zhaoyuan</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><div class="js-pjax"><script>(async () => {
+  const showKatex = () => {
+    document.querySelectorAll('#article-container .katex').forEach(el => el.classList.add('katex-show'))
+  }
+
+  if (!window.katex_js_css) {
+    window.katex_js_css = true
+    await btf.getCSS('https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css')
+    if (false) {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js')
+    }
+  }
+
+  showKatex()
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
