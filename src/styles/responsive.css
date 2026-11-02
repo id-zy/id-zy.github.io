@@ -12,7 +12,8 @@
   .dock { gap: 7px; padding: 9px 11px; bottom: 10px; }
   .dock-item, .squircle { width: 44px; height: 44px; }
   .squircle svg { width: 23px; height: 23px; }
-  .mb-nav { display: none; }
+  /* 窄屏保留顶栏导航（博客 / 作品 / 关于），只压缩字号与间距 */
+  .mb-nav { gap: 10px; font-size: 11.5px; }
   .win-body { padding: 16px; }
   /* 放映室与书架在窄屏收成单列 */
   .cinema-screen { height: min(38vh, 220px); }

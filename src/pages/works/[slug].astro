@@ -37,6 +37,11 @@ const workNumber = String(works.findIndex((item) => item.slug === work.slug) + 1
           <div class="case-intro">
             <p>{work.tagline}</p>
             <span>{work.summary}</span>
+            {work.repo && (
+              <a class="case-repo" href={work.repo} target="_blank" rel="noreferrer">
+                查看源码 <span aria-hidden="true">↗</span>
+              </a>
+            )}
           </div>
         </header>
 

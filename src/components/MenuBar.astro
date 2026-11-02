@@ -4,6 +4,14 @@ interface Props {
   app?: string;
 }
 const { app = "桌面" } = Astro.props;
+
+const links = [
+  { href: "/blog", label: "博客" },
+  { href: "/works", label: "作品" },
+  { href: "/about", label: "关于" },
+];
+// 当前路径已带 base，和 url() 的产物同源，可直接比较判断高亮
+const here = Astro.url.pathname.replace(/\/+$/, "") || "/";
 ---
 
 <header class="menubar">
@@ -11,8 +19,17 @@ const { app = "桌面" } = Astro.props;
     <a class="mb-logo" href={url("/")} aria-label="返回桌面">◉</a>
     <span class="mb-app" id="mb-app">{app}</span>
     <nav class="mb-nav" aria-label="主导航">
-      <a href={url("/blog")}>博客</a>
-      <a href={url("/works")}>作品</a>
+      {
+        links.map((l) => {
+          const target = url(l.href);
+          const on = here === target || here.startsWith(`${target}/`);
+          return (
+            <a href={target} aria-current={on ? "page" : undefined}>
+              {l.label}
+            </a>
+          );
+        })
+      }
     </nav>
   </div>
   <div class="mb-right">

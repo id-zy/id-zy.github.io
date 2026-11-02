@@ -14,6 +14,8 @@
 .mb-app { font-weight: 600; }
 .mb-nav { display: flex; gap: 14px; opacity: 0.85; }
 .mb-nav a:hover { opacity: 1; text-decoration: underline; }
+/* 当前所在栏目：下划线 + 全不透明，和站内其他导航的高亮语言一致 */
+.mb-nav a[aria-current="page"] { opacity: 1; text-decoration: underline; text-underline-offset: 3px; }
 .mb-right { display: flex; align-items: center; gap: 12px; opacity: 0.9; }
 .mb-clock { font-variant-numeric: tabular-nums; min-width: 42px; text-align: right; }
 .mb-search {

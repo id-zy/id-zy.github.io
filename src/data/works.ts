@@ -26,6 +26,8 @@ export interface Work {
   mockTitle: string;
   /** 视觉舞台右下角的英文标注 */
   visualNote: string;
+  /** 开源仓库地址，没有则不在详情页展示源码链接 */
+  repo?: string;
   /** 详情页左侧说明 */
   asideNote: string;
   background: string;
@@ -53,6 +55,7 @@ export const works: Work[] = [
     nature: "个人项目 · 已上线",
     mockTitle: "blog.id-zyuan.xyz",
     visualNote: "LIVE / BLOG.ID-ZYUAN.XYZ",
+    repo: "https://github.com/id-zy/id-zy.github.io",
     asideNote:
       "这个站点本身。下面的界面是纯 CSS 重绘，用来说明信息架构；真实页面可以直接在 blog.id-zyuan.xyz 打开。",
     background:

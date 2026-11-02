@@ -536,6 +536,20 @@
 .case-intro { padding-bottom: 5px; }
 .case-intro > p { margin: 0 0 20px; font-family: var(--font-read); font-size: clamp(22px, 2.2vw, 32px); line-height: 1.6; }
 .case-intro > span { display: block; max-width: 36em; color: var(--works-muted); font-size: 14px; line-height: 1.95; }
+.case-repo {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 18px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid rgba(216, 162, 74, 0.45);
+  color: var(--works-amber);
+  font-size: 12.5px;
+  letter-spacing: 0.04em;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+.case-repo:hover { border-color: var(--works-amber); color: #e8b96a; }
+.case-repo > span { font-size: 11px; }
 
 .case-meta {
   display: grid;
