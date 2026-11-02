@@ -1,5 +1,6 @@
 ---
 import { url } from "../lib/url";
+import { friends } from "../data/friends";
 interface Props {
   app?: string;
 }
@@ -33,6 +34,31 @@ const here = Astro.url.pathname.replace(/\/+$/, "") || "/";
     </nav>
   </div>
   <div class="mb-right">
+    <details class="mb-friends" id="mb-friends">
+      <summary class="mb-friends-btn">友链</summary>
+      <div class="mb-friends-panel" role="menu" aria-label="朋友们的站点">
+        <p class="mb-friends-title">朋友们的站</p>
+        {
+          friends.map((f) => (
+            <a class="mb-friend" href={f.link} target="_blank" rel="noopener noreferrer">
+              <img
+                src={f.avatar}
+                alt={`${f.name} 的头像`}
+                width="34"
+                height="34"
+                loading="lazy"
+                referrerpolicy="no-referrer"
+              />
+              <span class="mb-friend-text">
+                <b>{f.name}</b>
+                <small>{f.descr}</small>
+              </span>
+              <span class="mb-friend-arrow" aria-hidden="true">↗</span>
+            </a>
+          ))
+        }
+      </div>
+    </details>
     <button class="mb-search" type="button" data-cmd-open aria-label="快速前往，快捷键 Command 加 K">
       <span aria-hidden="true">⌕</span>
       <kbd aria-hidden="true">⌘K</kbd>
@@ -59,4 +85,21 @@ const here = Astro.url.pathname.replace(/\/+$/, "") || "/";
   };
 
   document.addEventListener("astro:page-load", init);
+
+  // 友链下拉：点外部 / Esc / 跳转前都要收起。
+  const closeFriends = () => {
+    const box = document.getElementById("mb-friends");
+    if (box) box.removeAttribute("open");
+  };
+
+  document.addEventListener("click", (e) => {
+    if (!(e.target instanceof Element)) return;
+    if (!e.target.closest("#mb-friends")) closeFriends();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeFriends();
+  });
+
+  document.addEventListener("astro:before-swap", closeFriends);
 </script>
