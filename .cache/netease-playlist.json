@@ -1,7 +1,7 @@
 {
   "id": "18550578176",
   "name": "blog-jianzhan",
-  "cover": "https://p1.music.126.net/lABETKEGlJ7PYSAs23KUgg==/109951169558921500.jpg?param=500y500",
+  "cover": "https://p2.music.126.net/lABETKEGlJ7PYSAs23KUgg==/109951169558921500.jpg?param=500y500",
   "total": 3,
   "tracks": [
     {
@@ -48,5 +48,5 @@
     }
   ],
   "source": "api",
-  "syncedAt": "2026-11-02T04:50:45.097Z"
+  "syncedAt": "2026-11-02T04:56:37.358Z"
 }

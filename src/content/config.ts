@@ -25,7 +25,6 @@ const postSchema = z
     tags: z.array(z.string()).default([]),
     summary: z.string().optional(),
     description: z.string().optional(),
-    cover: z.string().optional(),
     rating: z.number().min(0).max(5).optional(),
     // 站侧兜底开关：所有查询都按 !draft 过滤。正常流程不用手写——
     // 发布开关在笔记库侧：写 draft: true 的笔记直接不进站（见 tools/sync-from-note.cjs）。

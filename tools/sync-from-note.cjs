@@ -79,7 +79,7 @@ const SUBJECT_BY_PREFIX = {
 
 // —— 已知的 vault 键：出现在这里才允许（其余进 warnings）——
 const KNOWN_VAULT_KEYS = new Set([
-  "title", "date", "categories", "category", "subject", "tags", "summary", "description", "cover",
+  "title", "date", "categories", "category", "subject", "tags", "summary", "description",
   "aliases", "题号", "number", "难度", "difficulty", "数据结构", "topics", "平台", "platform",
   "blog", "draft", "rating",
 ]);
@@ -374,7 +374,6 @@ function mapFrontmatter(kind, data, name, ctx) {
     ctx.errors.push("博客缺 description/summary");
   }
 
-  if (data.cover) fm.cover = str(data.cover);
   if (data.aliases) fm.aliases = toArray(data.aliases);
 
   // 未知键：报，不丢
