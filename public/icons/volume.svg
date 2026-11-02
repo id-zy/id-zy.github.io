@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-  <!-- 喇叭主体 -->
-  <path d="M4 9.2v5.6h3.8L13 19.2V4.8L7.8 9.2H4z" fill="currentColor"/>
-  <!-- 第一道声波 -->
-  <path d="M16 8.6a4.2 4.2 0 0 1 0 6.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/>
-  <!-- 第二道声波 -->
-  <path d="M18.8 6a7.5 7.5 0 0 1 0 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/>
-</svg>

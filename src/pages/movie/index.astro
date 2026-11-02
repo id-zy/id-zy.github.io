@@ -5,7 +5,7 @@ import { getDoubanMovies } from "../../lib/douban";
 const movies = await getDoubanMovies(filmEntries);
 const first = movies[0];
 ---
-<BaseLayout app="电影" title="电影" bare orb>
+<BaseLayout app="电影" title="电影" bare orb description="来自豆瓣的观影记录：评分、短评、片长与海报。">
   <div class="mac-app-page">
     <section class="mac-app movie-app" data-mac-app>
       <div class="mac-canvas poster-stage">

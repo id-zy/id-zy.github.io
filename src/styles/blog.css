@@ -447,3 +447,59 @@
 }
 /* 渲染失败的公式（KaTeX 会输出 katex-error）至少给出可读样式 */
 .post-detail .prose .katex-error { color: #d98577; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 13px; }
+
+/* ── 文章目录：桌面右栏 sticky，窄屏折叠在标题下 ── */
+.toc-list { list-style: none; margin: 0; padding: 0; }
+.toc-list a {
+  display: block;
+  color: var(--blog-muted);
+  font-size: 12.5px;
+  line-height: 1.55;
+  text-decoration: none;
+  transition: color 0.12s ease;
+}
+.toc-list a:hover { color: var(--ink-strong); }
+.toc-list a.is-active { color: var(--accent); }
+.toc-d3 { padding-left: 13px; }
+.toc-d3 a { font-size: 11.5px; opacity: 0.85; }
+/* 锚点跳转时标题不被顶部固定元素遮住 */
+.post-detail .prose :is(h2, h3) { scroll-margin-top: 96px; }
+
+.toc-fold { display: none; }
+
+@media (min-width: 1280px) {
+  .post-detail.has-toc {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 216px;
+    column-gap: 48px;
+    align-items: start;
+  }
+  .post-detail.has-toc > * { grid-column: 1; }
+  .post-detail.has-toc .toc-rail {
+    grid-column: 2;
+    grid-row: 1 / span 5;
+    position: sticky;
+    top: 108px;
+    max-height: calc(100vh - 150px);
+    overflow-y: auto;
+    margin-top: 10px;
+    padding: 4px 0 4px 20px;
+    border-left: 1px solid rgba(232, 228, 220, 0.13);
+  }
+  .toc-title { margin: 0 0 10px; color: var(--blog-muted); font-size: 10px; letter-spacing: 0.16em; }
+  .post-detail.has-toc .toc-list li + li { margin-top: 7px; }
+}
+
+@media (max-width: 1279.98px) {
+  .post-detail.has-toc .toc-rail { display: none; }
+  .post-detail.has-toc .toc-fold {
+    display: block;
+    margin: 28px 0 0;
+    border: 1px dashed rgba(232, 228, 220, 0.22);
+    border-radius: 10px;
+  }
+  .toc-fold summary { cursor: pointer; padding: 11px 15px; color: var(--blog-muted); font-size: 12.5px; }
+  .toc-fold[open] summary { border-bottom: 1px dashed rgba(232, 228, 220, 0.22); }
+  .toc-fold .toc-list { padding: 11px 15px 13px; }
+  .toc-fold .toc-list li + li { margin-top: 8px; }
+}

@@ -46,8 +46,17 @@ const readCache = <T>(fileName: string, key: string): T[] => {
 const writeCache = (fileName: string, key: string, items: unknown[]) => {
   try {
     fs.mkdirSync(CACHE_DIR, { recursive: true });
+    // 数据没变化就不重写文件：syncedAt 时间戳每次构建都会变，
+    // 会让 git 里出现只有时间戳差异的无效提交。
+    const filePath = path.join(CACHE_DIR, fileName);
+    try {
+      const prev = JSON.parse(fs.readFileSync(filePath, "utf8")) as Record<string, unknown>;
+      if (JSON.stringify(prev[key]) === JSON.stringify(items)) return;
+    } catch {
+      /* 旧缓存不存在或损坏，走正常写入。 */
+    }
     fs.writeFileSync(
-      path.join(CACHE_DIR, fileName),
+      filePath,
       JSON.stringify({ syncedAt: new Date().toISOString(), [key]: items }, null, 2),
       "utf8",
     );

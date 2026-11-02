@@ -2,6 +2,7 @@ import { existsSync, cpSync } from 'node:fs';
 import { defineConfig } from 'astro/config';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
+import rehypeSlug from 'rehype-slug';
 import stripLeadingH1 from './src/lib/rehype-strip-heading.mjs';
 import remarkBlockMath from './src/lib/remark-block-math.mjs';
 
@@ -20,7 +21,8 @@ export default defineConfig({
   // remarkBlockMath：remark-math 只认多行 $$，Obsidian 的「单独一行 $$..$$」需升级为块级
   markdown: {
     remarkPlugins: [remarkMath, remarkBlockMath],
-    rehypePlugins: [rehypeKatex, stripLeadingH1],
+    // rehypeSlug：给标题写 id，供详情页目录锚点跳转（slug 算法与 Astro headings 一致）
+    rehypePlugins: [rehypeKatex, rehypeSlug, stripLeadingH1],
   },
   integrations: [
     {

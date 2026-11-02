@@ -6,7 +6,7 @@ import { slugOf } from "../../lib/slug";
 const posts=(await getCollection("posts",({data})=>!data.draft)).sort((a,b)=>b.data.date.getTime()-a.data.date.getTime());
 const date=(d:Date)=>`${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,"0")}.${String(d.getDate()).padStart(2,"0")}`;
 ---
-<BaseLayout app="博客" title="博客 · 夜刊" shell={false} stage orb>
+<BaseLayout app="博客" title="博客 · 夜刊" shell={false} stage orb description="技术笔记、影评与创作，全部写作来自 Obsidian 笔记库。">
   <div class="art-page" data-art-page data-art="blog">
     <main class="blog-new">
       <header class="blog-mast"><div><p class="art-kicker">Personal evening paper / Vol. 01</p><h1 class="art-title">夜刊</h1></div><p class="art-deck">技术、电影、阅读，以及那些不适合被压缩成一句话的事。</p></header>

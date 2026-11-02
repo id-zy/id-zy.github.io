@@ -20,7 +20,7 @@ export async function getStaticPaths() {
 }
 
 const { post, older, newer } = Astro.props;
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
 ---
 
 <PostDetail
@@ -32,6 +32,7 @@ const { Content } = await render(post);
   summary={post.data.summary}
   body={post.body}
   Content={Content}
+  {headings}
   {older}
   {newer}
   backHref={url("/blog")}

@@ -29,6 +29,8 @@ interface Props {
   platform?: string;
   // 题解库只有一个分类、也不单独生成标签页，此时分类/标签只作展示不跳转。
   linkTaxonomy?: boolean;
+  // Astro render() 返回的标题列表：h2 ≥ 3 时渲染目录（桌面侧栏 / 窄屏折叠）
+  headings?: { depth: number; slug: string; text: string }[];
 }
 
 const {
@@ -51,6 +53,7 @@ const {
   kyu,
   platform,
   linkTaxonomy = true,
+  headings = [],
 } = Astro.props;
 
 const iso = date instanceof Date ? date.toISOString().slice(0, 10) : String(date);
@@ -58,6 +61,10 @@ const stars = rating != null ? "★".repeat(Math.round(rating)) : "";
 const level = difficulty ?? (kyu != null ? `${kyu} kyu` : "");
 const levelClass =
   difficulty === "简单" ? "is-easy" : difficulty === "困难" ? "is-hard" : "is-mid";
+
+// 目录：只收 h2 / h3，h2 不足 3 条的短文不值得目录
+const tocItems = headings.filter((h) => h.depth === 2 || h.depth === 3);
+const showToc = tocItems.filter((h) => h.depth === 2).length >= 3;
 
 const hueMap: Record<string, number> = {
   // 学科分类：category 由文件名前缀映射，见 tools/sync-from-note.cjs 的 SUBJECT_BY_PREFIX
@@ -70,9 +77,23 @@ const hueMap: Record<string, number> = {
 const hue = hueMap[category] ?? 152;
 // 摘要优先，没有就取正文首段（题解 summary 已于 2026-11-02 补齐，此处仅作兜底）
 const description = descriptionOf(summary, body);
+
+// Article 结构化数据：给搜索引擎的富摘要用（headline/日期/作者/关键词）
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: title,
+  description,
+  datePublished: iso,
+  dateModified: iso,
+  author: { "@type": "Person", name: "id-zy", url: "https://github.com/id-zy" },
+  image: new URL("og.png", Astro.site).href,
+  mainEntityOfPage: new URL(Astro.url.pathname, Astro.site).href,
+  ...(tags.length > 0 && { keywords: tags.join(", ") }),
+};
 ---
 
-<BaseLayout shell={false} title={`${title} · ${navLabel}`} description={description} ogType="article" orb>
+<BaseLayout shell={false} title={`${title} · ${navLabel}`} description={description} ogType="article" orb jsonLd={jsonLd}>
   <div class="blog-page">
     <div class="read-progress" aria-hidden="true"><span data-read-fill></span></div>
 
@@ -82,7 +103,7 @@ const description = descriptionOf(summary, body);
         <span>{navLabel}</span>
       </nav>
 
-      <article class="post-detail" style={`--h:${hue}`}>
+      <article class:list={["post-detail", { "has-toc": showToc }]} style={`--h:${hue}`}>
         <header class="detail-head">
           <div class="article-meta">
             {linkTaxonomy ? (
@@ -109,7 +130,37 @@ const description = descriptionOf(summary, body);
           </div>
         </header>
 
+        {
+          showToc && (
+            <details class="toc-fold">
+              <summary>目录 · {tocItems.length} 节</summary>
+              <ol class="toc-list">
+                {tocItems.map((h) => (
+                  <li class:list={[`toc-d${h.depth}`]}>
+                    <a href={`#${h.slug}`}>{h.text}</a>
+                  </li>
+                ))}
+              </ol>
+            </details>
+          )
+        }
+
         <div class="prose"><Content /></div>
+
+        {
+          showToc && (
+            <nav class="toc-rail" data-toc aria-label="文章目录">
+              <p class="toc-title">目录</p>
+              <ol class="toc-list">
+                {tocItems.map((h) => (
+                  <li class:list={[`toc-d${h.depth}`]}>
+                    <a href={`#${h.slug}`}>{h.text}</a>
+                  </li>
+                ))}
+              </ol>
+            </nav>
+          )
+        }
 
         <nav class="post-nav" aria-label="上一篇与下一篇">
           {older ? (
@@ -129,6 +180,38 @@ const description = descriptionOf(summary, body);
     </div>
   </div>
 </BaseLayout>
+
+<script>
+  // 目录 scroll spy：滚动监听模块级只绑一次（window 不随视图过渡销毁），
+  // astro:page-load 时重建「标题 → 链接」映射，页面没有目录则无事发生。
+  const map = new Map<Element, HTMLAnchorElement>();
+  let raf = 0;
+
+  const update = () => {
+    raf = 0;
+    let current: Element | null = null;
+    for (const h of map.keys()) {
+      if (h.getBoundingClientRect().top < 150) current = h;
+    }
+    map.forEach((a, h) => a.classList.toggle("is-active", h === current));
+  };
+
+  const onScroll = () => {
+    if (!raf) raf = requestAnimationFrame(update);
+  };
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  document.addEventListener("astro:page-load", () => {
+    map.clear();
+    const toc = document.querySelector("[data-toc]");
+    if (!toc) return;
+    toc.querySelectorAll<HTMLAnchorElement>("a[href^='#']").forEach((a) => {
+      const heading = document.getElementById(decodeURIComponent(a.hash.slice(1)));
+      if (heading) map.set(heading, a);
+    });
+    update();
+  });
+</script>
 
 <style>
   /* 题解的题号 / 难度 / 平台：只在有值时出现，博客文章不受影响 */

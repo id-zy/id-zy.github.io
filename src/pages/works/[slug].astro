@@ -20,7 +20,7 @@ const { work } = Astro.props;
 const workNumber = String(works.findIndex((item) => item.slug === work.slug) + 1).padStart(2, "0");
 ---
 
-<BaseLayout shell={false} title={`${work.title} · 作品`}>
+<BaseLayout shell={false} title={`${work.title} · 作品`} description={work.summary}>
   <div class="works-page works-detail" data-visual={work.visual}>
     <SiteNav current="works" />
 

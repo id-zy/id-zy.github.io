@@ -232,6 +232,15 @@ const readCache = (): NeteasePlaylist | null => {
 const writeCache = (playlist: NeteasePlaylist) => {
   try {
     fs.mkdirSync(path.dirname(CACHE_FILE), { recursive: true });
+    // 数据没变就不重写：避免 syncedAt 时间戳让每次构建都产生无效 git diff。
+    // 网易云 CDN 的封面主机名会在 p1/p2 之间轮换，比较时先归一化，避免误判为内容变化。
+    const normalize = (json: string) => json.replace(/https:\/\/p\d+\.music\.126\.net/g, "CDN");
+    try {
+      const prev = JSON.parse(fs.readFileSync(CACHE_FILE, "utf8")) as NeteasePlaylist;
+      if (normalize(JSON.stringify(prev.tracks)) === normalize(JSON.stringify(playlist.tracks))) return;
+    } catch {
+      /* 旧缓存不存在或损坏，走正常写入。 */
+    }
     fs.writeFileSync(CACHE_FILE, JSON.stringify({ ...playlist, syncedAt: new Date().toISOString() }, null, 2), "utf8");
   } catch {
     /* 缓存写不进去不影响构建。 */
@@ -280,6 +289,13 @@ const readLyricsCache = (): Record<string, LyricLine[]> => {
 const writeLyricsCache = (items: Record<string, LyricLine[]>) => {
   try {
     fs.mkdirSync(path.dirname(LYRICS_CACHE), { recursive: true });
+    // 同样：歌词没变化就不重写，避免时间戳噪声。
+    try {
+      const prev = JSON.parse(fs.readFileSync(LYRICS_CACHE, "utf8")) as { items?: Record<string, LyricLine[]> };
+      if (JSON.stringify(prev.items) === JSON.stringify(items)) return;
+    } catch {
+      /* 旧缓存不存在或损坏，走正常写入。 */
+    }
     fs.writeFileSync(LYRICS_CACHE, JSON.stringify({ syncedAt: new Date().toISOString(), items }, null, 2), "utf8");
   } catch {
     /* 缓存写不进去不影响构建。 */

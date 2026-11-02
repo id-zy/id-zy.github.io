@@ -13,7 +13,8 @@
     "baseline:routes": "node tools/route-diff.cjs --update"
   },
   "dependencies": {
-    "astro": "^5.5.0"
+    "astro": "^5.5.0",
+    "rehype-slug": "^6.0.0"
   },
   "devDependencies": {
     "katex": "^0.19.1",
