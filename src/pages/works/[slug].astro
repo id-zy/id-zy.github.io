@@ -1,0 +1,188 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SiteNav from "../../components/SiteNav.astro";
+import { works } from "../../data/works";
+import type { Work } from "../../data/works";
+import { url } from "../../lib/url";
+
+export function getStaticPaths() {
+  return works.map((work) => ({
+    params: { slug: work.slug },
+    props: { work },
+  }));
+}
+
+interface Props {
+  work: Work;
+}
+
+const { work } = Astro.props;
+const workNumber = String(works.findIndex((item) => item.slug === work.slug) + 1).padStart(2, "0");
+---
+
+<BaseLayout shell={false} title={`${work.title} · 作品`}>
+  <div class="works-page works-detail" data-visual={work.visual}>
+    <SiteNav current="works" />
+
+    <div class="works-container">
+      <a class="case-back case-back-top" href={url("/works")}><span aria-hidden="true">←</span> 返回作品</a>
+
+      <article class="case-study">
+        <header class="case-hero">
+          <div class="case-heading">
+            <p class="works-kicker"><span>CASE STUDY {workNumber}</span> / {work.typeLabel} · 示例项目</p>
+            <h1>{work.title}</h1>
+            <p class="case-english-title">{work.englishTitle}</p>
+          </div>
+          <div class="case-intro">
+            <p>{work.tagline}</p>
+            <span>{work.summary}</span>
+          </div>
+        </header>
+
+        <dl class="case-meta" aria-label="项目基本信息">
+          <div><dt>职责</dt><dd>{work.role}</dd></div>
+          <div><dt>时间</dt><dd>{work.period}</dd></div>
+          <div><dt>技术</dt><dd>{work.tech.join(" / ")}</dd></div>
+          <div><dt>项目性质</dt><dd>概念设计 · 示例内容</dd></div>
+        </dl>
+
+        <figure class="work-stage case-visual" data-visual={work.visual}>
+          <div class="work-visual" aria-hidden="true">
+            <div class="work-mock">
+              <div class="mock-topbar">
+                <span class="mock-dots"><i></i><i></i><i></i></span>
+                <span>示例 / 本地预览</span>
+                <span>{workNumber} — 03</span>
+              </div>
+
+              {work.visual === "archive" && (
+                <div class="archive-ui">
+                  <header><b>栖页</b><span>索引&nbsp;&nbsp;&nbsp;专题&nbsp;&nbsp;&nbsp;关于</span></header>
+                  <div class="archive-body">
+                    <div class="archive-feature">
+                      <small>VOL. 01 — 片段</small>
+                      <strong>在日常里，<br />留一处空白。</strong>
+                      <p>一些文字、一些观察，<br />以及不急着说完的话。</p>
+                    </div>
+                    <div class="archive-index">
+                      <span>最近归档</span>
+                      <div><i>01</i><b>窗边的观察</b><small>随笔</small></div>
+                      <div><i>02</i><b>缓慢的方法</b><small>笔记</small></div>
+                      <div><i>03</i><b>夜的参考书</b><small>书摘</small></div>
+                    </div>
+                  </div>
+                  <footer><span>FIELD NOTES & QUIET MOMENTS</span><span>向下阅读 ↓</span></footer>
+                </div>
+              )}
+
+              {work.visual === "tool" && (
+                <div class="tool-ui">
+                  <aside><b>刻</b><i></i><i></i><i></i><span>本<br />地</span></aside>
+                  <div class="tool-workspace">
+                    <header><div><small>工作台 / 所有片段</small><b>把想法留在原文旁边。</b></div><span>仅本地 · 示例</span></header>
+                    <div class="tool-search">搜索片段或批注 <i>⌘ K</i></div>
+                    <div class="tool-columns">
+                      <div class="tool-list">
+                        <small>片段 / 03</small>
+                        <div class="is-active"><i></i><b>设计是选择恰当的约束</b><span>界面笔记 · 刚刚</span></div>
+                        <div><i></i><b>留白的节奏</b><span>阅读摘录 · 昨日</span></div>
+                        <div><i></i><b>关于慢工具</b><span>灵感片段 · 本周</span></div>
+                      </div>
+                      <div class="tool-note">
+                        <small>批注 / 演示内容</small>
+                        <p>“工具不应催促人，<br />而应让注意力回到事物本身。”</p>
+                        <span></span><span></span><span class="short"></span>
+                        <div>＋ 添加一条批注</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {work.visual === "prism" && (
+                <div class="prism-ui">
+                  <header><b>PRISM®</b><span>GENERATIVE STUDY — 003</span><i>静态帧</i></header>
+                  <div class="prism-body">
+                    <div class="prism-canvas">
+                      <span class="prism-orbit"></span>
+                      <span class="prism-disc"></span>
+                      <span class="prism-line one"></span>
+                      <span class="prism-line two"></span>
+                      <span class="prism-cross">+</span>
+                      <b>秩序<br />与偶然</b>
+                      <small>FORM STUDIES<br />2025 / 09</small>
+                    </div>
+                    <div class="prism-controls">
+                      <small>参数 / PARAMETERS</small>
+                      <div><span>密度</span><i><b style="width: 68%"></b></i><em>068</em></div>
+                      <div><span>偏移</span><i><b style="width: 34%"></b></i><em>034</em></div>
+                      <div><span>显影</span><i><b style="width: 82%"></b></i><em>082</em></div>
+                      <p>SEED<br />7F—24—A9</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+          <figcaption><span>{work.sceneLabel} · 界面示意</span><span>CSS MOCKUP / NOT A LIVE PRODUCT</span></figcaption>
+        </figure>
+
+        <div class="case-content">
+          <aside class="case-aside">
+            <p class="case-aside-label">ABOUT THIS STUDY</p>
+            <p>这是一个用于呈现设计过程的示例案例。界面为纯 CSS 示意，不提供在线访问。</p>
+            <div class="case-responsibilities">
+              <h2>职责范围</h2>
+              <ul>{work.responsibilities.map((item) => <li>{item}</li>)}</ul>
+            </div>
+          </aside>
+
+          <div class="case-sections">
+            <section class="case-section" aria-labelledby="case-background">
+              <p class="case-section-index">01 / BACKGROUND</p>
+              <h2 id="case-background">背景</h2>
+              <p>{work.background}</p>
+            </section>
+
+            <section class="case-section" aria-labelledby="case-goals">
+              <p class="case-section-index">02 / GOALS</p>
+              <h2 id="case-goals">目标</h2>
+              <ul class="case-goals">
+                {work.goals.map((goal, index) => (
+                  <li><span>{String(index + 1).padStart(2, "0")}</span><p>{goal}</p></li>
+                ))}
+              </ul>
+            </section>
+
+            <section class="case-section" aria-labelledby="case-process">
+              <p class="case-section-index">03 / PROCESS</p>
+              <h2 id="case-process">过程</h2>
+              <ol class="case-process">
+                {work.process.map((step, index) => (
+                  <li>
+                    <span>{String(index + 1).padStart(2, "0")}</span>
+                    <div><h3>{step.title}</h3><p>{step.text}</p></div>
+                  </li>
+                ))}
+              </ol>
+            </section>
+
+            <section class="case-section" aria-labelledby="case-outcomes">
+              <p class="case-section-index">04 / OUTCOMES</p>
+              <h2 id="case-outcomes">成果</h2>
+              <ul class="case-outcomes">
+                {work.outcomes.map((outcome) => <li>{outcome}</li>)}
+              </ul>
+            </section>
+          </div>
+        </div>
+      </article>
+
+      <footer class="works-footer case-footer">
+        <a class="case-back" href={url("/works")}><span aria-hidden="true">←</span> 返回作品</a>
+        <p>示例案例 / 无真实用户数据或在线链接</p>
+      </footer>
+    </div>
+  </div>
+</BaseLayout>

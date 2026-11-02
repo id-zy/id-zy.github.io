@@ -1,0 +1,18 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getNeteasePlaylist, METING_ENDPOINT } from "../../lib/netease";
+
+const playlist = await getNeteasePlaylist();
+const tracks = playlist.tracks;
+const first = tracks[0];
+const noteOf = (track: (typeof tracks)[number]) =>
+  [track.album, track.year].filter(Boolean).join(" · ") || "网易云音乐";
+---
+<BaseLayout app="音乐" title="音乐" bare orb>
+ <div class="mac-app-page"><section class="mac-app music-app" data-mac-app data-playing="false"><header class="mac-app-bar"><div class="traffic"><i></i><i></i><i></i></div><span class="mac-app-title">音乐 · {playlist.name}</span><span class="mac-app-mode">{playlist.total} 首 · 网易云歌单</span></header><div class="mac-canvas music-player" data-music-player data-meting={METING_ENDPOINT}>
+  {first
+    ? <><div class:list={["music-backdrop", first.cover && "has-art"]} data-music-backdrop style={`--c1:${first.tint[0]};--c2:${first.tint[1]}${first.cover ? `;--disc:url('${first.cover.replaceAll("'", "%27")}')` : ""}`}></div><div class="music-player-inner"><div class:list={["music-cover", first.cover && "has-art"]} data-music-cover style={`--c1:${first.tint[0]};--c2:${first.tint[1]}${first.cover ? `;--disc:url('${first.cover.replaceAll("'", "%27")}')` : ""}`}><span>{first.album || first.title}</span></div><section class="music-detail"><p class="app-eyebrow">NOW PLAYING · {tracks.length} 首在列</p><h1 data-music-title>{first.title}</h1><p class="music-artist" data-music-artist>{first.artist}</p><p class="music-meta" data-music-meta>{noteOf(first)}</p><p class="music-status" data-music-status hidden></p><div class="music-lyrics" data-music-lyrics><ol class="lyric-lines" data-lyrics-list></ol><p class="lyric-empty" data-lyrics-empty hidden>暂无歌词</p></div></section><div class="music-transport"><div class="music-progress"><span class="music-time" data-music-current>0:00</span><button class="music-bar" data-music-bar aria-label="播放进度"><i data-music-fill></i></button><span class="music-time" data-music-duration>{first.duration || "0:00"}</span></div><div class="music-controls"><button data-music-prev aria-label="上一首">‹</button><button class="music-play" data-music-play aria-label={`播放 ${first.title}`}>▶</button><button data-music-next aria-label="下一首">›</button><a class="music-menu" data-music-link href={first.url} target="_blank" rel="noreferrer" aria-label="在网易云打开">↗</a></div></div></div></>
+    : <div class="music-empty"><p class="app-eyebrow">NO PLAYLIST</p><h1>还没有接入歌单</h1><p class="music-lyrics">在 <code>.env</code> 里填 <code>NETEASE_PLAYLIST_ID</code> 或 <code>NETEASE_USER_ID</code>，再跑一次构建即可。</p></div>}
+  <script type="application/json" data-music-data set:html={JSON.stringify(tracks)}></script>
+ </div></section></div>
+</BaseLayout>

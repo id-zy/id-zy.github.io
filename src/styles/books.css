@@ -1,0 +1,103 @@
+/* ── 书架（图书） ── */
+.shelf-wrap { position: relative; padding: 0 4px; }
+/* 暖台灯光：一束暖光从书架上方中央洒下，落在书脊上 */
+.shelf-wrap::before {
+  content: ""; position: absolute; left: 50%; top: -6px; width: 70%; height: 130px;
+  transform: translateX(-50%); pointer-events: none; z-index: 0;
+  background: radial-gradient(50% 50% at 50% 0%, rgba(232, 200, 132, 0.12), transparent 70%);
+}
+.shelf { display: flex; align-items: flex-end; justify-content: center; gap: 10px; height: 190px; padding: 0 14px 0 8px; position: relative; z-index: 1; }
+.spine {
+  position: relative; flex: 0 0 auto; width: 42px; height: var(--th, 96px);
+  border: none; padding: 10px 0 0; cursor: pointer; border-radius: 3px 3px 0 0;
+  display: flex; align-items: flex-start; justify-content: center;
+  background: linear-gradient(180deg, hsl(var(--h, 150) 30% 34%), hsl(var(--h, 150) 32% 21%));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset -3px 0 6px rgba(0, 0, 0, 0.28),
+    2px 0 6px rgba(0, 0, 0, 0.35);
+  transition: transform .22s cubic-bezier(.22, .61, .36, 1), box-shadow .22s ease, filter .22s ease;
+}
+/* 布纹肌理 + 书脊中线压痕，让色块更像一本精装书 */
+.spine::before {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background-image:
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.035) 0 1px, transparent 1px 3px),
+    linear-gradient(90deg, transparent 46%, rgba(0,0,0,0.22) 47%, rgba(0,0,0,0.22) 48%, transparent 49%);
+}
+/* 顶部与底部一条烫金收边 */
+.spine::after {
+  content: ""; position: absolute; left: 12%; right: 12%; top: 7px; height: 1px;
+  background: rgba(232, 200, 132, 0.5); pointer-events: none;
+}
+.spine:hover { transform: translateY(-9px); filter: brightness(1.08); }
+.spine[aria-selected="true"] {
+  transform: translateY(-14px); filter: brightness(1.16);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 0 0 1px var(--accent),
+    0 0 22px rgba(232, 200, 132, 0.22),
+    4px 0 14px rgba(0, 0, 0, 0.45);
+}
+.spine:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.spine-title {
+  writing-mode: vertical-rl; font-family: var(--font-read); font-size: 12px; letter-spacing: 2px;
+  color: rgba(242, 251, 245, 0.94); text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  max-height: 100%; overflow: hidden; white-space: nowrap; position: relative; z-index: 2;
+}
+/* 在读：一根垂出来的书签丝带 */
+.spine-ribbon {
+  position: absolute; left: 50%; top: -13px; width: 8px; height: 26px; margin-left: -4px; z-index: 3;
+  background: #b5544a;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 76%, 0 100%);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+/* 想读：牛皮纸包着，还没拆 */
+.spine-wrap {
+  position: absolute; inset: 0; border-radius: inherit; z-index: 1;
+  background: linear-gradient(180deg, rgba(178, 154, 110, 0.92), rgba(139, 118, 80, 0.94));
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.14), inset 0 0 16px rgba(70, 56, 34, 0.55);
+}
+.shelf-board {
+  height: 10px; border-radius: 2px;
+  background: linear-gradient(180deg, #2d4438, #16241b);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+/* 摊开的那本书 */
+.book-open {
+  display: flex; margin-top: 20px; border-radius: 4px; overflow: hidden;
+  background: linear-gradient(158deg, #f7f4e9, #e5e3d3);
+  box-shadow: 0 20px 44px rgba(0, 0, 0, 0.5);
+  color: #26352b; position: relative;
+}
+.book-open::before {
+  content: ""; position: absolute; left: 50%; top: 10px; bottom: 10px; width: 1px; z-index: 2;
+  background: rgba(38, 53, 43, 0.16); box-shadow: 0 0 14px rgba(80, 64, 40, 0.3);
+}
+/* 纸页微卷 + 暖光：书页两侧轻微内卷，中央有柔和的暖光漫反射 */
+.book-open::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(90, 74, 48, 0.16), transparent 16%, transparent 84%, rgba(90, 74, 48, 0.16)),
+    radial-gradient(120% 90% at 50% 50%, rgba(232, 200, 132, 0.10), transparent 55%);
+}
+.page { flex: 1 1 50%; min-width: 0; padding: 20px 26px; }
+.page-r { padding-left: 34px; }
+.bk-title { margin: 0; font-family: var(--font-read); font-size: 20px; line-height: 1.4; color: #1c2a20; }
+.bk-author { margin: 4px 0 0; font-size: 12.5px; color: #71806f; }
+.bk-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 12px; font-size: 12px; }
+.bk-stars { color: #9d6c1e; font-weight: 600; }
+.bk-status { padding: 1px 9px; border-radius: 999px; background: rgba(38, 53, 43, 0.1); color: #3d4f43; }
+.bk-date { color: #71806f; font-variant-numeric: tabular-nums; }
+.bk-progress { display: flex; align-items: center; gap: 8px; margin-top: 16px; }
+.bk-bar { flex: 1 1 auto; height: 4px; border-radius: 999px; background: rgba(38, 53, 43, 0.14); overflow: hidden; }
+.bk-bar > span { display: block; height: 100%; border-radius: 999px; background: linear-gradient(90deg, #487c5a, #6cbb83); transition: width .5s ease; }
+.bk-pct { font-size: 11px; color: #71806f; font-variant-numeric: tabular-nums; }
+.bk-quote-mark { display: block; font-family: var(--font-read); font-size: 26px; line-height: 1; color: rgba(38, 53, 43, 0.22); }
+.bk-quote { margin: 4px 0 0; font-family: var(--font-read); font-size: 15px; line-height: 1.95; color: #2b3a2f; }
+.book-open.turn { animation: bookTurn .55s cubic-bezier(.22, .61, .36, 1); }
+@keyframes bookTurn {
+  0%   { opacity: .35; transform: translateY(7px) scaleY(.97); }
+  100% { opacity: 1;   transform: none; }
+}

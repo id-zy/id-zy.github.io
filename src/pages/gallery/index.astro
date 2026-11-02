@@ -1,0 +1,7 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";import { photoEntries } from "../../data/media";
+const p=[[49,23,-5],[68,28,3],[84,49,-2],[61,55,5],[39,57,-3],[76,76,2],[52,80,-4],[27,76,3]];
+---
+<BaseLayout app="相册" title="相册" bare orb>
+ <div class="mac-app-page"><section class="mac-app gallery-app" data-mac-app><header class="mac-app-bar"><div class="traffic"><i></i><i></i><i></i></div><span class="mac-app-title">相册 · 光的备忘录</span><span class="mac-app-mode">桌面散片</span></header><div class="mac-canvas gallery-desk"><div class="gallery-note"><p class="app-eyebrow">PHOTO DESK</p><h1 class="app-heading">随手拍</h1><p class="app-copy">照片不是被排成列表，而是像刚从相机里倒出来一样散落在桌面。悬停查看，之后可以扩展为拖拽与全屏显影。</p></div>{photoEntries.map((x,i)=><button class="desk-photo" style={`left:${p[i][0]}%;top:${p[i][1]}%;--r:${p[i][2]}deg`}><i></i><span>{x.title} · {x.date}</span></button>)}</div></section></div>
+</BaseLayout>

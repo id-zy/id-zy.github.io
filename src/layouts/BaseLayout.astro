@@ -1,0 +1,330 @@
+---
+import "../styles/global.css";
+import { ClientRouter } from "astro:transitions";
+import MenuBar from "../components/MenuBar.astro";
+import Dock from "../components/Dock.astro";
+import FlymeOrb from "../components/FlymeOrb.astro";
+import forest from "../assets/bg-forest.jpg";
+import { url } from "../lib/url";
+import { slugOf } from "../lib/slug";
+import { getCollection } from "astro:content";
+
+interface Props {
+  app?: string;
+  title?: string;
+  bare?: boolean; // 首页用：不套 .screen 内边距，让切换器铺满
+  shell?: boolean; // true=带 macOS 菜单栏；false=独立纯页面
+  dock?: boolean; // 仅主页开启策展 Dock
+  stage?: boolean; // 单屏页：整页不滚动，内容在舞台内切换
+  orb?: boolean; // 非桌面应用：右侧 Flyme 风格快捷球
+  description?: string; // 详情页摘要，缺省则不输出 description / og:description
+  ogType?: string;
+}
+const {
+  app = "桌面",
+  title = "个人主页",
+  bare = false,
+  shell = true,
+  dock = false,
+  stage = false,
+  orb = false,
+  description = "",
+  ogType = "website",
+} = Astro.props;
+
+// 命令面板：页面 / 应用 / 最近文章
+const nav = [
+  { label: "桌面", hint: "回到首屏", href: url("/"), keys: "home desktop 桌面 首页" },
+  { label: "博客", hint: "全部文章", href: url("/blog"), keys: "blog 博客 文章 列表" },
+  { label: "题解", hint: "刷题记录", href: url("/problems"), keys: "problems 题解 leetcode 刷题 算法" },
+  { label: "作品", hint: "项目与案例", href: url("/works"), keys: "works 作品 项目 案例" },
+  { label: "本期策展", hint: "夜间漫游", href: url("/curation"), keys: "curation 策展 夜间漫游" },
+  { label: "关于", hint: "关于我", href: url("/about"), keys: "about 关于 简介" },
+  { label: "音乐", hint: "声场 · 单屏", href: url("/music"), keys: "music 音乐 歌 播放" },
+  { label: "电影", hint: "放映厅 · 单屏", href: url("/movie"), keys: "movie 电影 片单" },
+  { label: "图书", hint: "阅读室 · 单屏", href: url("/book"), keys: "book 图书 书" },
+  { label: "相册", hint: "显影 · 单屏", href: url("/gallery"), keys: "gallery 相册 照片" },
+];
+const recent = (await getCollection("posts", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 6);
+const palette = [
+  ...nav,
+  ...recent.map((p) => ({
+    label: p.data.title,
+    hint: `${p.data.category} · 文章`,
+    href: url(`/blog/${slugOf(p.id)}`),
+    keys: `post article ${p.data.category} ${p.data.title}`,
+  })),
+];
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="theme-color" content="#08150e" />
+    <link rel="icon" type="image/svg+xml" href={url("/favicon.svg")} />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    <meta property="og:title" content={title} />
+    {description && <meta property="og:description" content={description} />}
+    <meta property="og:type" content={ogType} />
+    <ClientRouter />
+  </head>
+  <body class={stage ? "is-stage" : undefined} data-path={Astro.url.pathname}>
+    <a class="skip-link" href="#main">跳到主要内容</a>
+
+    <div class="home-bg" style={`background-image:url(${forest.src})`}></div>
+    <div class="firefly" id="firefly" aria-hidden="true"></div>
+
+    {shell && <MenuBar app={app} />}
+
+    <main id="main" tabindex="-1" class={bare || !shell ? undefined : dock ? "screen" : "screen screen-no-dock"}>
+      <slot />
+    </main>
+
+    {dock && <Dock />}
+    {orb && <FlymeOrb />}
+
+    <dialog id="cmdk" class="cmdk" aria-labelledby="cmdk-title">
+      <h2 id="cmdk-title" class="sr-only">快速前往</h2>
+      <div class="cmdk-field">
+        <span class="cmdk-ico" aria-hidden="true">⌕</span>
+        <input
+          id="cmdk-input"
+          type="text"
+          role="combobox"
+          aria-expanded="true"
+          aria-controls="cmdk-list"
+          aria-autocomplete="list"
+          aria-describedby="cmdk-foot"
+          placeholder="去哪里？输入页面、应用或文章名"
+          autocomplete="off"
+          spellcheck="false"
+        />
+        <kbd class="cmdk-kbd">Esc</kbd>
+      </div>
+      <ul id="cmdk-list" role="listbox" aria-label="可选目的地">
+        {
+          palette.map((d, i) => (
+            <li
+              role="option"
+              id={`cmdk-o-${i}`}
+              data-href={d.href}
+              data-keys={d.keys}
+              aria-selected="false"
+            >
+              <span class="cmdk-label">{d.label}</span>
+              <span class="cmdk-hint">{d.hint}</span>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="cmdk-foot" id="cmdk-foot">
+        <span id="cmdk-count">{palette.length} 项</span>
+        <span><kbd>↑</kbd><kbd>↓</kbd> 选择 · <kbd>Enter</kbd> 打开 · <kbd>Esc</kbd> 关闭</span>
+      </p>
+    </dialog>
+
+    <!-- 全站唯一的音频元素：transition:persist 让它在页面切换时不被替换，音乐不会中断 -->
+    <audio id="player-audio" data-player-audio preload="none" transition:persist></audio>
+
+    <script>
+      // ── 随小时的森林光：按本地时间在 8 个色温节点间插值 ──
+      const stops = [
+        { h: 0, rgb: [12, 30, 40], a: 0.34, b: 0.8, s: 0.9 }, // 深夜
+        { h: 5, rgb: [46, 92, 84], a: 0.24, b: 0.9, s: 0.96 }, // 破晓
+        { h: 7, rgb: [166, 198, 140], a: 0.13, b: 1.0, s: 1.02 }, // 清晨
+        { h: 12, rgb: [214, 208, 150], a: 0.09, b: 1.06, s: 1.04 }, // 正午
+        { h: 17, rgb: [226, 168, 106], a: 0.15, b: 1.02, s: 1.06 }, // 黄昏
+        { h: 19, rgb: [116, 104, 148], a: 0.2, b: 0.94, s: 0.98 }, // 暮色
+        { h: 21, rgb: [26, 56, 68], a: 0.28, b: 0.86, s: 0.92 }, // 入夜
+        { h: 24, rgb: [12, 30, 40], a: 0.34, b: 0.8, s: 0.9 },
+      ];
+      const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+      function ambient() {
+        const d = new Date();
+        const hh = d.getHours() + d.getMinutes() / 60;
+        let i = 0;
+        while (i < stops.length - 2 && hh > stops[i + 1].h) i++;
+        const A = stops[i];
+        const B = stops[i + 1];
+        const t = Math.min(1, Math.max(0, (hh - A.h) / (B.h - A.h || 1)));
+        const rgb = A.rgb.map((v, k) => Math.round(lerp(v, B.rgb[k], t))).join(",");
+        const s = document.documentElement.style;
+        s.setProperty("--amb-tint", rgb);
+        s.setProperty("--amb-a", lerp(A.a, B.a, t).toFixed(3));
+        s.setProperty("--amb-b", lerp(A.b, B.b, t).toFixed(3));
+        s.setProperty("--amb-s", lerp(A.s, B.s, t).toFixed(3));
+      }
+      ambient();
+      window.setInterval(ambient, 60_000);
+    </script>
+
+    <script>
+      // ── 萤火虫：柔光跟随指针，也跟随键盘焦点 ──
+      // 视图过渡会把 body 内容换成新 DOM，所以元素引用每次导航都要重新取，监听器只绑一次。
+      const still = matchMedia("(prefers-reduced-motion: no-preference)");
+      let fly: HTMLElement | null = null;
+      let tx = innerWidth / 2;
+      let ty = innerHeight * 0.38;
+      let x = tx;
+      let y = ty;
+      let raf = 0;
+
+      const step = () => {
+        if (!fly) return;
+        x += (tx - x) * 0.085;
+        y += (ty - y) * 0.085;
+        fly.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0)`;
+        if (Math.abs(tx - x) > 0.4 || Math.abs(ty - y) > 0.4) raf = requestAnimationFrame(step);
+        else raf = 0;
+      };
+      const aim = (px: number, py: number) => {
+        tx = px;
+        ty = py;
+        if (!raf) raf = requestAnimationFrame(step);
+      };
+
+      let flyBound = false;
+      const initFirefly = () => {
+        fly = document.getElementById("firefly");
+        if (!fly) return;
+        x = tx;
+        y = ty;
+        fly.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0)`;
+        if (flyBound || !still.matches) return;
+        flyBound = true;
+        window.addEventListener("pointermove", (e) => aim(e.clientX, e.clientY), { passive: true });
+        document.addEventListener("focusin", (e) => {
+          const el = e.target as HTMLElement | null;
+          if (!el || el.closest("#cmdk")) return;
+          const r = el.getBoundingClientRect();
+          if (r.width && r.height) aim(r.left + r.width / 2, r.top + r.height / 2);
+        });
+      };
+      document.addEventListener("astro:page-load", initFirefly);
+    </script>
+
+    <script>
+      // ── ⌘K 森林罗盘（原生 dialog：自带焦点陷阱与 Esc） ──
+      // 每次视图过渡后 dialog 都是新节点，初始化要跟着 astro:page-load 重跑。
+      import { navigate } from "astro:transitions/client";
+
+      let openCmdk: (() => void) | null = null;
+
+      const initCmdk = () => {
+        const dlg = document.getElementById("cmdk") as HTMLDialogElement | null;
+        const input = document.getElementById("cmdk-input") as HTMLInputElement | null;
+        const list = document.getElementById("cmdk-list");
+        const count = document.getElementById("cmdk-count");
+        if (!dlg || !input || !list || dlg.dataset.ready === "1") return;
+        dlg.dataset.ready = "1";
+
+        const opts = Array.from(list.querySelectorAll<HTMLElement>('[role="option"]'));
+        let active = 0;
+
+        const visible = () => opts.filter((o) => !o.hidden);
+
+        const select = (i: number) => {
+          const shown = visible();
+          if (!shown.length) {
+            input.removeAttribute("aria-activedescendant");
+            return;
+          }
+          active = (i + shown.length) % shown.length;
+          opts.forEach((o) => o.setAttribute("aria-selected", "false"));
+          const el = shown[active];
+          el.setAttribute("aria-selected", "true");
+          el.scrollIntoView({ block: "nearest" });
+          input.setAttribute("aria-activedescendant", el.id);
+        };
+
+        const filter = (q: string) => {
+          const key = q.trim().toLowerCase();
+          opts.forEach((o) => {
+            const hay = `${o.textContent} ${o.dataset.keys ?? ""}`.toLowerCase();
+            o.hidden = key.length > 0 && !hay.includes(key);
+          });
+          const shown = visible().length;
+          if (count) count.textContent = shown ? `${shown} 项` : "没有找到";
+          active = 0;
+          select(0);
+        };
+
+        const open = () => {
+          if (dlg.open) return;
+          input.value = "";
+          filter("");
+          document.body.classList.add("modal-open");
+          dlg.showModal();
+          input.focus();
+        };
+
+        dlg.addEventListener("close", () => document.body.classList.remove("modal-open"));
+
+        const activate = (el: HTMLElement | undefined) => {
+          if (!el) return;
+          const href = el.dataset.href;
+          if (!href) return;
+          dlg.close();
+          const u = new URL(href, location.origin);
+          if (u.pathname === location.pathname && u.hash) {
+            location.hash = u.hash;
+          } else {
+            // 走视图过渡，避免整页刷新导致音乐中断。
+            void navigate(href);
+          }
+        };
+
+        input.addEventListener("input", () => filter(input.value));
+        input.addEventListener("keydown", (e) => {
+          if (e.key === "ArrowDown") {
+            e.preventDefault();
+            select(active + 1);
+          } else if (e.key === "ArrowUp") {
+            e.preventDefault();
+            select(active - 1);
+          } else if (e.key === "Enter") {
+            e.preventDefault();
+            activate(visible()[active]);
+          }
+        });
+        opts.forEach((o) => o.addEventListener("click", () => activate(o)));
+
+        openCmdk = open;
+
+        document.querySelectorAll("[data-cmd-open]").forEach((b) =>
+          b.addEventListener("click", (e) => {
+            e.preventDefault();
+            open();
+          })
+        );
+      };
+
+      // ⌘K 全局快捷键只绑一次（模块只执行一次）。
+      window.addEventListener("keydown", (e) => {
+        const k = e.key.toLowerCase();
+        if ((e.metaKey || e.ctrlKey) && k === "k") {
+          e.preventDefault();
+          const dlg = document.getElementById("cmdk") as HTMLDialogElement | null;
+          if (!dlg) return;
+          if (dlg.open) dlg.close();
+          else openCmdk?.();
+        }
+      });
+
+      document.addEventListener("astro:page-load", initCmdk);
+    </script>
+
+    <script>
+      // ── 各页应用交互（音乐/电影/图书/相册）统一在这里初始化 ──
+      // 视图过渡不会重新执行页面脚本，所以监听 astro:page-load（首屏与每次导航都会触发）。
+      import { initMacApp } from "../scripts/macapp";
+      document.addEventListener("astro:page-load", () => initMacApp());
+    </script>
+  </body>
+</html>

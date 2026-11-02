@@ -1,0 +1,15 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import GlassCard from "../components/GlassCard.astro";
+---
+
+<BaseLayout app="关于" title="关于">
+  <GlassCard title="关于我" badge="关于" width="min(720px, 94vw)" level={1}>
+    <div class="prose">
+      <p>你好，欢迎来到我的主页。</p>
+      <p>这里是我用 Astro 搭的个人主页：一块 macOS 风格的桌面，博客、音乐、电影、图书、相册像应用一样切换。</p>
+      <p>目前还在填充内容——技术学习笔记、算法题解、影评和读书笔记会陆续搬进来。</p>
+      <p>（这段是占位简介，等你想好怎么介绍自己，我替你换上。）</p>
+    </div>
+  </GlassCard>
+</BaseLayout>

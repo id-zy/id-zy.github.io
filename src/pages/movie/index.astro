@@ -1,0 +1,28 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { filmEntries } from "../../data/media";
+import { getDoubanMovies } from "../../lib/douban";
+const movies = await getDoubanMovies(filmEntries);
+const first = movies[0];
+---
+<BaseLayout app="电影" title="电影" bare orb>
+  <div class="mac-app-page">
+    <section class="mac-app movie-app" data-mac-app>
+      <div class="mac-canvas poster-stage">
+        <div class="movie-info">
+          <p class="app-eyebrow">NOW SCREENING · {movies.length} FILMS</p>
+          <h1 class="app-heading" data-live-title>{first.title}</h1>
+          <p class="movie-meta-line"><span data-live-year>{first.year}</span><span data-live-duration>{first.duration}</span><span data-live-note>{first.note}</span></p>
+          <dl class="movie-credits"><div><dt>导演</dt><dd data-live-director>{first.director}</dd></div><div><dt>演员</dt><dd data-live-actors>{first.actors}</dd></div></dl>
+          <p class="movie-summary" data-live-summary>{first.summary}</p>
+          <a class="douban-link" data-live-link href={first.url} target="_blank" rel="noreferrer">在豆瓣查看 ↗</a>
+        </div>
+        <div class="poster-fan" data-movie-carousel>
+          {movies.map((movie,index)=><button class:list={["poster",index===0&&"is-active"]} data-choice data-title={movie.title} data-year={movie.year} data-duration={movie.duration} data-director={movie.director} data-actors={movie.actors} data-summary={movie.summary} data-note={movie.note} data-url={movie.url} style={`--c:${movie.tint[0]};${movie.poster?`--poster:url('${movie.poster.replaceAll("'","%27")}')`:""}`}><strong>{movie.title}</strong></button>)}
+          <span class="movie-counter"><b data-movie-current>01</b> / {String(movies.length).padStart(2,"0")}</span>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+

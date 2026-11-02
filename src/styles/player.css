@@ -1,0 +1,211 @@
+/* ── 琵琶演奏播放器 + 歌单抽屉 ── */
+.player {
+  display: flex; flex-direction: column; align-items: stretch;
+  padding: 12px 16px 18px; gap: 10px;
+  position: relative;
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.035));
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 18px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.10), 0 16px 40px rgba(0, 0, 0, 0.32);
+  overflow: hidden;
+}
+/* 舞台暖光：右上角一束淡淡的暖光，像聚光灯洒在播放器上 */
+.player::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(70% 50% at 72% 6%, rgba(232, 200, 132, 0.08), transparent 55%);
+}
+/* 上区：左琵琶 + 右歌词 */
+.pl-top { display: flex; gap: 20px; align-items: stretch; width: 100%; }
+.pl-left { display: flex; flex-direction: column; align-items: center; width: 172px; flex: 0 0 auto; }
+/* 琵琶舞台 */
+.pipa-stage {
+  position: relative; width: 150px; height: 220px; margin: 4px 0 2px;
+  display: flex; align-items: flex-end; justify-content: center;
+  border-radius: 18px; cursor: pointer;
+}
+.pipa-stage:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+/* 舞台光：播放时在琵琶背后亮起，并随呼吸明暗（强度跟音量走）；偏暖，更像一束追光 */
+.pipa-stage::before {
+  content: ""; position: absolute; left: 50%; top: 42%;
+  width: 260px; height: 260px; margin: 0; border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle,
+    rgba(196, 222, 178, 0.52) 0%,
+    rgba(160, 200, 156, 0.22) 36%,
+    rgba(232, 200, 132, 0.08) 56%,
+    transparent 72%);
+  opacity: 0; transition: opacity .6s ease; pointer-events: none; z-index: -1;
+}
+.player.playing .pipa-stage::before {
+  opacity: var(--stage-light, 0.6);
+  animation: stageBreath 3.8s ease-in-out infinite;
+}
+@keyframes stageBreath {
+  0%, 100% { transform: translate(-50%, -50%) scale(.9); }
+  50%      { transform: translate(-50%, -50%) scale(1.09); }
+}
+.pipa-hint {
+  margin: 2px 0 0; font-size: 11px; letter-spacing: 0.3px;
+  color: rgba(179, 200, 186, 0.72);
+}
+.pipa { width: 130px; height: 220px; filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.5)); }
+.pipa-body { transition: filter .3s ease; }
+.player.playing .pipa-body { filter: drop-shadow(0 0 12px rgba(108, 187, 131, 0.55)); }
+.pipa-string {
+  stroke: rgba(240, 252, 243, 0.8); stroke-width: 1.1;
+  transform-box: fill-box; transform-origin: center;
+}
+.player.playing .pipa-string { animation: stringVibe .5s ease-in-out infinite alternate; }
+/* 拨弦：被弹到的那根单独抖一下 */
+.pipa-string.vib { animation: strum 0.16s ease-out 3; }
+@keyframes strum {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(1.8px); }
+}
+@keyframes stringVibe { from { transform: translateX(-0.7px); } to { transform: translateX(0.7px); } }
+/* 飘出的音符 */
+.notes { position: absolute; left: 0; right: 0; bottom: 46px; height: 0; pointer-events: none; }
+.note {
+  position: absolute; bottom: 0; font-size: 20px; font-weight: 700;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.45); will-change: transform, opacity;
+}
+/* 歌名 / 艺人 */
+.pl-meta { display: flex; flex-direction: column; align-items: center; gap: 4px; margin-top: 2px; }
+.pl-title { font-size: 18px; font-weight: 700; color: var(--ink-strong); }
+.pl-artist { font-size: 13px; color: var(--muted); }
+/* 歌词（右侧栏） */
+.lyrics {
+  flex: 1 1 auto; height: 250px; overflow: hidden; position: relative;
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 22%, #000 78%, transparent);
+          mask-image: linear-gradient(180deg, transparent, #000 22%, #000 78%, transparent);
+}
+.lyrics-inner { transition: transform .45s cubic-bezier(.22,.61,.36,1); will-change: transform; }
+.l-line {
+  margin: 0; padding: 9px 6px; text-align: left; font-family: var(--font-read);
+  font-size: 14px; color: rgba(232, 242, 234, 0.48);
+  transition: color .3s ease, font-size .3s ease, font-weight .3s ease, text-shadow .3s ease;
+}
+.l-line.active {
+  color: var(--green-200); font-size: 16px; font-weight: 600;
+  text-shadow: 0 0 18px rgba(174, 210, 180, 0.35);
+}
+/* 进度 */
+.pl-progress { width: 100%; margin-top: 4px; }
+.pl-bar { height: 5px; border-radius: 999px; background: rgba(255, 255, 255, 0.12); overflow: hidden; }
+/* 声波：两层叠一个循环位移，像水面缓缓流过 */
+.pl-wave {
+  position: relative; width: 100%; height: 18px; margin-top: 2px; overflow: hidden;
+  color: var(--green-300);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent);
+}
+.pl-wave svg { position: absolute; left: 0; top: 0; width: 200%; height: 100%; }
+.pl-wave path { opacity: .5; animation: waveDrift 9s linear infinite; animation-play-state: paused; }
+.player.playing .pl-wave path { opacity: .85; animation-play-state: running; }
+@keyframes waveDrift {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-400px); }
+}
+.pl-fill { display: block; height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--green-400), var(--green-300)); box-shadow: 0 0 10px rgba(164, 214, 174, 0.5); }
+.pl-time { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); margin-top: 4px; font-variant-numeric: tabular-nums; }
+/* 控制条 */
+.pl-controls { display: flex; align-items: center; justify-content: center; gap: 18px; position: relative; }
+.pl-btn {
+  border: none; background: none; cursor: pointer; color: var(--ink);
+  font-size: 18px; line-height: 1; padding: 6px; border-radius: 50%;
+  transition: background .15s ease, transform .15s ease;
+}
+.pl-btn:hover { background: rgba(255, 255, 255, 0.10); transform: scale(1.08); }
+.pl-toggle {
+  width: 46px; height: 46px; font-size: 18px; color: #052012;
+  background: linear-gradient(160deg, var(--green-200), var(--green-400));
+  box-shadow: 0 8px 20px rgba(63, 139, 88, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  display: flex; align-items: center; justify-content: center;
+}
+.pl-toggle:hover { background: linear-gradient(160deg, #b9e8c6, var(--green-300)); }
+/* 音量弹出 */
+.vol-wrap { position: relative; display: flex; }
+.vol-pop {
+  position: absolute; bottom: 52px; left: 50%; transform: translateX(-50%) scale(.9);
+  background: rgba(14, 34, 24, 0.94); border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 12px; padding: 8px 12px; box-shadow: 0 14px 30px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(12px); opacity: 0; pointer-events: none; transition: all .18s ease;
+}
+.vol-pop.show { opacity: 1; pointer-events: auto; transform: translateX(-50%) scale(1); }
+.vol-pop input[type="range"] { width: 110px; accent-color: var(--green-300); cursor: pointer; }
+
+/* 移动端：左右两栏堆叠，歌词收回居中 */
+@media (max-width: 640px) {
+  .pl-top { flex-direction: column; align-items: center; gap: 10px; }
+  .pl-left { width: 100%; }
+  .lyrics { height: 150px; width: 100%; }
+  .l-line { text-align: center; }
+  .pl-controls { justify-content: center; flex-wrap: wrap; }
+}
+
+/* ── 歌单抽屉（从右侧滑入） ── */
+.drawer-mask {
+  position: absolute; inset: 0; background: rgba(0, 0, 0, 0.5);
+  opacity: 0; pointer-events: none; transition: opacity .3s ease; z-index: 40;
+}
+.drawer-mask.open { opacity: 1; pointer-events: auto; }
+.drawer {
+  position: absolute; top: 0; bottom: 0; right: 0; width: min(340px, 84vw); z-index: 41;
+  background: rgba(10, 26, 18, 0.92); backdrop-filter: blur(26px) saturate(1.3);
+  -webkit-backdrop-filter: blur(26px) saturate(1.3);
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: -20px 0 52px rgba(0, 0, 0, 0.55);
+  transform: translateX(100%); transition: transform .34s cubic-bezier(.22,.61,.36,1);
+  display: flex; flex-direction: column;
+}
+.drawer.open { transform: translateX(0); }
+.drawer-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 18px; font-weight: 700; color: var(--ink-strong); font-size: 15px;
+  border-bottom: 1px solid var(--line);
+}
+.drawer-title { margin: 0; font-size: 15px; font-weight: 700; color: var(--ink-strong); }
+.drawer-close { border: none; background: none; font-size: 16px; cursor: pointer; color: var(--muted); padding: 4px 8px; border-radius: 8px; }
+.drawer-close:hover { background: rgba(255, 255, 255, 0.09); }
+.drawer .track-list { flex: 1; overflow-y: auto; padding: 6px 8px 16px; }
+.drawer .track-list li { cursor: pointer; }
+
+/* ── 曲目列表 ── */
+.track-list { list-style: none; margin: 0; padding: 0; }
+.track-list li {
+  border-radius: 12px; border-bottom: 1px solid var(--line);
+  transition: background .15s ease;
+}
+.track-list li:last-child { border-bottom: none; }
+.track-list li.active { background: rgba(108, 187, 131, 0.14); }
+.track-list li.active .t-title { color: var(--green-200); }
+.t-btn {
+  display: flex; align-items: center; gap: 14px; width: 100%;
+  padding: 12px 8px; border: none; border-radius: 12px; background: none;
+  color: inherit; font: inherit; text-align: left; cursor: pointer;
+  transition: background .15s ease, transform .15s ease;
+}
+.t-btn:hover { background: var(--surface-hover); transform: translateX(3px); }
+.t-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.t-disc {
+  flex: 0 0 auto; width: 46px; height: 46px; border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 50%, #0b1710 0 18%, transparent 19%),
+    conic-gradient(from 0deg, hsl(var(--h, 150) 45% 45%), hsl(calc(var(--h,150) + 40) 45% 30%), hsl(var(--h,150) 45% 45%));
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.16), 0 3px 10px rgba(0, 0, 0, 0.4);
+}
+.t-num { color: var(--ink-strong); font-size: 13px; font-weight: 700; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
+.t-main { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1; }
+.t-title { font-weight: 600; font-size: 15px; color: var(--ink-strong); }
+.t-artist { color: var(--muted); font-size: 13px; }
+.t-eq { display: flex; align-items: flex-end; gap: 2px; height: 18px; margin-right: 4px; }
+.t-eq i {
+  width: 3px; border-radius: 2px; background: var(--green-300);
+  animation: eq 1s ease-in-out infinite;
+}
+.t-eq i:nth-child(1) { height: 40%; animation-delay: 0s; }
+.t-eq i:nth-child(2) { height: 90%; animation-delay: .2s; }
+.t-eq i:nth-child(3) { height: 60%; animation-delay: .4s; }
+.t-eq i:nth-child(4) { height: 80%; animation-delay: .1s; }
+@keyframes eq { 0%, 100% { transform: scaleY(0.4); } 50% { transform: scaleY(1); } }

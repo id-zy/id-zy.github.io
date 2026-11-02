@@ -1,0 +1,18 @@
+# build output
+dist/
+# dependencies
+node_modules/
+# astro
+.astro/
+# env（真实值同写在 .github/workflows/deploy.yml 的 env 里，均为公开 ID）
+.env
+.env.production
+# 注意：public/covers 与 .cache 必须入库。
+# CI 构建依赖它们：封面图不入库则线上缺图，缓存不入库则电影简介退回模板句。
+# 本地临时排查文件
+.tmp/
+# 工作区临时产物（截图、内容备份等，不属于站点源码）
+.workbuddy/
+# os
+.DS_Store
+Thumbs.db

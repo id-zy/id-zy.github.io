@@ -1,0 +1,50 @@
+---
+import { getCollection, render } from "astro:content";
+import PostDetail from "../../components/PostDetail.astro";
+import { url } from "../../lib/url";
+import { slugOf } from "../../lib/slug";
+import { cleanProblemTitle } from "../../lib/title";
+
+export async function getStaticPaths() {
+  const sorted = (await getCollection("problems", ({ data }) => !data.draft)).sort(
+    (a, b) => b.data.date.getTime() - a.data.date.getTime(),
+  );
+  const brief = (p: (typeof sorted)[number]) => ({
+    title: cleanProblemTitle(p.data.title),
+    slug: slugOf(p.id),
+  });
+  return sorted.map((post, i) => ({
+    params: { slug: slugOf(post.id) },
+    props: {
+      post,
+      older: sorted[i + 1] ? brief(sorted[i + 1]) : undefined,
+      newer: i > 0 ? brief(sorted[i - 1]) : undefined,
+    },
+  }));
+}
+
+const { post, older, newer } = Astro.props;
+const { Content } = await render(post);
+---
+
+<PostDetail
+  title={cleanProblemTitle(post.data.title)}
+  date={post.data.date}
+  category={post.data.category}
+  tags={post.data.tags}
+  rating={post.data.rating}
+  summary={post.data.summary}
+  body={post.body}
+  number={post.data.number}
+  difficulty={post.data.difficulty}
+  kyu={post.data.kyu}
+  platform={post.data.platform}
+  Content={Content}
+  {older}
+  {newer}
+  backHref={url("/problems")}
+  backLabel="返回题解库"
+  basePath="/problems"
+  navLabel="题解"
+  linkTaxonomy={false}
+/>

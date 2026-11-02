@@ -1,0 +1,41 @@
+/* ── 响应式断点 + prefers-reduced-motion 汇总 ── */
+
+/* 性能：非活动面板（inert）里的常驻动画统一暂停，避免屏幕外空转 */
+.panel[inert] .dust i,
+.panel[inert] .pl-wave path,
+.panel[inert] .t-eq i,
+.panel[inert] .fd-colon {
+  animation-play-state: paused !important;
+}
+
+@media (max-width: 640px) {
+  .dock { gap: 7px; padding: 9px 11px; bottom: 10px; }
+  .dock-item, .squircle { width: 44px; height: 44px; }
+  .squircle svg { width: 23px; height: 23px; }
+  .mb-nav { display: none; }
+  .win-body { padding: 16px; }
+  /* 放映室与书架在窄屏收成单列 */
+  .cinema-screen { height: min(38vh, 220px); }
+  .frame { width: 78px; }
+  .shelf { height: 158px; gap: 7px; padding: 0 8px 0 4px; }
+  .spine { width: 32px; }
+  .book-open { flex-direction: column; }
+  .book-open::before { display: none; }
+  .page { padding: 16px 18px; }
+  .page-r { padding-left: 18px; padding-top: 0; }
+  .pl-left { width: 132px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stage { transition: none; }
+  .firefly { display: none; }
+  .fd-colon, .t-eq i, .pipa-string, .note { animation: none !important; }
+  .photo, .ph-face, .lyrics-inner, .drawer, .drawer-mask, .home-bg { transition-duration: 0.01ms; }
+  /* 新增的动效同样尊重这个设置 */
+  .cinema-screen.lit, .book-open.turn, .photo-grid.developing .photo { animation: none; }
+  .pl-wave path, .dust i { animation: none; }
+  .dust i { opacity: .38; }
+  .player.playing .pipa-stage::before { animation: none; }
+  html.music-on .home-bg { animation: none; }
+  .bk-bar > span { transition: none; }
+}

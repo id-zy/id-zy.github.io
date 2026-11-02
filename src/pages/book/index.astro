@@ -1,0 +1,20 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { bookEntries } from "../../data/media";
+import { getDoubanWallBooks } from "../../lib/douban";
+
+const wallBooks = await getDoubanWallBooks(bookEntries);
+const lanes = 6;
+// 51 本按行号取模分流；轨道由 4 个重复段组成（translateX(-50%) 无缝循环要求单份宽度 ≥ 视口宽，2 段在大屏会出现空隙）。
+const laneBooks = Array.from({ length: lanes }, (_, row) =>
+  wallBooks.filter((_, index) => index % lanes === row),
+);
+const first = wallBooks[0];
+const sub = (book: (typeof wallBooks)[number]) =>
+  book.year ? `${book.author} · ${book.year}` : book.author;
+const note = (book: (typeof wallBooks)[number]) =>
+  book.quote ? `“${book.quote}”` : `${book.author}${book.year ? ` · ${book.year}` : ""}`;
+---
+<BaseLayout app="图书" title="图书" bare orb>
+ <div class="mac-app-page"><section class="mac-app book-app" data-mac-app><header class="mac-app-bar"><div class="traffic"><i></i><i></i><i></i></div><span class="mac-app-title">图书 · 流动书墙</span><span class="mac-app-mode">{wallBooks.length} 本 · 豆瓣读过 · 点击前往</span></header><div class="mac-canvas book-wall"><div class="wall-label"><p class="app-eyebrow">LIVING BOOK WALL</p><h1 data-live-title>{first.title}</h1><p data-live-sub>{sub(first)}</p><p data-live-note>{note(first)}</p></div><div class="wall-rows">{laneBooks.map((books,row)=><div class="book-lane" style={`--row:${row};--duration:${34+row*5}s`}><div class="book-lane-track">{[...books,...books,...books,...books].map((b,i)=><article class="wall-book" style={`--c:${b.tint[0]};--w:${96+((i*23+row*17)%58)}px`}><div class="wall-pages"></div><a class="wall-cover" href={b.url} target="_blank" rel="noreferrer" data-choice data-title={b.title} data-sub={sub(b)} data-note={note(b)} style={b.cover?`--book-cover:url('${b.cover.replaceAll("'", "%27")}')`:undefined} aria-label={`${b.title}，在豆瓣打开`}><span>{b.title}</span><small>{b.author}</small></a></article>)}</div></div>)}</div></div></section></div>
+</BaseLayout>

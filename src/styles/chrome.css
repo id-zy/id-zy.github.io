@@ -1,0 +1,81 @@
+/* ── 菜单栏 + Dock（macOS 外壳） ── */
+.menubar {
+  position: fixed; top: 0; left: 0; right: 0; height: var(--menubar-h);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 14px; z-index: 50;
+  background: rgba(8, 22, 15, 0.58);
+  backdrop-filter: blur(16px) saturate(1.3);
+  -webkit-backdrop-filter: blur(16px) saturate(1.3);
+  color: var(--ink); font-size: 13px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+.mb-left { display: flex; align-items: center; gap: 14px; }
+.mb-logo { font-size: 14px; opacity: 0.95; }
+.mb-app { font-weight: 600; }
+.mb-nav { display: flex; gap: 14px; opacity: 0.85; }
+.mb-nav a:hover { opacity: 1; text-decoration: underline; }
+.mb-right { display: flex; align-items: center; gap: 12px; opacity: 0.9; }
+.mb-clock { font-variant-numeric: tabular-nums; min-width: 42px; text-align: right; }
+.mb-search {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 2px 9px 3px; border-radius: 999px; cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--ink); font-size: 12px; font-family: inherit;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+.mb-search:hover { background: rgba(255, 255, 255, 0.13); border-color: rgba(255, 255, 255, 0.24); }
+.mb-search kbd {
+  font: inherit; font-size: 10px; letter-spacing: 0.04em;
+  padding: 0 4px; border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  opacity: 0.75;
+}
+
+/* ── Dock（深色磨砂玻璃 + 彩色 squircle 图标）── */
+.dock {
+  position: fixed; left: 50%; bottom: 14px; transform: translateX(-50%);
+  display: flex; align-items: center; gap: 12px; z-index: 50;
+  padding: 12px 16px; border-radius: 28px;
+  background: rgba(22, 44, 33, 0.46);
+  backdrop-filter: blur(30px) saturate(1.6);
+  -webkit-backdrop-filter: blur(30px) saturate(1.6);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.48), inset 0 1px 0 rgba(255, 255, 255, 0.14);
+}
+.dock-item {
+  position: relative; display: flex; align-items: center; justify-content: center;
+  width: 52px; height: 52px; cursor: pointer;
+  transform: scale(var(--scale, 1)); transform-origin: bottom center;
+  transition: transform 0.18s cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+.squircle {
+  width: 52px; height: 52px; border-radius: 23%;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.32),
+    0 6px 14px rgba(0, 0, 0, 0.45);
+}
+.squircle svg { width: 28px; height: 28px; display: block; }
+.dock-item.active::after {
+  content: ""; position: absolute; bottom: -7px; left: 50%; transform: translateX(-50%);
+  width: 4px; height: 4px; border-radius: 50%; background: rgba(226, 244, 232, 0.85);
+}
+.dock-tip {
+  position: absolute; bottom: 64px; white-space: nowrap;
+  padding: 4px 10px; border-radius: 9px; font-size: 12px;
+  background: rgba(232, 246, 236, 0.94); color: #0d2418;
+  opacity: 0; transform: translateY(4px); transition: all 0.14s ease; pointer-events: none;
+}
+.dock-item:hover .dock-tip { opacity: 1; transform: translateY(0); }
+.dock-divider {
+  width: 1px; height: 38px; align-self: center;
+  background: rgba(255, 255, 255, 0.16);
+  margin: 0 4px; flex: 0 0 auto;
+}
+.github-squircle {
+  color: #f4f7f5;
+  background: linear-gradient(160deg, #30363d, #0d1117);
+}
+.github-squircle svg { width: 29px; height: 29px; }

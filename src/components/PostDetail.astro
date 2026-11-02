@@ -1,0 +1,174 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { url } from "../lib/url";
+import { descriptionOf } from "../lib/desc";
+// KaTeX 样式只随详情页加载（博客 + 题解共用本组件），首页等页面不受影响
+import "katex/dist/katex.min.css";
+
+// 博客正文与题解正文共用同一套阅读排版，差异只在返回链接、面包屑文案与路由前缀。
+interface Props {
+  title: string;
+  date: Date;
+  category: string;
+  tags?: string[];
+  rating?: number;
+  summary?: string;
+  // 原始 Markdown 正文：摘要为空时用来兜底 <meta name="description">（见 lib/desc.ts）
+  body?: string;
+  Content: any;
+  older?: { title: string; slug: string };
+  newer?: { title: string; slug: string };
+  backHref: string;
+  backLabel: string;
+  basePath: string;
+  navLabel: string;
+  // 题解元数据：有就显示，没有就跳过（博客文章这几个字段为空）
+  number?: string;
+  difficulty?: string;
+  kyu?: number;
+  platform?: string;
+  // 题解库只有一个分类、也不单独生成标签页，此时分类/标签只作展示不跳转。
+  linkTaxonomy?: boolean;
+}
+
+const {
+  title,
+  date,
+  category,
+  tags = [],
+  rating,
+  summary,
+  body = "",
+  Content,
+  older,
+  newer,
+  backHref,
+  backLabel,
+  basePath,
+  navLabel,
+  number,
+  difficulty,
+  kyu,
+  platform,
+  linkTaxonomy = true,
+} = Astro.props;
+
+const iso = date instanceof Date ? date.toISOString().slice(0, 10) : String(date);
+const stars = rating != null ? "★".repeat(Math.round(rating)) : "";
+const level = difficulty ?? (kyu != null ? `${kyu} kyu` : "");
+const levelClass =
+  difficulty === "简单" ? "is-easy" : difficulty === "困难" ? "is-hard" : "is-mid";
+
+const hueMap: Record<string, number> = {
+  // 学科分类：category 由文件名前缀映射，见 tools/sync-from-note.cjs 的 SUBJECT_BY_PREFIX
+  Java: 190, 数据库: 165, 数据结构: 275, BI: 30,
+  微机原理: 250, 数据挖掘: 310, 离散数学: 220,
+  // 桶分类与历史口径，保留兼容
+  技术学习: 152, 题解: 205, 影评: 8, 读书笔记: 38,
+  创作: 8, 博客: 152, 未分类: 152, 题目: 275,
+};
+const hue = hueMap[category] ?? 152;
+// 摘要优先，没有就取正文首段（题解 summary 已于 2026-11-02 补齐，此处仅作兜底）
+const description = descriptionOf(summary, body);
+---
+
+<BaseLayout shell={false} title={`${title} · ${navLabel}`} description={description} ogType="article" orb>
+  <div class="blog-page">
+    <div class="read-progress" aria-hidden="true"><span data-read-fill></span></div>
+
+    <div class="blog-shell">
+      <nav class="tax-nav">
+        <a href={backHref}>← {backLabel}</a>
+        <span>{navLabel}</span>
+      </nav>
+
+      <article class="post-detail" style={`--h:${hue}`}>
+        <header class="detail-head">
+          <div class="article-meta">
+            {linkTaxonomy ? (
+              <a class="post-cat" href={url(`${basePath}/categories/${encodeURIComponent(category)}`)}>{category}</a>
+            ) : (
+              <span class="post-cat">{category}</span>
+            )}
+            <time>{iso}</time>
+            {number && <span class="meta-dim">#{number}</span>}
+            {level && <span class={`meta-level ${levelClass}`}>{level}</span>}
+            {platform && <span class="meta-dim">{platform}</span>}
+            {stars && <span class="stars">{stars}</span>}
+          </div>
+          <h1>{title}</h1>
+          {summary && <p class="detail-lede">{summary}</p>}
+          <div class="article-tags">
+            {tags.map((t: string) =>
+              linkTaxonomy ? (
+                <a href={url(`${basePath}/tags/${encodeURIComponent(t)}`)}>#{t}</a>
+              ) : (
+                <span class="tag-plain">#{t}</span>
+              )
+            )}
+          </div>
+        </header>
+
+        <div class="prose"><Content /></div>
+
+        <nav class="post-nav" aria-label="上一篇与下一篇">
+          {older ? (
+            <a class="post-nav-item" href={url(`${basePath}/${older.slug}`)}>
+              <span>更早一篇</span>
+              <strong>{older.title}</strong>
+            </a>
+          ) : <span class="post-nav-item is-empty">已经是最早一篇</span>}
+          {newer ? (
+            <a class="post-nav-item is-next" href={url(`${basePath}/${newer.slug}`)}>
+              <span>更新一篇</span>
+              <strong>{newer.title}</strong>
+            </a>
+          ) : <span class="post-nav-item is-empty">已经是最新一篇</span>}
+        </nav>
+      </article>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  /* 题解的题号 / 难度 / 平台：只在有值时出现，博客文章不受影响 */
+  .meta-dim { letter-spacing: 0.04em; font-variant-numeric: tabular-nums; }
+  .meta-level {
+    padding: 1px 8px;
+    border-radius: 999px;
+    border: 1px solid currentColor;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+  }
+  .meta-level.is-easy { color: #8bbf9a; }
+  .meta-level.is-mid { color: #d8a24a; }
+  .meta-level.is-hard { color: #d98577; }
+</style>
+
+<script>
+  // 阅读进度条：滚动监听只绑一次，元素引用每次导航重取。
+  let fillEl: HTMLElement | null = null;
+  let articleEl: HTMLElement | null = null;
+  let raf = 0;
+
+  const update = () => {
+    raf = 0;
+    if (!fillEl || !articleEl) return;
+    const rect = articleEl.getBoundingClientRect();
+    const total = Math.max(1, rect.height - window.innerHeight * 0.4);
+    const passed = Math.min(Math.max(-rect.top, 0), total);
+    fillEl.style.transform = `scaleX(${Math.min(1, passed / total).toFixed(4)})`;
+  };
+  const schedule = () => {
+    if (!raf) raf = requestAnimationFrame(update);
+  };
+
+  window.addEventListener("scroll", schedule, { passive: true });
+  window.addEventListener("resize", schedule);
+
+  document.addEventListener("astro:page-load", () => {
+    fillEl = document.querySelector<HTMLElement>("[data-read-fill]");
+    articleEl = document.querySelector(".prose");
+    schedule();
+  });
+</script>

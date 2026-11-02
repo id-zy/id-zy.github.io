@@ -1,0 +1,41 @@
+---
+import { getCollection, render } from "astro:content";
+import PostDetail from "../../components/PostDetail.astro";
+import { url } from "../../lib/url";
+import { slugOf } from "../../lib/slug";
+
+export async function getStaticPaths() {
+  const sorted = (await getCollection("posts", ({ data }) => !data.draft)).sort(
+    (a, b) => b.data.date.getTime() - a.data.date.getTime(),
+  );
+  const brief = (p: (typeof sorted)[number]) => ({ title: p.data.title, slug: slugOf(p.id) });
+  return sorted.map((post, i) => ({
+    params: { slug: slugOf(post.id) },
+    props: {
+      post,
+      older: sorted[i + 1] ? brief(sorted[i + 1]) : undefined,
+      newer: i > 0 ? brief(sorted[i - 1]) : undefined,
+    },
+  }));
+}
+
+const { post, older, newer } = Astro.props;
+const { Content } = await render(post);
+---
+
+<PostDetail
+  title={post.data.title}
+  date={post.data.date}
+  category={post.data.category}
+  tags={post.data.tags}
+  rating={post.data.rating}
+  summary={post.data.summary}
+  body={post.body}
+  Content={Content}
+  {older}
+  {newer}
+  backHref={url("/blog")}
+  backLabel="返回博客"
+  basePath="/blog"
+  navLabel="阅读"
+/>

@@ -1,0 +1,57 @@
+---
+import { url } from "../lib/url";
+const items = [
+  { label: "桌面", href: "/", icon: "⌂" },
+  { label: "策展", href: "/curation", icon: "展" },
+  { label: "音乐", href: "/music", icon: "♫" },
+  { label: "电影", href: "/movie", icon: "▦" },
+  { label: "图书", href: "/book", icon: "书" },
+  { label: "题解", href: "/problems", icon: "题" },
+  { label: "相册", href: "/gallery", icon: "▧" },
+];
+const pathname = Astro.url.pathname.replace(/\/$/, "");
+const homePath = url("/").replace(/\/$/, "");
+---
+<div class="flyme-orb" data-flyme-orb data-open="false">
+  <button class="flyme-trigger" type="button" aria-label="打开快捷应用" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="flyme-fan" aria-hidden="true">
+    {items.map((item,index)=>{
+      const angle=-112+(224/(items.length-1))*index;
+      return <a class:list={["flyme-app",(item.href==="/"?pathname===homePath:pathname.endsWith(item.href))&&"is-current"]} style={`--angle:${angle}deg;--delay:${index*22}ms`} href={url(item.href)} aria-label={item.label}><b>{item.icon}</b><small>{item.label}</small></a>
+    })}
+  </div>
+</div>
+<script>
+  // 视图过渡会把 orb 换成全新节点：元素引用每次导航都要重取，
+  // document 级监听只绑一次（回调里读当前 orb），否则要么点不开、要么重复触发。
+  let orb: HTMLElement | null = null;
+  let bound = false;
+
+  const set = (open: boolean) => {
+    if (!orb) return;
+    orb.dataset.open = String(open);
+    orb.querySelector(".flyme-trigger")?.setAttribute("aria-expanded", String(open));
+    orb.querySelector(".flyme-fan")?.setAttribute("aria-hidden", String(!open));
+  };
+
+  const init = () => {
+    orb = document.querySelector<HTMLElement>("[data-flyme-orb]");
+    if (!orb || orb.dataset.ready === "1") return;
+    orb.dataset.ready = "1";
+    orb.querySelector<HTMLButtonElement>(".flyme-trigger")?.addEventListener("click", () => {
+      set(orb?.dataset.open !== "true");
+    });
+    if (bound) return;
+    bound = true;
+    document.addEventListener("pointerdown", (e) => {
+      if (orb && !orb.contains(e.target as Node)) set(false);
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") set(false);
+    });
+  };
+
+  document.addEventListener("astro:page-load", init);
+</script>

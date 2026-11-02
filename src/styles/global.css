@@ -1,0 +1,19 @@
+/* ── 全局样式入口：按模块聚合 ──
+   各模块按「基础 → 外壳 → 分区 → 页面 → 响应式」顺序引入。
+   顺序有依赖：tokens 定义变量需最先；responsive 里的 reduced-motion
+   覆盖规则需放在各动画定义之后。 */
+
+@import "./tokens.css";
+@import "./chrome.css";
+@import "./player.css";
+@import "./cinema.css";
+@import "./books.css";
+@import "./gallery.css";
+@import "./stage.css";
+@import "./works.css";
+@import "./blog.css";
+@import "./home.css";
+@import "./art.css";
+@import "./macapps.css";
+@import "./macmedia.css";
+@import "./responsive.css";

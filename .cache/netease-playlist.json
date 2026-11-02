@@ -1,0 +1,52 @@
+{
+  "id": "18550578176",
+  "name": "blog-jianzhan",
+  "cover": "https://p1.music.126.net/lABETKEGlJ7PYSAs23KUgg==/109951169558921500.jpg?param=500y500",
+  "total": 3,
+  "tracks": [
+    {
+      "id": "2152380072",
+      "title": "给我无尽不眠的春天",
+      "artist": "柠夏yo",
+      "album": "给我无尽不眠的春天",
+      "year": "2024",
+      "duration": "3:05",
+      "cover": "https://p1.music.126.net/lABETKEGlJ7PYSAs23KUgg==/109951169558921500.jpg?param=500y500",
+      "url": "https://music.163.com/song?id=2152380072",
+      "tint": [
+        "#4f7b83",
+        "#28474d"
+      ]
+    },
+    {
+      "id": "26902124",
+      "title": "一个人想着一个人",
+      "artist": "曾沛慈",
+      "album": "终极一班3 电视原声带",
+      "year": "2013",
+      "duration": "4:04",
+      "cover": "https://p1.music.126.net/Xa9mgdDWlZLGrZGtvrXo4A==/2277088581176156.jpg?param=500y500",
+      "url": "https://music.163.com/song?id=26902124",
+      "tint": [
+        "#5a3f52",
+        "#241722"
+      ]
+    },
+    {
+      "id": "2106438223",
+      "title": "够爱",
+      "artist": "晚风寻",
+      "album": "夏日晚风",
+      "year": "2022",
+      "duration": "4:52",
+      "cover": "https://p1.music.126.net/JMSnNMxE02WIrbobg01MkQ==/109951169449913024.jpg?param=500y500",
+      "url": "https://music.163.com/song?id=2106438223",
+      "tint": [
+        "#3d4a5e",
+        "#171d26"
+      ]
+    }
+  ],
+  "source": "api",
+  "syncedAt": "2026-11-02T04:50:45.097Z"
+}

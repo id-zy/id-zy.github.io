@@ -1,0 +1,242 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+import { url } from "../../lib/url";
+import { slugOf } from "../../lib/slug";
+import { cleanProblemTitle } from "../../lib/title";
+
+const all = (await getCollection("problems", ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime(),
+);
+
+const items = all.map((p) => ({
+  slug: slugOf(p.id),
+  title: cleanProblemTitle(p.data.title),
+  date: p.data.date,
+  year: p.data.date.getFullYear(),
+  tags: p.data.tags ?? [],
+  number: p.data.number ?? "",
+  difficulty: p.data.difficulty ?? (p.data.kyu != null ? `${p.data.kyu} kyu` : ""),
+  isKyu: p.data.difficulty == null && p.data.kyu != null,
+}));
+
+const years = [...new Set(items.map((i) => i.year))].sort((a, b) => b - a);
+const groups = years.map((year) => ({
+  year,
+  items: items.filter((i) => i.year === year),
+}));
+
+const tagCount = new Map<string, number>();
+for (const item of items) for (const t of item.tags) tagCount.set(t, (tagCount.get(t) ?? 0) + 1);
+const topTags = [...tagCount.entries()].sort((a, b) => b[1] - a[1]).slice(0, 14).map(([t]) => t);
+
+// 难度筛选条：只列 简单/中等/困难 三档。
+// Codewars 的 kyu 段位不并进难度（6 kyu ≠ 中等），只在卡片上单独显示，避免下拉里混进 5 kyu / 6 kyu / 7 kyu。
+const levelCount = new Map<string, number>();
+for (const item of items) if (item.difficulty && !item.isKyu) levelCount.set(item.difficulty, (levelCount.get(item.difficulty) ?? 0) + 1);
+const levelOrder = ["简单", "中等", "困难"];
+const levels = levelOrder.filter((lv) => levelCount.has(lv));
+
+const iso = (d: Date) =>
+  `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, "0")}.${String(d.getDate()).padStart(2, "0")}`;
+---
+
+<BaseLayout shell={false} title="题解" orb>
+  <div class="blog-page">
+    <div class="blog-shell">
+      <nav class="tax-nav">
+        <a href={url("/")}>← 返回桌面</a>
+        <span>题解库</span>
+      </nav>
+
+      <header class="pro-head">
+        <p class="blog-eyebrow">Solutions / LeetCode</p>
+        <h1 class="pro-title">题解</h1>
+        <p class="blog-lede">刷过的题、想通的解法，以及那些卡了很久才明白的细节。共 {items.length} 篇。</p>
+      </header>
+
+      <div class="filter-bar" data-pro-filter>
+        <input type="search" placeholder="搜索题名、题号或标签…" aria-label="搜索题解" data-pro-q />
+        <div class="filter-chips" data-pro-tags>
+          <button class="chip is-active" type="button" data-pro-tag="">全部</button>
+          {topTags.map((t) => <button class="chip" type="button" data-pro-tag={t}>{t}</button>)}
+        </div>
+        {levels.length > 0 && (
+          <label class="filter-field">
+            <span class="filter-label">难度</span>
+            <select data-pro-level-sel aria-label="按难度筛选">
+              <option value="">全部难度</option>
+              {levels.map((lv) => (
+                <option value={lv}>{lv}（{levelCount.get(lv)}）</option>
+              ))}
+            </select>
+          </label>
+        )}
+        <p class="filter-status" data-pro-status>{items.length} 篇</p>
+      </div>
+
+      {groups.map((group) => (
+        <section class="year" data-pro-year>
+          <div class="year-head">
+            <h3>{group.year}</h3>
+            <span class="pro-year-count">{group.items.length} 篇</span>
+          </div>
+          <div class="pro-grid">
+            {group.items.map((item) => (
+              <a
+                class="pro-item"
+                href={url(`/problems/${item.slug}`)}
+                data-pro-item
+                data-title={`${item.number} ${item.title}`.trim()}
+                data-tags={item.tags.join(" ")}
+                data-level={item.difficulty}
+              >
+                <h4>
+                  {item.number && <span class="pro-no">#{item.number}</span>}
+                  {item.title}
+                </h4>
+                <p class="pro-meta">
+                  <time>{iso(item.date)}</time>
+                  {item.difficulty && (
+                    <span class={`pro-level ${item.difficulty === "简单" ? "is-easy" : item.difficulty === "困难" ? "is-hard" : item.isKyu ? "is-kyu" : "is-mid"}`}>
+                      {item.difficulty}
+                    </span>
+                  )}
+                  {item.tags.length > 0 && <span>{item.tags.slice(0, 2).map((t) => `#${t}`).join(" ")}</span>}
+                </p>
+              </a>
+            ))}
+          </div>
+        </section>
+      ))}
+
+      <p class="filter-empty" data-pro-empty hidden>没有匹配的题解，换个关键词试试。</p>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .pro-head { padding: clamp(28px, 4vw, 46px) 0 6px; }
+  .pro-title {
+    margin: 0.1em 0 0;
+    font-family: var(--font-read);
+    font-size: clamp(38px, 6vw, 68px);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    line-height: 1.05;
+  }
+  .pro-year-count { color: var(--blog-muted); font-size: 12px; letter-spacing: 0.06em; }
+
+  .pro-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    border-top: 1px solid var(--blog-line);
+  }
+  .pro-item {
+    display: grid;
+    gap: 6px;
+    align-content: start;
+    min-height: 74px;
+    padding: 14px 20px 15px 0;
+    border-bottom: 1px solid rgba(232, 228, 220, 0.09);
+    color: inherit;
+    text-decoration: none;
+  }
+  .pro-item h4 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.35;
+    word-break: break-word;
+    transition: color 0.18s ease;
+  }
+  .pro-item:hover h4 { color: var(--blog-amber); }
+  .pro-meta {
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    color: var(--blog-muted);
+    font-size: 11px;
+    font-variant-numeric: tabular-nums;
+  }
+  .pro-item[hidden] { display: none; }
+  .year[hidden] { display: none; }
+
+  /* 题号 + 难度：只在题解卡片出现 */
+  .pro-no {
+    margin-right: 6px;
+    color: var(--blog-muted);
+    font-size: 12px;
+    font-variant-numeric: tabular-nums;
+  }
+  .pro-level {
+    padding: 1px 7px;
+    border: 1px solid currentColor;
+    border-radius: 999px;
+    font-size: 10px;
+    letter-spacing: 0.04em;
+  }
+  .pro-level.is-easy { color: #8bbf9a; }
+  .pro-level.is-mid { color: #d8a24a; }
+  .pro-level.is-hard { color: #d98577; }
+  .pro-level.is-kyu { color: #9aa7d8; }
+</style>
+
+<script>
+  // 搜索 + 标签筛选：DOM 每次导航都会换，初始化放在 astro:page-load 里。
+  const init = () => {
+    const root = document.querySelector<HTMLElement>("[data-pro-filter]");
+    if (!root) return;
+    const input = root.querySelector<HTMLInputElement>("[data-pro-q]");
+    const chips = Array.from(root.querySelectorAll<HTMLButtonElement>("[data-pro-tag]"));
+    const levelSel = root.querySelector<HTMLSelectElement>("[data-pro-level-sel]");
+    const status = root.querySelector<HTMLElement>("[data-pro-status]");
+    const empty = document.querySelector<HTMLElement>("[data-pro-empty]");
+    const items = Array.from(document.querySelectorAll<HTMLElement>("[data-pro-item]"));
+    const years = Array.from(document.querySelectorAll<HTMLElement>("[data-pro-year]"));
+    if (!input || !status) return;
+
+    let activeTag = "";
+    let activeLevel = "";
+    const apply = () => {
+      const q = input.value.trim().toLowerCase();
+      let shown = 0;
+      for (const el of items) {
+        const title = (el.dataset.title ?? "").toLowerCase();
+        const tags = (el.dataset.tags ?? "").toLowerCase();
+        const level = (el.dataset.level ?? "").toLowerCase();
+        const ok =
+          (!q || title.includes(q) || tags.includes(q)) &&
+          (!activeTag || tags.split(" ").includes(activeTag.toLowerCase())) &&
+          (!activeLevel || level === activeLevel.toLowerCase());
+        el.hidden = !ok;
+        if (ok) shown++;
+      }
+      for (const block of years) {
+        const any = Array.from(block.querySelectorAll<HTMLElement>("[data-pro-item]")).some((el) => !el.hidden);
+        block.hidden = !any;
+      }
+      status.textContent = shown === items.length ? `${items.length} 篇` : `${shown} / ${items.length} 篇`;
+      if (empty) empty.hidden = shown !== 0;
+    };
+
+    input.addEventListener("input", apply);
+    for (const chip of chips) {
+      chip.addEventListener("click", () => {
+        activeTag = chip.dataset.proTag ?? "";
+        for (const c of chips) c.classList.toggle("is-active", c === chip);
+        apply();
+      });
+    }
+    if (levelSel) {
+      levelSel.addEventListener("change", () => {
+        activeLevel = levelSel.value;
+        apply();
+      });
+    }
+    apply();  };
+
+  init();
+  document.addEventListener("astro:page-load", init);
+</script>

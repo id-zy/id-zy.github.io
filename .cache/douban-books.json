@@ -1,0 +1,732 @@
+{
+  "syncedAt": "2026-11-02T04:50:41.807Z",
+  "books": [
+    {
+      "id": "10785583",
+      "title": "思考，快与慢",
+      "author": "[美] 丹尼尔·卡尼曼",
+      "year": "2012",
+      "status": "读完",
+      "quote": "本书介绍了“快思考”“慢思考”两种模式对人们行动、心理、抉择和生活体验的作用，更在其中科普了生活中见到的事情中所体现的心理学效应、经济学知识、统计学定理。",
+      "cover": "/covers/douban/10785583.jpg",
+      "url": "https://book.douban.com/subject/10785583/",
+      "tint": [
+        "#4f7b83",
+        "#28474d"
+      ],
+      "rating": 3
+    },
+    {
+      "id": "33477229",
+      "title": "上帝掷骰子吗？",
+      "author": "曹天元",
+      "year": "",
+      "status": "读完",
+      "quote": "",
+      "cover": "/covers/douban/33477229.jpg",
+      "url": "https://book.douban.com/subject/33477229/",
+      "tint": [
+        "#22383d",
+        "#101114"
+      ],
+      "rating": 4
+    },
+    {
+      "id": "5958726",
+      "title": "质数的孤独",
+      "author": "[意] 保罗·乔尔达诺",
+      "year": "2011",
+      "status": "读完",
+      "quote": "",
+      "cover": "/covers/douban/5958726.jpg",
+      "url": "https://book.douban.com/subject/5958726/",
+      "tint": [
+        "#5a4a32",
+        "#241c14"
+      ],
+      "rating": 3
+    },
+    {
+      "id": "30208077",
+      "title": "禅与摩托车维修艺术",
+      "author": "[美] 罗伯特·M.波西格",
+      "year": "2018",
+      "status": "读完",
+      "quote": "古典的认知孕育了科学，浪漫的认知则造就了美学，但科学与美学并非对立，反而可以人的温情去融合二者。我记得道德经里说“万物负阴而抱阳，冲气以为和“。",
+      "cover": "/covers/douban/30208077.jpg",
+      "url": "https://book.douban.com/subject/30208077/",
+      "tint": [
+        "#3d3350",
+        "#171326"
+      ],
+      "rating": 4
+    },
+    {
+      "id": "30331835",
+      "title": "窄门",
+      "author": "[法] 安德烈·纪德",
+      "year": "2018",
+      "status": "读完",
+      "quote": "",
+      "cover": "/covers/douban/30331835.jpg",
+      "url": "https://book.douban.com/subject/30331835/",
+      "tint": [
+        "#4a3a3a",
+        "#1d1414"
+      ]
+    },
+    {
+      "id": "1085860",
+      "title": "基督山伯爵",
+      "author": "[法] 大仲马",
+      "year": "",
+      "status": "读完",
+      "quote": "",
+      "cover": "/covers/douban/1085860.jpg",
+      "url": "https://book.douban.com/subject/1085860/",
+      "tint": [
+        "#33493a",
+        "#141f17"
+      ]
+    },
+    {
+      "id": "26362836",
+      "title": "献给阿尔吉侬的花束",
+      "author": "[美] 丹尼尔·凯斯",
+      "year": "2015",
+      "status": "读完",
+      "quote": "",
+      "cover": "/covers/douban/26362836.jpg",
+      "url": "https://book.douban.com/subject/26362836/",
+      "tint": [
+        "#4f7b83",
+        "#28474d"
+      ]
+    },
+    {
+      "id": "1209899",
+      "title": "我与地坛",
+      "author": "史铁生",
+      "year": "2002",
+      "status": "读完",
+      "quote": "",
+      "cover": "/covers/douban/1209899.jpg",
+      "url": "https://book.douban.com/subject/1209899/",
+      "tint": [
+        "#22383d",
+        "#101114"
+      ]
+    },
+    {
+      "id": "10757938",
+      "title": "半生缘",
+      "author": "张爱玲",
+      "year": "",
+      "status": "读完",
+      "quote": "",
+      "cover": "/covers/douban/10757938.jpg",
+      "url": "https://book.douban.com/subject/10757938/",
+      "tint": [
+        "#5a4a32",
+        "#241c14"
+      ],
+      "rating": 4
+    },
+    {
+      "id": "10757940",
+      "title": "倾城之恋",
+      "author": "张爱玲",
+      "year": "",
+      "status": "读完",
+      "quote": "人世已太多末路，为何在小说不得美美",
+      "cover": "/covers/douban/10757940.jpg",
+      "url": "https://book.douban.com/subject/10757940/",
+      "tint": [
+        "#3d3350",
+        "#171326"
+      ],
+      "rating": 4
+    },
+    {
+      "id": "1039752",
+      "title": "且听风吟",
+      "author": "[日] 村上春树",
+      "year": "2001",
+      "status": "读完",
+      "quote": "",
+      "cover": "/covers/douban/1039752.jpg",
+      "url": "https://book.douban.com/subject/1039752/",
+      "tint": [
+        "#4a3a3a",
+        "#1d1414"
+      ],
+      "rating": 4
+    },
+    {
+      "id": "27200257",
+      "title": "挪威的森林",
+      "author": "[日] 村上春树",
+      "year": "2018",
+      "status": "读完",
+      "quote": "",
+      "cover": "/covers/douban/27200257.jpg",
+      "url": "https://book.douban.com/subject/27200257/",
+      "tint": [
+        "#33493a",
+        "#141f17"
+      ],
+      "rating": 5
+    },
+    {
+      "id": "1291809",
+      "title": "世界尽头与冷酷仙境",
+      "author": "[日] 村上春树",
+      "year": "2002",
+      "status": "读完",
+      "quote": "",
+      "cover": "/covers/douban/1291809.jpg",
+      "url": "https://book.douban.com/subject/1291809/",
+      "tint": [
+        "#4f7b83",
+        "#28474d"
+      ],
+      "rating": 5
+    },
+    {
+      "id": "1083762",
+      "title": "人类的群星闪耀时",
+      "author": "[奥] 斯蒂芬·茨威格",
+      "year": "2004",
+      "status": "读完",
+      "quote": "",
+      "cover": "/covers/douban/1083762.jpg",
+      "url": "https://book.douban.com/subject/1083762/",
+      "tint": [
+        "#22383d",
+        "#101114"
+      ],
+      "rating": 4
+    },
+    {
+      "id": "1007433",
+      "title": "红与黑",
+      "author": "[法] 司汤达",
+      "year": "1993",
+      "status": "读完",
+      "quote": "",
+      "cover": "/covers/douban/1007433.jpg",
+      "url": "https://book.douban.com/subject/1007433/",
+      "tint": [
+        "#5a4a32",
+        "#241c14"
+      ],
+      "rating": 4
+    },
+    {
+      "id": "1008988",
+      "title": "了不起的盖茨比",
+      "author": "[美] 菲茨杰拉德",
+      "year": "2004",
+      "status": "读完",
+      "quote": "",
+      "cover": "/covers/douban/1008988.jpg",
+      "url": "https://book.douban.com/subject/1008988/",
+      "tint": [
+        "#3d3350",
+        "#171326"
+      ],
+      "rating": 5
+    },
+    {
+      "id": "35143790",
+      "title": "蛤蟆先生去看心理医生",
+      "author": "[英] 罗伯特·戴博德",
+      "year": "",
+      "status": "读完",
+      "quote": "",
+      "cover": "/covers/douban/35143790.jpg",
+      "url": "https://book.douban.com/subject/35143790/",
+      "tint": [
+        "#4a3a3a",
+        "#1d1414"
+      ],
+      "rating": 5
+    },
+    {
+      "id": "26585065",
+      "title": "亲密关系（第6版）",
+      "author": "[美] 罗兰·米勒",
+      "year": "2015",
+      "status": "读完",
+      "quote": "",
+      "cover": "/covers/douban/26585065.jpg",
+      "url": "https://book.douban.com/subject/26585065/",
+      "tint": [
+        "#33493a",
+        "#141f17"
+      ]
+    },
+    {
+      "id": "3136271",
+      "title": "罗生门",
+      "author": "[日] 芥川龙之介",
+      "year": "2008",
+      "status": "读完",
+      "quote": "",
+      "cover": "/covers/douban/3136271.jpg",
+      "url": "https://book.douban.com/subject/3136271/",
+      "tint": [
+        "#4f7b83",
+        "#28474d"
+      ]
+    },
+    {
+      "id": "1004821",
+      "title": "理想国",
+      "author": "[古希腊] 柏拉图",
+      "year": "1986",
+      "status": "读完",
+      "quote": "",
+      "cover": "/covers/douban/1004821.jpg",
+      "url": "https://book.douban.com/subject/1004821/",
+      "tint": [
+        "#22383d",
+        "#101114"
+      ]
+    },
+    {
+      "id": "1088581",
+      "title": "浮生六记",
+      "author": "(清)沈复",
+      "year": "1999",
+      "status": "读完",
+      "quote": "",
+      "cover": "/covers/douban/1088581.jpg",
+      "url": "https://book.douban.com/subject/1088581/",
+      "tint": [
+        "#5a4a32",
+        "#241c14"
+      ]
+    },
+    {
+      "id": "1253310",
+      "title": "人间草木",
+      "author": "汪曾祺",
+      "year": "2005",
+      "status": "读完",
+      "quote": "",
+      "cover": "/covers/douban/1253310.jpg",
+      "url": "https://book.douban.com/subject/1253310/",
+      "tint": [
+        "#3d3350",
+        "#171326"
+      ]
+    },
+    {
+      "id": "1034282",
+      "title": "时间简史",
+      "author": "[英] 史蒂芬·霍金",
+      "year": "2007",
+      "status": "读完",
+      "quote": "",
+      "cover": "/covers/douban/1034282.jpg",
+      "url": "https://book.douban.com/subject/1034282/",
+      "tint": [
+        "#4a3a3a",
+        "#1d1414"
+      ]
+    },
+    {
+      "id": "1057244",
+      "title": "边城",
+      "author": "沈从文",
+      "year": "2002",
+      "status": "读完",
+      "quote": "",
+      "cover": "/covers/douban/1057244.jpg",
+      "url": "https://book.douban.com/subject/1057244/",
+      "tint": [
+        "#33493a",
+        "#141f17"
+      ]
+    },
+    {
+      "id": "1139360",
+      "title": "毛泽东选集",
+      "author": "毛泽东",
+      "year": "1991",
+      "status": "读完",
+      "quote": "",
+      "cover": "/covers/douban/1139360.jpg",
+      "url": "https://book.douban.com/subject/1139360/",
+      "tint": [
+        "#4f7b83",
+        "#28474d"
+      ]
+    },
+    {
+      "id": "3071717",
+      "title": "爱你就像爱生命",
+      "author": "王小波、李银河",
+      "year": "2008",
+      "status": "读完",
+      "quote": "",
+      "cover": "/covers/douban/3071717.jpg",
+      "url": "https://book.douban.com/subject/3071717/",
+      "tint": [
+        "#22383d",
+        "#101114"
+      ]
+    },
+    {
+      "id": "1059258",
+      "title": "道德经",
+      "author": "黄元吉",
+      "year": "1996",
+      "status": "读完",
+      "quote": "",
+      "cover": "/covers/douban/1059258.jpg",
+      "url": "https://book.douban.com/subject/1059258/",
+      "tint": [
+        "#5a4a32",
+        "#241c14"
+      ]
+    },
+    {
+      "id": "1203426",
+      "title": "人间词话",
+      "author": "王国维",
+      "year": "1998",
+      "status": "读完",
+      "quote": "",
+      "cover": "/covers/douban/1203426.jpg",
+      "url": "https://book.douban.com/subject/1203426/",
+      "tint": [
+        "#3d3350",
+        "#171326"
+      ]
+    },
+    {
+      "id": "35546622",
+      "title": "置身事内",
+      "author": "兰小欢",
+      "year": "2021",
+      "status": "读完",
+      "quote": "",
+      "cover": "/covers/douban/35546622.jpg",
+      "url": "https://book.douban.com/subject/35546622/",
+      "tint": [
+        "#4a3a3a",
+        "#1d1414"
+      ]
+    },
+    {
+      "id": "1858513",
+      "title": "月亮和六便士",
+      "author": "[英] 毛姆",
+      "year": "2006",
+      "status": "读完",
+      "quote": "",
+      "cover": "/covers/douban/1858513.jpg",
+      "url": "https://book.douban.com/subject/1858513/",
+      "tint": [
+        "#33493a",
+        "#141f17"
+      ]
+    },
+    {
+      "id": "1041482",
+      "title": "万历十五年",
+      "author": "[美] 黄仁宇",
+      "year": "1997",
+      "status": "读完",
+      "quote": "",
+      "cover": "/covers/douban/1041482.jpg",
+      "url": "https://book.douban.com/subject/1041482/",
+      "tint": [
+        "#4f7b83",
+        "#28474d"
+      ]
+    },
+    {
+      "id": "10594787",
+      "title": "霍乱时期的爱情",
+      "author": "[哥伦比亚] 加西亚·马尔克斯",
+      "year": "",
+      "status": "读完",
+      "quote": "",
+      "cover": "/covers/douban/10594787.jpg",
+      "url": "https://book.douban.com/subject/10594787/",
+      "tint": [
+        "#22383d",
+        "#101114"
+      ]
+    },
+    {
+      "id": "1008145",
+      "title": "围城",
+      "author": "钱锺书",
+      "year": "1991",
+      "status": "读完",
+      "quote": "",
+      "cover": "/covers/douban/1008145.jpg",
+      "url": "https://book.douban.com/subject/1008145/",
+      "tint": [
+        "#5a4a32",
+        "#241c14"
+      ]
+    },
+    {
+      "id": "25985021",
+      "title": "人类简史",
+      "author": "[以色列] 尤瓦尔·赫拉利",
+      "year": "2014",
+      "status": "读完",
+      "quote": "",
+      "cover": "/covers/douban/25985021.jpg",
+      "url": "https://book.douban.com/subject/25985021/",
+      "tint": [
+        "#3d3350",
+        "#171326"
+      ]
+    },
+    {
+      "id": "6781808",
+      "title": "杀死一只知更鸟",
+      "author": "[美] 哈珀·李",
+      "year": "2012",
+      "status": "读完",
+      "quote": "",
+      "cover": "/covers/douban/6781808.jpg",
+      "url": "https://book.douban.com/subject/6781808/",
+      "tint": [
+        "#4a3a3a",
+        "#1d1414"
+      ]
+    },
+    {
+      "id": "1084336",
+      "title": "小王子",
+      "author": "[法] 安东尼·德·圣-埃克苏佩里",
+      "year": "2003",
+      "status": "读完",
+      "quote": "",
+      "cover": "/covers/douban/1084336.jpg",
+      "url": "https://book.douban.com/subject/1084336/",
+      "tint": [
+        "#33493a",
+        "#141f17"
+      ]
+    },
+    {
+      "id": "10554308",
+      "title": "白夜行",
+      "author": "[日] 东野圭吾",
+      "year": "",
+      "status": "读完",
+      "quote": "",
+      "cover": "/covers/douban/10554308.jpg",
+      "url": "https://book.douban.com/subject/10554308/",
+      "tint": [
+        "#4f7b83",
+        "#28474d"
+      ]
+    },
+    {
+      "id": "27614904",
+      "title": "房思琪的初恋乐园",
+      "author": "林奕含",
+      "year": "2018",
+      "status": "读完",
+      "quote": "",
+      "cover": "/covers/douban/27614904.jpg",
+      "url": "https://book.douban.com/subject/27614904/",
+      "tint": [
+        "#22383d",
+        "#101114"
+      ]
+    },
+    {
+      "id": "6518605",
+      "title": "三体全集",
+      "author": "刘慈欣",
+      "year": "2012",
+      "status": "读完",
+      "quote": "",
+      "cover": "/covers/douban/6518605.jpg",
+      "url": "https://book.douban.com/subject/6518605/",
+      "tint": [
+        "#5a4a32",
+        "#241c14"
+      ]
+    },
+    {
+      "id": "4820710",
+      "title": "1984",
+      "author": "[英] 乔治·奥威尔",
+      "year": "",
+      "status": "读完",
+      "quote": "",
+      "cover": "/covers/douban/4820710.jpg",
+      "url": "https://book.douban.com/subject/4820710/",
+      "tint": [
+        "#3d3350",
+        "#171326"
+      ]
+    },
+    {
+      "id": "1893466",
+      "title": "鲁滨孙历险记",
+      "author": "笛福",
+      "year": "2006",
+      "status": "读完",
+      "quote": "",
+      "cover": "/covers/douban/1893466.jpg",
+      "url": "https://book.douban.com/subject/1893466/",
+      "tint": [
+        "#4a3a3a",
+        "#1d1414"
+      ]
+    },
+    {
+      "id": "1398395",
+      "title": "狂人日记",
+      "author": "鲁迅",
+      "year": "2006",
+      "status": "读完",
+      "quote": "",
+      "cover": "/covers/douban/1398395.jpg",
+      "url": "https://book.douban.com/subject/1398395/",
+      "tint": [
+        "#33493a",
+        "#141f17"
+      ]
+    },
+    {
+      "id": "25982198",
+      "title": "社会心理学（第11版，精装彩印）",
+      "author": "[美] 戴维·迈尔斯",
+      "year": "",
+      "status": "读完",
+      "quote": "",
+      "cover": "/covers/douban/25982198.jpg",
+      "url": "https://book.douban.com/subject/25982198/",
+      "tint": [
+        "#4f7b83",
+        "#28474d"
+      ]
+    },
+    {
+      "id": "1449351",
+      "title": "呐喊",
+      "author": "鲁迅",
+      "year": "1973",
+      "status": "读完",
+      "quote": "",
+      "cover": "/covers/douban/1449351.jpg",
+      "url": "https://book.douban.com/subject/1449351/",
+      "tint": [
+        "#22383d",
+        "#101114"
+      ]
+    },
+    {
+      "id": "1865089",
+      "title": "瓦尔登湖",
+      "author": "[美] 梭罗",
+      "year": "2006",
+      "status": "读完",
+      "quote": "",
+      "cover": "/covers/douban/1865089.jpg",
+      "url": "https://book.douban.com/subject/1865089/",
+      "tint": [
+        "#5a4a32",
+        "#241c14"
+      ]
+    },
+    {
+      "id": "1427288",
+      "title": "小妇人",
+      "author": "[美]路易莎·梅·奥尔科特",
+      "year": "1998",
+      "status": "读完",
+      "quote": "",
+      "cover": "/covers/douban/1427288.jpg",
+      "url": "https://book.douban.com/subject/1427288/",
+      "tint": [
+        "#3d3350",
+        "#171326"
+      ]
+    },
+    {
+      "id": "1476651",
+      "title": "社会心理学",
+      "author": "[美] 戴维·迈尔斯",
+      "year": "2006",
+      "status": "读完",
+      "quote": "",
+      "cover": "/covers/douban/1476651.jpg",
+      "url": "https://book.douban.com/subject/1476651/",
+      "tint": [
+        "#4a3a3a",
+        "#1d1414"
+      ]
+    },
+    {
+      "id": "30187774",
+      "title": "小妇人",
+      "author": "[美] 路易莎·梅·奥尔科特",
+      "year": "2018",
+      "status": "读完",
+      "quote": "",
+      "cover": "/covers/douban/30187774.jpg",
+      "url": "https://book.douban.com/subject/30187774/",
+      "tint": [
+        "#33493a",
+        "#141f17"
+      ]
+    },
+    {
+      "id": "1068920",
+      "title": "飘",
+      "author": "[美] 玛格丽特·米切尔",
+      "year": "2000",
+      "status": "读完",
+      "quote": "",
+      "cover": "/covers/douban/1068920.jpg",
+      "url": "https://book.douban.com/subject/1068920/",
+      "tint": [
+        "#4f7b83",
+        "#28474d"
+      ]
+    },
+    {
+      "id": "6082808",
+      "title": "百年孤独",
+      "author": "[哥伦比亚] 加西亚·马尔克斯",
+      "year": "2011",
+      "status": "读完",
+      "quote": "",
+      "cover": "/covers/douban/6082808.jpg",
+      "url": "https://book.douban.com/subject/6082808/",
+      "tint": [
+        "#22383d",
+        "#101114"
+      ]
+    },
+    {
+      "id": "4913064",
+      "title": "活着",
+      "author": "余华",
+      "year": "2012",
+      "status": "读完",
+      "quote": "",
+      "cover": "/covers/douban/4913064.jpg",
+      "url": "https://book.douban.com/subject/4913064/",
+      "tint": [
+        "#5a4a32",
+        "#241c14"
+      ]
+    }
+  ]
+}

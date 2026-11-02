@@ -1,0 +1,27 @@
+---
+interface Props {
+  title?: string;
+  badge?: string;
+  width?: string;
+  level?: 1 | 2; // 页面主标题用 1，区块标题用 2
+}
+const {
+  title = "",
+  badge = "",
+  width = "min(960px, 94vw)",
+  level = 2,
+} = Astro.props;
+const Heading = level === 1 ? "h1" : "h2";
+---
+
+<section class="glass-card" style={`--win-width:${width}`}>
+  {(title || badge) && (
+    <div class="gc-head">
+      {badge && <span class="gc-badge">{badge}</span>}
+      {title && <Heading class="gc-title">{title}</Heading>}
+    </div>
+  )}
+  <div class="gc-body">
+    <slot />
+  </div>
+</section>

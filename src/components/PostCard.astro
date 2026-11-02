@@ -1,0 +1,29 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { url } from "../lib/url";
+interface Props {
+  post: CollectionEntry<"posts">;
+}
+const { post } = Astro.props;
+const { title, date, category, summary, rating } = post.data;
+const href = url(`/blog/${post.id}`);
+const iso = date instanceof Date ? date.toISOString().slice(0, 10) : String(date);
+// 分类对应的强调色相，用于卡片左侧色条
+const hueMap: Record<string, number> = {
+  "技术学习": 152, "题解": 205, "影评": 8, "读书笔记": 38,
+};
+const hue = hueMap[category] ?? 152;
+---
+
+<article class="post-card" style={`--h:${hue}`}>
+  <a href={href} class="pc-link">
+    <div class="pc-meta">
+      <span class="pc-cat">{category}</span>
+      <time>{iso}</time>
+      {rating != null && <span class="pc-rating">★ {rating}</span>}
+    </div>
+    <h3 class="pc-title">{title}</h3>
+    {summary && <p class="pc-summary">{summary}</p>}
+    <span class="pc-cta">读 →</span>
+  </a>
+</article>

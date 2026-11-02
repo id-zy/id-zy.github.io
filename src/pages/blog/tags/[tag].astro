@@ -1,0 +1,79 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+import { type CollectionEntry } from "astro:content";
+import { url } from "../../../lib/url";
+import { slugOf } from "../../../lib/slug";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("posts", ({ data }) => !data.draft);
+  const tags = [...new Set(posts.flatMap((p) => p.data.tags ?? []))];
+  return tags.map((tag) => ({
+    params: { tag },
+    props: {
+      tag,
+      posts: posts
+        .filter((p) => (p.data.tags ?? []).includes(tag))
+        .sort((a, b) => b.data.date.getTime() - a.data.date.getTime()),
+      related: [...new Set(posts.flatMap((p) => p.data.tags ?? []))]
+        .filter((t) => t !== tag)
+        .sort((a, b) => a.localeCompare(b, "zh-Hans-CN")),
+    },
+  }));
+}
+
+const { tag, posts, related } = Astro.props as {
+  tag: string;
+  posts: CollectionEntry<"posts">[];
+  related: string[];
+};
+
+const iso = (d: Date | string) => (d instanceof Date ? d.toISOString().slice(0, 10) : String(d));
+const hueMap: Record<string, number> = {
+  "技术学习": 152, "题解": 205, "影评": 8, "读书笔记": 38,
+  "创作": 8, "博客": 152, "离散数学": 205, "未分类": 152,
+};
+---
+
+<BaseLayout shell={false} title={`标签 · #${tag}`} orb>
+  <div class="blog-page">
+
+    <div class="blog-shell">
+      <nav class="tax-nav">
+        <a href={url("/blog")}>← 返回博客</a>
+        <span>标签档案</span>
+      </nav>
+
+      <header class="tax-head">
+        <h1>#{tag}</h1>
+        <p>共 {posts.length} 篇文章贴了同一个标签。</p>
+      </header>
+
+      <p class="tag-cloud">
+        {related.map((t) => <a href={url(`/blog/tags/${encodeURIComponent(t)}`)}>#{t}</a>)}
+      </p>
+
+      <div class="post-list">
+        {posts.map((p) => (
+          <a class="post-row" href={url(`/blog/${slugOf(p.id)}`)} style={`--h:${hueMap[p.data.category] ?? 152}`}>
+            <div class="post-main">
+              <div class="post-meta">
+                <time>{iso(p.data.date)}</time>
+                <span class="post-cat">{p.data.category}</span>
+              </div>
+              <h2>{p.data.title}</h2>
+              {p.data.summary && <p class="post-sum">{p.data.summary}</p>}
+              <div class="post-tags">
+                {(p.data.tags ?? []).map((t: string) => <span>#{t}</span>)}
+              </div>
+            </div>
+            <div class="post-read">
+              <span class="post-cover" aria-hidden="true"><em>{p.data.category}</em></span>
+              <span class="post-go">读全文</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</BaseLayout>

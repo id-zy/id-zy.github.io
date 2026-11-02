@@ -1,0 +1,176 @@
+/* ── 设计令牌 + 基础 reset + 全站背景层 + 无障碍工具类 ── */
+:root {
+  /* ── 暗调电影绿（温润）· 核心三色：深叶 #264E36 / 主绿 #487C5A / 亮叶 #689C76 ── */
+  --green-900: #06140e; /* 最深的林影 */
+  --green-800: #0b2016;
+  --green-700: #143526;
+  --green-600: #264e36; /* 深叶 */
+  --green-500: #487c5a; /* 主绿 */
+  --green-400: #689c76; /* 亮叶 */
+  --green-300: #a4d6ae;
+  --green-200: #aed2b4;
+  --green-100: #d9ebdc; /* 最亮的新叶 */
+
+  --ink: #e8f2ea;          /* 主文字：带绿的浅白 */
+  --ink-strong: #f4fbf6;   /* 标题 / 数字：最亮一档 */
+  --ink-soft: #dbe8de;     /* 正文长文：略收一档，久读不刺眼 */
+  --muted: #b3c8ba;        /* 次级文字（亮叶区也过 4.5） */
+  --paper-photo: #eef2ea;  /* 拍立得相纸（唯一暖白，属材质不属文字） */
+  --line: rgba(255, 255, 255, 0.10);
+
+  --surface: rgba(255, 255, 255, 0.055);
+  --surface-hover: rgba(255, 255, 255, 0.09);
+  --glass: rgba(16, 38, 27, 0.55);
+  --glass-border: rgba(255, 255, 255, 0.13);
+
+  --accent: var(--green-300);
+
+  --radius: 14px;
+  --menubar-h: 30px;
+  --dock-h: 84px;
+
+  --font-ui: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC",
+    "Microsoft YaHei", "Segoe UI", Roboto, sans-serif;
+  --font-read: "Songti SC", "Noto Serif SC", Georgia, "Times New Roman", serif;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-ui);
+  color: var(--ink);
+  background: #08150e;
+  background-attachment: fixed;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+::selection { background: rgba(108, 187, 131, 0.32); color: var(--ink-strong); }
+
+/* ── 全站背景层：楼梯间大窗绿叶照（bg-forest.jpg），渐变仅作加载兜底 ── */
+.home-bg {
+  position: fixed; inset: 0; z-index: -1;
+  background-color: #08150e;
+  background-size: cover;
+  background-position: center 38%;
+  background-attachment: fixed;
+  filter: brightness(var(--amb-b, 1)) saturate(var(--amb-s, 1));
+  transition: filter 2.4s linear;
+}
+/* 随小时的森林光：色温罩色（清晨偏青、黄昏偏暖、深夜偏冷） */
+.home-bg::before {
+  content: ""; position: absolute; inset: 0;
+  background: rgba(var(--amb-tint, 12, 30, 40), var(--amb-a, 0.3));
+  transition: background 2.4s linear;
+}
+/* 电影感叠层：暖绿罩色 + 中心减淡（保文字可读）+ 底部压暗 + 暖调角光 */
+.home-bg::after {
+  content: ""; position: absolute; inset: 0;
+  background:
+    radial-gradient(120% 90% at 50% 40%, rgba(38, 78, 54, 0.10) 30%, rgba(5, 16, 11, 0.54) 100%),
+    linear-gradient(180deg, rgba(6, 18, 12, 0.38) 0%, rgba(72, 124, 90, 0.08) 42%, rgba(5, 15, 10, 0.52) 100%),
+    radial-gradient(55% 40% at 18% 12%, rgba(232, 200, 132, 0.10), transparent 70%);
+}
+/* 入夜联动：音乐播放时，整片林子的光跟着慢慢呼吸（切到别的面板也看得到） */
+html.music-on .home-bg { animation: nightBreath 4.4s ease-in-out infinite; }
+@keyframes nightBreath {
+  0%, 100% { opacity: 1; }
+  46%      { opacity: .82; }
+}
+
+/* ── 萤火虫：柔光跟随指针 / 键盘焦点 ── */
+.firefly {
+  position: fixed; left: 0; top: 0; width: 440px; height: 440px;
+  margin: -220px 0 0 -220px; z-index: -1; pointer-events: none;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(176, 226, 186, 0.13), rgba(176, 226, 186, 0.05) 42%, transparent 70%);
+  will-change: transform;
+}
+
+/* ── 无障碍工具类 ── */
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+.skip-link {
+  position: fixed; left: 12px; top: 12px; z-index: 100;
+  padding: 10px 18px; border-radius: 10px;
+  background: var(--ink); color: #0d2418;
+  font-weight: 700; font-size: 14px;
+  transform: translateY(-180%); transition: transform 0.18s ease;
+}
+.skip-link:focus { transform: translateY(0); }
+
+/* ── 焦点可见：全站统一，磨砂玻璃上也看得见 ── */
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+.dock-item:focus-visible { outline-offset: 4px; border-radius: 14px; }
+.panel:focus { outline: none; }
+
+/* ── 主区域（位于菜单栏与 Dock 之间，独立页用） ── */
+.screen {
+  padding-top: var(--menubar-h);
+  padding-bottom: var(--dock-h);
+  min-height: 100vh;
+}
+/* 不再使用 Dock 的页面：只给菜单栏留高度 */
+.screen-no-dock { padding-bottom: 0; }
+
+/* ── 全屏应用切换器（仅首页） ── */
+.switcher {
+  position: fixed; top: var(--menubar-h); bottom: var(--dock-h); left: 0; right: 0;
+  overflow: hidden;
+}
+.stage { display: flex; height: 100%; transition: transform 0.42s cubic-bezier(.22,.61,.36,1); }
+.panel { min-width: 100%; height: 100%; display: flex; align-items: stretch; justify-content: center; padding: 28px 34px 34px; }
+.panel-scroll { width: 100%; max-height: 100%; overflow-y: auto; }
+
+/* 无卡片的内容容器：铺满全宽，标题区独立 */
+.panel-body { width: 100%; max-width: 1200px; margin: 0 auto; }
+.panel-head { margin: 0 0 20px; display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
+.panel-head .gc-title { margin: 0; font-size: 22px; }
+.panel-intro {
+  width: 100%; margin: 8px 0 22px; font-size: 13px; color: var(--muted);
+  padding-left: 12px; border-left: 3px solid var(--green-400);
+}
+
+/* ── 玻璃卡片容器（无标题栏，深色磨砂，暖调电影感）── */
+.glass-card {
+  width: var(--win-width, min(900px, 94vw));
+  margin: 0 auto;
+  position: relative;
+  background: var(--glass);
+  backdrop-filter: blur(26px) saturate(1.4);
+  -webkit-backdrop-filter: blur(26px) saturate(1.4);
+  border: 1px solid var(--glass-border);
+  border-radius: 22px;
+  box-shadow: 0 26px 64px rgba(0, 0, 0, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.10);
+  overflow: hidden;
+}
+/* 暖调柔光：左上角一束淡淡的暖光洒进卡片，右下角压暗，营造胶片放映的温润氛围 */
+.glass-card::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background:
+    radial-gradient(80% 60% at 22% 8%, rgba(232, 200, 132, 0.07), transparent 55%),
+    radial-gradient(130% 110% at 50% 50%, transparent 58%, rgba(6, 14, 10, 0.34) 100%);
+}
+.glass-card > * { position: relative; z-index: 1; }
+.gc-head {
+  display: flex; align-items: center; gap: 10px;
+  padding: 20px 26px 0;
+}
+.gc-badge {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+  color: var(--green-200);
+  background: rgba(108, 187, 131, 0.16);
+  border: 1px solid rgba(108, 187, 131, 0.26);
+  padding: 3px 11px; border-radius: 999px;
+}
+.gc-title { margin: 0; font-size: 19px; font-weight: 700; color: var(--ink-strong); font-family: var(--font-ui); letter-spacing: 0.5px; }
+.gc-body { padding: 16px 26px 26px; }
+.win-intro {
+  margin: 0 0 18px; font-size: 13px; color: var(--muted);
+  padding-left: 12px; border-left: 3px solid var(--green-400);
+}

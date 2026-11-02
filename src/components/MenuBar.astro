@@ -1,0 +1,45 @@
+---
+import { url } from "../lib/url";
+interface Props {
+  app?: string;
+}
+const { app = "桌面" } = Astro.props;
+---
+
+<header class="menubar">
+  <div class="mb-left">
+    <a class="mb-logo" href={url("/")} aria-label="返回桌面">◉</a>
+    <span class="mb-app" id="mb-app">{app}</span>
+    <nav class="mb-nav" aria-label="主导航">
+      <a href={url("/blog")}>博客</a>
+      <a href={url("/works")}>作品</a>
+    </nav>
+  </div>
+  <div class="mb-right">
+    <button class="mb-search" type="button" data-cmd-open aria-label="快速前往，快捷键 Command 加 K">
+      <span aria-hidden="true">⌕</span>
+      <kbd aria-hidden="true">⌘K</kbd>
+    </button>
+    <span class="mb-clock" id="mb-clock">--:--</span>
+  </div>
+</header>
+
+<script>
+  // 时钟：每次 tick 重新取元素，避免视图过渡后还写进已销毁的旧节点。
+  const pad = (n: number) => String(n).padStart(2, "0");
+  let timer = 0;
+
+  const tick = () => {
+    const clock = document.getElementById("mb-clock");
+    if (!clock) return;
+    const d = new Date();
+    clock.textContent = `${pad(d.getHours())}:${pad(d.getMinutes())}`;
+  };
+
+  const init = () => {
+    tick();
+    if (!timer) timer = window.setInterval(tick, 10000);
+  };
+
+  document.addEventListener("astro:page-load", init);
+</script>

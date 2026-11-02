@@ -1,0 +1,50 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { memories, theme } from "../data/curation";
+import { url } from "../lib/url";
+const exhibit = memories[0];
+const filters = ["全部", "耳畔", "银幕", "书页", "底片"];
+---
+<BaseLayout app="策展" title={`${theme.title} · 策展`} bare orb>
+  <div class="mac-app-page">
+    <section class="mac-app cur-app curation-archive">
+      <div class="mac-canvas">
+        <header class="archive-head">
+          <a href={url("/")} class="archive-back">← 返回桌面</a>
+          <p><b>2026 春 · {theme.title}</b><span>#雨夜&nbsp;&nbsp;#公路&nbsp;&nbsp;#城市边缘</span></p>
+          <h1>{theme.title}</h1>
+          <p class="archive-intro">导语：{theme.intro}</p>
+        </header>
+        <nav class="archive-filter" aria-label="筛选展品">
+          {filters.map((filter, index) => <button class:list={[index === 0 && "is-active"]} data-filter={index === 0 ? "all" : ["music","movie","book","photo"][index-1]}>[{filter}]</button>)}
+        </nav>
+        <div class="archive-exhibits">
+          <article class="archive-piece piece-music" data-kind="music"><span>耳畔 · 专辑封面</span><h2>{exhibit.music.title}</h2><p>{exhibit.music.artist}</p><small>{exhibit.music.note}</small></article>
+          <article class="archive-piece piece-movie" data-kind="movie" style={`--piece-image:url(${exhibit.movie.image})`}><span>银幕 · 电影截图</span><h2>{exhibit.movie.title}</h2><p>{exhibit.movie.director} · {exhibit.movie.year}</p><small>{exhibit.movie.note}</small></article>
+          <article class="archive-piece piece-book" data-kind="book"><span>书页 · 书摘</span><h2>{exhibit.book.title}</h2><p>{exhibit.book.author}</p><blockquote>“{exhibit.book.quote}”</blockquote></article>
+        </div>
+        <div class="archive-foot">
+          <figure class="archive-photo" data-kind="photo" style={`--piece-image:url(${exhibit.photo.image})`}><figcaption><b>底片背后</b><span>{exhibit.photo.title} · {exhibit.photo.location}</span></figcaption></figure>
+          <aside class="archive-tags"><b>关联标签</b><p>#雨夜&nbsp;&nbsp;#深夜&nbsp;&nbsp;#公路</p><b>策展漫游</b><p>{exhibit.line}</p></aside>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+<script>
+  // 视图过渡后筛选按钮是新节点，需要每次导航重新绑定。
+  const init = () => {
+    const buttons = [...document.querySelectorAll<HTMLButtonElement>("[data-filter]")];
+    const pieces = [...document.querySelectorAll<HTMLElement>("[data-kind]")];
+    if (!buttons.length || buttons[0].dataset.ready === "1") return;
+    buttons[0].dataset.ready = "1";
+    buttons.forEach((button) =>
+      button.addEventListener("click", () => {
+        buttons.forEach((item) => item.classList.toggle("is-active", item === button));
+        const filter = button.dataset.filter;
+        pieces.forEach((piece) => piece.classList.toggle("is-muted", filter !== "all" && piece.dataset.kind !== filter));
+      }),
+    );
+  };
+  document.addEventListener("astro:page-load", init);
+</script>
