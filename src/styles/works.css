@@ -311,12 +311,8 @@
   background: radial-gradient(70% 85% at 45% 30%, rgba(216, 162, 74, 0.11), transparent 76%), #0c0d0f;
 }
 
-.work-stage[data-visual="tool"] .work-visual {
-  background: radial-gradient(70% 85% at 60% 30%, rgba(121, 185, 180, 0.08), transparent 74%), #0b0d0f;
-}
-
-.work-stage[data-visual="prism"] .work-visual {
-  background: radial-gradient(70% 85% at 40% 30%, rgba(216, 162, 74, 0.09), transparent 74%), #0c0d0f;
+.work-stage[data-visual="terminal"] .work-visual {
+  background: radial-gradient(70% 85% at 60% 30%, rgba(121, 185, 180, 0.08), transparent 74%), #0a0c0d;
 }
 
 .work-mock {
@@ -455,119 +451,47 @@
   letter-spacing: 0.1em;
 }
 
-/* ── 刻度：本地标注工作台 ── */
-.tool-ui { flex: 1; min-height: 0; display: flex; background: #14171a; }
-
-.tool-ui > aside {
-  flex: 0 0 42px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 17px;
-  padding: 15px 0 12px;
-  border-right: 1px solid rgba(232, 228, 220, 0.09);
-  background: #111316;
-}
-
-.tool-ui > aside b { margin-bottom: 7px; color: var(--works-amber); font-family: var(--font-read); font-size: 16px; font-weight: 500; }
-.tool-ui > aside i { width: 12px; height: 2px; background: #666d72; box-shadow: 0 4px 0 #666d72; }
-.tool-ui > aside i:first-of-type { background: var(--works-cyan); box-shadow: 0 4px 0 var(--works-cyan); }
-.tool-ui > aside span { margin-top: auto; color: #697176; font-size: 6px; line-height: 1.5; text-align: center; }
-
-.tool-workspace {
+/* ── 摆渡：同步脚本终端 ── */
+.terminal-ui {
   flex: 1;
-  min-width: 0;
   min-height: 0;
   display: flex;
   flex-direction: column;
-  padding: clamp(12px, 1.8vw, 25px);
+  background: #0b0d0e;
+  font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
 }
 
-.tool-workspace > header { display: flex; align-items: start; justify-content: space-between; gap: 12px; }
-.tool-workspace > header small { display: block; margin-bottom: 8px; color: #7e878c; font-size: 7px; }
-.tool-workspace > header b { display: block; font-family: var(--font-read); font-size: clamp(13px, 1.45vw, 21px); font-weight: 400; }
-.tool-workspace > header > span { padding: 4px 6px; border: 1px solid rgba(121, 185, 180, 0.28); color: var(--works-cyan); font-size: 6px; white-space: nowrap; }
-
-.tool-search {
+.term-head {
+  flex: 0 0 34px;
   display: flex;
-  justify-content: space-between;
-  margin: 15px 0;
-  padding: 8px 10px;
-  border: 1px solid rgba(232, 228, 220, 0.1);
-  color: #717a7f;
-  background: #191c20;
-  font-size: 7px;
-}
-
-.tool-search i { color: #9da4a7; font-style: normal; }
-.tool-columns { flex: 1; min-height: 0; display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 15px; }
-.tool-list > small, .tool-note > small { display: block; margin-bottom: 7px; color: #798287; font-size: 6px; letter-spacing: 0.1em; }
-
-.tool-list > div {
-  position: relative;
-  padding: 9px 8px 9px 15px;
-  border-top: 1px solid rgba(232, 228, 220, 0.08);
-}
-
-.tool-list > div.is-active { background: rgba(121, 185, 180, 0.07); }
-.tool-list > div > i { position: absolute; top: 12px; left: 3px; width: 4px; height: 4px; border-radius: 50%; background: #626a6f; }
-.tool-list > div.is-active > i { background: var(--works-cyan); box-shadow: 0 0 7px rgba(121, 185, 180, 0.5); }
-.tool-list b { display: block; overflow: hidden; color: #cdd0ce; font-size: 8px; font-weight: 500; text-overflow: ellipsis; white-space: nowrap; }
-.tool-list div span { display: block; margin-top: 5px; color: #6f787d; font-size: 6px; }
-
-.tool-note { padding: 2px 0 0 15px; border-left: 1px solid rgba(232, 228, 220, 0.08); }
-.tool-note p { margin: 12px 0 16px; color: #d8d8d1; font-family: var(--font-read); font-size: clamp(10px, 1.05vw, 15px); line-height: 1.75; }
-.tool-note > span { display: block; width: 100%; height: 1px; margin-top: 8px; background: rgba(232, 228, 220, 0.09); }
-.tool-note > span.short { width: 58%; }
-.tool-note > div { display: inline-block; margin-top: 17px; padding-bottom: 3px; border-bottom: 1px solid rgba(216, 162, 74, 0.45); color: var(--works-amber); font-size: 7px; }
-
-/* ── 折光：生成画布与参数 ── */
-.prism-ui { flex: 1; min-height: 0; display: flex; flex-direction: column; background: #17191b; }
-
-.prism-ui > header {
-  flex: 0 0 38px;
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  gap: 10px;
-  padding: 0 15px;
-  color: #8d9496;
-  font-size: 6px;
-  letter-spacing: 0.12em;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 14px;
+  border-bottom: 1px solid rgba(232, 228, 220, 0.08);
+  color: #7f8a83;
+  font-size: 7px;
+  letter-spacing: 0.06em;
 }
 
-.prism-ui > header b { color: #e0ded5; font-size: 9px; }
-.prism-ui > header i { justify-self: end; padding: 3px 6px; border: 1px solid rgba(121, 185, 180, 0.3); color: var(--works-cyan); font-style: normal; }
-.prism-body { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(0, 1fr) 28%; }
+.term-head i { color: var(--works-cyan); font-style: normal; }
 
-.prism-canvas {
-  position: relative;
-  overflow: hidden;
-  color: #202224;
-  background:
-    linear-gradient(rgba(32, 34, 36, 0.11) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(32, 34, 36, 0.11) 1px, transparent 1px),
-    #d4cfc3;
-  background-size: 25% 25%;
+.term-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.9em;
+  padding: clamp(14px, 2vw, 30px) clamp(14px, 2.4vw, 34px);
+  font-size: clamp(7px, 0.85vw, 11px);
+  line-height: 1.65;
 }
 
-.prism-orbit { position: absolute; top: 10%; left: 22%; width: 57%; aspect-ratio: 1; border: 1px solid rgba(32, 34, 36, 0.52); border-radius: 50%; }
-.prism-disc { position: absolute; top: 20%; left: 32%; width: 39%; aspect-ratio: 1; border-radius: 50%; background: rgba(216, 162, 74, 0.82); mix-blend-mode: multiply; }
-.prism-disc::after { content: ""; position: absolute; inset: 17%; border: 1px solid rgba(32, 34, 36, 0.45); border-radius: 50%; }
-.prism-line { position: absolute; z-index: 2; width: 80%; height: 1px; background: #497f7d; transform-origin: left; }
-.prism-line.one { top: 27%; left: 4%; transform: rotate(32deg); }
-.prism-line.two { right: -15%; bottom: 20%; transform: rotate(-41deg); }
-.prism-cross { position: absolute; top: 13%; right: 10%; color: #497f7d; font-size: 17px; font-weight: 300; }
-.prism-canvas > b { position: absolute; z-index: 3; bottom: 11%; left: 9%; font-family: var(--font-read); font-size: clamp(20px, 2.7vw, 40px); font-weight: 500; letter-spacing: 0.06em; line-height: 1.15; }
-.prism-canvas > small { position: absolute; right: 7%; bottom: 8%; font-size: 6px; letter-spacing: 0.12em; line-height: 1.7; text-align: right; }
-
-.prism-controls { padding: 15px 12px; color: #a6acae; background: #1b1e20; }
-.prism-controls > small { display: block; margin-bottom: 20px; color: #717a7d; font-size: 6px; letter-spacing: 0.1em; }
-.prism-controls > div { display: grid; grid-template-columns: 25px minmax(20px, 1fr) 20px; align-items: center; gap: 5px; margin-bottom: 16px; font-size: 6px; }
-.prism-controls div > i { height: 2px; background: #40464a; }
-.prism-controls div > i b { display: block; height: 100%; background: var(--works-cyan); }
-.prism-controls em { color: #757e81; font-family: ui-monospace, monospace; font-size: 6px; font-style: normal; }
-.prism-controls p { margin: 25px 0 0; padding-top: 10px; border-top: 1px solid #383e41; color: var(--works-amber); font-family: ui-monospace, monospace; font-size: 6px; line-height: 1.8; }
+.term-body p { margin: 0; color: #c3ccc6; }
+.term-body p.dim { color: #5d6a63; }
+.term-body .ok { color: #86d3a2; }
+.term-body b { color: var(--works-amber); font-weight: 600; }
 
 /* ── 案例详情 ── */
 .case-back {
@@ -631,8 +555,6 @@
 .case-visual .work-mock { inset: 6.5% 5%; }
 .case-visual .archive-ui { padding: clamp(16px, 2.6vw, 38px); }
 .case-visual .archive-feature strong { font-size: clamp(24px, 3.2vw, 50px); }
-.case-visual .tool-workspace { padding: clamp(15px, 2.2vw, 32px); }
-.case-visual .prism-canvas > b { font-size: clamp(24px, 3.5vw, 54px); }
 
 .case-content {
   display: grid;
@@ -750,27 +672,7 @@
   .archive-index small { display: none; }
   .archive-index b { font-size: 8px; }
   .archive-ui > footer { font-size: 5px; }
-  .tool-ui > aside { flex-basis: 31px; gap: 15px; padding-top: 12px; }
-  .tool-ui > aside b { font-size: 13px; }
-  .tool-workspace, .case-visual .tool-workspace { padding: 12px; }
-  .tool-workspace > header > span { display: none; }
-  .tool-workspace > header b { font-size: 14px; }
-  .tool-search { margin: 12px 0; }
-  .tool-columns { grid-template-columns: 1fr; }
-  .tool-note { display: none; }
-  .tool-list > div { padding: 6px 6px 6px 13px; }
-  .tool-list > div > i { top: 9px; }
-  .tool-list div span { margin-top: 3px; }
-  .tool-list b { font-size: 9px; }
-  .prism-ui > header { grid-template-columns: 1fr auto; flex-basis: 32px; padding-inline: 10px; }
-  .prism-ui > header > span { display: none; }
-  .prism-body { grid-template-columns: minmax(0, 1fr) 82px; }
-  .prism-canvas > b, .case-visual .prism-canvas > b { font-size: 23px; }
-  .prism-controls { padding: 11px 8px; }
-  .prism-controls > small { margin-bottom: 14px; font-size: 5px; }
-  .prism-controls > div { grid-template-columns: 1fr; gap: 5px; margin-bottom: 12px; }
-  .prism-controls div > em { display: none; }
-  .prism-controls p { margin-top: 16px; font-size: 5px; }
+  .term-body { padding: 12px; gap: 0.7em; }
   .case-back-top { margin-top: 94px; }
   .case-hero { gap: 34px; padding: 42px 0 48px; }
   .case-heading h1 { font-size: 94px; }

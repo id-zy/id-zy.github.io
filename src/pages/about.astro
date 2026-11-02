@@ -5,11 +5,34 @@ import GlassCard from "../components/GlassCard.astro";
 
 <BaseLayout app="关于" title="关于">
   <GlassCard title="关于我" badge="关于" width="min(720px, 94vw)" level={1}>
-    <div class="prose">
+    <div class="prose about-prose">
       <p>你好，欢迎来到我的主页。</p>
-      <p>这里是我用 Astro 搭的个人主页：一块 macOS 风格的桌面，博客、音乐、电影、图书、相册像应用一样切换。</p>
-      <p>目前还在填充内容——技术学习笔记、算法题解、影评和读书笔记会陆续搬进来。</p>
-      <p>（这段是占位简介，等你想好怎么介绍自己，我替你换上。）</p>
+      <p>这是一块用网页做的 macOS 桌面：博客、题解、电影、图书、音乐、相册各自是一个应用，点开 Dock 上的图标就能进去。没有算法推荐，也没有信息流，只有我读过、看过、写下过的东西。</p>
+      <p>写作用 Obsidian，一条脚本把笔记同步成站点页面；观影和读书的档案来自豆瓣，歌单来自网易云。数据都在构建时抓取并缓存，所以页面是静态的，不会因为外部服务抽风而变空。</p>
+      <p>现在写得最多的是技术笔记和影评，其中算法题解三百多篇。电影和图书会随看随更新，音乐页那首大概是最近循环最多的。想知道某个东西我是怎么想通的，多半能在题解或博客里找到过程，而不只是结论。</p>
+
+      <hr class="about-rule" />
+
+      <section class="about-notes" aria-label="站点说明">
+        <p>本站是我个人的非商业站点，站内所有观点仅代表个人，与任何雇主或机构无关。</p>
+        <p>站内的文字、图片和版面设计归我所有。欢迎引用、链接和讨论，注明出处并附上原文链接即可；未经许可，请勿整站搬运或用于商业用途。</p>
+        <p>观影与读书数据来自我的豆瓣账号，歌单来自网易云音乐，均在构建时抓取并缓存在本地；站内不含账号、位置等个人信息。本站也没有接入任何第三方统计——没有埋点，不追踪访客。</p>
+        <p>技术笔记与题解是个人学习记录，可能有错，也可能随工具版本更替而过时，仅供参考，照此操作的风险请自行判断。影评与书评是个人感受，不构成对作品或作者的定评。</p>
+      </section>
     </div>
   </GlassCard>
 </BaseLayout>
+
+<style>
+  .about-rule {
+    border: 0;
+    border-top: 1px solid var(--glass-border);
+    margin: 30px 0 22px;
+  }
+  .about-notes p {
+    font-size: 13.5px;
+    line-height: 1.85;
+    color: rgba(219, 232, 222, 0.66);
+  }
+  .about-notes p + p { margin-top: 13px; }
+</style>

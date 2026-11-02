@@ -1,0 +1,17 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import GlassCard from "../components/GlassCard.astro";
+import { url } from "../lib/url";
+---
+
+<BaseLayout app="404" title="页面不存在">
+  <GlassCard title="这里什么都没有" badge="404" width="min(560px, 92vw)" level={1}>
+    <div class="prose">
+      <p>你要找的页面不在这里——可能是链接打错了，也可能是这篇文章已经被移动或删掉。</p>
+      <p>
+        可以回到 <a href={url("/")}>主页</a>，或者去 <a href={url("/blog/")}>博客</a> 看看最近的文字，
+        <a href={url("/problems/")}>题解</a> 里也还有三百多篇。
+      </p>
+    </div>
+  </GlassCard>
+</BaseLayout>

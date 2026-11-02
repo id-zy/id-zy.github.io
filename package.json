@@ -5,10 +5,12 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && node tools/gen-sitemap.cjs",
     "preview": "astro preview",
     "astro": "astro",
-    "sync:synopsis": "node scripts/sync-synopsis.mjs"
+    "sync:synopsis": "node scripts/sync-synopsis.mjs",
+    "check:routes": "node tools/route-diff.cjs",
+    "baseline:routes": "node tools/route-diff.cjs --update"
   },
   "dependencies": {
     "astro": "^5.5.0"

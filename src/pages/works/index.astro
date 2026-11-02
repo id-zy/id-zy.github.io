@@ -9,7 +9,7 @@ const colors=["linear-gradient(135deg,#173f31,#0b1711)","linear-gradient(135deg,
   <div class="art-page" data-art-page data-art="works">
     <SiteNav current="works" />
     <main class="works-new">
-      <header class="works-head"><div><p class="art-kicker">Selected practice / 2025—2026</p><h1 class="art-title">作品集</h1></div><p class="art-deck">横向滚动浏览项目。每张海报都是一个入口。</p></header>
+      <header class="works-head"><div><p class="art-kicker">Selected works / 2026</p><h1 class="art-title">作品集</h1></div><p class="art-deck">横向滚动浏览项目。每张海报都是一个入口。</p></header>
       <section class="works-rail" data-horizontal>
         {works.map((work,index)=><article class="work-poster" style={`--work-bg:${colors[index%colors.length]}`}><span class="art-number">0{index+1} / {work.typeLabel} / {work.period}</span><h2>{work.title}</h2><footer><p>{work.tagline}<br/>{work.summary}</p><a class="art-button" href={url(`/works/${work.slug}`)}>进入案例 ↗</a></footer></article>)}
       </section>

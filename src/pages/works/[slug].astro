@@ -30,7 +30,7 @@ const workNumber = String(works.findIndex((item) => item.slug === work.slug) + 1
       <article class="case-study">
         <header class="case-hero">
           <div class="case-heading">
-            <p class="works-kicker"><span>CASE STUDY {workNumber}</span> / {work.typeLabel} · 示例项目</p>
+            <p class="works-kicker"><span>CASE STUDY {workNumber}</span> / {work.typeLabel} · {work.nature}</p>
             <h1>{work.title}</h1>
             <p class="case-english-title">{work.englishTitle}</p>
           </div>
@@ -44,7 +44,7 @@ const workNumber = String(works.findIndex((item) => item.slug === work.slug) + 1
           <div><dt>职责</dt><dd>{work.role}</dd></div>
           <div><dt>时间</dt><dd>{work.period}</dd></div>
           <div><dt>技术</dt><dd>{work.tech.join(" / ")}</dd></div>
-          <div><dt>项目性质</dt><dd>概念设计 · 示例内容</dd></div>
+          <div><dt>项目性质</dt><dd>{work.nature}</dd></div>
         </dl>
 
         <figure class="work-stage case-visual" data-visual={work.visual}>
@@ -52,86 +52,54 @@ const workNumber = String(works.findIndex((item) => item.slug === work.slug) + 1
             <div class="work-mock">
               <div class="mock-topbar">
                 <span class="mock-dots"><i></i><i></i><i></i></span>
-                <span>示例 / 本地预览</span>
+                <span>{work.mockTitle}</span>
                 <span>{workNumber} — 03</span>
               </div>
 
               {work.visual === "archive" && (
                 <div class="archive-ui">
-                  <header><b>栖页</b><span>索引&nbsp;&nbsp;&nbsp;专题&nbsp;&nbsp;&nbsp;关于</span></header>
+                  <header><b>此间</b><span>博客&nbsp;&nbsp;&nbsp;题解&nbsp;&nbsp;&nbsp;电影&nbsp;&nbsp;&nbsp;音乐</span></header>
                   <div class="archive-body">
                     <div class="archive-feature">
-                      <small>VOL. 01 — 片段</small>
-                      <strong>在日常里，<br />留一处空白。</strong>
-                      <p>一些文字、一些观察，<br />以及不急着说完的话。</p>
+                      <small>DESKTOP — 个人主页</small>
+                      <strong>把写过的东西，<br />放进一扇窗里。</strong>
+                      <p>博客、题解、观影与读书，<br />各自是一个应用。</p>
                     </div>
                     <div class="archive-index">
-                      <span>最近归档</span>
-                      <div><i>01</i><b>窗边的观察</b><small>随笔</small></div>
-                      <div><i>02</i><b>缓慢的方法</b><small>笔记</small></div>
-                      <div><i>03</i><b>夜的参考书</b><small>书摘</small></div>
+                      <span>最近</span>
+                      <div><i>01</i><b>指标体系与分析方法</b><small>博客</small></div>
+                      <div><i>02</i><b>2 的幂</b><small>题解</small></div>
+                      <div><i>03</i><b>盗梦空间</b><small>电影</small></div>
                     </div>
                   </div>
-                  <footer><span>FIELD NOTES & QUIET MOMENTS</span><span>向下阅读 ↓</span></footer>
+                  <footer><span>PERSONAL HOMEPAGE / 2026</span><span>548 页 · 静态 ↓</span></footer>
                 </div>
               )}
 
-              {work.visual === "tool" && (
-                <div class="tool-ui">
-                  <aside><b>刻</b><i></i><i></i><i></i><span>本<br />地</span></aside>
-                  <div class="tool-workspace">
-                    <header><div><small>工作台 / 所有片段</small><b>把想法留在原文旁边。</b></div><span>仅本地 · 示例</span></header>
-                    <div class="tool-search">搜索片段或批注 <i>⌘ K</i></div>
-                    <div class="tool-columns">
-                      <div class="tool-list">
-                        <small>片段 / 03</small>
-                        <div class="is-active"><i></i><b>设计是选择恰当的约束</b><span>界面笔记 · 刚刚</span></div>
-                        <div><i></i><b>留白的节奏</b><span>阅读摘录 · 昨日</span></div>
-                        <div><i></i><b>关于慢工具</b><span>灵感片段 · 本周</span></div>
-                      </div>
-                      <div class="tool-note">
-                        <small>批注 / 演示内容</small>
-                        <p>“工具不应催促人，<br />而应让注意力回到事物本身。”</p>
-                        <span></span><span></span><span class="short"></span>
-                        <div>＋ 添加一条批注</div>
-                      </div>
-                    </div>
+              {work.visual === "terminal" && (
+                <div class="terminal-ui">
+                  <div class="term-head">
+                    <span>$ node tools/sync-from-note.cjs</span>
+                    <i>obsidian → astro</i>
                   </div>
-                </div>
-              )}
-
-              {work.visual === "prism" && (
-                <div class="prism-ui">
-                  <header><b>PRISM®</b><span>GENERATIVE STUDY — 003</span><i>静态帧</i></header>
-                  <div class="prism-body">
-                    <div class="prism-canvas">
-                      <span class="prism-orbit"></span>
-                      <span class="prism-disc"></span>
-                      <span class="prism-line one"></span>
-                      <span class="prism-line two"></span>
-                      <span class="prism-cross">+</span>
-                      <b>秩序<br />与偶然</b>
-                      <small>FORM STUDIES<br />2025 / 09</small>
-                    </div>
-                    <div class="prism-controls">
-                      <small>参数 / PARAMETERS</small>
-                      <div><span>密度</span><i><b style="width: 68%"></b></i><em>068</em></div>
-                      <div><span>偏移</span><i><b style="width: 34%"></b></i><em>034</em></div>
-                      <div><span>显影</span><i><b style="width: 82%"></b></i><em>082</em></div>
-                      <p>SEED<br />7F—24—A9</p>
-                    </div>
+                  <div class="term-body">
+                    <p class="dim">读取 Obsidian 库</p>
+                    <p>校验 frontmatter …… <span class="ok">通过</span></p>
+                    <p>写入题解 <b>375</b> 篇 · 博客 <b>40</b> 篇</p>
+                    <p class="dim">重复执行 …… 0 更新（幂等）</p>
+                    <p>astro build …… <span class="ok">548 页 · 0 报错</span></p>
                   </div>
                 </div>
               )}
             </div>
           </div>
-          <figcaption><span>{work.sceneLabel} · 界面示意</span><span>CSS MOCKUP / NOT A LIVE PRODUCT</span></figcaption>
+          <figcaption><span>{work.sceneLabel}</span><span>{work.visualNote}</span></figcaption>
         </figure>
 
         <div class="case-content">
           <aside class="case-aside">
             <p class="case-aside-label">ABOUT THIS STUDY</p>
-            <p>这是一个用于呈现设计过程的示例案例。界面为纯 CSS 示意，不提供在线访问。</p>
+            <p>{work.asideNote}</p>
             <div class="case-responsibilities">
               <h2>职责范围</h2>
               <ul>{work.responsibilities.map((item) => <li>{item}</li>)}</ul>
@@ -181,7 +149,7 @@ const workNumber = String(works.findIndex((item) => item.slug === work.slug) + 1
 
       <footer class="works-footer case-footer">
         <a class="case-back" href={url("/works")}><span aria-hidden="true">←</span> 返回作品</a>
-        <p>示例案例 / 无真实用户数据或在线链接</p>
+        <p>个人项目 / 内容与数据均可在站内与仓库核验</p>
       </footer>
     </div>
   </div>

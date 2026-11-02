@@ -31,6 +31,9 @@ jobs:
           node-version: 20
       - run: npm ci
       - run: npm run build
+      # 路由闸门：dist 路由与 tools/route-baseline.json 不一致就 fail，
+      # 防止 sync 出错或重构导致页面被静默丢弃（预期改动请本地 npm run baseline:routes 后一并提交）
+      - run: npm run check:routes
       - uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
