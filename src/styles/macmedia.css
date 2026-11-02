@@ -80,3 +80,7 @@ body[data-path*="/works"] .home-bg{background-image:radial-gradient(circle at 20
 /* 策展：照片位未填时的空框（不写虚构地点与日期） */
 .archive-photo.is-empty{background-image:none;border-style:dashed;background-color:rgba(3,13,8,.42)}
 .archive-photo.is-empty figcaption b{color:var(--muted)}
+/* 策展：视觉件（AI 生成的水墨图）——留足高度让太极圆环不被压扁，注明来源 */
+.archive-photo{min-height:232px}
+.archive-photo small{color:var(--muted);font-size:11.5px;line-height:1.6;max-width:36ch}
+.archive-photo b{font-size:24px}

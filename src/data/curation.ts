@@ -4,7 +4,7 @@
  * - 电影：.cache/douban-movies.json（豆瓣「看过」清单，含本地化海报与简介）
  * - 图书：.cache/douban-books.json（豆瓣「读过」清单，含我自己写的短评）
  * - 音乐：.cache/netease-playlist.json（网易云歌单曲目）
- * 照片位暂空，等真实照片放进 public/photos/curation/ 后在 photo 字段接上。
+ * - 视觉：AI 生成的水墨图，放在 public/photos/curation/，如实标注来源。
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -90,7 +90,8 @@ export interface CurationBook {
 
 export interface CurationPhoto {
   title: string;
-  location: string;
+  /** 媒介说明，代替「拍摄地点」——这张不是照片，不编造地点。 */
+  medium: string;
   date: string;
   image: string;
   alt: string;
@@ -144,10 +145,18 @@ export const music: CurationMusic = {
 };
 
 /**
- * 照片位：留给你自己拍的照片。
- * 放进 public/photos/curation/ 后，在这里填标题、地点、日期即可（字段都是你照片的事实信息）。
+ * 第四个现场：视觉。
+ * 这张是 AI 生成的水墨意象，不是自己拍的照片，所以不写拍摄地点，
+ * 只如实标注媒介与生成方式。
  */
-export const photo: CurationPhoto | null = null;
+export const photo: CurationPhoto | null = {
+  title: "太极双鱼",
+  medium: "水墨 · 数字生成",
+  date: "2026 冬",
+  image: "/photos/curation/taiji-koi.webp",
+  alt: "水墨风格的太极图，黑白两条锦鲤首尾相抱，留白处是远山、云雾与山亭",
+  note: "AI 生成的水墨意象，非摄影作品。黑白互为表里，正好抵住本期「快与慢」的题目。",
+};
 
 export const theme = {
   title: "思考",

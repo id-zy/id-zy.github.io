@@ -8,7 +8,7 @@ const filters = [
   { id: "music", label: "耳畔" },
   { id: "movie", label: "银幕" },
   { id: "book", label: "书页" },
-  ...(exhibit.photo ? [{ id: "photo", label: "底片" }] : []),
+  ...(exhibit.photo ? [{ id: "photo", label: "观想" }] : []),
 ];
 ---
 
@@ -72,7 +72,8 @@ const filters = [
               >
                 <figcaption>
                   <b>{exhibit.photo.title}</b>
-                  <span>{exhibit.photo.location} · {exhibit.photo.date}</span>
+                  <span>{exhibit.photo.medium} · {exhibit.photo.date}</span>
+                  <small class="archive-photo-note">{exhibit.photo.note}</small>
                 </figcaption>
               </figure>
             ) : (
