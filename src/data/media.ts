@@ -1,6 +1,6 @@
 /**
- * 四个板块的长期收藏数据（示例内容，可整体替换）。
- * memoryId 非空 = 属于本期策展主题「夜间漫游」，会在 /curation 与策展子页中出现。
+ * 四个板块的兜底数据（豆瓣/网易云不可达时使用，内容仍是示例，可整体替换）。
+ * 本期策展已改为直接读取真实缓存，不再依赖这里的条目。
  * 没有 image/cover 的条目由页面用 CSS 生成封面，避免占位外链。
  */
 
@@ -20,7 +20,6 @@ export interface MediaTrack {
   alt: string;
   note: string;
   frequencies: [number, number, number];
-  memoryId?: string;
 }
 
 export interface MediaFilm {
@@ -35,7 +34,6 @@ export interface MediaFilm {
   tint: [string, string];
   alt: string;
   note: string;
-  memoryId?: string;
 }
 
 export interface MediaBook {
@@ -48,7 +46,6 @@ export interface MediaBook {
   tint: [string, string];
   quote: string;
   note: string;
-  memoryId?: string;
 }
 
 export interface MediaPhoto {
@@ -61,7 +58,6 @@ export interface MediaPhoto {
   tint: [string, string];
   alt: string;
   note: string;
-  memoryId?: string;
 }
 
 export const musicTracks: MediaTrack[] = [
@@ -77,7 +73,6 @@ export const musicTracks: MediaTrack[] = [
     alt: "示例音乐封面：暗光中的唱机与唱片",
     note: "轨道接缝的低响、雨滴与远处人声折进一段循环。此处只生成八秒合成氛围音，不是原曲录音。",
     frequencies: [110, 164.81, 220],
-    memoryId: "last-train",
   },
   {
     id: "under-water",
@@ -91,7 +86,6 @@ export const musicTracks: MediaTrack[] = [
     alt: "示例音乐封面：录音设备与交错的声音线缆",
     note: "低频像桥墩，细碎噪声像水纹，是一次向下的听觉散步。此处只生成八秒合成氛围音。",
     frequencies: [98, 146.83, 196],
-    memoryId: "river",
   },
   {
     id: "window-etude",
@@ -105,7 +99,6 @@ export const musicTracks: MediaTrack[] = [
     alt: "示例音乐封面：蓝色暗光里的混音台",
     note: "三个音彼此保持距离，像深夜里互不相识的房间。此处只生成八秒合成氛围音。",
     frequencies: [123.47, 185, 246.94],
-    memoryId: "windows",
   },
   {
     id: "before-light",
@@ -119,7 +112,6 @@ export const musicTracks: MediaTrack[] = [
     alt: "示例音乐封面：演出空间里渐亮的灯光",
     note: "声音从近乎静止开始，留一点空白给第一班车。此处只生成八秒合成氛围音。",
     frequencies: [130.81, 196, 261.63],
-    memoryId: "before-dawn",
   },
   {
     id: "platform-noise",
@@ -184,7 +176,6 @@ export const filmEntries: MediaFilm[] = [
     tint: ["#1b2a41", "#0e1626"],
     alt: "示例电影剧照：夜色中的城市天际线与稀疏灯火",
     note: "镜头始终留在车厢外。人影被灯光短暂照亮，又交还给黑夜。",
-    memoryId: "last-train",
   },
   {
     id: "river-film",
@@ -198,7 +189,6 @@ export const filmEntries: MediaFilm[] = [
     tint: ["#22383d", "#101114"],
     alt: "示例电影剧照：高楼之间向远处延伸的城市河道",
     note: "沿河的长镜头把喧闹推到画外，水面收下这座城市无法归档的情绪。",
-    memoryId: "river",
   },
   {
     id: "windows-film",
@@ -212,7 +202,6 @@ export const filmEntries: MediaFilm[] = [
     tint: ["#2e2440", "#171227"],
     alt: "示例电影剧照：夜幕下密集的建筑与亮窗",
     note: "每一扇亮窗都是一个拒绝收尾的故事，摄影机只在远处凝望。",
-    memoryId: "windows",
   },
   {
     id: "before-dawn-film",
@@ -226,7 +215,6 @@ export const filmEntries: MediaFilm[] = [
     tint: ["#6e1f2a", "#38101a"],
     alt: "示例电影剧照：微光中层层叠叠的城市建筑",
     note: "清洁车转过街角，早餐店拉起卷帘，城市开始练习另一种记忆。",
-    memoryId: "before-dawn",
   },
   {
     id: "night-bus-film",
@@ -293,7 +281,6 @@ export const bookEntries: MediaBook[] = [
     tint: ["#4f7b83", "#28474d"],
     quote: "末班车穿过江面时，所有人都短暂地望向了同一个方向。窗外没有答案，只有被灯光重新排列的黑夜。",
     note: "与《末班车的乘客》形成互文：一个保留凝视，一个保留沉默。",
-    memoryId: "last-train",
   },
   {
     id: "river-notes",
@@ -305,7 +292,6 @@ export const bookEntries: MediaBook[] = [
     tint: ["#22383d", "#101114"],
     quote: "我沿着河走，并不是想去哪里。水把两岸的灯带向远处，我便觉得自己也终于移动了一点。",
     note: "河流在这里不是风景，而是一种剪辑方式。",
-    memoryId: "river",
   },
   {
     id: "strange-rooms",
@@ -317,7 +303,6 @@ export const bookEntries: MediaBook[] = [
     tint: ["#2e2440", "#171227"],
     quote: "对面楼还有七扇窗亮着。我看不见屋里的人，却替他们保留了一杯热茶、一本摊开的书和一句晚安。",
     note: "摘录把观看变成温柔的虚构，距离本身也是城市生活的一部分。",
-    memoryId: "windows",
   },
   {
     id: "edge-of-day",
@@ -329,7 +314,6 @@ export const bookEntries: MediaBook[] = [
     tint: ["#d8a24a", "#8d5d17"],
     quote: "天快亮时，街道把昨夜遗落的东西一一归还：路牌、树影、店名，以及那个走了很远的自己。",
     note: "这一则把夜游带回日常，光不是突然出现的。",
-    memoryId: "before-dawn",
   },
   {
     id: "night-shift",
@@ -388,7 +372,6 @@ export const photoEntries: MediaPhoto[] = [
     tint: ["#6e1f2a", "#38101a"],
     alt: "示例照片：夜间道路、车流与城市灯光",
     note: "车门合上以后，站台仍留着一小片暖色。",
-    memoryId: "last-train",
   },
   {
     id: "slow-time-bridge",
@@ -400,7 +383,6 @@ export const photoEntries: MediaPhoto[] = [
     tint: ["#22383d", "#101114"],
     alt: "示例照片：街道向远处延伸，两侧是城市建筑",
     note: "水面没有脚步，所以倒影总比行人慢半拍。",
-    memoryId: "river",
   },
   {
     id: "one-window-away",
@@ -412,7 +394,6 @@ export const photoEntries: MediaPhoto[] = [
     tint: ["#2e2440", "#171227"],
     alt: "示例照片：建筑立面与规则排列的窗户局部",
     note: "只截取建筑的一角，让每扇窗保留匿名。",
-    memoryId: "windows",
   },
   {
     id: "before-first-bus",
@@ -424,7 +405,6 @@ export const photoEntries: MediaPhoto[] = [
     tint: ["#d8a24a", "#8d5d17"],
     alt: "示例照片：天色将明时安静的建筑与窗光",
     note: "街道还没有变亮，窗里已经有人开始新的一天。",
-    memoryId: "before-dawn",
   },
   {
     id: "wet-crossing",

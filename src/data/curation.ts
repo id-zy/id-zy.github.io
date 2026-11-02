@@ -1,17 +1,60 @@
 /**
- * 本期策展主题「夜间漫游」：从四个板块的长期数据中取出 memoryId 命中的条目，
- * 保证策展页与板块页永远来自同一份数据源，不会两处维护。
+ * 本期策展「思考」。
+ * 三件展品全部取自站点已有的真实数据源，不手工编造条目：
+ * - 电影：.cache/douban-movies.json（豆瓣「看过」清单，含本地化海报与简介）
+ * - 图书：.cache/douban-books.json（豆瓣「读过」清单，含我自己写的短评）
+ * - 音乐：.cache/netease-playlist.json（网易云歌单曲目）
+ * 照片位暂空，等真实照片放进 public/photos/curation/ 后在 photo 字段接上。
  */
-import {
-  bookEntries,
-  filmEntries,
-  musicTracks,
-  photoEntries,
-  type MediaBook,
-  type MediaFilm,
-  type MediaPhoto,
-  type MediaTrack,
-} from "./media";
+import fs from "node:fs";
+import path from "node:path";
+
+const CACHE_DIR = path.join(process.cwd(), ".cache");
+
+const readCache = <T>(file: string): T => {
+  const full = path.join(CACHE_DIR, file);
+  if (!fs.existsSync(full)) {
+    throw new Error(`策展数据缺失：${file}（该文件由构建时的豆瓣/网易云同步生成，应已入库）`);
+  }
+  return JSON.parse(fs.readFileSync(full, "utf8")) as T;
+};
+
+type CachedMovie = {
+  id?: string;
+  title: string;
+  director: string;
+  year: string;
+  duration: string;
+  note: string;
+  summary: string;
+  poster?: string;
+  url: string;
+  tint: [string, string];
+};
+
+type CachedBook = {
+  id?: string;
+  title: string;
+  author: string;
+  year: string;
+  rating?: number;
+  cover?: string;
+  url: string;
+  quote: string;
+  tint: [string, string];
+};
+
+type CachedTrack = {
+  id: string;
+  title: string;
+  artist: string;
+  album: string;
+  year: string;
+  duration: string;
+  cover?: string;
+  url: string;
+  tint: [string, string];
+};
 
 export interface CurationMovie {
   id: string;
@@ -22,123 +65,102 @@ export interface CurationMovie {
   image: string;
   alt: string;
   note: string;
+  url: string;
 }
 
 export interface CurationMusic {
   id: string;
   title: string;
   artist: string;
-  cover: string;
-  alt: string;
+  album: string;
+  duration: string;
   note: string;
-  frequencies: [number, number, number];
+  url: string;
 }
 
 export interface CurationBook {
   id: string;
   title: string;
   author: string;
+  year: string;
   quote: string;
   note: string;
+  url: string;
 }
 
 export interface CurationPhoto {
-  id: string;
   title: string;
   location: string;
+  date: string;
   image: string;
   alt: string;
   note: string;
 }
 
-const memoryOrder = ["last-train", "river", "windows", "before-dawn"] as const;
+const movies = readCache<{ movies: CachedMovie[] }>("douban-movies.json").movies;
+const books = readCache<{ books: CachedBook[] }>("douban-books.json").books;
+const tracks = readCache<{ tracks: CachedTrack[] }>("netease-playlist.json").tracks;
 
-const pick = <T extends { memoryId?: string }>(items: T[], memoryId: string): T => {
-  const found = items.find((item) => item.memoryId === memoryId);
-  if (!found) throw new Error(`策展数据缺失：${memoryId}`);
-  return found;
+const film = movies.find((item) => item.title === "十二怒汉" && item.year === "1957");
+if (!film) throw new Error("策展数据缺失：《十二怒汉》不在豆瓣看过的清单里");
+
+const book = books.find((item) => item.title.startsWith("思考，快与慢"));
+if (!book) throw new Error("策展数据缺失：《思考，快与慢》不在豆瓣读过的清单里");
+
+// 歌词里唱「写不完庄周的诗篇」，和本期「一个人如何想下去」正好接得上。
+const track = tracks.find((item) => item.id === "2152380072") ?? tracks[0];
+if (!track) throw new Error("策展数据缺失：网易云歌单没有曲目");
+
+export const movie: CurationMovie = {
+  id: film.id ?? "1293182",
+  title: film.title,
+  year: film.year,
+  director: film.director,
+  duration: film.duration,
+  image: film.poster ?? "",
+  alt: `《${film.title}》电影海报`,
+  note: film.note || `${film.year} 年上映 · ${film.duration}`,
+  url: film.url,
 };
 
-export const movies: CurationMovie[] = memoryOrder.map((id) => {
-  const film = pick<MediaFilm>(filmEntries, id);
-  return {
-    id: film.id,
-    title: film.title,
-    year: film.year,
-    director: film.director,
-    duration: film.duration,
-    image: film.image ?? "",
-    alt: film.alt,
-    note: film.note,
-  };
-});
-
-export const music: CurationMusic[] = memoryOrder.map((id) => {
-  const track = pick<MediaTrack>(musicTracks, id);
-  return {
-    id: track.id,
-    title: track.title,
-    artist: track.artist,
-    cover: track.cover ?? "",
-    alt: track.alt,
-    note: track.note,
-    frequencies: track.frequencies,
-  };
-});
-
-export const books: CurationBook[] = memoryOrder.map((id) => {
-  const book = pick<MediaBook>(bookEntries, id);
-  return {
-    id: book.id,
-    title: book.title,
-    author: book.author,
-    quote: book.quote,
-    note: book.note,
-  };
-});
-
-export const photos: CurationPhoto[] = memoryOrder.map((id) => {
-  const photo = pick<MediaPhoto>(photoEntries, id);
-  return {
-    id: photo.id,
-    title: photo.title,
-    location: photo.location,
-    image: photo.image ?? "",
-    alt: photo.alt,
-    note: photo.note,
-  };
-});
-
-export interface CityMemory {
-  id: string;
-  title: string;
-  line: string;
-  movie: CurationMovie;
-  music: CurationMusic;
-  book: CurationBook;
-  photo: CurationPhoto;
-}
-
-const memoryMeta: Record<string, { title: string; line: string }> = {
-  "last-train": { title: "末班车", line: "错过以后，城市才露出另一张脸。" },
-  river: { title: "沿河走", line: "让水代替街道，保存那些倒影。" },
-  windows: { title: "亮窗", line: "每一盏灯，都在替陌生人叙事。" },
-  "before-dawn": { title: "天将亮", line: "夜晚并未结束，只是退到物件背后。" },
+export const bookItem: CurationBook = {
+  id: book.id ?? "",
+  title: book.title,
+  author: book.author,
+  year: book.year,
+  quote: book.quote,
+  note: `${book.rating ? `我打了 ${book.rating} 星 · ` : ""}豆瓣「读过」里的短评原文`,
+  url: book.url,
 };
 
-export const memories: CityMemory[] = memoryOrder.map((id, index) => ({
-  id,
-  title: memoryMeta[id].title,
-  line: memoryMeta[id].line,
-  movie: movies[index],
-  music: music[index],
-  book: books[index],
-  photo: photos[index],
-}));
+export const music: CurationMusic = {
+  id: track.id,
+  title: track.title,
+  artist: track.artist,
+  album: track.album,
+  duration: track.duration,
+  note: "歌单里的真实曲目；页内播放的是站点生成的合成音，不是原曲录音。",
+  url: track.url,
+};
+
+/**
+ * 照片位：留给你自己拍的照片。
+ * 放进 public/photos/curation/ 后，在这里填标题、地点、日期即可（字段都是你照片的事实信息）。
+ */
+export const photo: CurationPhoto | null = null;
 
 export const theme = {
-  title: "夜间漫游",
-  subtitle: "一座城市的四种记忆",
+  title: "思考",
+  subtitle: "一次判断的四个现场",
   intro:
-    "从一段旋律、一束银幕的光，到一页书和一次按下快门。沿着四种记忆，走进城市尚未入睡的部分。",
+    "本期从看过的电影、读过的书和最近在听的歌里，挑出同一件事的三个侧面：证据如何被检验，直觉如何骗人，一个人如何在独处时把问题想下去。",
+  tags: ["#证据", "#判断", "#慢思考"],
+};
+
+export const exhibit = {
+  line: "十二个人、一份证词、一段旋律——把「想清楚」拆成能旁观的过程。",
+  movie,
+  book: bookItem,
+  music,
+  photo,
 };

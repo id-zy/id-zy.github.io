@@ -1,31 +1,95 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { memories, theme } from "../data/curation";
+import { exhibit, theme } from "../data/curation";
 import { url } from "../lib/url";
-const exhibit = memories[0];
-const filters = ["全部", "耳畔", "银幕", "书页", "底片"];
+
+const filters = [
+  { id: "all", label: "全部" },
+  { id: "music", label: "耳畔" },
+  { id: "movie", label: "银幕" },
+  { id: "book", label: "书页" },
+  ...(exhibit.photo ? [{ id: "photo", label: "底片" }] : []),
+];
 ---
-<BaseLayout app="策展" title={`${theme.title} · 策展`} bare orb description="本期策展「夜间漫游」：一座城市的四种记忆，由电影、音乐、书页与照片串联。">
+
+<BaseLayout
+  app="策展"
+  title={`${theme.title} · 策展`}
+  bare
+  orb
+  description={`本期策展「${theme.title}」：${theme.subtitle}。从电影《${exhibit.movie.title}》、书《${exhibit.book.title}》与一首歌出发，看判断如何形成。`}
+>
   <div class="mac-app-page">
     <section class="mac-app cur-app curation-archive">
       <div class="mac-canvas">
         <header class="archive-head">
           <a href={url("/")} class="archive-back">← 返回桌面</a>
-          <p><b>2026 春 · {theme.title}</b><span>#雨夜&nbsp;&nbsp;#公路&nbsp;&nbsp;#城市边缘</span></p>
+          <p><b>2026 冬 · {theme.title}</b><span>{theme.tags.join("\u00a0\u00a0")}</span></p>
           <h1>{theme.title}</h1>
           <p class="archive-intro">导语：{theme.intro}</p>
         </header>
         <nav class="archive-filter" aria-label="筛选展品">
-          {filters.map((filter, index) => <button class:list={[index === 0 && "is-active"]} data-filter={index === 0 ? "all" : ["music","movie","book","photo"][index-1]}>[{filter}]</button>)}
+          {
+            filters.map((filter, index) => (
+              <button class:list={[index === 0 && "is-active"]} data-filter={filter.id}>
+                [{filter.label}]
+              </button>
+            ))
+          }
         </nav>
         <div class="archive-exhibits">
-          <article class="archive-piece piece-music" data-kind="music"><span>耳畔 · 专辑封面</span><h2>{exhibit.music.title}</h2><p>{exhibit.music.artist}</p><small>{exhibit.music.note}</small></article>
-          <article class="archive-piece piece-movie" data-kind="movie" style={`--piece-image:url(${exhibit.movie.image})`}><span>银幕 · 电影截图</span><h2>{exhibit.movie.title}</h2><p>{exhibit.movie.director} · {exhibit.movie.year}</p><small>{exhibit.movie.note}</small></article>
-          <article class="archive-piece piece-book" data-kind="book"><span>书页 · 书摘</span><h2>{exhibit.book.title}</h2><p>{exhibit.book.author}</p><blockquote>“{exhibit.book.quote}”</blockquote></article>
+          <article class="archive-piece piece-music" data-kind="music">
+            <span>耳畔 · 歌单曲目</span>
+            <h2><a href={exhibit.music.url} target="_blank" rel="noopener noreferrer">{exhibit.music.title}</a></h2>
+            <p>{exhibit.music.artist} · {exhibit.music.album === exhibit.music.title ? exhibit.music.duration : exhibit.music.album}</p>
+            <small>{exhibit.music.note}</small>
+          </article>
+          <article
+            class="archive-piece piece-movie"
+            data-kind="movie"
+            style={`--piece-image:url(${exhibit.movie.image})`}
+          >
+            <span>银幕 · 电影海报</span>
+            <h2><a href={exhibit.movie.url} target="_blank" rel="noopener noreferrer">{exhibit.movie.title}</a></h2>
+            <p>{exhibit.movie.director} · {exhibit.movie.year} · {exhibit.movie.duration}</p>
+            <small>{exhibit.movie.note}</small>
+          </article>
+          <article class="archive-piece piece-book" data-kind="book">
+            <span>书页 · 我的短评</span>
+            <h2><a href={exhibit.book.url} target="_blank" rel="noopener noreferrer">{exhibit.book.title}</a></h2>
+            <p>{exhibit.book.author} · {exhibit.book.year}</p>
+            <blockquote>“{exhibit.book.quote}”</blockquote>
+            <small>{exhibit.book.note}</small>
+          </article>
         </div>
         <div class="archive-foot">
-          <figure class="archive-photo" data-kind="photo" style={`--piece-image:url(${exhibit.photo.image})`}><figcaption><b>底片背后</b><span>{exhibit.photo.title} · {exhibit.photo.location}</span></figcaption></figure>
-          <aside class="archive-tags"><b>关联标签</b><p>#雨夜&nbsp;&nbsp;#深夜&nbsp;&nbsp;#公路</p><b>策展漫游</b><p>{exhibit.line}</p></aside>
+          {
+            exhibit.photo ? (
+              <figure
+                class="archive-photo"
+                data-kind="photo"
+                style={`--piece-image:url(${exhibit.photo.image})`}
+              >
+                <figcaption>
+                  <b>{exhibit.photo.title}</b>
+                  <span>{exhibit.photo.location} · {exhibit.photo.date}</span>
+                </figcaption>
+              </figure>
+            ) : (
+              <figure class="archive-photo is-empty" aria-label="照片位等待填入">
+                <figcaption>
+                  <b>底片待冲洗</b>
+                  <span>这一格留给自己的照片</span>
+                </figcaption>
+              </figure>
+            )
+          }
+          <aside class="archive-tags">
+            <b>关联标签</b>
+            <p>{theme.tags.join("\u00a0\u00a0")}</p>
+            <b>策展漫游</b>
+            <p>{exhibit.line}</p>
+          </aside>
         </div>
       </div>
     </section>

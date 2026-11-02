@@ -52,7 +52,7 @@ export function initStage(root: ParentNode = document): void {
   let wheelLocked = false;
 
   const sectionNames: Record<string, string> = {
-    curation: "CURATED MEMORY / NIGHT EDITION",
+    curation: "CURATED MEMORY / THINKING EDITION",
     music: "SONIC CONSTELLATION / LISTENING ROOM",
     movie: "PRIVATE CINEMA / NOW SCREENING",
     gallery: "CONTACT SHEET / LIGHT STUDIES",

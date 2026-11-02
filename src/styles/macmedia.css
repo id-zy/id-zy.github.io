@@ -73,3 +73,10 @@ body[data-path*="/works"] .home-bg{background-image:radial-gradient(circle at 20
 .music-empty{display:grid;gap:10px;justify-items:center;text-align:center;padding:40px}
 .music-empty h1{margin:0;font:500 clamp(22px,3vw,34px)/1.2 var(--font-read)}
 .music-empty code{padding:1px 5px;border-radius:5px;background:rgba(255,255,255,.1);font-size:12px}
+
+/* 策展：标题可点回豆瓣/网易云原条目 */
+.archive-piece h2 a{color:inherit;text-decoration:none;border-bottom:1px solid transparent;transition:border-color .2s}
+.archive-piece h2 a:hover{border-bottom-color:currentColor}
+/* 策展：照片位未填时的空框（不写虚构地点与日期） */
+.archive-photo.is-empty{background-image:none;border-style:dashed;background-color:rgba(3,13,8,.42)}
+.archive-photo.is-empty figcaption b{color:var(--muted)}
