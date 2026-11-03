@@ -120,7 +120,7 @@ for (int i = 0; i < 10000; i++) {
 }
 ```
 
-这行在每次迭代都会做三件事：`new StringBuilder()`、`append(s)`、`append(i)`、`toString()`。一万次循环就是一万个中间 `String` 对象和一万个 `StringBuilder`——大部分创建出来就等着被 GC。
+这行在每次迭代都会造一个新 `String`，一万次循环就是一万个中间对象加一次一次的内容拷贝——大部分创建出来就等着被 GC。JDK 8 及以前的实现是「编译期展开成 `new StringBuilder()` + `append` + `toString()`」，JDK 9 之后改走 `invokedynamic`（`StringConcatFactory`），但每次循环仍然产出一个新 `String`，慢的性质没变。
 
 正确写法：
 
